@@ -78,13 +78,19 @@ function Road(nearPlane, trackTiles) {
 				{x: thisSegment.farPos.screen.x + (fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y},
 			];
 			
-			let groundColor = "#55ff55";
+			let groundColor = "#11dd11";
 			if(thisSegment.index % 2 == 0) {
-				groundColor = "#00ff00";
+				groundColor = "#00aa00";
 			}
 			
-			drawRect(0, Math.floor(thisSegment.farPos.screen.y), canvas.width, Math.ceil(thisSegment.farPos.screen.y - thisSegment.nearPos.screen.y) - 1, groundColor);
-			
+			const groundPath = [
+				{x: 0, y: thisSegment.farPos.screen.y},
+				{x: 0, y: thisSegment.nearPos.screen.y},
+				{x: canvas.width, y: thisSegment.nearPos.screen.y},
+				{x: canvas.width, y: thisSegment.farPos.screen.y}
+			];
+//			drawRect(0, Math.floor(thisSegment.farPos.screen.y), canvas.width, Math.ceil(thisSegment.farPos.screen.y - thisSegment.nearPos.screen.y) - 1, groundColor);
+			fillPath(groundPath, groundColor);
 			fillPath(path, thisSegment.color);
 		}
 	}
@@ -134,7 +140,7 @@ function Road(nearPlane, trackTiles) {
 			thisSegment.deltaXOffset = thisOffset - previousOffset;//calculates how much to add/subtract to smooth out the road in a turn
 			if(i == 0) {thisSegment.deltaXOffset = 0;}
 		}
-		farthest.z = Math.round((segments.length - 1) * segmentLength) - 1;//-1 as a fudgefactor to prevent skipping a pixel
+		farthest.z = ((segments.length - 1) * segmentLength) - 4;//-1 as a fudgefactor to prevent skipping a pixel
 	}
 	
 	const updateSegmentPos = function(theSegment) {

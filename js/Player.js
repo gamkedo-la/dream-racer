@@ -6,7 +6,7 @@ function Player() {
 	this.position = {x:(canvas.width - this.width) / 2, 
 					 y:(canvas.height - this.height - 10), 
 					 z:0};
-	this.speed = 2;
+	this.speed = 4;
 
 	
 	this.draw = function() {
