@@ -21,7 +21,7 @@ function configureGameAudio() {
 	}
 	
 	if(effectsVolume === null) {
-		effectsVolume = 1;
+		effectsVolume.volume = 1;
 	}	
 }
 
@@ -71,7 +71,7 @@ function backgroundMusicClass() {
 	
 	this.setVolume = function(volume) {
 		// Multipliction by a boolean serves as 1 for true and 0 for false
-		musicSound.volume = Math.pow(volume * !isMuted, 2);
+		effectsVolume.volume = Math.pow(volume * !isMuted, 2);
 		
 		if(musicSound.volume == 0) {
 			musicSound.pause();
