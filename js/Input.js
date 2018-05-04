@@ -91,7 +91,6 @@ function initializeInput() {
 
 function keyPress(evt) {
 	let keyUsedByGame = false;
-	console.log(evt.keyCode);
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
 			break;

@@ -19,4 +19,8 @@ function Camera(initialPosition) {
 				this.position.z -= panSpeed;
 		}
 	}
+	
+	this.advance = function(amount) {
+		this.position.z += amount;
+	}
 }

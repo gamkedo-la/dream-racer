@@ -5,6 +5,7 @@ let canvasContext;
 let debug = false;
 
 let scene;
+const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
 	MusicVolume:"musicVolume",
@@ -129,7 +130,7 @@ function startGame() {
 	    					   horizonHeight:1.0 * canvas.height,
 	    					   near:90,//arbritrary
 	    					   far:500,//arbitrary
-	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: -85},
+	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: CAMERA_INITIAL_Z},
 	    					   skyPic:undefined,
 	    					   backgroundPic:tempBackgroundPic,
 	    					   middleGroundPic:undefined

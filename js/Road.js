@@ -119,6 +119,10 @@ function Road(nearPlane, trackTiles) {
 		return segments[Math.floor(zPos / segmentLength) % segments.length];
 	}
 	
+	this.getSegmentAtZPos = function(zPos) {
+		return findsegment(zPos);
+	}
+	
 	this.resetRoad = function(curvature) {
 		const hillRate = -5;
 		let hillOffset = 0;
