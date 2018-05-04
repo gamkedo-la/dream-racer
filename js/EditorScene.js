@@ -17,6 +17,8 @@ function EditorScene(data) {
 		drawRoadDecorations();
 
 //		this.player.draw();
+
+		colorText('[H] for Help', canvas.width/2, 30, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
 	}
 	
 	const drawBackground = function(skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {

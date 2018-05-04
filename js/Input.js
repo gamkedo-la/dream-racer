@@ -106,7 +106,9 @@ function keyPress(evt) {
 				}
 			} else if(windowState.credits) {
 				backToMainMenuFromCredits();
-			}		
+			} else if(windowState.editorHelp) {
+				continueEditing();
+			}
 			break;
 		case KEY_SHIFT:
 			keyUsedByGame = true;
@@ -158,7 +160,12 @@ function keyPress(evt) {
 			break;
 		case KEY_H:
 			keyUsedByGame = true;
-			openHelp();
+
+			if(windowState.mainMenu) {
+				openHelp();
+			} else if(windowState.editing) {
+				showEditorHelp();
+			}
 			break;
 		case KEY_I:
 			break;

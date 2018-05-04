@@ -140,6 +140,7 @@ function startGame() {
 function startEditing() {
     windowState.help = false;
     windowState.mainMenu = false;
+    windowState.editorHelp = false;
     windowState.editing = true;
     
     scene = new EditorScene({totalWidth:canvas.width,
@@ -153,6 +154,13 @@ function startEditing() {
 	    					   backgroundPic:tempBackgroundPic,
 	    					   middleGroundPic:undefined
 	    					   });
+};
+
+function continueEditing() {
+    windowState.help = false;
+    windowState.mainMenu = false;
+    windowState.editorHelp = false;
+    windowState.editing = true;
 };
 
 function drawAll() {
