@@ -7,6 +7,7 @@ let windowState = {
 	credits : false,
 	help : false,
 	playing : false,
+	editing : false,
 	gameOver: false,
 	endingScreen: false//displayed when the game is beat
 };
@@ -92,6 +93,10 @@ function mainMenuStates() {
 		drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		moveAll();
 		drawAll();
+	} else if(windowState.editing) {
+		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video	
+		editingMoveAll();
+		editingDrawAll();
 	} else if(windowState.gameOver) {
 		//Need lose conditions that drive us here, then need to impliment
 	} else if(windowState.endingScreen) {

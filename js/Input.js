@@ -2,6 +2,7 @@
 const KEY_BACKSPACE = 8;
 const KEY_TAB = 9;
 const KEY_ENTER = 13;
+const KEY_SHIFT = 16;
 const KEY_ESCAPE = 27;
 const KEY_SPACE = 32;
 const KEY_LEFT = 37;
@@ -48,12 +49,14 @@ const KEY_X = 88;
 const KEY_Y = 89;
 const KEY_Z = 90;
 
+const KEY_CMD = KEY_CNTRL = 91;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
 const KEY_TILDE = 192;
 
 let holdLeft, holdRight, holdUp, holdDown = false;
-let rotateLeft, rotateRight = false;
+let holdEscape, holdPlus, holdMinus = false;
+let holdShift = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -88,6 +91,7 @@ function initializeInput() {
 
 function keyPress(evt) {
 	let keyUsedByGame = false;
+	console.log(evt.keyCode);
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
 			break;
@@ -105,7 +109,13 @@ function keyPress(evt) {
 				backToMainMenuFromCredits();
 			}		
 			break;
+		case KEY_SHIFT:
+			keyUsedByGame = true;
+			holdShift = true;
+			break;
 		case KEY_ESCAPE:
+			keyUsedByGame = true;
+			holdEscape = true;
 			break;
 		case KEY_SPACE:
 			break;
@@ -114,16 +124,16 @@ function keyPress(evt) {
 			holdLeft = true;
 			break;
 		case KEY_UP:
-//			keyUsedByGame = true;
-//			holdUp = true;
+			keyUsedByGame = true;
+			holdUp = true;
 			break;
 		case KEY_RIGHT:
 			keyUsedByGame = true;
 			holdRight = true;
 			break;
 		case KEY_DOWN:
-//			keyUsedByGame = true;
-//			holdDown = true;
+			keyUsedByGame = true;
+			holdDown = true;
 			break;
 		case KEY_A:
 			break;
@@ -136,6 +146,12 @@ function keyPress(evt) {
 			}
 			break;
 		case KEY_D:
+			break;
+		case KEY_E:
+			keyUsedByGame = true;
+			if(windowState.mainMenu) {
+				startEditing();
+			}
 			break;
 		case KEY_F:
 			break;
@@ -207,11 +223,19 @@ function keyPress(evt) {
 			break;
 		case KEY_PLUS:
 			keyUsedByGame = true;
-			turnVolumeUp();
+			if(windowState.editing) {
+				holdPlus = true;
+			} else {
+				turnVolumeUp();
+			}
 			break;
 		case KEY_MINUS:
 			keyUsedByGame = true;
-			turnVolumeDown();
+			if(windowState.editing) {
+				holdMinus = true;
+			} else {
+				turnVolumeDown();
+			}
 			break;
 		case KEY_TILDE:
 			break;
@@ -233,7 +257,11 @@ function keyRelease(evt) {
 			break;
 		case KEY_ENTER:
 			break;
+		case KEY_ENTER:
+			holdShift = false;
+			break;
 		case KEY_ESCAPE:
+			holdEscape = false;
 			break;
 		case KEY_SPACE:
 			break;
@@ -241,13 +269,13 @@ function keyRelease(evt) {
 			holdLeft = false;
 			break;
 		case KEY_UP:
-//			holdUp = false;
+			holdUp = false;
 			break;
 		case KEY_RIGHT:
 			holdRight = false;
 			break;
 		case KEY_DOWN:
-//			holdDown = false;
+			holdDown = false;
 			break;
 		case KEY_A:
 			break;
@@ -320,8 +348,10 @@ function keyRelease(evt) {
 		case DIGIT_9:
 			break;
 		case KEY_PLUS:
+			holdPlus = false;
 			break;
 		case KEY_MINUS:
+			holdMinus = false;
 			break;
 		case KEY_TILDE:
 			break;

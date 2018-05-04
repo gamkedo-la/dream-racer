@@ -4,7 +4,7 @@ let canvasContext;
 
 let debug = false;
 
-let gameScene;
+let scene;
 
 const localStorageKey = {
 	MusicVolume:"musicVolume",
@@ -29,6 +29,7 @@ const gameTitle = {
 const buttonTitle = {
 	Help:"[H] for Help",
 	Credits:"[C] for Credits",
+	Editor:"[E] to Edit",
 	Enter:"[Enter] to Play"
 };
 
@@ -60,6 +61,23 @@ const fonts = {
 	Subtitle:"30px Tahoma",
 	ButtonTitle:"20px Tahoma",
 	CreditsText:"16px Tahoma"
+};
+
+const editAction = {
+	AddSegment:"addSegment",
+	RemoveSegment:"removeSegment",
+	MoveLeft:"moveLeft",
+	MoveRight:"moveRight",
+	MoveUp:"moveUp",
+	MoveDown:"moveDown",
+	RaiseElevation:"raiseElevation",
+	LowerElevation:"lowerElevation",
+	SelectSegment:"selectSegment",
+	AddToSelection:"addToSelection",
+	RemoveFromSelection:"removeFromSelection",
+	AddDecoration:"addDecoration",
+	RemoveDecoration:"removeDecoration",
+	MoveDecoration:"moveDecoration"
 };
 
 window.onload = function() {
@@ -105,7 +123,25 @@ function startGame() {
     windowState.mainMenu = false;
     windowState.playing = true;
     
-    gameScene = new GameScene({totalWidth:canvas.width,
+    scene = new GameScene({totalWidth:canvas.width,
+	    					   totalHeight:canvas.height,
+	    					   nearHeight:0.0 * canvas.height, 
+	    					   horizonHeight:1.0 * canvas.height,
+	    					   near:90,//arbritrary
+	    					   far:500,//arbitrary
+	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: -85},
+	    					   skyPic:undefined,
+	    					   backgroundPic:tempBackgroundPic,
+	    					   middleGroundPic:undefined
+	    					   });
+};
+
+function startEditing() {
+    windowState.help = false;
+    windowState.mainMenu = false;
+    windowState.editing = true;
+    
+    scene = new EditorScene({totalWidth:canvas.width,
 	    					   totalHeight:canvas.height,
 	    					   nearHeight:0.0 * canvas.height, 
 	    					   horizonHeight:1.0 * canvas.height,
@@ -119,15 +155,23 @@ function startGame() {
 };
 
 function drawAll() {
-	gameScene.draw();
+	scene.draw();
 /*    drawAndRemoveShips();
     drawPlayer();*/
 };
 
+function editingDrawAll() {
+	scene.draw();
+};
+
 function moveAll() {
-	gameScene.move();
+	scene.move();
 /*    moveShips();
     updateExplosions();*/
+};
+
+function editingMoveAll() {
+	scene.move();
 };
 
 // optimization todo: support wider background wrap but draw only on-screen portion

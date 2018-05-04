@@ -7,6 +7,7 @@ function drawRect(x,y,w,h,color, context) {
 
 function fillPath(path, color, context) {
 	if(context == null) {context = canvasContext;}
+	
 	context.fillStyle = color;
 	context.beginPath();
 	context.moveTo(path[0].x, path[0].y);
@@ -15,6 +16,20 @@ function fillPath(path, color, context) {
 	}
 	context.closePath();
 	context.fill();
+}
+
+function strokePath(path, color, context) {
+	if(context == null) {context = canvasContext;}
+	
+	context.strokeStyle = "yellow";
+	context.strokeWidth = 2;
+	context.beginPath();
+	context.moveTo(path[0].x, path[0].y);
+	for(let i = 1; i < path.length; i++) {
+		context.lineTo(path[i].x, path[i].y);
+	}
+	context.closePath();
+	context.stroke();
 }
 
 function get2DProjectedPointFrom3DPoint(point, cameraPos, fov, width, height, roadWidth) {
