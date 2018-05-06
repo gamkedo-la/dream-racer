@@ -158,6 +158,7 @@ function Road(frustum) {
 	}
 	
 	this.selectAllSegments = function() {
+		this.clearSelection();
 		for(let i = 0; i < segments.length; i++) {
 			selectedSegments.push(segments[i]);
 		}
