@@ -3,6 +3,7 @@ const KEY_BACKSPACE = 8;
 const KEY_TAB = 9;
 const KEY_ENTER = 13;
 const KEY_SHIFT = 16;
+const KEY_CNTRL = 17;
 const KEY_ESCAPE = 27;
 const KEY_SPACE = 32;
 const KEY_LEFT = 37;
@@ -49,14 +50,15 @@ const KEY_X = 88;
 const KEY_Y = 89;
 const KEY_Z = 90;
 
-const KEY_CMD = KEY_CNTRL = 91;
+const KEY_CMD = KEY_LEFT_WINDOW = 91;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
 const KEY_TILDE = 192;
 
 let holdLeft, holdRight, holdUp, holdDown = false;
 let holdEscape, holdPlus, holdMinus = false;
-let holdShift, holdA = false;
+let holdShift, holdA, holdCmd_Cntrl = false;
+let holdS = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -90,6 +92,7 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
+	console.log(evt.keyCode);
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
@@ -113,6 +116,9 @@ function keyPress(evt) {
 		case KEY_SHIFT:
 			keyUsedByGame = true;
 			holdShift = true;
+			break;
+		case KEY_CNTRL:
+			holdCmd_Cntrl = true;
 			break;
 		case KEY_ESCAPE:
 			keyUsedByGame = true;
@@ -192,6 +198,8 @@ function keyPress(evt) {
 		case KEY_R:
 			break;
 		case KEY_S:
+			keyUsedByGame = true;
+			holdS = true;
 			break;
 		case KEY_T:
 			break;
@@ -229,6 +237,10 @@ function keyPress(evt) {
 			keyUsedByGame = true;
 			toggleMute();
 			break;
+		case KEY_CMD:
+			keyUsedByGame = true;
+			holdCmd_Cntrl = true;
+			break;
 		case KEY_PLUS:
 			keyUsedByGame = true;
 			if(windowState.editing) {
@@ -265,8 +277,11 @@ function keyRelease(evt) {
 			break;
 		case KEY_ENTER:
 			break;
-		case KEY_ENTER:
+		case KEY_SHIFT:
 			holdShift = false;
+			break;
+		case KEY_CNTRL:
+			holdCmd_Cntrl = false;
 			break;
 		case KEY_ESCAPE:
 			holdEscape = false;
@@ -321,6 +336,7 @@ function keyRelease(evt) {
 		case KEY_R:
 			break;
 		case KEY_S:
+			holdS = false;
 			break;
 		case KEY_T:
 			break;
@@ -355,6 +371,9 @@ function keyRelease(evt) {
 		case DIGIT_8:
 			break;
 		case DIGIT_9:
+			break;
+		case KEY_CMD:
+			holdCmd_Cntrl = false;
 			break;
 		case KEY_PLUS:
 			holdPlus = false;

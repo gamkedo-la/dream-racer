@@ -34,12 +34,10 @@ function Road(frustum) {
 		this.color = Colors.Dark;
 		this.index = 0;
 		this.nearPos = {world: {x: 0, y: 0, z: 0, w: 1},
-						camera: {x: 0, y: 0, z: 0}, 
 						screen: {x: 0, y: 0}
 						};
 		this.nearWidth = canvas.width;
 		this.farPos = {world: {x: 0, y: 0, z: 0}, 
-					   camera: {x: 0, y: 0, z: 0}, 
 					   screen: {x: 0, y: 0}
 					   };
 		this.farWidth = canvas.width;
@@ -84,7 +82,7 @@ function Road(frustum) {
 				{x: canvas.width, y: thisSegment.farPos.screen.y}
 			];
 
-			minY = thisSegment.farPos.screen.y;
+//			minY = thisSegment.farPos.screen.y;
 			
 			fillPath(thisSegment.groundPath, groundColor);
 			fillPath(thisSegment.path, thisSegment.color);
@@ -130,34 +128,29 @@ function Road(frustum) {
 		return findsegment(zPos);
 	}
 	
-	this.resetRoad = function(curvature) {
-		const hillRate = -5;
-		let hillOffset = 0;
-		segments = [];
-		let thisOffset = 0;
-		let previousOffset = 0
-		for(let i = 0; i < magicNumber; i++) {//50 is arbitrary
-			previousOffset = thisOffset;
-			thisOffset += (i * curvature);
-			hillOffset += (i * hillRate);
-
-			const thisSegment = new Segment();
-			thisSegment.index = i;
-			thisSegment.color = (i % 2 == 0 ? Colors.Dark : Colors.Light);
-			thisSegment.nearPos.world.z = i * segmentLength;
-			thisSegment.farPos.world.z = (i + 1) * segmentLength;
-			thisSegment.nearPos.world.y = hillOffset;
-			thisSegment.farPos.world.y = hillOffset + ((i + 1) * hillRate);
-			thisSegment.nearPos.world.x = thisOffset;						//Makes the road turn
-			thisSegment.farPos.world.x = thisOffset + ((i + 1) * curvature);//Makes the road turn - farPos the same as next segment's nearPos
-			segments.push(thisSegment);
+	this.newRoadWithJSON = function() {
+		const JSONArray = JSON.parse(example);
+		for(let i = 0; i < JSONArray.length; i++) {
+			const newSegment = new Segment();
+			newSegment.index = JSONArray[i].index;
+			newSegment.color = JSONArray[i].color;
+			newSegment.nearPos.world = JSONArray[i].nearPos.world;
+			newSegment.farPos.world = JSONArray[i].farPos.world;
 			
-			thisSegment.deltaXOffset = thisOffset - previousOffset;//calculates how much to add/subtract to smooth out the road in a turn
-			if(i == 0) {thisSegment.deltaXOffset = 0;}
+			if(i == 0) {
+				currentBaseSegment = newSegment;
+			}
+			
+			if(JSONArray[i].decorations.length > 0) {
+				for(let j = 0; j < JSONArray[i].decorations.length; j++) {
+					const imageName = imgNameForFileName(JSONArray[i].decorations[j].fileName);
+					newSegment.decorations.push(new RoadsideDecoration(imageName, JSONArray[i].decorations[j].world));
+				}
+			}
+			segments.push(newSegment);
 		}
-		farthest.z = ((segments.length - 1) * segmentLength) - 4;//-1 as a fudgefactor to prevent skipping a pixel
 	}
-	
+		
 	this.clearRoad = function() {
 		segments = [];
 		currentBaseSegment = null;
@@ -441,5 +434,11 @@ function Road(frustum) {
 		const farDepth = ground.farPos.world.z;
 		const nearDepth = ground.nearPos.world.z;
 		return (nearDepth + ((farDepth - nearDepth) / 2));//half way between
+	}
+	
+	this.saveTrack = function() {
+//		const paragraph = document.getElementById("debugText");
+//		paragraph.innerHTML = JSON.stringify(segments);
+		console.log(JSON.stringify(segments));
 	}
 }//end of Road Class

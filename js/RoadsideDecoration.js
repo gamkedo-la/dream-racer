@@ -1,6 +1,7 @@
 //RoadsideDecoration
 function RoadsideDecoration(image, pos) {
 	this.sprite = image;
+	this.fileName = fileNameForImgName(image);
 	this.width = this.sprite.width;
 	this.height = this.sprite.height;
 	this.world = pos;

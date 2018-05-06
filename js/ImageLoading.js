@@ -3,6 +3,7 @@ const tempBackgroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
 const tempRightTurnSignPic = document.createElement("img");
 const tempCheckeredFlagPic = document.createElement("img");
+const imageList = [];
 
 let picsToLoad = 0;
 
@@ -19,29 +20,12 @@ function beginLoadingImage(imgVar, fileName) {
 }
 
 function loadImages() {
-    const imageList = [
-
+    
 		//temp image
-		{imgName: tempBackgroundPic, theFile: "TempBackground.png"},
-		{imgName: tempPlayerCarPic, theFile: "PlayerCar.png"},
-		{imgName: tempRightTurnSignPic, theFile: "RightTurnSign.png"},
-		{imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"}//,
-
-        // enemies
-//        { imgName: alienPic, theFile: "alien-anim.png" },
-
-        // backgrounds
-//        { imgName: backgroundTitlePic, theFile: "backgroundTitle.png" },
-
-        // power ups
-//        { imgName: shieldPowerUpPic, theFile: "shieldPowerUp.png" },
-
-        // player related
-//        { imgName: laserPic, theFile: "LaserVisual.png" },
-
-        // UI
-//        { imgName: heartPic, theFile: "heart.png" },
-    ];
+	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
+	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
+	imageList.push({imgName: tempRightTurnSignPic, theFile: "RightTurnSign.png"});
+	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
 
     picsToLoad = imageList.length;
 
@@ -50,5 +34,22 @@ function loadImages() {
         beginLoadingImage(imageList[i].imgName, imageList[i].theFile);
 
     } // end of for imageList
-
 } // end of function loadImages
+
+function fileNameForImgName(imgName) {
+	for(let i = 0; i < imageList.length; i++) {
+		if(imageList[i].imgName == imgName) {
+			console.log("It worked - file for img");
+			return imageList[i].theFile;
+		}
+	}
+}
+
+function imgNameForFileName(fileName) {
+	for(let i = 0; i < imageList.length; i++) {
+		if(imageList[i].theFile == fileName) {
+			console.log("It worked - img for file");
+			return imageList[i].imgName;
+		}
+	}
+}

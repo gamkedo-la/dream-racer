@@ -54,6 +54,12 @@ function EditorScene(data) {
 			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
 		}
 		
+		if(holdS) {
+			if(holdCmd_Cntrl) {
+				this.road.saveTrack();
+			}
+		}
+		
 		if(holdA) {
 			this.road.selectAllSegments();
 		}

@@ -4,11 +4,9 @@ function GameScene(data) {
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
-	this.road.resetRoad(0);
+	this.road.newRoadWithJSON(example);
 	this.currentZIndex = 0;
 	this.player = new Player();
-	
-//	this.processor = new TrackProcessor(TestTrackData);
 	
 	this.draw = function() {
 		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
@@ -44,7 +42,5 @@ function GameScene(data) {
 			const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
 			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
 		}
-		
-//		this.road.move(this.currentZIndex, this.player.speed);
 	}
 }
