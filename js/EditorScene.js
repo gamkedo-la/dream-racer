@@ -53,6 +53,10 @@ function EditorScene(data) {
 			const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
 			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
 		}
+		
+		if(holdA) {
+			this.road.selectAllSegments();
+		}
 				
 		if(holdPlus) {//pressed the "+" key
 			if(holdShift) {
@@ -160,6 +164,9 @@ function EditorScene(data) {
 		
 		if(holdEscape) {
 			this.road.clearSelection();
+			this.road.clearDecorationSelection();
+			this.clearDecorationUISelection();
+			holdEscape = false;
 		}		
 	}
 	

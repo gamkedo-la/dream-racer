@@ -164,6 +164,12 @@ function Road(frustum) {
 		farthest = {x:0, y:0, z:0};
 	}
 	
+	this.selectAllSegments = function() {
+		for(let i = 0; i < segments.length; i++) {
+			selectedSegments.push(segments[i]);
+		}
+	}
+	
 	this.clearSelection = function() {
 		selectedSegments = [];
 	}
