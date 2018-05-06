@@ -88,6 +88,8 @@ function Road(frustum) {
 			fillPath(thisSegment.path, thisSegment.color);
 			
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				if(thisSegment.decorations[j].world.z <= cameraPos.z) {continue;}
+				
 				thisSegment.decorations[j].drawWithFrustum(frustum);
 			}
 		}
@@ -145,6 +147,33 @@ function Road(frustum) {
 				for(let j = 0; j < JSONArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(JSONArray[i].decorations[j].fileName);
 					newSegment.decorations.push(new RoadsideDecoration(imageName, JSONArray[i].decorations[j].world));
+				}
+			}
+			segments.push(newSegment);
+		}
+		
+		this.addFinishLine();
+	}
+	
+	this.addFinishLine = function() {
+		const JSONArray = JSON.parse(finish);
+		const initialTrackLength = segments.length;
+		for(let i = 0; i < JSONArray.length; i++) {
+			const newSegment = new Segment();
+			newSegment.index = JSONArray[i].index;
+			const lastColor = segments[segments.length - 1].color;
+			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
+			
+			const lastFarPos = segments[segments.length - 1].farPos.world;
+			newSegment.nearPos.world = lastFarPos;
+			newSegment.farPos.world = {x:lastFarPos.x, y:lastFarPos.y, z:lastFarPos.z + segmentLength};
+			
+			if(JSONArray[i].decorations.length > 0) {
+				for(let j = 0; j < JSONArray[i].decorations.length; j++) {
+					const imageName = imgNameForFileName(JSONArray[i].decorations[j].fileName);
+					const existingWorldPos = JSONArray[i].decorations[j].world;
+					const newWorldPos = {x:existingWorldPos.x, y:newSegment.nearPos.world.y, z:existingWorldPos.z + (segmentLength * initialTrackLength)};
+					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
 				}
 			}
 			segments.push(newSegment);
@@ -321,6 +350,15 @@ function Road(frustum) {
 		if(this.hasSelectedDecoration()) {
 			selectedDecoration.moveCloser(segmentWithSelectedDecoration.nearPos.world, segmentWithSelectedDecoration.farPos.world);
 		}
+	}
+	
+	this.deleteDecoration = function() {
+		for(let i = 0; i < segmentWithSelectedDecoration.decorations.length; i++) {
+			if(selectedDecoration == segmentWithSelectedDecoration.decorations[i]) {
+				segmentWithSelectedDecoration.decorations.splice(i, 1);
+			}
+		}
+		this.clearDecorationSelection();
 	}
 	
 	this.selectedSegmentAt = function(screenPosition) {

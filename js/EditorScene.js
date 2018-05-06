@@ -54,6 +54,12 @@ function EditorScene(data) {
 			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
 		}
 		
+		if(holdBackSpace) {
+			if(this.road.hasSelectedDecoration()) {
+				this.road.deleteDecoration();
+			}
+		}
+		
 		if(holdS) {
 			if(holdCmd_Cntrl) {
 				this.road.saveTrack();
@@ -93,7 +99,7 @@ function EditorScene(data) {
 			} else if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationLeft();
 			} else {
-				this.camera.move();
+				this.camera.editMove();
 			}
 		}
 		
@@ -104,7 +110,7 @@ function EditorScene(data) {
 			} else if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationRight();
 			} else {
-				this.camera.move();
+				this.camera.editMove();
 			}
 		}
 		
@@ -112,7 +118,7 @@ function EditorScene(data) {
 			if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationFarther();
 			} else {
-				this.camera.move();
+				this.camera.editMove();
 			}
 		}
 		
@@ -120,7 +126,7 @@ function EditorScene(data) {
 			if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationCloser();
 			} else {
-				this.camera.move();
+				this.camera.editMove();
 			}
 		}
 				

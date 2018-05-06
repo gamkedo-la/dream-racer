@@ -58,7 +58,7 @@ const KEY_TILDE = 192;
 let holdLeft, holdRight, holdUp, holdDown = false;
 let holdEscape, holdPlus, holdMinus = false;
 let holdShift, holdA, holdCmd_Cntrl = false;
-let holdS = false;
+let holdS, holdBackSpace = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -92,10 +92,12 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
-	console.log(evt.keyCode);
+//	console.log(evt.keyCode);
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
+			keyUsedByGame = true;
+			holdBackSpace = true;
 			break;
 		case KEY_TAB:
 			break;
@@ -272,6 +274,7 @@ function keyPress(evt) {
 function keyRelease(evt) {
 	switch(evt.keyCode) {
 		case KEY_BACKSPACE:
+			holdBackSpace = false;
 			break;
 		case KEY_TAB:
 			break;

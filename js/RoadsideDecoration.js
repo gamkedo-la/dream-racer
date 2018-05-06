@@ -10,7 +10,7 @@ function RoadsideDecoration(image, pos) {
 	this.selected = false;
 	this.selectedColor = "yellow";
 	
-	this.drawWithFrustum = function(frustum) {		
+	this.drawWithFrustum = function(frustum) {
 		this.screen = frustum.screenPosForWorldPos(this.world);
 		this.screenSize = frustum.screenSizeForWorldSizeAndPos({width:4 * this.width, height:4 * this.height}, this.world);
 		
@@ -22,14 +22,12 @@ function RoadsideDecoration(image, pos) {
 	}
 	
 	this.didClickInside = function(mousePos) {
-//		console.log("Mouse Pos: (" + mousePos.x + ", " + mousePos.y + "), ScreenPos: (" + this.screen.x + ", " + this.screen.y + ")");
 		if((mousePos.x >= this.screen.x - this.screenSize.width / 2) &&
 		   (mousePos.x <= this.screen.x + this.screenSize.width / 2) &&
 		   (mousePos.y >= this.screen.y - this.screenSize.height) &&
 		   (mousePos.y <= this.screen.y)) {
 			   return true;
 		   }
-//		console.log("We failed to click inside a road decoration");
 		   
 		return false;
 	}

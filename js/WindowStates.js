@@ -152,13 +152,6 @@ function backToMainMenuFromCredits() {
 }
 
 function togglePause() {
-/*    const levelIsInPlay = assaultMode || waveStarted || carnageStarted || twoPlayerMode;
-    if((!levelIsInPlay || windowState.help) && !orchestratorMode){
-		console.log(waveStarted, windowState.help, orchestratorMode, twoPlayerMode);	
-        console.log("no pause");
-        return;
-    }*/
-
     isPaused = !isPaused;	
     if(isPaused) {
         showPausedScreen();

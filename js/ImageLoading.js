@@ -39,7 +39,6 @@ function loadImages() {
 function fileNameForImgName(imgName) {
 	for(let i = 0; i < imageList.length; i++) {
 		if(imageList[i].imgName == imgName) {
-			console.log("It worked - file for img");
 			return imageList[i].theFile;
 		}
 	}
@@ -48,7 +47,6 @@ function fileNameForImgName(imgName) {
 function imgNameForFileName(fileName) {
 	for(let i = 0; i < imageList.length; i++) {
 		if(imageList[i].theFile == fileName) {
-			console.log("It worked - img for file");
 			return imageList[i].imgName;
 		}
 	}

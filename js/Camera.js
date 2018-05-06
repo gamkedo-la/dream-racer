@@ -13,6 +13,14 @@ function Camera(initialPosition) {
 			this.position.x -= panSpeed;//moving the world, so backwards
 		} else if(holdLeft) {
 			this.position.x += panSpeed;
+		}
+	}
+	
+	this.editMove = function() {
+		if(holdRight) {
+			this.position.x -= panSpeed;//moving the world, so backwards
+		} else if(holdLeft) {
+			this.position.x += panSpeed;
 		} else if(holdUp) {
 			this.position.z += panSpeed;
 		} else if(holdDown) {
