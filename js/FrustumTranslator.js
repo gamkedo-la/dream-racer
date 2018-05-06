@@ -23,8 +23,6 @@ function FrustumTranslator(camera, nearPlane) {
 		const worldX = Math.round(((screenPos.x - baseX) * ((depth - camera.position.z) / nearPlane)) - camera.position.x);
 		const worldY = Math.round(((screenPos.y - baseY) * ((depth - camera.position.z) / nearPlane)) + camera.position.y);
 		
-		console.log("World Pos: (" + worldX + ", " + worldY + ", " + depth + ")");
-		
 		return {x:worldX, y:worldY, z:depth};
 	}
 }

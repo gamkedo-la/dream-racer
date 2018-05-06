@@ -15,6 +15,15 @@ function Road(frustum) {
 	this.hasSelectedSegments = function() {
 		return (selectedSegments.length > 0);
 	}
+	let selectedDecoration = null;
+	let segmentWithSelectedDecoration = null;
+	this.hasSelectedDecoration = function() {
+		if(selectedDecoration == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	let selectedGround = null;
 	let farthest = {x:0, y:0, z:0};
 	const baseY = canvas.height / 2.08;//2.08  = swag
@@ -159,6 +168,18 @@ function Road(frustum) {
 		selectedSegments = [];
 	}
 	
+	this.clearDecorationSelection = function() {
+		selectedDecoration = null;
+		segmentWithSelectedDecoration = null;
+		for(let i = 0; i < segments.length; i++) {
+			const thisSegment = segments[i];
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				const thisDecoration = thisSegment.decorations[j];
+				thisDecoration.selected = false;
+			}
+		}
+	}
+	
 	this.addSegment = function() {
 		if(segments.length == 0) {
 			return firstSegment();
@@ -198,7 +219,7 @@ function Road(frustum) {
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.x -= dx;
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
-				thisSegment.decorations[j].position.x -= dx;
+				thisSegment.decorations[j].world.x -= dx;
 			}
 		}
 	}
@@ -210,7 +231,7 @@ function Road(frustum) {
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.x += dx;
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
-				thisSegment.decorations[j].position.x += dx;
+				thisSegment.decorations[j].world.x += dx;
 			}
 
 		}
@@ -219,26 +240,30 @@ function Road(frustum) {
 	this.moveSelectionUp = function() {
 		let dy = 0;
 		for(let i = 0; i < selectedSegments.length; i++) {
-			dy += i;
 			const thisSegment = selectedSegments[i];
-			thisSegment.farPos.world.y -= dy;
-			for(let j = 0; j < thisSegment.decorations.length; j++) {
-				thisSegment.decorations[j].position.y -= dy;
-			}
 
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+//				thisSegment.decorations[j].world.y -= dy;
+				thisSegment.decorations[j].moveUp(thisSegment.nearPos.world, thisSegment.farPos.world);
+			}
+			
+			dy += i;
+			thisSegment.farPos.world.y -= dy;
 		}
 	}
 
 	this.moveSelectionDown = function() {
 		let dy = 0;
 		for(let i = 0; i < selectedSegments.length; i++) {
-			dy += i;
 			const thisSegment = selectedSegments[i];
-			thisSegment.farPos.world.y += dy;
+
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
-				thisSegment.decorations[j].position.y += dy;
+//				thisSegment.decorations[j].world.y += dy;
+				thisSegment.decorations[j].moveDown(thisSegment.nearPos.world, thisSegment.farPos.world);
 			}
 
+			dy += i;
+			thisSegment.farPos.world.y += dy;
 		}
 	}
 	
@@ -247,7 +272,7 @@ function Road(frustum) {
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y--;
 			for(let j = 0; j < segments[i].decorations.length; j++) {
-				segments[i].decorations[j].position.y--;
+				segments[i].decorations[j].world.y--;
 			}			
 		}
 	}
@@ -257,8 +282,44 @@ function Road(frustum) {
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y++;
 			for(let j = 0; j < segments[i].decorations.length; j++) {
-				segments[i].decorations[j].position.y++;
+				segments[i].decorations[j].world.y++;
 			}
+		}
+	}
+	
+	this.moveDecorationLeft = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveLeft();
+		}
+	}
+
+	this.moveDecorationRight = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveRight();
+		}
+	}
+	
+	this.moveDecorationUp = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveUp(segmentWithSelectedDecoration.nearPos.world, segmentWithSelectedDecoration.farPos.world);
+		}
+	}
+	
+	this.moveDecorationDown = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveDown(segmentWithSelectedDecoration.nearPos.world, segmentWithSelectedDecoration.farPos.world);
+		}
+	}
+
+	this.moveDecorationFarther = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveFarther(segmentWithSelectedDecoration.nearPos.world, segmentWithSelectedDecoration.farPos.world);
+		}
+	}
+
+	this.moveDecorationCloser = function() {
+		if(this.hasSelectedDecoration()) {
+			selectedDecoration.moveCloser(segmentWithSelectedDecoration.nearPos.world, segmentWithSelectedDecoration.farPos.world);
 		}
 	}
 	
@@ -340,6 +401,31 @@ function Road(frustum) {
 			
 		return false;
 	}
+	
+	this.selectedDecorationAt = function(screenPosition) {
+		for(let i = 0; i < segments.length; i++) {
+			const thisSegment = segments[i];
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				const thisDecoration = thisSegment.decorations[j];
+				if(thisDecoration.didClickInside(screenPosition)) {
+					if(thisDecoration.selected) {
+						this.clearDecorationSelection();
+					} else {
+						this.clearDecorationSelection();
+						thisDecoration.selected = true;
+						selectedDecoration = thisDecoration;
+						segmentWithSelectedDecoration = thisSegment;
+					}
+					return true;
+				} else {
+					thisDecoration.selected = false;
+				}//end if didClickInside
+			}//end for thisSegment.decorations
+		}//end for segments
+		selectedDecoration = null;
+		segmentWithSelectedDecoration = null;
+		return false;
+	}//end selectedDecorationAt
 	
 	this.addDecorationToGround = function(decoration, segment) {
 		segment.decorations.push(decoration);

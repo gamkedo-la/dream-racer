@@ -80,6 +80,8 @@ function EditorScene(data) {
 			if(this.road.hasSelectedSegments()) {
 				this.didEdit(editAction.MoveLeft);
 				holdLeft = false;
+			} else if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationLeft();
 			} else {
 				this.camera.move();
 			}
@@ -89,20 +91,39 @@ function EditorScene(data) {
 			if(this.road.hasSelectedSegments()) {
 				this.didEdit(editAction.MoveRight);
 				holdRight = false;
+			} else if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationRight();
 			} else {
 				this.camera.move();
 			}
 		}
 		
-		if(holdUp || holdDown) {
-			this.camera.move();
+		if(holdUp) {
+			if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationFarther();
+			} else {
+				this.camera.move();
+			}
+		}
+		
+		if(holdDown) {
+			if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationCloser();
+			} else {
+				this.camera.move();
+			}
 		}
 				
 		if(mouseButtonHeld) {
 			const mousePos = {x:mouseX, y:mouseY};
-			if(this.road.selectedSegmentAt(mousePos) != null) {
+			if(this.road.selectedDecorationAt(mousePos)) {
+				//do some stuff here
+				this.clearDecorationUISelection();
 				mouseButtonHeld = false;
-				this.clearDecorationSelection();
+			} else if(this.road.selectedSegmentAt(mousePos) != null) {
+				mouseButtonHeld = false;
+				this.clearDecorationUISelection();
+				this.road.clearDecorationSelection();
 			} else if(this.road.selectedGroundAt(mousePos) != null) {
 				for (let i = 0; i < decorationUIElements.length; i++) {
 					if(decorationUIElements[i].selected) {
@@ -112,14 +133,17 @@ function EditorScene(data) {
 					}
 				}
 				
+				this.road.clearDecorationSelection();
 				mouseButtonHeld = false;
 			} else {
+				mouseButtonHeld = false;
 				let isAnyElementSelected = false;
 				for (let i = 0; i < decorationUIElements.length; i++) {
 					if(decorationUIElements[i].didClickInside({x:mouseX, y:mouseY})) {
 						decorationUIElements[i].selected = !decorationUIElements[i].selected;
 						mouseButtonHeld = false;
-						this.road.clearSelection();//don't move road segments and place roadside decorations together
+						this.road.clearSelection();//don't 'move road segments' and 'place roadside decorations' at the same time
+						this.road.clearDecorationSelection();
 					} else {
 						decorationUIElements[i].selected = false;
 					}
@@ -129,21 +153,17 @@ function EditorScene(data) {
 					}
 				}//end for loop
 				if(!isAnyElementSelected) {
-					this.clearDecorationSelection();
+					this.clearDecorationUISelection();
 				}
 			}//end if-else if-else
 		}//end if mouseButtonHeld
 		
 		if(holdEscape) {
 			this.road.clearSelection();
-		}
-		
-//		if(!this.road.hasSelectedSegments()) {
-//			this.camera.move();
-//		}
+		}		
 	}
 	
-	this.clearDecorationSelection = function() {
+	this.clearDecorationUISelection = function() {
 		for(let i = 0; i < decorationUIElements.length; i++) {
 			decorationUIElements[i].selected = false;
 		}
@@ -153,8 +173,9 @@ function EditorScene(data) {
 	
 	this.placeDecorationOnGround = function(mousePos, ground) {
 		const depth = this.road.depthOfGround(ground);
-		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, depth);
-		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, worldPos);
+		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, ground.nearPos.world.z);
+		const finalWorldPos = {x:worldPos.x, y:ground.nearPos.world.y, z:ground.nearPos.world.z};
+		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, finalWorldPos);
 		this.road.addDecorationToGround(aDecoration, ground);
 	}
 	
