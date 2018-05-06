@@ -14,9 +14,13 @@ function Camera(initialPosition) {
 		} else if(holdLeft) {
 			this.position.x += panSpeed;
 		} else if(holdUp) {
-				this.position.z += panSpeed;
+			this.position.z += panSpeed;
 		} else if(holdDown) {
+			if(this.position.z - panSpeed >= CAMERA_INITIAL_Z) {
 				this.position.z -= panSpeed;
+			} else {
+				this.position.z = CAMERA_INITIAL_Z;
+			}
 		}
 	}
 	

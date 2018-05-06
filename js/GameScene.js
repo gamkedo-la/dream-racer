@@ -2,7 +2,8 @@
 function GameScene(data) {
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
-	this.road = new Road(data.near);
+	this.frustum = new FrustumTranslator(this.camera, data.near);
+	this.road = new Road(this.frustum);
 	this.road.resetRoad(0);
 	this.currentZIndex = 0;
 	this.player = new Player();

@@ -1,6 +1,8 @@
 //Image Loading
 const tempBackgroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
+const tempRightTurnSignPic = document.createElement("img");
+const tempCheckeredFlagPic = document.createElement("img");
 
 let picsToLoad = 0;
 
@@ -21,7 +23,9 @@ function loadImages() {
 
 		//temp image
 		{imgName: tempBackgroundPic, theFile: "TempBackground.png"},
-		{imgName: tempPlayerCarPic, theFile: "PlayerCar.png"}//,
+		{imgName: tempPlayerCarPic, theFile: "PlayerCar.png"},
+		{imgName: tempRightTurnSignPic, theFile: "RightTurnSign.png"},
+		{imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"}//,
 
         // enemies
 //        { imgName: alienPic, theFile: "alien-anim.png" },

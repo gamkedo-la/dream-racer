@@ -2,22 +2,28 @@
 function EditorScene(data) {
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
-	this.road = new Road(data.near);
+	this.frustum = new FrustumTranslator(this.camera, data.near);
+	this.road = new Road(this.frustum);
 	this.road.addSegment();
-//	this.road.resetRoad(0);
 	this.currentZIndex = 0;
-	this.player = new Player();
 	
-//	this.processor = new TrackProcessor(TestTrackData);
+	const UI_SIZE = {width:32, height:32}
+	
+	const buildUIElements = function() {
+		const array = [];
+		array.push(new DecorationUIElement(tempRightTurnSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(tempCheckeredFlagPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}));
+		return array;
+	}
+	const decorationUIElements = buildUIElements();
+	let selectedDecorationUIElementIndex = -1;//-1 when no item is selected
 	
 	this.draw = function() {
 		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
 		this.road.draw(this.camera.position);
 		this.road.drawSelected();
-		drawRoadDecorations();
 
-//		this.player.draw();
-
+		drawDecorationsUI();
 		colorText('[H] for Help', canvas.width/2, 30, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
 	}
 	
@@ -35,8 +41,10 @@ function EditorScene(data) {
 		}
 	}
 	
-	const drawRoadDecorations = function() {
-		//Need implementation
+	const drawDecorationsUI = function() {
+		for(let i = 0; i < decorationUIElements.length; i++) {
+			decorationUIElements[i].draw();
+		}
 	}
 	
 	this.move = function() {
@@ -89,10 +97,42 @@ function EditorScene(data) {
 		if(holdUp || holdDown) {
 			this.camera.move();
 		}
-		
+				
 		if(mouseButtonHeld) {
-			this.road.selectedSegmentAt({x:mouseX, y:mouseY});
-		}
+			const mousePos = {x:mouseX, y:mouseY};
+			if(this.road.selectedSegmentAt(mousePos) != null) {
+				mouseButtonHeld = false;
+				this.clearDecorationSelection();
+			} else if(this.road.selectedGroundAt(mousePos) != null) {
+				for (let i = 0; i < decorationUIElements.length; i++) {
+					if(decorationUIElements[i].selected) {
+						//Need to place this element on the map
+						this.placeDecorationOnGround(mousePos, this.road.selectedGround);
+						break;
+					}
+				}
+				
+				mouseButtonHeld = false;
+			} else {
+				let isAnyElementSelected = false;
+				for (let i = 0; i < decorationUIElements.length; i++) {
+					if(decorationUIElements[i].didClickInside({x:mouseX, y:mouseY})) {
+						decorationUIElements[i].selected = !decorationUIElements[i].selected;
+						mouseButtonHeld = false;
+						this.road.clearSelection();//don't move road segments and place roadside decorations together
+					} else {
+						decorationUIElements[i].selected = false;
+					}
+					if(decorationUIElements[i].selected) {
+						isAnyElementSelected = true;
+						selectedDecorationUIElementIndex = i;
+					}
+				}//end for loop
+				if(!isAnyElementSelected) {
+					this.clearDecorationSelection();
+				}
+			}//end if-else if-else
+		}//end if mouseButtonHeld
 		
 		if(holdEscape) {
 			this.road.clearSelection();
@@ -101,6 +141,21 @@ function EditorScene(data) {
 //		if(!this.road.hasSelectedSegments()) {
 //			this.camera.move();
 //		}
+	}
+	
+	this.clearDecorationSelection = function() {
+		for(let i = 0; i < decorationUIElements.length; i++) {
+			decorationUIElements[i].selected = false;
+		}
+		
+		selectedDecorationUIElementIndex = -1;
+	}
+	
+	this.placeDecorationOnGround = function(mousePos, ground) {
+		const depth = this.road.depthOfGround(ground);
+		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, depth);
+		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, worldPos);
+		this.road.addDecorationToGround(aDecoration, ground);
 	}
 	
 	this.didEdit = function(action) {

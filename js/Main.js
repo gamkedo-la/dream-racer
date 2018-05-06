@@ -128,7 +128,7 @@ function startGame() {
 	    					   totalHeight:canvas.height,
 	    					   nearHeight:0.0 * canvas.height, 
 	    					   horizonHeight:1.0 * canvas.height,
-	    					   near:90,//arbritrary
+	    					   near:90,//arbitrary
 	    					   far:500,//arbitrary
 	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: CAMERA_INITIAL_Z},
 	    					   skyPic:undefined,
@@ -147,7 +147,7 @@ function startEditing() {
 	    					   totalHeight:canvas.height,
 	    					   nearHeight:0.0 * canvas.height, 
 	    					   horizonHeight:1.0 * canvas.height,
-	    					   near:90,//arbritrary
+	    					   near:90,//arbitrary
 	    					   far:500,//arbitrary
 	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: -85},
 	    					   skyPic:undefined,
@@ -165,8 +165,6 @@ function continueEditing() {
 
 function drawAll() {
 	scene.draw();
-/*    drawAndRemoveShips();
-    drawPlayer();*/
 };
 
 function editingDrawAll() {
@@ -175,8 +173,6 @@ function editingDrawAll() {
 
 function moveAll() {
 	scene.move();
-/*    moveShips();
-    updateExplosions();*/
 };
 
 function editingMoveAll() {

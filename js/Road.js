@@ -1,5 +1,5 @@
 //Road
-function Road(nearPlane, trackTiles) {
+function Road(frustum) {
 	const Colors = {
 		Dark: "#555555",
 		Light: "#888888"
@@ -9,13 +9,13 @@ function Road(nearPlane, trackTiles) {
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
 	const segmentLength = 4 * canvas.height / magicNumber;
-	const fov = 2 * Math.atan2(nearPlane, (canvas.height / 2));
 
 	let segments = [];
 	let selectedSegments = [];
 	this.hasSelectedSegments = function() {
 		return (selectedSegments.length > 0);
 	}
+	let selectedGround = null;
 	let farthest = {x:0, y:0, z:0};
 	const baseY = canvas.height / 2.08;//2.08  = swag
 
@@ -34,36 +34,33 @@ function Road(nearPlane, trackTiles) {
 					   screen: {x: 0, y: 0}
 					   };
 		this.farWidth = canvas.width;
+		this.path = [];
+		this.groundPath = [];
+		this.decorations = [];
 	}
 		
 	let ticks = 0;
 	this.draw = function(cameraPos) {
-		let minY = canvas.height;
-//		const baseSegment = findsegment(position);
-
-		if(currentBaseSegment == null) {return;}
+		if(currentBaseSegment == null) {
+			currentBaseSegment = findsegment(0);
+		}
 				
-		for(let i = 0; i < segments.length; i++) {
+		for(let i = segments.length - 1; i >= 0; i--) {
 			const thisSegment = segments[(currentBaseSegment.index + i) % segments.length];
 			
 			if(thisSegment.nearPos.world.z <= cameraPos.z) {continue;}
 			
-			thisSegment.nearPos.screen.x = Math.round(canvas.width / 2 + (cameraPos.x + thisSegment.nearPos.world.x) * nearPlane / (thisSegment.nearPos.world.z - cameraPos.z));
-			thisSegment.nearPos.screen.y = Math.round(baseY + (thisSegment.nearPos.world.y - cameraPos.y) * nearPlane / (thisSegment.nearPos.world.z - cameraPos.z));
-			thisSegment.nearWidth = 2 * (canvas.width * nearPlane / (thisSegment.nearPos.world.z - cameraPos.z));
+			thisSegment.nearPos.screen = frustum.screenPosForWorldPos(thisSegment.nearPos.world);
+			thisSegment.nearWidth = frustum.screenSizeForWorldSizeAndPos({width:canvas.width, height:segmentLength}, thisSegment.nearPos.world).width;
 			
-			thisSegment.farPos.screen.x = Math.round(canvas.width / 2 + (cameraPos.x + thisSegment.farPos.world.x) * nearPlane / (thisSegment.farPos.world.z - cameraPos.z));
-			thisSegment.farPos.screen.y = Math.round(baseY + (thisSegment.farPos.world.y - cameraPos.y) * nearPlane / (thisSegment.farPos.world.z - cameraPos.z));
-			thisSegment.farWidth = 2 * (canvas.width * nearPlane / (thisSegment.farPos.world.z - cameraPos.z));
-
-			const projectedNearXOffset = (thisSegment.deltaXOffset * nearPlane / (thisSegment.nearPos.world.z - cameraPos.z));//for turns
-			const projectedFarXOffset = (thisSegment.deltaXOffset * nearPlane / (thisSegment.farPos.world.z - cameraPos.z));//for turns
+			thisSegment.farPos.screen = frustum.screenPosForWorldPos(thisSegment.farPos.world);
+			thisSegment.farWidth = frustum.screenSizeForWorldSizeAndPos({width:canvas.width, height:segmentLength}, thisSegment.farPos.world).width;
 
 			thisSegment.path = [
-				{x: thisSegment.farPos.screen.x - (fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y},
-				{x: thisSegment.nearPos.screen.x - (fov * thisSegment.nearWidth / 2), y: thisSegment.nearPos.screen.y},
-				{x: thisSegment.nearPos.screen.x + (fov * thisSegment.nearWidth / 2), y: thisSegment.nearPos.screen.y},
-				{x: thisSegment.farPos.screen.x + (fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y},
+				{x: thisSegment.farPos.screen.x - (frustum.fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y},
+				{x: thisSegment.nearPos.screen.x - (frustum.fov * thisSegment.nearWidth / 2), y: thisSegment.nearPos.screen.y},
+				{x: thisSegment.nearPos.screen.x + (frustum.fov * thisSegment.nearWidth / 2), y: thisSegment.nearPos.screen.y},
+				{x: thisSegment.farPos.screen.x + (frustum.fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y},
 			];
 			
 			let groundColor = "#11dd11";
@@ -71,19 +68,20 @@ function Road(nearPlane, trackTiles) {
 				groundColor = "#00aa00";
 			}
 			
-			const groundPath = [
+			thisSegment.groundPath = [
 				{x: 0, y: thisSegment.farPos.screen.y},
 				{x: 0, y: thisSegment.nearPos.screen.y},
 				{x: canvas.width, y: thisSegment.nearPos.screen.y},
 				{x: canvas.width, y: thisSegment.farPos.screen.y}
 			];
-//			drawRect(0, Math.floor(thisSegment.farPos.screen.y), canvas.width, Math.ceil(thisSegment.farPos.screen.y - thisSegment.nearPos.screen.y) - 1, groundColor);
 
-			if(thisSegment.farPos.screen.y < minY) {
-				minY = thisSegment.farPos.screen.y;
-				
-				fillPath(groundPath, groundColor);
-				fillPath(thisSegment.path, thisSegment.color);
+			minY = thisSegment.farPos.screen.y;
+			
+			fillPath(thisSegment.groundPath, groundColor);
+			fillPath(thisSegment.path, thisSegment.color);
+			
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				thisSegment.decorations[j].drawWithFrustum(frustum);
 			}
 		}
 	}
@@ -199,6 +197,9 @@ function Road(nearPlane, trackTiles) {
 			dx += i;
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.x -= dx;
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				thisSegment.decorations[j].position.x -= dx;
+			}
 		}
 	}
 	
@@ -208,6 +209,10 @@ function Road(nearPlane, trackTiles) {
 			dx += i;
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.x += dx;
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				thisSegment.decorations[j].position.x += dx;
+			}
+
 		}
 	}
 	
@@ -217,6 +222,10 @@ function Road(nearPlane, trackTiles) {
 			dy += i;
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.y -= dy;
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				thisSegment.decorations[j].position.y -= dy;
+			}
+
 		}
 	}
 
@@ -226,6 +235,10 @@ function Road(nearPlane, trackTiles) {
 			dy += i;
 			const thisSegment = selectedSegments[i];
 			thisSegment.farPos.world.y += dy;
+			for(let j = 0; j < thisSegment.decorations.length; j++) {
+				thisSegment.decorations[j].position.y += dy;
+			}
+
 		}
 	}
 	
@@ -233,6 +246,9 @@ function Road(nearPlane, trackTiles) {
 //		segments[0].nearPos.world.y--;
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y--;
+			for(let j = 0; j < segments[i].decorations.length; j++) {
+				segments[i].decorations[j].position.y--;
+			}			
 		}
 	}
 	
@@ -240,6 +256,9 @@ function Road(nearPlane, trackTiles) {
 //		segments[0].nearPos.world.y++;
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y++;
+			for(let j = 0; j < segments[i].decorations.length; j++) {
+				segments[i].decorations[j].position.y++;
+			}
 		}
 	}
 	
@@ -250,7 +269,7 @@ function Road(nearPlane, trackTiles) {
 				const didSelectNearSegment = didClickInsideSegment(segments[selectedSegments[0].index - 1], screenPosition);
 				if(didSelectNearSegment) {
 					selectedSegments.splice(0, 0, segments[selectedSegments[0].index - 1]);//insert new selected element at index 0 of the selectedSegments array to keep it sorted correctly
-					return;
+					return segments[selectedSegments[0].index - 1];
 				}
 			}
 			
@@ -259,7 +278,7 @@ function Road(nearPlane, trackTiles) {
 				const didSelectFarSegment = didClickInsideSegment(segments[lastSelected.index + 1], screenPosition);
 				if(didSelectFarSegment) {
 					selectedSegments.push(segments[lastSelected.index + 1]);//add new selected segment to end of selectedSegments array to keep it sorted correctly
-					return;
+					return segments[lastSelected.index + 1];
 				}
 			}
 		} else {
@@ -268,10 +287,23 @@ function Road(nearPlane, trackTiles) {
 				const thisSegment = segments[i];
 				if(didClickInsideSegment(thisSegment, screenPosition)) {
 					selectedSegments.push(thisSegment);
+					return thisSegment;
 				}//end of if farPos
 			}//end of for loop through segments
 		}//end of if selectedSegments.length
+		return null;
 	}//end of function
+	
+	this.selectedGroundAt = function(screenPosition) {
+		for(let i = 0; i < segments.length; i++) {
+			const thisSegment = segments[i];
+			if(didClickOnGround(thisSegment.groundPath, screenPosition)) {
+				this.selectedGround = thisSegment;
+				return thisSegment;
+			}//end of if-else didClickOnGround
+		}//end of for loop through segments
+		return null;
+	}
 	
 	const didClickInsideSegment = function(segment, position) {
 		if((segment.nearPos.screen.y > position.y) &&
@@ -281,7 +313,7 @@ function Road(nearPlane, trackTiles) {
 			   const leftPos = segment.path[1].x + ((position.y - segment.path[1].y) / leftSlope);
 			   
 			   const rightSlope = (segment.path[3].y - segment.path[2].y) / (segment.path[3].x - segment.path[2].x);
-			   const rightPos = segment.path[2].x + ((position.y - segment.path[2].y) / leftSlope);
+			   const rightPos = segment.path[2].x + ((position.y - segment.path[2].y) / rightSlope);
 			   
 			   if((leftPos < position.x) && (rightPos > position.x)) {
 				   return true;
@@ -289,5 +321,33 @@ function Road(nearPlane, trackTiles) {
 		   }
 		  
 		return false;
+	}
+	
+	const didClickOnGround = function(path, position) {
+		if(path.length == 0) {return false;}
+		
+		const upperLeft = path[0];
+		const lowerLeft = path[1];
+		const lowerRight = path[2];
+		const upperRight = path[3];
+		
+		if((upperLeft.x < position.x) &&
+			(upperRight.x > position.x) &&
+			(upperLeft.y < position.y) &&
+			(lowerLeft.y > position.y)) {
+				return true;
+			}
+			
+		return false;
+	}
+	
+	this.addDecorationToGround = function(decoration, segment) {
+		segment.decorations.push(decoration);
+	}
+	
+	this.depthOfGround = function(ground) {
+		const farDepth = ground.farPos.world.z;
+		const nearDepth = ground.nearPos.world.z;
+		return (nearDepth + ((farDepth - nearDepth) / 2));//half way between
 	}
 }//end of Road Class
