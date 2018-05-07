@@ -67,7 +67,23 @@ function EditorScene(data) {
 		}
 		
 		if(holdA) {
-			this.road.selectAllSegments();
+			if(holdCmd_Cntrl) {
+				this.road.selectAllSegments();
+			} else if(this.road.hasSelectedSegments()) {
+				this.didEdit(editAction.MoveLeft);
+				holdA = false;
+			} else if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationLeft();
+			}
+		}
+		
+		if(holdD) {
+			if(this.road.hasSelectedSegments()) {
+				this.didEdit(editAction.MoveRight);
+				holdD = false;
+			} else if(this.road.hasSelectedDecoration()) {
+				this.road.moveDecorationRight();
+			}
 		}
 				
 		if(holdPlus) {//pressed the "+" key
@@ -93,25 +109,25 @@ function EditorScene(data) {
 		}
 		
 		if(holdLeft) {
-			if(this.road.hasSelectedSegments()) {
+/*			if(this.road.hasSelectedSegments()) {
 				this.didEdit(editAction.MoveLeft);
 				holdLeft = false;
 			} else if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationLeft();
-			} else {
+			} else {*/
 				this.camera.editMove();
-			}
+//			}
 		}
 		
 		if(holdRight) {
-			if(this.road.hasSelectedSegments()) {
+/*			if(this.road.hasSelectedSegments()) {
 				this.didEdit(editAction.MoveRight);
 				holdRight = false;
 			} else if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationRight();
-			} else {
+			} else {*/
 				this.camera.editMove();
-			}
+//			}
 		}
 		
 		if(holdUp) {
