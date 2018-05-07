@@ -35,13 +35,17 @@ function GameScene(data) {
 	}
 	
 	this.move = function() {
-		this.camera.advance(this.player.speed);
-		this.camera.move();
-
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
-		if(baseSegment != null) {
-			const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
-			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
-		}
+		
+		if(baseSegment.index < this.road.indexOfFinishLine) {
+			this.camera.advance(this.player.speed);
+			this.camera.move();
+	
+			
+			if(baseSegment != null) {
+				const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
+				this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
+			}
+		}		
 	}
 }

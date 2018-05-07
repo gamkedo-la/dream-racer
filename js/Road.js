@@ -9,6 +9,8 @@ function Road(frustum) {
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
 	const segmentLength = 4 * canvas.height / magicNumber;
+	
+	this.indexOfFinishLine = -1;
 
 	let segments = [];
 	let selectedSegments = [];
@@ -158,9 +160,11 @@ function Road(frustum) {
 	this.addFinishLine = function() {
 		const JSONArray = JSON.parse(finish);
 		const initialTrackLength = segments.length;
+		this.indexOfFinishLine = initialTrackLength;
+		
 		for(let i = 0; i < JSONArray.length; i++) {
 			const newSegment = new Segment();
-			newSegment.index = JSONArray[i].index;
+			newSegment.index = JSONArray[i].index + initialTrackLength;
 			const lastColor = segments[segments.length - 1].color;
 			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
 			
