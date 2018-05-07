@@ -23,8 +23,8 @@ const loadingText = "LOADING...";
 const pausedText = "- P A U S E D -";
 
 const gameTitle = {
-	Main:"Hero Maker",
-	Subtitle:"A Dungeon Master's Tale"
+	Main:"Dream Racer",
+	Subtitle:"Speed is Everything"
 };
 
 const buttonTitle = {

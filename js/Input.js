@@ -111,7 +111,7 @@ function keyPress(evt) {
 				}
 			} else if(windowState.credits) {
 				backToMainMenuFromCredits();
-			} else if(windowState.editorHelp) {
+			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
 				continueEditing();
 			}
 			break;
@@ -247,6 +247,9 @@ function keyPress(evt) {
 			keyUsedByGame = true;
 			if(windowState.editing) {
 				holdPlus = true;
+			} else if(windowState.editorHelp) {
+				holdPlus = true;
+				showMoreEditorHelp();
 			} else {
 				turnVolumeUp();
 			}
@@ -255,6 +258,8 @@ function keyPress(evt) {
 			keyUsedByGame = true;
 			if(windowState.editing) {
 				holdMinus = true;
+			} else if(windowState.moreEditorHelp) {
+				showEditorHelp();
 			} else {
 				turnVolumeDown();
 			}

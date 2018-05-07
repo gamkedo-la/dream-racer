@@ -384,6 +384,16 @@ function Road(frustum) {
 					return segments[lastSelected.index + 1];
 				}
 			}
+			
+			const zerothSelected = didClickInsideSegment(selectedSegments[0], screenPosition);
+			if(zerothSelected) {//need to de-select this one
+				selectedSegments.splice(0, 1);
+			}
+			
+			const lastWasSelected = didClickInsideSegment(lastSelected, screenPosition);
+			if(lastWasSelected) {
+				selectedSegments.splice(selectedSegments.length - 1, 1);
+			}
 		} else {
 			//search through existing segments to find which was selected
 			for(let i = 0; i < segments.length; i++) {
