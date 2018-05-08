@@ -8,7 +8,10 @@ function GameScene(data) {
 	const roadReferences = [
 		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest),
-		JSON.parse(straightAndLevel),
+		JSON.parse(sCurveLeftFirst),
+		JSON.parse(doubleBump),
+		JSON.parse(multiCurveRightFirst),
+		JSON.parse(normalHillValley),
 		JSON.parse(finish)
 	];
 	this.road.newRoadWithJSONArray(roadReferences[0]);
@@ -24,7 +27,6 @@ function GameScene(data) {
 	this.draw = function() {
 		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
 		this.road.draw(this.camera.position);
-		drawRoadDecorations();
 
 		this.player.draw();
 	}
@@ -43,14 +45,10 @@ function GameScene(data) {
 		}
 	}
 	
-	const drawRoadDecorations = function() {
-		//Need implementation
-	}
-	
 	this.move = function() {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		
-		if(baseSegment.index < this.road.indexOfFinishLine) {
+		if(baseSegment.index < (this.road.indexOfFinishLine + 2)) {
 			this.camera.advance(this.player.speed);
 			this.camera.move();
 	

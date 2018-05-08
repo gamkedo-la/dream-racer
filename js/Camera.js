@@ -10,9 +10,9 @@ function Camera(initialPosition) {
 	
 	this.move = function() {
 		if(holdRight) {
-			this.position.x -= panSpeed;//moving the world, so backwards
+			this.position.x -= (5 * panSpeed);//moving the world, so backwards
 		} else if(holdLeft) {
-			this.position.x += panSpeed;
+			this.position.x += (5 * panSpeed);
 		}
 	}
 	

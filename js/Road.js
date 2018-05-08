@@ -177,7 +177,9 @@ function Road(frustum) {
 				for(let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const existingWorldPos = roadArray[i].decorations[j].world;
-					const newWorldPos = {x:existingWorldPos.x, y:newSegment.nearPos.world.y, z:existingWorldPos.z + (segmentLength * initialTrackLength)};
+					const newWorldPos = {x:existingWorldPos.x + newSegment.nearPos.world.x, 
+										 y:existingWorldPos.y + newSegment.nearPos.world.y, 
+										 z:existingWorldPos.z + (segmentLength * initialTrackLength)};
 					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
 				}
 			}
@@ -185,33 +187,6 @@ function Road(frustum) {
 		}
 
 	}
-	
-/*	this.addFinishLine = function() {
-		const JSONArray = JSON.parse(finish);
-		const initialTrackLength = segments.length;
-		this.indexOfFinishLine = initialTrackLength;
-		
-		for(let i = 0; i < JSONArray.length; i++) {
-			const newSegment = new Segment();
-			newSegment.index = JSONArray[i].index + initialTrackLength;
-			const lastColor = segments[segments.length - 1].color;
-			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
-			
-			const lastFarPos = segments[segments.length - 1].farPos.world;
-			newSegment.nearPos.world = lastFarPos;
-			newSegment.farPos.world = {x:lastFarPos.x, y:lastFarPos.y, z:lastFarPos.z + segmentLength};
-			
-			if(JSONArray[i].decorations.length > 0) {
-				for(let j = 0; j < JSONArray[i].decorations.length; j++) {
-					const imageName = imgNameForFileName(JSONArray[i].decorations[j].fileName);
-					const existingWorldPos = JSONArray[i].decorations[j].world;
-					const newWorldPos = {x:existingWorldPos.x, y:newSegment.nearPos.world.y, z:existingWorldPos.z + (segmentLength * initialTrackLength)};
-					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
-				}
-			}
-			segments.push(newSegment);
-		}
-	}*/
 		
 	this.clearRoad = function() {
 		segments = [];
@@ -305,7 +280,6 @@ function Road(frustum) {
 			const thisSegment = selectedSegments[i];
 
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
-//				thisSegment.decorations[j].world.y -= dy;
 				thisSegment.decorations[j].moveUp(thisSegment.nearPos.world, thisSegment.farPos.world);
 			}
 			
@@ -320,7 +294,6 @@ function Road(frustum) {
 			const thisSegment = selectedSegments[i];
 
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
-//				thisSegment.decorations[j].world.y += dy;
 				thisSegment.decorations[j].moveDown(thisSegment.nearPos.world, thisSegment.farPos.world);
 			}
 
@@ -330,7 +303,6 @@ function Road(frustum) {
 	}
 	
 	this.raiseElevation = function() {
-//		segments[0].nearPos.world.y--;
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y--;
 			for(let j = 0; j < segments[i].decorations.length; j++) {
@@ -340,7 +312,6 @@ function Road(frustum) {
 	}
 	
 	this.lowerElevation = function() {
-//		segments[0].nearPos.world.y++;
 		for(let i = 0; i < segments.length; i++) {
 			segments[i].farPos.world.y++;
 			for(let j = 0; j < segments[i].decorations.length; j++) {

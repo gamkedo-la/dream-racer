@@ -5,10 +5,13 @@ function EditorScene(data) {
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
 	const roadReferences = [
-		JSON.parse(gentleLeft_Level),
+/*		JSON.parse(gentleLeft_Level),
+		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest),
+		JSON.parse(sCurveLeftFirst),
+		JSON.parse(doubleBump),
 		JSON.parse(normalHillValley),
-//		JSON.parse(finish)
+		JSON.parse(finish)*/
 	];
 	if(roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
