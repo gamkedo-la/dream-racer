@@ -132,32 +132,61 @@ function Road(frustum) {
 		return findsegment(zPos);
 	}
 	
-	this.newRoadWithJSON = function() {
-		const JSONArray = JSON.parse(example);
-		for(let i = 0; i < JSONArray.length; i++) {
+	this.newRoadWithJSONArray = function(roadArray) {
+//		const JSONArray = JSON.parse(JSONRoad);
+		for(let i = 0; i < roadArray.length; i++) {
 			const newSegment = new Segment();
-			newSegment.index = JSONArray[i].index;
-			newSegment.color = JSONArray[i].color;
-			newSegment.nearPos.world = JSONArray[i].nearPos.world;
-			newSegment.farPos.world = JSONArray[i].farPos.world;
+			newSegment.index = roadArray[i].index;
+			newSegment.color = roadArray[i].color;
+			newSegment.nearPos.world = roadArray[i].nearPos.world;
+			newSegment.farPos.world = roadArray[i].farPos.world;
 			
 			if(i == 0) {
 				currentBaseSegment = newSegment;
 			}
 			
-			if(JSONArray[i].decorations.length > 0) {
-				for(let j = 0; j < JSONArray[i].decorations.length; j++) {
-					const imageName = imgNameForFileName(JSONArray[i].decorations[j].fileName);
-					newSegment.decorations.push(new RoadsideDecoration(imageName, JSONArray[i].decorations[j].world));
+			if(roadArray[i].decorations.length > 0) {
+				for(let j = 0; j < roadArray[i].decorations.length; j++) {
+					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
+					newSegment.decorations.push(new RoadsideDecoration(imageName, roadArray[i].decorations[j].world));
 				}
 			}
 			segments.push(newSegment);
 		}
 		
-		this.addFinishLine();
+//		this.addFinishLine();
 	}
 	
-	this.addFinishLine = function() {
+	this.addRoadSectionWithJSONArray = function(roadArray) {
+		const initialTrackLength = segments.length;
+		this.indexOfFinishLine = initialTrackLength;
+		
+		for(let i = 0; i < roadArray.length; i++) {
+			const newSegment = new Segment();
+			newSegment.index = roadArray[i].index + initialTrackLength;
+			const lastColor = segments[segments.length - 1].color;
+			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
+			
+			const lastFarPos = segments[segments.length - 1].farPos.world;
+			newSegment.nearPos.world = lastFarPos;
+			newSegment.farPos.world = {x:lastFarPos.x + (roadArray[i].farPos.world.x - roadArray[i].nearPos.world.x), 
+									   y:lastFarPos.y + (roadArray[i].farPos.world.y - roadArray[i].nearPos.world.y), 
+									   z:lastFarPos.z + segmentLength};
+			
+			if(roadArray[i].decorations.length > 0) {
+				for(let j = 0; j < roadArray[i].decorations.length; j++) {
+					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
+					const existingWorldPos = roadArray[i].decorations[j].world;
+					const newWorldPos = {x:existingWorldPos.x, y:newSegment.nearPos.world.y, z:existingWorldPos.z + (segmentLength * initialTrackLength)};
+					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
+				}
+			}
+			segments.push(newSegment);
+		}
+
+	}
+	
+/*	this.addFinishLine = function() {
 		const JSONArray = JSON.parse(finish);
 		const initialTrackLength = segments.length;
 		this.indexOfFinishLine = initialTrackLength;
@@ -182,7 +211,7 @@ function Road(frustum) {
 			}
 			segments.push(newSegment);
 		}
-	}
+	}*/
 		
 	this.clearRoad = function() {
 		segments = [];

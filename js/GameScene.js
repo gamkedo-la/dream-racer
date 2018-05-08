@@ -4,7 +4,20 @@ function GameScene(data) {
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
-	this.road.newRoadWithJSON(example);
+	
+	const roadReferences = [
+		JSON.parse(straightAndLevel),
+		JSON.parse(normalHillCrest),
+		JSON.parse(straightAndLevel),
+		JSON.parse(finish)
+	];
+	this.road.newRoadWithJSONArray(roadReferences[0]);
+	if(roadReferences.length > 1) {
+		for(let i = 1; i < roadReferences.length; i++) {
+			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
+		}
+	}
+	
 	this.currentZIndex = 0;
 	this.player = new Player();
 	

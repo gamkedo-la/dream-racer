@@ -4,7 +4,20 @@ function EditorScene(data) {
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
-	this.road.addSegment();
+	const roadReferences = [
+		JSON.parse(gentleLeft_Level),
+		JSON.parse(normalHillCrest),
+		JSON.parse(normalHillValley),
+//		JSON.parse(finish)
+	];
+	if(roadReferences.length > 0) {
+		this.road.newRoadWithJSONArray(roadReferences[0]);
+		for(let i = 1; i < roadReferences.length; i++) {
+			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
+		}
+	} else {
+		this.road.addSegment();
+	}
 	this.currentZIndex = 0;
 	
 	const UI_SIZE = {width:32, height:32}
