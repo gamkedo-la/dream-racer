@@ -133,7 +133,6 @@ function Road(frustum) {
 	}
 	
 	this.newRoadWithJSONArray = function(roadArray) {
-//		const JSONArray = JSON.parse(JSONRoad);
 		for(let i = 0; i < roadArray.length; i++) {
 			const newSegment = new Segment();
 			newSegment.index = roadArray[i].index;
@@ -153,8 +152,6 @@ function Road(frustum) {
 			}
 			segments.push(newSegment);
 		}
-		
-//		this.addFinishLine();
 	}
 	
 	this.addRoadSectionWithJSONArray = function(roadArray) {
