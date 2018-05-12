@@ -70,7 +70,7 @@ function mainMenuStates() {
 		var creditsFont = fonts.CreditsText;
 		colorText("Name: ShadyDave Roles: Placeholder music available from freesound.org - ",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("       https://freesound.org/people/ShadyDave/sounds/325647/",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText("Name: H Trayford - Roles: Game Lead, Prototype, Level Editor",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
