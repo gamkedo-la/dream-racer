@@ -96,6 +96,9 @@ function keyPress(evt) {
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
+			if((windowState.help) || (windowState.credits) || (windowState.playing)) {
+				backToMainMenu();
+			}
 			keyUsedByGame = true;
 			holdBackSpace = true;
 			break;
@@ -109,8 +112,6 @@ function keyPress(evt) {
 				} else {
 					startGame();
 				}
-			} else if(windowState.credits) {
-				backToMainMenuFromCredits();
 			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
 				continueEditing();
 			}

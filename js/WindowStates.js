@@ -77,7 +77,7 @@ function mainMenuStates() {
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+		colorText('Press [Backspace] to go Back to Menu',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
@@ -89,6 +89,7 @@ function mainMenuStates() {
 		colorText(" Optional Inputs: Arrows for left/right, A/D for moving cannon left/right, spacebar for shooting",0,210 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
 		colorText("2) Pick-up power-ups using Excalibur",250,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("3) [P] to pause and resume game",250,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText('Press [Backspace] to Return to Main Menu',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 		colorText('Press [Enter] to Start game',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 	} else if(windowState.playing) {
 		opacity = 1;
@@ -165,7 +166,7 @@ function openCredits() {
 	windowState.credits = true;
 }
 
-function backToMainMenuFromCredits() {
+function backToMainMenu() {
 	if(isPaused) {
 		return;
 	}
