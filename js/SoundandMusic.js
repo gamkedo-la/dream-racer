@@ -13,15 +13,15 @@ const VOLUME_INCREMENT = 0.05;
 function configureGameAudio() {
 	currentBackgroundMusic = new backgroundMusicClass();
 	
-	musicVolume = parseFloat(localStorage.getItem(localStorageKey.MusicVolume));
-	effectsVolume = parseFloat(localStorage.getItem(localStorageKey.SFXVolume));
+	musicVolume = localStorage.getItem(localStorageKey.MusicVolume);
+	effectsVolume = localStorage.getItem(localStorageKey.SFXVolume);
 	
 	if(musicVolume === null) {
 		musicVolume = 1;
 	}
 	
 	if(effectsVolume === null) {
-		effectsVolume.volume = 1;
+		effectsVolume = 1;
 	}	
 }
 
@@ -40,7 +40,10 @@ function setFormat() {
     }
 }
 
-function backgroundMusicClass() {	
+function backgroundMusicClass() {
+
+    let musicSound = null;
+	
     this.loopSong = function(filenameWithPath) {
         setFormat(); // calling this to ensure that audioFormat is set before needed
 
@@ -71,7 +74,7 @@ function backgroundMusicClass() {
 	
 	this.setVolume = function(volume) {
 		// Multipliction by a boolean serves as 1 for true and 0 for false
-		effectsVolume.volume = Math.pow(volume * !isMuted, 2);
+		musicSound.volume = Math.pow(volume * !isMuted, 2);
 		
 		if(musicSound.volume == 0) {
 			musicSound.pause();
