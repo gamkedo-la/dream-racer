@@ -125,25 +125,19 @@ function EditorScene(data) {
 		}
 		
 		if(holdLeft) {
-/*			if(this.road.hasSelectedSegments()) {
-				this.didEdit(editAction.MoveLeft);
-				holdLeft = false;
-			} else if(this.road.hasSelectedDecoration()) {
+			if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationLeft();
-			} else {*/
+			} else {
 				this.camera.editMove();
-//			}
+			}
 		}
 		
 		if(holdRight) {
-/*			if(this.road.hasSelectedSegments()) {
-				this.didEdit(editAction.MoveRight);
-				holdRight = false;
-			} else if(this.road.hasSelectedDecoration()) {
+			if(this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationRight();
-			} else {*/
+			} else {
 				this.camera.editMove();
-//			}
+			}
 		}
 		
 		if(holdUp) {
