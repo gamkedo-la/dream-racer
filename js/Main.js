@@ -179,14 +179,17 @@ function editingMoveAll() {
 	scene.move();
 };
 
-// optimization todo: support wider background wrap but draw only on-screen portion
 function wrappedDraw(whichImg, pixelOffset) {
-    var wrappedOffset = Math.floor(pixelOffset % whichImg.width);
+	let wrappedOffset = Math.floor(pixelOffset % whichImg.width);
+	if(pixelOffset < 0) {
+		wrappedOffset = whichImg.width + wrappedOffset;
+	}
+
     canvasContext.drawImage(whichImg, 0, 0,
         whichImg.width - wrappedOffset, whichImg.height,
         wrappedOffset, 0,
         whichImg.width - wrappedOffset, whichImg.height);
-    var drawSize = (whichImg.width - wrappedOffset);
+    let drawSize = (whichImg.width - wrappedOffset);
     if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
         canvasContext.drawImage(whichImg, drawSize, 0,
             wrappedOffset, whichImg.height,

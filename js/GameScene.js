@@ -25,7 +25,7 @@ function GameScene(data) {
 	this.player = new Player();
 	
 	this.draw = function() {
-		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
+		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 10), data.middleGroundPic, 0);
 		this.road.draw(this.camera.position);
 
 		this.player.draw();

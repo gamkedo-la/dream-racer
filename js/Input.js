@@ -96,7 +96,7 @@ function keyPress(evt) {
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
-			if((windowState.help) || (windowState.credits) || (windowState.playing)) {
+			if((windowState.help) || (windowState.credits) || (windowState.playing) || (windowState.editing)) {
 				backToMainMenu();
 			}
 			keyUsedByGame = true;
