@@ -1,5 +1,5 @@
 //WindowStates
-let firstLoad = true;
+let firstLoad;
 let isPaused = false; 
 let windowState = {
 	inFocus : true,
@@ -142,6 +142,7 @@ function openHelp() {
 	windowState.mainMenu = false;
 	windowState.help = true;
 	firstLoad = false;
+	localStorage.setItem(localStorageKey.FirstLoad, firstLoad);
 }
 
 function showEditorHelp() {

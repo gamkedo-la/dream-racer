@@ -2,14 +2,15 @@
 let canvas;
 let canvasContext;
 
-let debug = false;
+const DEBUG = true;
 
 let scene;
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
 	MusicVolume:"musicVolume",
-	SFXVolume:"effectsVolume"
+	SFXVolume:"effectsVolume",
+	FirstLoad:"firstLoad"
 }
 
 const assetPath = {
@@ -96,17 +97,27 @@ window.onload = function() {
     TitleTextX = canvas.width / 2;
     subTitleTextX = canvas.width / 2;
     opacity = 0;
+    
+    firstLoad = (localStorage.getItem(localStorageKey.FirstLoad) == true);
+    if((firstLoad === null) || (firstLoad === undefined)) {
+	    firstLoad = true;
+	    localStorage.setItem(localStorageKey.FirstLoad, true);
+    }
 
 	initializeInput();
 	configureGameAudio();
 	loadAudio();
-	currentBackgroundMusic.loopSong(menuMusic);
 	loadImages();
+	currentBackgroundMusic.loopSong(menuMusic);
 	mainMenu.initialize();
 };
 
 function loadingDoneSoStartGame() {
     gameUpdate = setInterval(update, 1000 / 30);
+
+	if(DEBUG) {
+		startGame();
+	}
 };
 
 function update() {
@@ -117,6 +128,7 @@ function startGame() {
 	if(firstLoad) {
 		openHelp();
 		firstLoad = false;
+		localStorage.setItem(localStorageKey.FirstLoad, false);
 		return;
 	} 
 

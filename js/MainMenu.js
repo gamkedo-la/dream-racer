@@ -146,7 +146,7 @@ mainMenu = {
 			
 			colorText(this.buttons[i].txt, posX, posY, textColor.Blue, fonts.ButtonTitle, textAlignment.Left, opacity);
 			
-			if(debug) { // draw bounds for buttons in semi-transparent colors
+			if(DEBUG) { // draw bounds for buttons in semi-transparent colors
 				const colors = [textColor.Red, textColor.Green, textColor.Blue, textColor.Aqua, textColor.Fuchaia, textColor.Yellow];
 				
 				const tempAlpha = canvasContext.globalAlpha;

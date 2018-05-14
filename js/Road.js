@@ -487,8 +487,6 @@ function Road(frustum) {
 	}
 	
 	this.saveTrack = function() {
-//		const paragraph = document.getElementById("debugText");
-//		paragraph.innerHTML = JSON.stringify(segments);
 		console.log(JSON.stringify(segments));
 	}
 }//end of Road Class
