@@ -8,11 +8,13 @@ function Camera(initialPosition) {
 		this.position = initialPosition;
 	}
 	
-	this.move = function() {
-		if(holdRight) {
-			this.position.x -= (5 * panSpeed);//moving the world, so backwards
-		} else if(holdLeft) {
-			this.position.x += (5 * panSpeed);
+	this.move = function(forward, turnRate) {
+		this.position.z += forward;
+		
+		if((holdRight) || (holdD)) {
+			this.position.x -= turnRate;//moving the world, so backwards
+		} else if((holdLeft) || (holdA)) {
+			this.position.x += turnRate;
 		}
 	}
 	
@@ -30,9 +32,5 @@ function Camera(initialPosition) {
 				this.position.z = CAMERA_INITIAL_Z;
 			}
 		}
-	}
-	
-	this.advance = function(amount) {
-		this.position.z += amount;
 	}
 }

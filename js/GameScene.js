@@ -48,9 +48,11 @@ function GameScene(data) {
 	this.move = function() {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		
+		this.player.move();
+		
 		if(baseSegment.index < (this.road.indexOfFinishLine + 2)) {
-			this.camera.advance(this.player.speed);
-			this.camera.move();
+//			this.camera.advance(this.player.speed);
+			this.camera.move(this.player.speed, this.player.turnRate);
 	
 			
 			if(baseSegment != null) {

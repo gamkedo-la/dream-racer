@@ -59,6 +59,7 @@ let holdLeft, holdRight, holdUp, holdDown = false;
 let holdEscape, holdPlus, holdMinus = false;
 let holdShift, holdA, holdCmd_Cntrl = false;
 let holdS, holdBackSpace, holdD = false;
+let holdW, holdX = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -213,8 +214,10 @@ function keyPress(evt) {
 		case KEY_V:
 			break;
 		case KEY_W:
+			holdW = true;
 			break;
 		case KEY_X:
+			holdX = true;
 			break;
 		case KEY_Y:
 			break;
@@ -357,8 +360,10 @@ function keyRelease(evt) {
 		case KEY_V:
 			break;
 		case KEY_W:
+			holdW = false;
 			break;
 		case KEY_X:
+			holdX = false;
 			break;
 		case KEY_Y:
 			break;
