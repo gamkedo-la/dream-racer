@@ -24,7 +24,7 @@ function loadImages() {
 		//temp image
 	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
 	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
-	imageList.push({imgName: tempRightTurnSignPic, theFile: "RightTurnSign.png"});
+	imageList.push({imgName: tempRightTurnSignPic, theFile: "RightTurnSignNEW.png"});
 	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
 
     picsToLoad = imageList.length;
