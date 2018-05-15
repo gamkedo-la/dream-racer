@@ -73,6 +73,8 @@ function Road(frustum) {
 			];
 			
 			let groundColor = "#11dd11";
+			let leftLaneLine = [];
+			let rightLaneLine = [];
 			if(thisSegment.index % 2 == 0) {
 				groundColor = "#00aa00";
 			}
@@ -83,11 +85,44 @@ function Road(frustum) {
 				{x: canvas.width, y: thisSegment.nearPos.screen.y},
 				{x: canvas.width, y: thisSegment.farPos.screen.y}
 			];
-
-//			minY = thisSegment.farPos.screen.y;
+			
+			const leftRoadLinePath = [
+				{x: thisSegment.path[0].x + 0.005 * thisSegment.farWidth, y: thisSegment.path[0].y},
+				{x: thisSegment.path[1].x + 0.005 * thisSegment.nearWidth, y: thisSegment.path[1].y},
+				{x: thisSegment.path[1].x + 0.015 * thisSegment.nearWidth, y: thisSegment.path[1].y},
+				{x: thisSegment.path[0].x + 0.015 * thisSegment.farWidth, y: thisSegment.path[0].y},
+			];
+			
+			const rightRoadLinePath = [
+				{x: thisSegment.path[2].x - 0.005 * thisSegment.nearWidth, y: thisSegment.path[2].y},
+				{x: thisSegment.path[3].x - 0.005 * thisSegment.farWidth, y: thisSegment.path[3].y},
+				{x: thisSegment.path[3].x - 0.015 * thisSegment.farWidth, y: thisSegment.path[3].y},
+				{x: thisSegment.path[2].x - 0.015 * thisSegment.nearWidth, y: thisSegment.path[2].y},
+			];
 			
 			fillPath(thisSegment.groundPath, groundColor);
 			fillPath(thisSegment.path, thisSegment.color);
+			fillPath(leftRoadLinePath, 'white');
+			fillPath(rightRoadLinePath, 'white');
+			
+			if(thisSegment.index % 2 == 0) {
+				const leftLaneLine =  [
+					{x: thisSegment.path[0].x + 0.205 * thisSegment.farWidth, y: thisSegment.path[0].y},
+					{x: thisSegment.path[1].x + 0.205 * thisSegment.nearWidth, y: thisSegment.path[1].y},
+					{x: thisSegment.path[1].x + 0.215 * thisSegment.nearWidth, y: thisSegment.path[1].y},
+					{x: thisSegment.path[0].x + 0.215 * thisSegment.farWidth, y: thisSegment.path[0].y},
+				];
+				
+				const rightLaneLine =  [
+					{x: thisSegment.path[2].x - 0.205 * thisSegment.nearWidth, y: thisSegment.path[2].y},
+					{x: thisSegment.path[3].x - 0.205 * thisSegment.farWidth, y: thisSegment.path[3].y},
+					{x: thisSegment.path[3].x - 0.215 * thisSegment.farWidth, y: thisSegment.path[3].y},
+					{x: thisSegment.path[2].x - 0.215 * thisSegment.nearWidth, y: thisSegment.path[2].y},
+				];
+				
+				fillPath(leftLaneLine, 'white');
+				fillPath(rightLaneLine, 'white');
+			}
 			
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
 				if(thisSegment.decorations[j].world.z <= cameraPos.z) {continue;}
@@ -122,6 +157,19 @@ function Road(frustum) {
 				farthest.z = thisSegment.nearPos.world.z;
 			}
 		}
+	}
+	
+	
+	this.leftEdge = function() {
+		if((currentBaseSegment == null) || (currentBaseSegment.path.length == 0)) {return 0};
+		
+		return currentBaseSegment.path[0].x;
+	}
+	
+	this.rightEdge = function() {
+		if((currentBaseSegment == null) || (currentBaseSegment.path.length == 0)) {return canvas.width};
+		
+		return currentBaseSegment.path[3].x;
 	}
 		
 	const findsegment = function(zPos) {

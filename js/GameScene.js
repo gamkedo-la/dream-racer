@@ -48,10 +48,22 @@ function GameScene(data) {
 	this.move = function() {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		
-		this.player.move();
+		if(baseSegment.path.length == 0) {return;}
+		
+		if(baseSegment.path[0].x > 1.05 * this.player.position.x) {//1.05 helps ensure a tire is off the road
+			this.player.isOffRoad = true;
+			console.log("Too far left");
+		} else if(baseSegment.path[3].x < this.player.position.x + (0.80 * this.player.width)) {//0.80 helps ensure a tire is off the road
+			this.player.isOffRoad = true;
+			console.log("Too far right");
+		} else {
+			this.player.isOffRoad = false;
+			console.log("Just right");
+		}
+		
+		this.player.move(baseSegment.farPos.world.y);
 		
 		if(baseSegment.index < (this.road.indexOfFinishLine + 2)) {
-//			this.camera.advance(this.player.speed);
 			this.camera.move(this.player.speed, this.player.turnRate);
 	
 			
