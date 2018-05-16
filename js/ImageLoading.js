@@ -1,7 +1,8 @@
 //Image Loading
 const tempBackgroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
-const tempRightTurnSignPic = document.createElement("img");
+const leftTurnSignPic = document.createElement("img");
+const rightTurnSignPic = document.createElement("img");
 const tempCheckeredFlagPic = document.createElement("img");
 const imageList = [];
 
@@ -24,7 +25,8 @@ function loadImages() {
 		//temp image
 	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
 	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
-	imageList.push({imgName: tempRightTurnSignPic, theFile: "RightTurnSign.png"});
+	imageList.push({imgName: leftTurnSignPic, theFile: "LeftTurnSign.png"});
+	imageList.push({imgName: rightTurnSignPic, theFile: "RightTurnSign.png"});
 	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
 
     picsToLoad = imageList.length;
