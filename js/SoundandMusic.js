@@ -1,13 +1,13 @@
 //SoundandMusic
-let audioFormat;
+//let audioFormat;
 let musicSound = null;
-let pauseSound;
-let resumeSound;
+//let pauseSound;
+//let resumeSound;
 let menuMusic;
-let musicVolume;
+//let musicVolume;
 let effectsVolume;
 let currentBackgroundMusic;
-let isMuted = false;
+//let isMuted = false;
 const VOLUME_INCREMENT = 0.05;
 
 function configureGameAudio() {
@@ -26,9 +26,9 @@ function configureGameAudio() {
 }
 
 function loadAudio() {
-	pauseSound = new SoundOverlapsClass(assetPath.Audio + "PauseSound");
-	resumeSound = new SoundOverlapsClass(assetPath.Audio + "ResumeSound");
-	menuMusic = assetPath.Audio + "menuMusic";
+	//pauseSound = new SoundOverlapsClass(assetPath.Audio + "PauseSound");
+	//resumeSound = new SoundOverlapsClass(assetPath.Audio + "ResumeSound");
+	menuMusic = assetPath.Audio + "menuMusic ";
 }
 
 function setFormat() {

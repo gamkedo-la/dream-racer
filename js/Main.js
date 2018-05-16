@@ -122,6 +122,7 @@ function loadingDoneSoStartGame() {
 
 function update() {
     mainMenuStates();
+    AudioEventManager.updateEvents();
 };
 
 function startGame() {
