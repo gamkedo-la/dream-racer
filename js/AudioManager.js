@@ -3,7 +3,8 @@ setAudioPath("./audio/");
 
 //set sound clips and music tracks here
 
-//var menuMusic = new musicTrackLoop("menuMusic", 50.5);
+var menuMusic = new musicTrackLoop("menuMusic", 50.5);
+var currentBackgroundMusic = new musicContainer([menuMusic]);
 
 MusicVolumeManager.setVolume(0.7);
 
@@ -267,6 +268,7 @@ function scaleRange(inputStart, inputEnd, outputStart, outputEnd, value) {
 }
 
 //Game hooks
+const VOLUME_INCREMENT = 0.5;
 var engineIndex = [engine_idle,
 				   engine_0500,
 				   engine_1000,
@@ -312,4 +314,18 @@ function setEngineAudioFromRPMs(RPMs) {
 			}
 		}
 	}
+}
+
+function loadAudio() {
+	menuMusic.play();
+}
+
+function turnVolumeUp() {
+	MusicVolumeManager.setVolume(musicVolume + VOLUME_INCREMENT);
+	SFXVolumeManager.setVolume(musicVolume + VOLUME_INCREMENT);
+}
+
+function turnVolumeDown() {
+	MusicVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
+	SFXVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
 }

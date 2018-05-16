@@ -105,10 +105,8 @@ window.onload = function() {
     }
 
 	initializeInput();
-	configureGameAudio();
 	loadAudio();
 	loadImages();
-	currentBackgroundMusic.loopSong(menuMusic);
 	mainMenu.initialize();
 };
 

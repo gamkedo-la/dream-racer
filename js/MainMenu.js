@@ -37,16 +37,16 @@ mainMenu = {
 				txt : sliderTitle.MusicVolume,
 				handlePosition : musicVolume,
 				onSlide : function(volume) {
-					setMusicVolume(volume);
+					MusicVolumeManager.setVolume(volume);
 					localStorage.setItem(localStorageKey.MusicVolume, musicVolume);
 				}
 			},
 			{
 				txt : sliderTitle.SFXVolume,
-				handlePosition : effectsVolume,
+				handlePosition : sfxVolume,
 				onSlide : function(volume) {
-					setEffectsVolume(volume);
-					localStorage.setItem(localStorageKey.SFXVolume, effectsVolume);
+					SFXVolumeManager.setVolume(volume);
+					localStorage.setItem(localStorageKey.SFXVolume, sfxVolume);
 				}
 			}
 		];
