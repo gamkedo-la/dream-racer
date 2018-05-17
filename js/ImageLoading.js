@@ -28,6 +28,7 @@ function loadImages() {
 	//signs
 	imageList.push({imgName: leftTurnSignPic, theFile: "LeftTurnSign.png"});
 	imageList.push({imgName: rightTurnSignPic, theFile: "RightTurnSign.png"});
+	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
 	imageList.push({imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png"});
 	imageList.push({imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png"});
 	imageList.push({imgName: otherDriversSignPic, theFile: "OtherDriversSign.png"});
