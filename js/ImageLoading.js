@@ -25,9 +25,23 @@ function loadImages() {
 		//temp image
 	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
 	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
+	//signs
 	imageList.push({imgName: leftTurnSignPic, theFile: "LeftTurnSign.png"});
 	imageList.push({imgName: rightTurnSignPic, theFile: "RightTurnSign.png"});
-	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
+	imageList.push({imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png"});
+	imageList.push({imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png"});
+	imageList.push({imgName: otherDriversSignPic, theFile: "OtherDriversSign.png"});
+	imageList.push({imgName: roadNarrowSignPic, theFile: "RoadNarrowSign.png"});
+	imageList.push({imgName: warningSignPic, theFile: "WarningSign.png"});
+	imageList.push({imgName: questionSignPic, theFile: "QuestionSign.png"});
+	imageList.push({imgName: iceSignPic, theFile: "IceSignV0.png"});
+	imageList.push({imgName: snowflakeSignPic, theFile: "IceSignV1.png"});
+	imageList.push({imgName: upHillGenericSignPic, theFile: "HillUpSignV0.png"});
+	imageList.push({imgName: upHillAheadSignPic, theFile: "HillUpSignV1.png"});
+	imageList.push({imgName: upHillSignPic, theFile: "HillUpSignV2.png"});
+	imageList.push({imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png"});
+	imageList.push({imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png"});
+	imageList.push({imgName: downHillSignPic, theFile: "HillDownSignV2.png"});
 
     picsToLoad = imageList.length;
 
