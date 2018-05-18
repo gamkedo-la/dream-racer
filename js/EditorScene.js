@@ -30,6 +30,15 @@ function EditorScene(data) {
 		array.push(new DecorationUIElement(leftTurnSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}));
 		array.push(new DecorationUIElement(rightTurnSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}));
 		array.push(new DecorationUIElement(tempCheckeredFlagPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(curveyRoadSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(questionSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(warningSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(speedLimitSlowSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(speedLimitFastSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(roadNarrowSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(otherDriversSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(hardLeftTurnSignPic, {x:canvas.width - (2 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height}));
+		array.push(new DecorationUIElement(hardRightTurnSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height}));
 		return array;
 	}
 	const decorationUIElements = buildUIElements();

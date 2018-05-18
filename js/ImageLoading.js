@@ -4,6 +4,27 @@ const tempPlayerCarPic = document.createElement("img");
 const leftTurnSignPic = document.createElement("img");
 const rightTurnSignPic = document.createElement("img");
 const tempCheckeredFlagPic = document.createElement("img");
+const speedLimitFastSignPic  = document.createElement("img");
+const speedLimitSlowSignPic = document.createElement("img");
+const otherDriversSignPic = document.createElement("img");
+const roadNarrowSignPic = document.createElement("img");
+const warningSignPic = document.createElement("img");
+const questionSignPic = document.createElement("img");
+const iceSignPic = document.createElement("img");
+const snowflakeSignPic = document.createElement("img");
+const upHillGenericSignPic = document.createElement("img");
+const upHillAheadSignPic = document.createElement("img");
+const upHillSignPic = document.createElement("img");
+const downHillGenericSignPic = document.createElement("img");
+const downHillAheadSignPic = document.createElement("img");
+const downHillSignPic = document.createElement("img");
+const curveyRoadSignPic = document.createElement("img");
+const hardLeftTurnSignPic = document.createElement("img");
+const hardRightTurnSignPic = document.createElement("img");
+const sideBarrierStartPic = document.createElement("img");
+const sideBarrierMidPic = document.createElement("img");
+const sideBarrierEndPic = document.createElement("img");
+
 const imageList = [];
 
 let picsToLoad = 0;
@@ -22,7 +43,7 @@ function beginLoadingImage(imgVar, fileName) {
 
 function loadImages() {
     
-		//temp image
+	//temp image
 	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
 	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
 	//signs
@@ -43,6 +64,13 @@ function loadImages() {
 	imageList.push({imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png"});
 	imageList.push({imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png"});
 	imageList.push({imgName: downHillSignPic, theFile: "HillDownSignV2.png"});
+	imageList.push({imgName: curveyRoadSignPic, theFile: "CurveyRoadSign.png"});
+	imageList.push({imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png"});
+	imageList.push({imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png"});
+	// barriers
+	imageList.push({imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png"});
+	imageList.push({imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png"});
+	imageList.push({imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png"});
 
     picsToLoad = imageList.length;
 
