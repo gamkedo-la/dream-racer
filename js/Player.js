@@ -76,5 +76,7 @@ function Player() {
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 		
 		currentRoadY = nextRoadY;
+
+		setEngineAudioFromRPMs(this.speed/15*6000);//temporary implementation until gear shifting is implemented
 	}
 }
