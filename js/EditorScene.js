@@ -5,14 +5,14 @@ function EditorScene(data) {
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
 	const roadReferences = [
-		JSON.parse(example)
-/*		JSON.parse(straightAndLevel),
+//		JSON.parse(example)
+		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest),
 		JSON.parse(sCurveLeftFirst),
 		JSON.parse(doubleBump),
 		JSON.parse(multiCurveRightFirst),
 		JSON.parse(normalHillValley),
-		JSON.parse(finish)*/
+//		JSON.parse(finish)
 	];
 	if(roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
@@ -215,7 +215,7 @@ function EditorScene(data) {
 				this.road.clearDecorationSelection();
 				mouseButtonHeld = false;
 			} else {
-				reactToUISelection(mouseX, mouseY);
+				this.reactToUISelection(mouseX, mouseY);
 			}//end if-else if-else
 		}//end if mouseButtonHeld
 		
