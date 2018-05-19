@@ -27,50 +27,6 @@ function EditorScene(data) {
 	const UI_SIZE = {width:32, height:32}
 	
 	const buildUIElements = function() {
-		
-/*
-	
-	
-	
-	
-	const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-
-const   = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-const  = document.createElement("img");
-	
-	
-	
-	
-	
-	
-	
-*/
-		
-		
-		
-		
 		const array = [
 			new DecorationUIElement(tempCheckeredFlagPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}),
 			new DecorationUIElement(curveyRoadSignPic, {x:canvas.width - (1 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}),
@@ -242,6 +198,13 @@ const  = document.createElement("img");
 				this.road.clearDecorationSelection();
 			} else if(this.road.selectedGroundAt(mousePos) != null) {
 				for (let i = 0; i < decorationUIElements.length; i++) {
+					if(decorationUIElements[i].didClickInside({x:mouseX, y:mouseY})) {
+						this.reactToUISelection(mouseX, mouseY);
+						return;
+					}
+				}
+				
+				for (let i = 0; i < decorationUIElements.length; i++) {
 					if(decorationUIElements[i].selected) {
 						//Need to place this element on the map
 						this.placeDecorationOnGround(mousePos, this.road.selectedGround);
@@ -252,7 +215,20 @@ const  = document.createElement("img");
 				this.road.clearDecorationSelection();
 				mouseButtonHeld = false;
 			} else {
-				mouseButtonHeld = false;
+				reactToUISelection(mouseX, mouseY);
+			}//end if-else if-else
+		}//end if mouseButtonHeld
+		
+		if(holdEscape) {
+			this.road.clearSelection();
+			this.road.clearDecorationSelection();
+			this.clearDecorationUISelection();
+			holdEscape = false;
+		}		
+	}
+	
+	this.reactToUISelection = function(mouseX, mouseY) {
+		mouseButtonHeld = false;
 				let isAnyElementSelected = false;
 				for (let i = 0; i < decorationUIElements.length; i++) {
 					if(decorationUIElements[i].didClickInside({x:mouseX, y:mouseY})) {
@@ -271,15 +247,6 @@ const  = document.createElement("img");
 				if(!isAnyElementSelected) {
 					this.clearDecorationUISelection();
 				}
-			}//end if-else if-else
-		}//end if mouseButtonHeld
-		
-		if(holdEscape) {
-			this.road.clearSelection();
-			this.road.clearDecorationSelection();
-			this.clearDecorationUISelection();
-			holdEscape = false;
-		}		
 	}
 	
 	this.clearDecorationUISelection = function() {
