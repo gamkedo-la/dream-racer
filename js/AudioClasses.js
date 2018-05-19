@@ -1,3 +1,23 @@
+/*
+AudioClasses.js and AudioManager,js are an attemp my Michael Fewkes to make more complex audio behaviors simpler to implement.
+
+Functions that all sound objects share:
+.play()    plays from the beggining of the audio file
+.stop()	    stops playback and resets playback time
+.resume()    plays file from last playback time
+.pause()    stops playback without resetting playback time
+.setVolume()/.getVolume()    reports and sets object volume
+.setMixLevel()    sets a volume pre setVolume(), used for settimg a volume relative to the mix
+.setTime()/.getTime()    controls the playback time
+.getDuration()    reports the duration of the file
+.getPaused()    reports true if the file is not currently playing
+
+Looped files:
+To work around HTML's choppy looping, be don't use a traditional looped track.  Instead we have a tail extend 
+out past the end of the loop and specify a duration at which the loop should happen.  Instead of having pops, 
+clicks, and chops, we get a clean loop with no gaps of silence.
+*/
+
 //General
 var isMuted = false;
 
@@ -42,7 +62,7 @@ function getRandomVolume(){
 	return randomVolume.toFixed(2);
 }
 
-function sfxClipSingle(filename) {
+function sfxClipSingle(filename) {//A simple, single buffer sound clip
 	var soundFile = new Audio(audioPath+filename+audioFormat());
 	soundFile.onerror = function(){soundFile = new Audio(audioPath+filename+audioFormat(true))};
 	var clipVolume = 1;
@@ -122,7 +142,7 @@ function sfxClipSingle(filename) {
 	}
 }
 
-function sfxClipOverlap(filename, voices = 2) {
+function sfxClipOverlap(filename, voices = 2) {//A sound clip with as many buffers as specified
 	var soundFile = new array(voices);
 	var maxVoices = soundfile.length;
 
@@ -222,7 +242,7 @@ function sfxClipOverlap(filename, voices = 2) {
 	}
 }
 
-function sfxClipLoop(filename, playLength) {
+function sfxClipLoop(filename, playLength) {//Double buffer sound file that loops
 	var soundFile = new Array(new Audio(audioPath+filename+audioFormat()), new Audio(audioPath+filename+audioFormat()));
 	soundFile[0].onerror = function(){soundFile[0] = new Audio(audioPath+filename+audioFormat(true))}
 	soundFile[1].onerror = function(){soundFile[1] = new Audio(audioPath+filename+audioFormat(true))}
@@ -323,7 +343,7 @@ function sfxClipLoop(filename, playLength) {
 	}
 }
 
-function sfxContainer(clipList) {
+function sfxContainer(clipList) {//Basic Container
 	var soundFile = [];
 	currentClip = 0;
 
@@ -409,7 +429,7 @@ function sfxContainer(clipList) {
 	}
 }
 
-function sfxContainerRandom(clipList) {
+function sfxContainerRandom(clipList) {//Plays a random list-item on playback
 	var soundFile = [];
 	currentClip = 0;
 
@@ -531,7 +551,7 @@ function musicVolumeManager() {
 	}
 }
 
-function musicTrack(filename, playLength) {
+function musicTrack(filename, playLength) {//Single buffer music file
 	var musicFile = new Audio(audioPath+filename+audioFormat());
 	musicFile.onerror = function(){musicFile = new Audio(audioPath+filename+audioFormat(true))};
 	var duration = musicFile.duration;
@@ -619,7 +639,7 @@ function musicTrack(filename, playLength) {
 	return this;
 }
 
-function musicTrackLoop(filename, playLength) {
+function musicTrackLoop(filename, playLength) {//Double buffer music file that loops
 	var musicFile = new Array(new Audio(audioPath+filename+audioFormat()), new Audio(audioPath+filename+audioFormat()));
 	musicFile[0].onerror = function(){musicFile[0] = new Audio(audioPath+filename+audioFormat(true))}
 	musicFile[1].onerror = function(){musicFile[1] = new Audio(audioPath+filename+audioFormat(true))}
@@ -723,7 +743,7 @@ function musicTrackLoop(filename, playLength) {
 	}
 }
 
-function musicContainer(trackList) {
+function musicContainer(trackList) {//Basic containers
 	var musicTrack = [];
 	var currentTrack = 0;
 
@@ -829,7 +849,7 @@ function musicContainer(trackList) {
 	}
 }
 
-function musicContainerRandom(trackList) {
+function musicContainerRandom(trackList) {//Picks random list-item to play on play
 	var musicTrack = [];
 	var currentTrack = 0;
 	var lastTrack = 0;
@@ -937,7 +957,7 @@ function musicContainerRandom(trackList) {
 	}
 }
 
-function musicContainerPlaylistRandom(trackList, maxDurationInSeconds = 180, minDurationInSeconds = 60) {
+function musicContainerPlaylistRandom(trackList, maxDurationInSeconds = 180, minDurationInSeconds = 60) {//Picks new random list-item to play every loop
 	var musicTrack = [];
 	var lastTrack = 0;
 	var playTime = 0;
@@ -1076,7 +1096,7 @@ function musicContainerPlaylistRandom(trackList, maxDurationInSeconds = 180, min
 	}
 }
 
-function musicContainerSequence(trackList) {
+function musicContainerSequence(trackList) {//Plays list-items in order
 	var musicTrack = [];
 	var lastTrack = 0;
 	var currentTrack = 0;
