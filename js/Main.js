@@ -149,9 +149,11 @@ function startGame() {
 };
 
 function startEditing() {
+	console.log("Editing");
     windowState.help = false;
     windowState.mainMenu = false;
     windowState.editorHelp = false;
+    windowState.playing = false;
     windowState.editing = true;
     
     scene = new EditorScene({totalWidth:canvas.width,
