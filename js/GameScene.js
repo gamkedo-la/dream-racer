@@ -6,12 +6,13 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 	
 	const roadReferences = [
-		JSON.parse(straightAndLevel),
+		JSON.parse(example),
+/*		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest),
 		JSON.parse(sCurveLeftFirst),
 		JSON.parse(doubleBump),
 		JSON.parse(multiCurveRightFirst),
-		JSON.parse(normalHillValley),
+		JSON.parse(normalHillValley),*/
 		JSON.parse(finish)
 	];
 	this.road.newRoadWithJSONArray(roadReferences[0]);
