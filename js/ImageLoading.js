@@ -1,29 +1,31 @@
 //Image Loading
+
 const tempBackgroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
-const leftTurnSignPic = document.createElement("img");
-const rightTurnSignPic = document.createElement("img");
+
 const tempCheckeredFlagPic = document.createElement("img");
-const speedLimitFastSignPic  = document.createElement("img");
-const speedLimitSlowSignPic = document.createElement("img");
-const otherDriversSignPic = document.createElement("img");
-const roadNarrowSignPic = document.createElement("img");
-const warningSignPic = document.createElement("img");
-const questionSignPic = document.createElement("img");
-const iceSignPic = document.createElement("img");
-const snowflakeSignPic = document.createElement("img");
-const upHillGenericSignPic = document.createElement("img");
-const upHillAheadSignPic = document.createElement("img");
-const upHillSignPic = document.createElement("img");
-const downHillGenericSignPic = document.createElement("img");
-const downHillAheadSignPic = document.createElement("img");
-const downHillSignPic = document.createElement("img");
 const curveyRoadSignPic = document.createElement("img");
 const hardLeftTurnSignPic = document.createElement("img");
 const hardRightTurnSignPic = document.createElement("img");
+const downHillGenericSignPic = document.createElement("img");
+const downHillAheadSignPic = document.createElement("img");
+const downHillSignPic = document.createElement("img");
+const upHillGenericSignPic = document.createElement("img");
+const upHillAheadSignPic = document.createElement("img");
+const upHillSignPic = document.createElement("img");
+const iceSignPic = document.createElement("img");
+const snowflakeSignPic = document.createElement("img");
+const leftTurnSignPic = document.createElement("img");
+const otherDriversSignPic = document.createElement("img");
+const questionSignPic = document.createElement("img");
+const rightTurnSignPic = document.createElement("img");
+const roadNarrowSignPic = document.createElement("img");
+const speedLimitSlowSignPic = document.createElement("img");
+const speedLimitFastSignPic  = document.createElement("img");
+const warningSignPic = document.createElement("img");
+const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
 const sideBarrierMidPic = document.createElement("img");
-const sideBarrierEndPic = document.createElement("img");
 
 const imageList = [];
 
@@ -47,30 +49,30 @@ function loadImages() {
 	imageList.push({imgName: tempBackgroundPic, theFile: "TempBackground.png"});
 	imageList.push({imgName: tempPlayerCarPic, theFile: "PlayerCar.png"});
 	//signs
-	imageList.push({imgName: leftTurnSignPic, theFile: "LeftTurnSign.png"});
-	imageList.push({imgName: rightTurnSignPic, theFile: "RightTurnSign.png"});
 	imageList.push({imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png"});
-	imageList.push({imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png"});
-	imageList.push({imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png"});
-	imageList.push({imgName: otherDriversSignPic, theFile: "OtherDriversSign.png"});
-	imageList.push({imgName: roadNarrowSignPic, theFile: "RoadNarrowSign.png"});
-	imageList.push({imgName: warningSignPic, theFile: "WarningSign.png"});
-	imageList.push({imgName: questionSignPic, theFile: "QuestionSign.png"});
-	imageList.push({imgName: iceSignPic, theFile: "IceSignV0.png"});
-	imageList.push({imgName: snowflakeSignPic, theFile: "IceSignV1.png"});
-	imageList.push({imgName: upHillGenericSignPic, theFile: "HillUpSignV0.png"});
-	imageList.push({imgName: upHillAheadSignPic, theFile: "HillUpSignV1.png"});
-	imageList.push({imgName: upHillSignPic, theFile: "HillUpSignV2.png"});
-	imageList.push({imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png"});
-	imageList.push({imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png"});
-	imageList.push({imgName: downHillSignPic, theFile: "HillDownSignV2.png"});
 	imageList.push({imgName: curveyRoadSignPic, theFile: "CurveyRoadSign.png"});
 	imageList.push({imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png"});
 	imageList.push({imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png"});
+	imageList.push({imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png"});
+	imageList.push({imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png"});
+	imageList.push({imgName: downHillSignPic, theFile: "HillDownSignV2.png"});
+	imageList.push({imgName: upHillGenericSignPic, theFile: "HillUpSignV0.png"});
+	imageList.push({imgName: upHillAheadSignPic, theFile: "HillUpSignV1.png"});
+	imageList.push({imgName: upHillSignPic, theFile: "HillUpSignV2.png"});
+	imageList.push({imgName: iceSignPic, theFile: "IceSignV0.png"});
+	imageList.push({imgName: snowflakeSignPic, theFile: "IceSignV1.png"});
+	imageList.push({imgName: leftTurnSignPic, theFile: "LeftTurnSign.png"});
+	imageList.push({imgName: otherDriversSignPic, theFile: "OtherDriversSign.png"});
+	imageList.push({imgName: questionSignPic, theFile: "QuestionSign.png"});
+	imageList.push({imgName: rightTurnSignPic, theFile: "RightTurnSign.png"});
+	imageList.push({imgName: roadNarrowSignPic, theFile: "RoadNarrowSign.png"});
+	imageList.push({imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png"});
+	imageList.push({imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png"});
+	imageList.push({imgName: warningSignPic, theFile: "WarningSign.png"});	
 	// barriers
+	imageList.push({imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png"});
 	imageList.push({imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png"});
 	imageList.push({imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png"});
-	imageList.push({imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png"});
 
     picsToLoad = imageList.length;
 
