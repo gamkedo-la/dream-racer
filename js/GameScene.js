@@ -53,13 +53,10 @@ function GameScene(data) {
 		
 		if(baseSegment.path[0].x > 1.05 * this.player.position.x) {//1.05 helps ensure a tire is off the road
 			this.player.isOffRoad = true;
-			console.log("Too far left");
 		} else if(baseSegment.path[3].x < this.player.position.x + (0.80 * this.player.width)) {//0.80 helps ensure a tire is off the road
 			this.player.isOffRoad = true;
-			console.log("Too far right");
 		} else {
 			this.player.isOffRoad = false;
-			console.log("Just right");
 		}
 		
 		this.player.move(baseSegment.farPos.world.y);
