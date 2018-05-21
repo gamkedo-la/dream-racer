@@ -59,7 +59,7 @@ let holdLeft, holdRight, holdUp, holdDown = false;
 let holdEscape, holdPlus, holdMinus = false;
 let holdShift, holdA, holdCmd_Cntrl = false;
 let holdS, holdBackSpace, holdD = false;
-let holdW, holdX = false;
+let holdW, holdX, holdZero = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -123,6 +123,7 @@ function keyPress(evt) {
 			holdShift = true;
 			break;
 		case KEY_CNTRL:
+			keyUsedByGame = true;
 			holdCmd_Cntrl = true;
 			break;
 		case KEY_ESCAPE:
@@ -225,6 +226,8 @@ function keyPress(evt) {
 		case KEY_Z:
 			break;
 		case DIGIT_0:
+			keyUsedByGame = true;
+			holdZero = true;
 			break;
 		case DIGIT_1:
 			break;
@@ -371,6 +374,7 @@ function keyRelease(evt) {
 		case KEY_Z:
 			break;
 		case DIGIT_0:
+			holdZero = false;
 			break;
 		case DIGIT_1:
 			break;

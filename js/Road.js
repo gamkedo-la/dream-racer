@@ -218,19 +218,58 @@ function Road(frustum) {
 									   y:lastFarPos.y + (roadArray[i].farPos.world.y - roadArray[i].nearPos.world.y), 
 									   z:lastFarPos.z + segmentLength};
 			
-			if(roadArray[i].decorations.length > 0) {
+			this.includeDecorationsInNewSegment(initialTrackLength, newSegment, roadArray[i].decorations);
+/*			if(roadArray[i].decorations.length > 0) {
 				for(let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const existingWorldPos = roadArray[i].decorations[j].world;
 					const newWorldPos = {x:existingWorldPos.x + newSegment.nearPos.world.x, 
 										 y:existingWorldPos.y + newSegment.nearPos.world.y, 
-										 z:existingWorldPos.z + (segmentLength * initialTrackLength)};
+										 z:existingWorldPos.z + (segmentLength * initialTrackLength)
+					};
 					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
 				}
-			}
+			}*/
 			segments.push(newSegment);
 		}
-
+	}
+	
+	this.addReverseRoadSectionWithJSONArray = function(roadArray) {
+		const initialTrackLength = segments.length;
+		this.indexOfFinishLine = initialTrackLength;
+		
+		for(let i = roadArray.length - 1; i >= 0; i--) {
+			const newSegment = new Segment();
+			newSegment.index = roadArray[i].index + initialTrackLength;
+			const lastColor = segments[segments.length - 1].color;
+			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
+			
+			const lastFarPos = segments[segments.length - 1].farPos.world;
+			const lastDeltaX = segments[segments.length - 1].farPos.world.x - segments[segments.length - 1].nearPos.world.x;
+			const lastDeltaY = segments[segments.length - 1].farPos.world.y - segments[segments.length - 1].nearPos.world.y;
+			
+			newSegment.nearPos.world = lastFarPos;
+			newSegment.farPos.world = {x: lastFarPos.x - lastDeltaX,
+									   y: lastFarPos.y - lastDeltaY,
+									   z: lastFarPos.z + segmentLength
+			};
+			
+			this.includeDecorationsInNewSegment(initialTrackLength, newSegment, roadArray[i].decorations);
+		}
+	}
+	
+	this.includeDecorationsInNewSegment = function(initialTrackLength, newSegment, decorations) {
+		if(decorations.length > 0) {
+			for(let j = 0; j < decorations.length; j++) {
+				const imageName = imgNameForFileName(decorations[j].fileName);
+				const existingWorldPos = decorations[j].world;
+				const newWorldPos = {x:existingWorldPos.x + newSegment.nearPos.world.x, 
+									 y:existingWorldPos.y + newSegment.nearPos.world.y, 
+									 z:existingWorldPos.z + (segmentLength * initialTrackLength)
+					};
+				newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
+			}
+		}
 	}
 		
 	this.clearRoad = function() {
@@ -268,6 +307,25 @@ function Road(frustum) {
 		}
 		
 		const existingSegment = segments[segments.length - 1];
+		const existingDeltaX = existingSegment.farPos.world.x - existingSegment.nearPos.world.x;
+		const existingDeltaY = existingSegment.farPos.world.y - existingSegment.nearPos.world.y;
+
+		const newSegment = new Segment();
+		newSegment.index = existingSegment.index + 1;
+		newSegment.color = (existingSegment.color == Colors.Dark ? Colors.Light : Colors.Dark);
+		newSegment.nearPos.world = existingSegment.farPos.world;
+		newSegment.farPos.world = {x:newSegment.nearPos.world.x + existingDeltaX, y:newSegment.nearPos.world.y + existingDeltaY, z:newSegment.nearPos.world.z + segmentLength};
+		segments.push(newSegment);
+		return newSegment;
+	}
+	
+	this.addStraightSegment = function() {
+		if(segments.length == 0) {
+			return firstSegment();
+		}
+		
+		const existingSegment = segments[segments.length - 1];
+
 		const newSegment = new Segment();
 		newSegment.index = existingSegment.index + 1;
 		newSegment.color = (existingSegment.color == Colors.Dark ? Colors.Light : Colors.Dark);

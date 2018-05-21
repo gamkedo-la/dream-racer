@@ -67,6 +67,7 @@ const fonts = {
 
 const editAction = {
 	AddSegment:"addSegment",
+	AddStraightSegment:"addStraightSegment",
 	RemoveSegment:"removeSegment",
 	MoveLeft:"moveLeft",
 	MoveRight:"moveRight",

@@ -6,12 +6,12 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	const roadReferences = [
 //		JSON.parse(example)
-		JSON.parse(straightAndLevel),
+/*		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest),
 		JSON.parse(sCurveLeftFirst),
 		JSON.parse(doubleBump),
 		JSON.parse(multiCurveRightFirst),
-		JSON.parse(normalHillValley),
+		JSON.parse(normalHillValley),*/
 //		JSON.parse(finish)
 	];
 	if(roadReferences.length > 0) {
@@ -134,11 +134,15 @@ function EditorScene(data) {
 				
 		if(holdPlus) {//pressed the "+" key
 			if(holdShift) {
-				this.didEdit(editAction.RaiseElevation);
+				this.didEdit(editAction.RaiseElevation); 
 			} else if(this.road.hasSelectedSegments()) {//segments are selected, so raise their elevation (make a hill)
 				this.didEdit(editAction.MoveUp);
 			} else {
-				this.didEdit(editAction.AddSegment);
+				if(holdZero) {
+					this.didEdit(editAction.AddStraightSegment);
+				} else {
+					this.didEdit(editAction.AddSegment);
+				}
 			}
 			holdPlus = false;
 		}
@@ -269,6 +273,9 @@ function EditorScene(data) {
 		switch(action) {
 			case editAction.AddSegment:
 				this.road.addSegment();
+				break;
+			case editAction.AddStraightSegment:
+				this.road.addStraightSegment();
 				break;
 			case editAction.RemoveSegment:
 				this.road.removeSegment();
