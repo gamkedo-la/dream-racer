@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
 	<style>
 		body {
-			background:black;
-			margin:0;
-			padding:0;
-			overflow:hidden;
+			background: black;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
 		}
+
 		#gameCanvas {
-			height:100vh;
-			padding:0;
-			outline:0;
+			height: 100vh;
+			padding: 0;
+			outline: 0;
 			image-rendering: pixelated;
 			-ms-interpolation-mode: nearest-neighbor;
 			image-rendering: -webkit-optimize-contrast;
@@ -21,18 +23,20 @@
 			image-rendering: -moz-crisp-edges;
 			image-rendering: -o-crisp-edges;
 			image-rendering: pixelated;
-		    margin: 0 auto;
-    		display: block;
+			margin: 0 auto;
+			display: block;
 		}
+
 		#debugText {
 			float: right;
-		    position: absolute;
-		    left: 10px;
-		    top: 610px;
-		    color:white;
+			position: absolute;
+			left: 10px;
+			top: 610px;
+			color: white;
 		}
 	</style>
 </head>
+
 <body>
 	<script src="js/RoadTiles/Finish.js"></script>
 	<script src="js/RoadTiles/NormalHillCrest.js"></script>
@@ -48,6 +52,7 @@
 	<script src="js/ImageLoading.js"></script>
 	<script src="js/Camera.js"></script>
 	<script src="js/Input.js"></script>
+	<script src="js/GamepadSupport.js"></script>
 	<script src="js/AudioClasses.js"></script>
 	<script src="js/AudioManager.js"></script>
 	<script src="js/Player.js"></script>
@@ -59,7 +64,8 @@
 	<script src="js/MainMenu.js"></script>
 	<script src="js/WindowStates.js"></script>
 	<script src="js/Main.js"></script>
-	
+
 	<p id="debugText"></p>
 </body>
+
 </html>
