@@ -39,11 +39,11 @@ function Player() {
 			
 			offRoadCounter += (this.speed / 10);//player bumps up/down proportional to forward speed
 			
-			//offroadSound.play(); -> placeholder until off road sound is added
+			offroadSound.resume();
 		} else {
 			this.position.y = baseY;
 			offRoadCounter = 0;
-			//offroadSound.pause(); -> placeholder until off road sound is added
+			offroadSound.pause();
 		}
 		
 		if((holdUp) || (holdW)) {
