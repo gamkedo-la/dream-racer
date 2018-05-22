@@ -12,7 +12,10 @@ function GameScene(data) {
 		JSON.parse(sCurveLeftFirst),
 		JSON.parse(doubleBump),
 		JSON.parse(multiCurveRightFirst),
-		JSON.parse(normalHillValley),*/
+		JSON.parse(normalHillValley),
+        JSON.parse(largeSharpLeft_Level),
+        JSON.parse(sharpRight_Level),
+        JSON.parse(slightDownhill),*/
 		JSON.parse(finish)
 	];
 	this.road.newRoadWithJSONArray(roadReferences[0]);

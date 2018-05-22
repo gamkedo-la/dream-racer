@@ -12,6 +12,9 @@ function EditorScene(data) {
 		JSON.parse(doubleBump),
 		JSON.parse(multiCurveRightFirst),
 		JSON.parse(normalHillValley),*/
+        JSON.parse(slightDownhill),
+        JSON.parse(largeSharpLeft_Level),
+        JSON.parse(sharpRight_Level),
 //		JSON.parse(finish)
 	];
 	if(roadReferences.length > 0) {
