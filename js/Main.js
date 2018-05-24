@@ -8,14 +8,14 @@ let scene;
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
-	MusicVolume:"musicVolume",
-	SFXVolume:"effectsVolume",
-	FirstLoad:"firstLoad"
+	MusicVolume: "musicVolume",
+	SFXVolume: "effectsVolume",
+	FirstLoad: "firstLoad"
 }
 
 const assetPath = {
-	Audio:"./audio/",
-	Image:"images/"
+	Audio: "./audio/",
+	Image: "images/"
 }
 
 const canvasClearColor = "black";
@@ -24,86 +24,99 @@ const loadingText = "LOADING...";
 const pausedText = "- P A U S E D -";
 
 const gameTitle = {
-	Main:"Dream Racer",
-	Subtitle:"Speed is Everything"
+	Main: "Dream Racer",
+	Subtitle: "Speed is Everything"
 };
 
 const buttonTitle = {
-	Help:"[H] for Help",
-	Credits:"[C] for Credits",
-	Editor:"[E] to Edit",
-	Enter:"[Enter] to Play"
+	Help: "[H] for Help",
+	Credits: "[C] for Credits",
+	Editor: "[E] to Edit",
+	Enter: "[Enter] to Play"
 };
 
 const sliderTitle = {
-	MusicVolume:"Music Volume",
-	SFXVolume:"SFX Volume"
+	MusicVolume: "Music Volume",
+	SFXVolume: "SFX Volume"
 };
 
 const textColor = {
-	Red:"red",
-	Blue:"blue",
-	Green:"green",
-	White:"white",
-	Black:"black",
-	Yellow:"yellow",
-	Purple:"purple",
-	Aqua:"aqua",
-	Fuchaia:"fuchaia"
+	Red: "red",
+	Blue: "blue",
+	Green: "green",
+	White: "white",
+	Black: "black",
+	Yellow: "yellow",
+	Purple: "purple",
+	Aqua: "aqua",
+	Fuchaia: "fuchaia"
 };
 
 const textAlignment = {
-	Left:"left",
-	Right:"right",
-	Center:"center"
+	Left: "left",
+	Right: "right",
+	Center: "center"
 };
 
 const fonts = {
-	MainTitle:"40px Tahoma",
-	Subtitle:"30px Tahoma",
-	ButtonTitle:"20px Tahoma",
-	CreditsText:"16px Tahoma"
+	MainTitle: "40px Tahoma",
+	Subtitle: "30px Tahoma",
+	ButtonTitle: "20px Tahoma",
+	CreditsText: "16px Tahoma"
 };
 
 const editAction = {
-	AddSegment:"addSegment",
-	AddStraightSegment:"addStraightSegment",
-	RemoveSegment:"removeSegment",
-	MoveLeft:"moveLeft",
-	MoveRight:"moveRight",
-	MoveUp:"moveUp",
-	MoveDown:"moveDown",
-	RaiseElevation:"raiseElevation",
-	LowerElevation:"lowerElevation",
-	SelectSegment:"selectSegment",
-	AddToSelection:"addToSelection",
-	RemoveFromSelection:"removeFromSelection",
-	AddDecoration:"addDecoration",
-	RemoveDecoration:"removeDecoration",
-	MoveDecoration:"moveDecoration"
+	AddSegment: "addSegment",
+	AddStraightSegment: "addStraightSegment",
+	RemoveSegment: "removeSegment",
+	MoveLeft: "moveLeft",
+	MoveRight: "moveRight",
+	MoveUp: "moveUp",
+	MoveDown: "moveDown",
+	RaiseElevation: "raiseElevation",
+	LowerElevation: "lowerElevation",
+	SelectSegment: "selectSegment",
+	AddToSelection: "addToSelection",
+	RemoveFromSelection: "removeFromSelection",
+	AddDecoration: "addDecoration",
+	RemoveDecoration: "removeDecoration",
+	MoveDecoration: "moveDecoration"
 };
 
-window.onload = function() {
-    window.addEventListener("focus", windowOnFocus);
-    window.addEventListener("blur", windowOnBlur);
+// without this, zoomed in road signs are blurry
+function force_pixel_art() {
+	// use prefixes only if needed: to avoid console warnings
+	if (canvasContext.hasOwnProperty('mozImageSmoothingEnabled')) canvasContext.mozImageSmoothingEnabled = false;
+	if (canvasContext.hasOwnProperty('webkitImageSmoothingEnabled')) canvasContext.webkitImageSmoothingEnabled = false;
+	if (canvasContext.hasOwnProperty('msImageSmoothingEnabled')) canvasContext.msImageSmoothingEnabled = false;
+	canvasContext.imageSmoothingEnabled = false;
+	// FIXME: the above seems to get reset at a later time! does canvas get init twice? 
+	// current fix: we set it in RoadideDecoration.js line 22 which feels like a hack
+}
 
-    canvas = document.createElement("canvas");
-    canvasContext = canvas.getContext("2d");
-    document.body.appendChild(canvas);
-    canvas.width = 800;
-    canvas.height = 600;
-    drawRect(0, 0, canvas.width, canvas.height, textColor.Red);
-    colorText(loadingText, canvas.width / 2, canvas.height / 2, textColor.White, fonts.Subtitle, textAlignment.Center, opacity = 1);
+window.onload = function () {
+	window.addEventListener("focus", windowOnFocus);
+	window.addEventListener("blur", windowOnBlur);
 
-    TitleTextX = canvas.width / 2;
-    subTitleTextX = canvas.width / 2;
-    opacity = 0;
-    
-    firstLoad = (localStorage.getItem(localStorageKey.FirstLoad) == true);
-    if((firstLoad === null) || (firstLoad === undefined)) {
-	    firstLoad = true;
-	    localStorage.setItem(localStorageKey.FirstLoad, true);
-    }
+	canvas = document.createElement("canvas");
+	canvasContext = canvas.getContext("2d");
+	force_pixel_art();
+
+	document.body.appendChild(canvas);
+	canvas.width = 800;
+	canvas.height = 600;
+	drawRect(0, 0, canvas.width, canvas.height, textColor.Red);
+	colorText(loadingText, canvas.width / 2, canvas.height / 2, textColor.White, fonts.Subtitle, textAlignment.Center, opacity = 1);
+
+	TitleTextX = canvas.width / 2;
+	subTitleTextX = canvas.width / 2;
+	opacity = 0;
+
+	firstLoad = (localStorage.getItem(localStorageKey.FirstLoad) == true);
+	if ((firstLoad === null) || (firstLoad === undefined)) {
+		firstLoad = true;
+		localStorage.setItem(localStorageKey.FirstLoad, true);
+	}
 
 	initializeInput();
 	loadAudio();
@@ -112,69 +125,71 @@ window.onload = function() {
 };
 
 function loadingDoneSoStartGame() {
-    gameUpdate = setInterval(update, 1000 / 30);
+	gameUpdate = setInterval(update, 1000 / 30);
 
-	if(DEBUG) {
+	if (DEBUG) {
 		startGame();
 	}
 };
 
 function update() {
-    mainMenuStates();
-    AudioEventManager.updateEvents();
+	mainMenuStates();
+	AudioEventManager.updateEvents();
 };
 
 function startGame() {
-	if(firstLoad) {
+	if (firstLoad) {
 		openHelp();
 		firstLoad = false;
 		localStorage.setItem(localStorageKey.FirstLoad, false);
 		return;
-	} 
+	}
 
-    windowState.help = false;
-    windowState.mainMenu = false;
-    windowState.playing = true;
-    
-    scene = new GameScene({totalWidth:canvas.width,
-	    					   totalHeight:canvas.height,
-	    					   nearHeight:0.0 * canvas.height, 
-	    					   horizonHeight:1.0 * canvas.height,
-	    					   near:90,//arbitrary
-	    					   far:500,//arbitrary
-	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: CAMERA_INITIAL_Z},
-	    					   skyPic:undefined,
-	    					   backgroundPic:tempBackgroundPic,
-	    					   middleGroundPic:undefined
-	    					   });
+	windowState.help = false;
+	windowState.mainMenu = false;
+	windowState.playing = true;
+
+	scene = new GameScene({
+		totalWidth: canvas.width,
+		totalHeight: canvas.height,
+		nearHeight: 0.0 * canvas.height,
+		horizonHeight: 1.0 * canvas.height,
+		near: 90,//arbitrary
+		far: 500,//arbitrary
+		cameraPos: { x: 0, y: -canvas.height / 2, z: CAMERA_INITIAL_Z },
+		skyPic: undefined,
+		backgroundPic: tempBackgroundPic,
+		middleGroundPic: undefined
+	});
 };
 
 function startEditing() {
 	console.log("Editing");
-    windowState.help = false;
-    windowState.mainMenu = false;
-    windowState.editorHelp = false;
-    windowState.playing = false;
-    windowState.editing = true;
-    
-    scene = new EditorScene({totalWidth:canvas.width,
-	    					   totalHeight:canvas.height,
-	    					   nearHeight:0.0 * canvas.height, 
-	    					   horizonHeight:1.0 * canvas.height,
-	    					   near:90,//arbitrary
-	    					   far:500,//arbitrary
-	    					   cameraPos:{x: 0, y: -canvas.height / 2, z: -85},
-	    					   skyPic:undefined,
-	    					   backgroundPic:tempBackgroundPic,
-	    					   middleGroundPic:undefined
-	    					   });
+	windowState.help = false;
+	windowState.mainMenu = false;
+	windowState.editorHelp = false;
+	windowState.playing = false;
+	windowState.editing = true;
+
+	scene = new EditorScene({
+		totalWidth: canvas.width,
+		totalHeight: canvas.height,
+		nearHeight: 0.0 * canvas.height,
+		horizonHeight: 1.0 * canvas.height,
+		near: 90,//arbitrary
+		far: 500,//arbitrary
+		cameraPos: { x: 0, y: -canvas.height / 2, z: -85 },
+		skyPic: undefined,
+		backgroundPic: tempBackgroundPic,
+		middleGroundPic: undefined
+	});
 };
 
 function continueEditing() {
-    windowState.help = false;
-    windowState.mainMenu = false;
-    windowState.editorHelp = false;
-    windowState.editing = true;
+	windowState.help = false;
+	windowState.mainMenu = false;
+	windowState.editorHelp = false;
+	windowState.editing = true;
 };
 
 function drawAll() {
@@ -195,19 +210,19 @@ function editingMoveAll() {
 
 function wrappedDraw(whichImg, pixelOffset) {
 	let wrappedOffset = Math.floor(pixelOffset % whichImg.width);
-	if(pixelOffset < 0) {
+	if (pixelOffset < 0) {
 		wrappedOffset = whichImg.width + wrappedOffset;
 	}
 
-    canvasContext.drawImage(whichImg, 0, 0,
-        whichImg.width - wrappedOffset, whichImg.height,
-        wrappedOffset, 0,
-        whichImg.width - wrappedOffset, whichImg.height);
-    let drawSize = (whichImg.width - wrappedOffset);
-    if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
-        canvasContext.drawImage(whichImg, drawSize, 0,
-            wrappedOffset, whichImg.height,
-            0, 0,
-            wrappedOffset, whichImg.height);
-    }
+	canvasContext.drawImage(whichImg, 0, 0,
+		whichImg.width - wrappedOffset, whichImg.height,
+		wrappedOffset, 0,
+		whichImg.width - wrappedOffset, whichImg.height);
+	let drawSize = (whichImg.width - wrappedOffset);
+	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
+		canvasContext.drawImage(whichImg, drawSize, 0,
+			wrappedOffset, whichImg.height,
+			0, 0,
+			wrappedOffset, whichImg.height);
+	}
 }
