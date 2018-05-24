@@ -185,7 +185,11 @@ function Road(frustum) {
 			const newSegment = new Segment();
 			newSegment.index = roadArray[i].index;
 			newSegment.color = roadArray[i].color;
-			newSegment.nearPos.world = roadArray[i].nearPos.world;
+			if(i > 0) {
+				newSegment.nearPos.world = segments[i - 1].farPos.world;
+			} else {
+				newSegment.nearPos.world = roadArray[i].nearPos.world;
+			}
 			newSegment.farPos.world = roadArray[i].farPos.world;
 			
 			if(i == 0) {
@@ -213,23 +217,12 @@ function Road(frustum) {
 			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
 			
 			const lastFarPos = segments[segments.length - 1].farPos.world;
-			newSegment.nearPos.world = lastFarPos;
+			newSegment.nearPos.world = segments[segments.length - 1].farPos.world;
 			newSegment.farPos.world = {x:lastFarPos.x + (roadArray[i].farPos.world.x - roadArray[i].nearPos.world.x), 
 									   y:lastFarPos.y + (roadArray[i].farPos.world.y - roadArray[i].nearPos.world.y), 
 									   z:lastFarPos.z + segmentLength};
 			
 			this.includeDecorationsInNewSegment(initialTrackLength, newSegment, roadArray[i].decorations);
-/*			if(roadArray[i].decorations.length > 0) {
-				for(let j = 0; j < roadArray[i].decorations.length; j++) {
-					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
-					const existingWorldPos = roadArray[i].decorations[j].world;
-					const newWorldPos = {x:existingWorldPos.x + newSegment.nearPos.world.x, 
-										 y:existingWorldPos.y + newSegment.nearPos.world.y, 
-										 z:existingWorldPos.z + (segmentLength * initialTrackLength)
-					};
-					newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
-				}
-			}*/
 			segments.push(newSegment);
 		}
 	}
@@ -240,21 +233,23 @@ function Road(frustum) {
 		
 		for(let i = roadArray.length - 1; i >= 0; i--) {
 			const newSegment = new Segment();
-			newSegment.index = roadArray[i].index + initialTrackLength;
+			newSegment.index = segments.length;
 			const lastColor = segments[segments.length - 1].color;
 			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
 			
 			const lastFarPos = segments[segments.length - 1].farPos.world;
-			const lastDeltaX = segments[segments.length - 1].farPos.world.x - segments[segments.length - 1].nearPos.world.x;
-			const lastDeltaY = segments[segments.length - 1].farPos.world.y - segments[segments.length - 1].nearPos.world.y;
-			
 			newSegment.nearPos.world = lastFarPos;
-			newSegment.farPos.world = {x: lastFarPos.x - lastDeltaX,
+			
+			const lastDeltaX = roadArray[i].farPos.world.x - roadArray[i].nearPos.world.x;
+			const lastDeltaY = roadArray[i].farPos.world.y - roadArray[i].nearPos.world.y;
+			
+			newSegment.farPos.world = {x: lastFarPos.x + lastDeltaX,
 									   y: lastFarPos.y - lastDeltaY,
 									   z: lastFarPos.z + segmentLength
 			};
 			
 			this.includeDecorationsInNewSegment(initialTrackLength, newSegment, roadArray[i].decorations);
+			segments.push(newSegment);
 		}
 	}
 	
@@ -356,7 +351,12 @@ function Road(frustum) {
 		let dx = 0;
 		for(let i = 0; i < selectedSegments.length; i++) {
 			dx += i;
+			let previousSegment;
 			const thisSegment = selectedSegments[i];
+			if(thisSegment.index > 0) {
+				previousSegment = segments[thisSegment.index - 1];
+				thisSegment.nearPos.world = previousSegment.farPos.world;
+			}
 			thisSegment.farPos.world.x -= dx;
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
 				thisSegment.decorations[j].world.x -= dx;
@@ -369,6 +369,10 @@ function Road(frustum) {
 		for(let i = 0; i < selectedSegments.length; i++) {
 			dx += i;
 			const thisSegment = selectedSegments[i];
+			if(thisSegment.index > 0) {
+				previousSegment = segments[thisSegment.index - 1];
+				thisSegment.nearPos.world = previousSegment.farPos.world;
+			}
 			thisSegment.farPos.world.x += dx;
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
 				thisSegment.decorations[j].world.x += dx;
@@ -387,6 +391,11 @@ function Road(frustum) {
 			}
 			
 			dy += i;
+			if(thisSegment.index > 0) {
+				previousSegment = segments[thisSegment.index - 1];
+				thisSegment.nearPos.world = previousSegment.farPos.world;
+			}
+
 			thisSegment.farPos.world.y -= dy;
 		}
 	}
@@ -401,6 +410,11 @@ function Road(frustum) {
 			}
 
 			dy += i;
+			if(thisSegment.index > 0) {
+				previousSegment = segments[thisSegment.index - 1];
+				thisSegment.nearPos.world = previousSegment.farPos.world;
+			}
+
 			thisSegment.farPos.world.y += dy;
 		}
 	}
