@@ -19,8 +19,12 @@ function RoadsideDecoration(image, pos) {
 		}
 
 
-		canvasContext.imageSmoothingEnabled = false; // FIXME: we shouldn't need to set this every frame, but it gets reset otherwise... why?
+		if (this.screenSize.width > this.sprite.width) { // zoomed in over 100% in size? 
+			canvasContext.imageSmoothingEnabled = false; // avoid blurry bilinear interpolation and go crisp
+		}
 		canvasContext.drawImage(this.sprite, this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height);
+		canvasContext.imageSmoothingEnabled = true; // reset to smooth and blurry
+
 	}
 
 	this.didClickInside = function (mousePos) {

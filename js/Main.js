@@ -100,7 +100,7 @@ window.onload = function () {
 
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
-	force_pixel_art();
+	//force_pixel_art();
 
 	document.body.appendChild(canvas);
 	canvas.width = 800;
