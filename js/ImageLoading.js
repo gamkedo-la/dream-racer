@@ -28,6 +28,8 @@ const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
 const sideBarrierMidPic = document.createElement("img");
 const hudPic = document.createElement("img");
+const rightStreetLightPic = document.createElement("img");
+const leftStreetLightPic = document.createElement("img");
 
 const imageList = [];
 
@@ -72,6 +74,8 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
+	imageList.push({ imgName: rightStreetLightPic, theFile: "RightStreetLight.png" });
+	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });

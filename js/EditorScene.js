@@ -57,9 +57,10 @@ function EditorScene(data) {
 			new DecorationUIElement(sideBarrierEndPic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height }),
 			new DecorationUIElement(sideBarrierStartPic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height }),
 			new DecorationUIElement(sideBarrierMidPic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height }),
-			//			new DecorationUIElement(speedLimitSlowSignPic, {x:canvas.width - (4 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height})
-
-			new DecorationUIElement(palmTreePic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height })
+			new DecorationUIElement(palmTreePic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height }),
+			
+			new DecorationUIElement(rightStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}),
+			new DecorationUIElement(leftStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height})
 
 		];
 		return array;

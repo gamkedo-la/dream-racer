@@ -7,6 +7,7 @@ function GameScene(data) {
 
 	const roadReferences = [
 		JSON.parse(example),
+		JSON.parse(straight_Level_wLights),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
