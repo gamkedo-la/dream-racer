@@ -60,6 +60,7 @@ let holdEscape, holdPlus, holdMinus = false;
 let holdShift, holdA, holdCmd_Cntrl = false;
 let holdS, holdBackSpace, holdD = false;
 let holdW, holdX, holdZero = false;
+let holdN = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -194,6 +195,8 @@ function keyPress(evt) {
 		case KEY_M:
 			break;
 		case KEY_N:
+			keyUsedByGame = true;
+			holdN = true;
 			break;
 		case KEY_O:
 			break;
@@ -345,6 +348,7 @@ function keyRelease(evt) {
 		case KEY_M:
 			break;
 		case KEY_N:
+			holdN = false;
 			break;
 		case KEY_O:
 			break;
