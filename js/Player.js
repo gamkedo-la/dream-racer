@@ -7,6 +7,7 @@ function Player() {
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const ACCELERATION = 0.35;
 	const BRAKING = 0.25;
+	const BOOSTER = 55;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = this.sprite.width / 2;//only dividing by two because player car sprite is so big
@@ -27,6 +28,8 @@ function Player() {
 	this.score = 0;
 	this.odometer = 0;
 	this.laptime = 0;
+	let boosterCount = 1;
+	let boosting = false;
 
 	this.draw = function () {
 		canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
@@ -67,7 +70,7 @@ function Player() {
 			//brakingsound.pause(); -> placeholder until braking sound is added
 		}
 
-		if (this.speed > MAX_SPEED) {
+		if ((!boosting) && (this.speed > MAX_SPEED)) {
 			this.speed = MAX_SPEED;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
@@ -78,6 +81,20 @@ function Player() {
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
+		}
+		
+		if (holdN && (boosterCount > 0)) {
+			boosterCount--;
+			boosting = true;
+			this.speed = BOOSTER;
+			holdN = false;
+		}
+		
+		if(boosting) {
+			this.speed -= 2 * FRICTION;
+			if(this.speed <= MAX_SPEED) {
+				boosting = false;
+			}
 		}
 
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
