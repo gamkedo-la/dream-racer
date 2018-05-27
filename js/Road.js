@@ -199,7 +199,9 @@ function Road(frustum) {
 			if(roadArray[i].decorations.length > 0) {
 				for(let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
-					newSegment.decorations.push(new RoadsideDecoration(imageName, roadArray[i].decorations[j].world));
+					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
+					thisDecoration.addCollider();
+					newSegment.decorations.push(thisDecoration);
 				}
 			}
 			segments.push(newSegment);
@@ -262,7 +264,9 @@ function Road(frustum) {
 									 y:existingWorldPos.y + newSegment.nearPos.world.y, 
 									 z:existingWorldPos.z + (segmentLength * initialTrackLength)
 					};
-				newSegment.decorations.push(new RoadsideDecoration(imageName, newWorldPos));
+				const thisDecoration = new RoadsideDecoration(imageName, newWorldPos);
+				thisDecoration.addCollider();
+				newSegment.decorations.push(thisDecoration);
 			}
 		}
 	}

@@ -12,11 +12,17 @@ function Player() {
 	this.sprite = tempPlayerCarPic;
 	this.width = this.sprite.width / 2;//only dividing by two because player car sprite is so big
 	this.height = this.sprite.height / 2;//only dividing by two because player car sprite is so big
+	this.depth = 60;//swag
 	this.position = {
 		x: (canvas.width - (this.width)) / 2,
 		y: (canvas.height - (this.height) - 10),
 		z: 0
 	};
+	
+	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z, 
+									0, 0, 30, //x, y and z offsets for the collider
+									this.width, this.height, this.depth);
+	
 	const baseY = this.position.y;
 	let currentRoadY = 0;
 	this.speed = 0;
@@ -33,6 +39,7 @@ function Player() {
 
 	this.draw = function () {
 		canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
+		this.collider.draw();
 	}
 
 	this.move = function (nextRoadY) {
@@ -100,7 +107,7 @@ function Player() {
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
 		currentRoadY = nextRoadY;
-
+		
 		setEngineAudioFromRPMs(this.speed / 15 * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
@@ -111,6 +118,5 @@ function Player() {
 		// TODO add more, like if in 1st, or penalties for hitting barriers or other cars
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
-
 	}
 }
