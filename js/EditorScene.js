@@ -60,8 +60,8 @@ function EditorScene(data) {
 			new DecorationUIElement(palmTreePic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height }),
 			
 			new DecorationUIElement(rightStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}),
-			new DecorationUIElement(leftStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height})
-
+			new DecorationUIElement(leftStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}),
+			new DecorationUIElement(blankBillboard, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height})
 		];
 		return array;
 	}
