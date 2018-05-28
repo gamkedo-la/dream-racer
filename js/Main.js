@@ -152,7 +152,7 @@ function startGame() {
 	scene = new GameScene({
 		totalWidth: canvas.width,
 		totalHeight: canvas.height,
-		nearHeight: 0.0 * canvas.height,
+		nearHeight: 0.5 * canvas.height,
 		horizonHeight: 1.0 * canvas.height,
 		near: 90,//arbitrary
 		far: 500,//arbitrary

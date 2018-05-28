@@ -18,15 +18,15 @@ function Player() {
 	this.depth = 60;//swag
 	this.position = {
 		x: (canvas.width - (this.width)) / 2,
-		y: (canvas.height - (this.height) - 10),
+		y: (canvas.height - (this.height) - 10) - CAMERA_Y_OFFSET,
 		z: 0
 	};
-	
-	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z, 
-									0, 0, 30, //x, y and z offsets for the collider
-									this.width, this.height, this.depth);
+
+	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
+		0, 0, 30, //x, y and z offsets for the collider
+		this.width, this.height, this.depth);
 	this.collider.isDynamic = true;//player can move (unlike road signs for example)
-	
+
 	const baseY = this.position.y;
 	let currentRoadY = 0;
 	this.speed = 0;
@@ -34,7 +34,7 @@ function Player() {
 	this.isOffRoad = false;
 	let offRoadCounter = 0;
 	let isRecentering = false;
-	this.getIsRecentering = function() {
+	this.getIsRecentering = function () {
 		return isRecentering;
 	}
 	this.recenteringFrameCount = 2 * CRASH_COUNT / 8;
@@ -52,37 +52,37 @@ function Player() {
 
 	this.draw = function () {
 		canvasContext.save();
-	
-		if(isCrashing) {
+
+		if (isCrashing) {
 			const delta = deltaPosForCrashCount(currentCrashCount++, this.collisionData);
 			canvasContext.translate(delta.x + this.position.x + this.width / 2, -delta.y + this.position.y + this.height / 2);
 			canvasContext.rotate(rotation);
 			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
 		}
-	
+
 		canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
 		this.collider.draw();
-		
+
 		canvasContext.restore();
 	}
 
 	this.move = function (nextRoadY) {
 		this.speed -= FRICTION;
-		
-		if(isCrashing) {
+
+		if (isCrashing) {
 			this.speed -= CRASH_DECELERATION;
-			
-			if(this.speed <= 0) {
+
+			if (this.speed <= 0) {
 				this.speed = 0;
 			}
-			
-			if(currentCrashCount >= CRASH_COUNT) {
+
+			if (currentCrashCount >= CRASH_COUNT) {
 				isCrashing = false;
 				currentCrashCount = 0;
 				isRecentering = false;
 				console.log("The player just changed isRecentering to (1) " + isRecentering);
 			}
-			
+
 			return;
 		}
 
@@ -129,17 +129,17 @@ function Player() {
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
 		}
-		
+
 		if (holdN && (boosterCount > 0)) {
 			boosterCount--;
 			boosting = true;
 			this.speed = BOOSTER;
 			holdN = false;
 		}
-		
-		if(boosting) {
+
+		if (boosting) {
 			this.speed -= 2 * FRICTION;
-			if(this.speed <= MAX_SPEED) {
+			if (this.speed <= MAX_SPEED) {
 				boosting = false;
 			}
 		}
@@ -147,7 +147,7 @@ function Player() {
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
 		currentRoadY = nextRoadY;
-		
+
 		setEngineAudioFromRPMs(this.speed / 15 * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
@@ -159,61 +159,61 @@ function Player() {
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
 	}
-	
-	this.didCrash = function(collisionData) {
+
+	this.didCrash = function (collisionData) {
 		this.collisionData = collisionData;
 		isCrashing = true;
 	}
-	
-	const deltaPosForCrashCount = function(count, collisionData) {
+
+	const deltaPosForCrashCount = function (count, collisionData) {
 		let x, y;
-		
-		if(count <= 6 * CRASH_COUNT / 8) {
+
+		if (count <= 6 * CRASH_COUNT / 8) {
 			rotation = (count / (6 * CRASH_COUNT / 8)) * (2 * Math.PI);
 		}
-		
+
 		const collisionDirection = collisionData.direction;
-		if(collisionDirection.x < 0) {
+		if (collisionDirection.x < 0) {
 			const denominator = 6 * CRASH_COUNT / 8;
-			if(count <= denominator) {
+			if (count <= denominator) {
 				x = -(count / denominator) * (canvas.width / 4);
 			} else {
 				x = -(canvas.width / 4) + (canvas.width / 8) * (count - denominator) / (CRASH_COUNT / 8);
 				isRecentering = true;
-//				console.log("The player is recentering itself - 1: " + isRecentering);
+				//				console.log("The player is recentering itself - 1: " + isRecentering);
 			}
 		} else {
 			const denominator = 6 * CRASH_COUNT / 8;
-			if(count <= denominator) {
+			if (count <= denominator) {
 				x = (count / denominator) * (canvas.width / 4);
 			} else {
 				x = (canvas.width / 4) - (canvas.width / 8) * (count - denominator) / (CRASH_COUNT / 8);
 				isRecentering = true;
-//				console.log("The player is recentering itself - 2");
+				//				console.log("The player is recentering itself - 2");
 			}
 		}
-		
-		if(count <= 1 * CRASH_COUNT / 8) {
+
+		if (count <= 1 * CRASH_COUNT / 8) {
 			y = MAX_CRASH_HEIGHT * (count / (CRASH_COUNT / 8));
-		} else if(count <= 2 * CRASH_COUNT / 8) {
+		} else if (count <= 2 * CRASH_COUNT / 8) {
 			const remainingCount = count - (CRASH_COUNT / 8);
 			y = MAX_CRASH_HEIGHT - (MAX_CRASH_HEIGHT * (remainingCount / (CRASH_COUNT / 8)));
-		} else if(count <= 3 * CRASH_COUNT / 8) {
+		} else if (count <= 3 * CRASH_COUNT / 8) {
 			const remainingCount = count - (2 * CRASH_COUNT / 8);
 			y = (MAX_CRASH_HEIGHT / 2) * (remainingCount / (CRASH_COUNT / 8));
-		} else if(count <= 4 * CRASH_COUNT / 8) {
+		} else if (count <= 4 * CRASH_COUNT / 8) {
 			const remainingCount = count - (3 * CRASH_COUNT / 8);
 			y = MAX_CRASH_HEIGHT / 2 - ((MAX_CRASH_HEIGHT / 2) * (remainingCount / (CRASH_COUNT / 8)));
-		} else if(count <= 5 * CRASH_COUNT / 8) {
+		} else if (count <= 5 * CRASH_COUNT / 8) {
 			const remainingCount = count - (4 * CRASH_COUNT / 8);
 			y = (MAX_CRASH_HEIGHT / 4) * (remainingCount / (CRASH_COUNT / 8));
-		} else if(count < 6 * CRASH_COUNT / 8) {
+		} else if (count < 6 * CRASH_COUNT / 8) {
 			const remainingCount = count - (5 * CRASH_COUNT / 8);
 			y = MAX_CRASH_HEIGHT / 4 - ((MAX_CRASH_HEIGHT / 4) * (remainingCount / (CRASH_COUNT / 8)));
 		} else {
 			y = 0;
 		}
-		
-		return {x:x, y:y};
+
+		return { x: x, y: y };
 	}
 }
