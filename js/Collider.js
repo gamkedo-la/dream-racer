@@ -56,15 +56,6 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 	
 	this.isCollidingWith = function(otherCollider) {
 		const direction = {};
-		if((this.far < otherCollider.near) || (this.near > otherCollider.far)) {//check z first because it is the most discriminitory
-			return {isColliding: false, direction:{x: 0, y: 0, z: 0}};
-		} else {
-			if(this.z < otherCollider.z) {
-				direction.z = otherCollider.near - this.far;
-			} else {
-				direction.z = otherCollider.far - this.near;
-			} 
-		}
 		
 		if((this.right < otherCollider.left) || (this.left > otherCollider.right)) {
 			return {isColliding: false, direction:{x: 0, y: 0, z: 0}};

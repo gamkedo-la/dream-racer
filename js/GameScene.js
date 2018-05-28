@@ -55,6 +55,12 @@ function GameScene(data) {
 
 		if (baseSegment.path.length == 0) { return; }
 
+		this.checkForCollisions(baseSegment);
+		if((this.player.getIsRecentering()) && (!this.camera.getIsRecentering())) {
+//			console.log("Is the camera recentering? " + this.camera.isRecentering);
+			this.camera.recenterOnSegment(baseSegment, this.player.recenteringFrameCount);
+		}
+		
 		if (baseSegment.path[0].x > 1.05 * this.player.position.x) {//1.05 helps ensure a tire is off the road
 			this.player.isOffRoad = true;
 		} else if (baseSegment.path[3].x < this.player.position.x + (0.80 * this.player.width)) {//0.80 helps ensure a tire is off the road
@@ -72,6 +78,21 @@ function GameScene(data) {
 			if (baseSegment != null) {
 				const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
 				this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
+			}
+		}
+	}
+	
+	this.checkForCollisions = function(baseSegment) {
+		for(let i = 0; i < baseSegment.decorations.length; i++) {
+			const thisDecoration = baseSegment.decorations[i];
+			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
+			if(collisionData.isColliding) {
+				if(thisDecoration.collider.isDynamic) {
+					//maybe just bumped the other object?
+				} else {
+					//definitely crashed since we hit a sign or something
+					this.player.didCrash(collisionData);
+				}
 			}
 		}
 	}
