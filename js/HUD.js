@@ -32,6 +32,9 @@ var hud = {
         this.drawNumPadded(Math.floor(scene.player.speed * 10), 8, canvas.height - 16);
         canvasContext.drawImage(hudPic, 320, 0, 24, 16, 60, canvas.height - 19, 24, 16); // MPH
 
+        // dashboard
+        canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
+
 
     }
 };

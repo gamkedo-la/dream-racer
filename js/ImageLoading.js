@@ -32,6 +32,7 @@ const rightStreetLightPic = document.createElement("img");
 const leftStreetLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
+const dashboardPic = document.createElement("img");
 
 
 const imageList = [];
@@ -85,9 +86,11 @@ function loadImages() {
 	imageList.push({ imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png" });
 	// hud gui
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
+	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
 	// billboard and images
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
 	imageList.push({ imgName: obeyBillboard, theFile: "ObeyBillboard.png" });
+
 
 	picsToLoad = imageList.length;
 
