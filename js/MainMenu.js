@@ -38,7 +38,7 @@ mainMenu = {
 				handlePosition : musicVolume,
 				onSlide : function(volume) {
 					MusicVolumeManager.setVolume(volume);
-					localStorage.setItem(localStorageKey.MusicVolume, musicVolume);
+					localStorageHelper.setItem(localStorageKey.MusicVolume, musicVolume);
 				}
 			},
 			{
@@ -46,7 +46,7 @@ mainMenu = {
 				handlePosition : sfxVolume,
 				onSlide : function(volume) {
 					SFXVolumeManager.setVolume(volume);
-					localStorage.setItem(localStorageKey.SFXVolume, sfxVolume);
+					localStorageHelper.setItem(localStorageKey.SFXVolume, sfxVolume);
 				}
 			}
 		];
