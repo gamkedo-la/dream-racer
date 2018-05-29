@@ -17,6 +17,9 @@ function Road(frustum) {
 	this.hasSelectedSegments = function() {
 		return (selectedSegments.length > 0);
 	}
+	this.getSegments = function() {
+		return segments;
+	}
 	let selectedDecoration = null;
 	let segmentWithSelectedDecoration = null;
 	this.hasSelectedDecoration = function() {

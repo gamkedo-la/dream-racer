@@ -4,6 +4,7 @@ function EditorScene(data) {
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
+	let segments = this.road.getSegments();
 	const roadReferences = [
 		//		JSON.parse(example)
 		/*		JSON.parse(straightAndLevel),
@@ -182,31 +183,29 @@ function EditorScene(data) {
 		}
 
 		if (holdUp) {
-			/*if (holdShift) {
+			if (holdShift) {
 				if (this.road.hasSelectedDecoration()) {
 					for(let i = 0; i < segments.length; i++) {
 						let thisSegment = segments[i];
 						for(let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
-							let thisDecorationSprite = thisSegment.decorations[j].sprite;
 							for (let k = 0; k < billboardSprites.length; k++) {
-								if (thisDecorationSprite == billboardSprites[k] && thisDecoration.selected == true) {
-									let currentIteratorPosition = k;
-									let newIndex = currentIteratorPosition + 1;
-									thisDecorationSprite = billboardSprites[newIndex]; 
-									if (billboardSprites[newIndex] > billboardSprites.length - 1) {
-										thisDecorationSprite = billboardSprites[0];
+								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+									let newIndex = k + 1;
+									if (newIndex > billboardSprites.length - 1) {
+										thisDecoration.sprite = billboardSprites[0];
+									} else {
+									thisDecoration.sprite = billboardSprites[newIndex]; 
 									} // end of if increased index is greater than array 
 									thisDecoration.selected = false;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
 								break; 
 							} // end of for loop for billboardSprites
-							break;
+							thisDecoration.selected = true;
 						} // end of for loop thisSegment.decorations
-						break; 
 					} // end of for loop for segments
 				} // end of if this.road.hasSelectedDecoration()
-			} else */
+			} else
 			if (this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationFarther();
 			} else {
