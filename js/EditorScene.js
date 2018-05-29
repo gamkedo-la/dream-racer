@@ -182,6 +182,31 @@ function EditorScene(data) {
 		}
 
 		if (holdUp) {
+			/*if (holdShift) {
+				if (this.road.hasSelectedDecoration()) {
+					for(let i = 0; i < segments.length; i++) {
+						let thisSegment = segments[i];
+						for(let j = 0; j < thisSegment.decorations.length; j++) {
+							let thisDecoration = thisSegment.decorations[j];
+							let thisDecorationSprite = thisSegment.decorations[j].sprite;
+							for (let k = 0; k < billboardSprites.length; k++) {
+								if (thisDecorationSprite == billboardSprites[k] && thisDecoration.selected == true) {
+									let currentIteratorPosition = k;
+									let newIndex = currentIteratorPosition + 1;
+									thisDecorationSprite = billboardSprites[newIndex]; 
+									if (billboardSprites[newIndex] > billboardSprites.length - 1) {
+										thisDecorationSprite = billboardSprites[0];
+									} // end of if increased index is greater than array 
+									thisDecoration.selected = false;
+								} // end of if billboardSprite is the same as a sprite in billboardSprites
+								break; 
+							} // end of for loop for billboardSprites
+							break;
+						} // end of for loop thisSegment.decorations
+						break; 
+					} // end of for loop for segments
+				} // end of if this.road.hasSelectedDecoration()
+			} else */
 			if (this.road.hasSelectedDecoration()) {
 				this.road.moveDecorationFarther();
 			} else {

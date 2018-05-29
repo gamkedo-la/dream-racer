@@ -36,6 +36,7 @@ const dashboardPic = document.createElement("img");
 
 
 const imageList = [];
+const billboardSprites = [];
 
 let picsToLoad = 0;
 
@@ -89,7 +90,9 @@ function loadImages() {
 	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
 	// billboard and images
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
+	billboardSprites.push(blankBillboard);
 	imageList.push({ imgName: obeyBillboard, theFile: "ObeyBillboard.png" });
+	billboardSprites.push(obeyBillboard);
 
 
 	picsToLoad = imageList.length;
