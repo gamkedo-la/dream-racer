@@ -1,9 +1,9 @@
 //Player Class
 function Player() {
 	const MAX_SPEED = 14;
-	const MAX_TURN_RATE = 70;
+	const MAX_TURN_RATE = 65;
 	const HILL_DELTA_SPEED = 0.75;
-	const FRICTION = 0.19;
+	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION = 0.25;
 	const ACCELERATION = 0.4;
@@ -150,6 +150,8 @@ function Player() {
 		if (this.turnRate > MAX_TURN_RATE) {
 			this.turnRate = MAX_TURN_RATE;
 		}
+
+		console.log(this.turnRate);
 
 		currentRoadY = nextRoadY;
 
