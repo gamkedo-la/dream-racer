@@ -1,13 +1,13 @@
 //Player Class
 function Player() {
-	const MAX_SPEED = 15;
-	const MAX_TURN_RATE = 75;
+	const MAX_SPEED = 14;
+	const MAX_TURN_RATE = 70;
 	const HILL_DELTA_SPEED = 0.75;
-	const FRICTION = 0.20;
+	const FRICTION = 0.19;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION = 0.25;
-	const ACCELERATION = 0.35;
-	const BRAKING = 0.25;
+	const ACCELERATION = 0.4;
+	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const CRASH_COUNT = 120;
 	const MAX_CRASH_HEIGHT = 2 * canvas.height / 3;
@@ -144,8 +144,14 @@ function Player() {
 			}
 		}
 
-		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
-
+		if (this.speed > 10) {
+			this.turnRate = MAX_TURN_RATE * (MAX_SPEED / this.speed);
+		} else if (this.speed < 10 && this.speed > 5) {
+			this.turnRate = MAX_TURN_RATE * (this.speed / 10);
+		} else {
+			this.turnRate = MAX_TURN_RATE * (this.speed / 20);
+		}
+		
 		currentRoadY = nextRoadY;
 
 		setEngineAudioFromRPMs(this.speed / 15 * 6000);//temporary implementation until gear shifting is implemented
