@@ -112,10 +112,10 @@ window.onload = function () {
 	subTitleTextX = canvas.width / 2;
 	opacity = 0;
 
-	firstLoad = (localStorage.getItem(localStorageKey.FirstLoad) == true);
+	firstLoad = (localStorageHelper.getItem(localStorageKey.FirstLoad) == true);
 	if ((firstLoad === null) || (firstLoad === undefined)) {
 		firstLoad = true;
-		localStorage.setItem(localStorageKey.FirstLoad, true);
+		localStorageHelper.setItem(localStorageKey.FirstLoad, true);
 	}
 
 	initializeInput();
@@ -141,7 +141,7 @@ function startGame() {
 	if (firstLoad) {
 		openHelp();
 		firstLoad = false;
-		localStorage.setItem(localStorageKey.FirstLoad, false);
+		localStorageHelper.setItem(localStorageKey.FirstLoad, false);
 		return;
 	}
 

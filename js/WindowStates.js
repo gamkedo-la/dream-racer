@@ -142,7 +142,7 @@ function openHelp() {
 	windowState.mainMenu = false;
 	windowState.help = true;
 	firstLoad = false;
-	localStorage.setItem(localStorageKey.FirstLoad, firstLoad);
+	localStorageHelper.setItem(localStorageKey.FirstLoad, firstLoad);
 }
 
 function showEditorHelp() {
