@@ -33,6 +33,7 @@ const leftStreetLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
+const needlePic = document.createElement("img");
 
 
 const imageList = [];
@@ -88,6 +89,7 @@ function loadImages() {
 	// hud gui
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
 	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
+	imageList.push({ imgName: needlePic, theFile: "needle.png" });
 	// billboard and images
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
 	billboardSprites.push(blankBillboard);

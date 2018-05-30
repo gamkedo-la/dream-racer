@@ -151,7 +151,7 @@ function Player() {
 			this.turnRate = MAX_TURN_RATE;
 		}
 
-		console.log(this.turnRate);
+		//console.log(this.turnRate);
 
 		currentRoadY = nextRoadY;
 
