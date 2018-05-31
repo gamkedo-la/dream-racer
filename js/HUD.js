@@ -1,8 +1,11 @@
 // HUD (heads-up-display) for Dream Racer
 
+const SMOOTHING_DELTA = 0.01; // for the spedometer needle
 
 // 0123456789 TIME HIGH SCORE LAP STAGE KM MPH POINTS YOU WIN LOST 1st 2nd 3rd 4th 5th
 var hud = {
+    desiredNeedleAngle: 0,
+    currentNeedleAngle: 0,
     drawNumPadded: function (num, x, y) {
         var str = ("00000" + num).slice(-5); // pad with zeroes
         for (var n = 0; n < str.length; n++) {
@@ -22,10 +25,22 @@ var hud = {
 
         // dashboard
         canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
+
         // rotate the spedometer needle
+        this.desiredNeedleAngle = (scene.player.speed * 10 / 160 * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
+        // smooth it out
+        if (this.desiredNeedleAngle - this.currentNeedleAngle > SMOOTHING_DELTA) {
+            this.currentNeedleAngle += SMOOTHING_DELTA;
+        }
+        else if (this.desiredNeedleAngle - this.currentNeedleAngle < -SMOOTHING_DELTA) {
+            this.currentNeedleAngle -= SMOOTHING_DELTA;
+        }
+        else {
+            this.currentNeedleAngle = this.desiredNeedleAngle;
+        }
         drawImageRotated(needlePic, canvas.width / 2 + 280, canvas.height - 120,
-            -90 * DEGREES_TO_RADIANS + // rotate art ccw
-            (scene.player.speed * 10 / 160 * (180 * DEGREES_TO_RADIANS))); // 160mph=180deg
+            -90 * DEGREES_TO_RADIANS + // rotate art to face left at 0
+            this.currentNeedleAngle);
 
         // TIME
         canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
