@@ -28,7 +28,8 @@ var hud = {
 
         // rotate the spedometer needle
         this.desiredNeedleAngle = (scene.player.speed * 10 / 160 * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
-        // smooth it out
+
+        // smooth it out - FIXME this is lame and still shows wobbles due to hill friction
         if (this.desiredNeedleAngle - this.currentNeedleAngle > SMOOTHING_DELTA) {
             this.currentNeedleAngle += SMOOTHING_DELTA;
         }
@@ -38,9 +39,17 @@ var hud = {
         else {
             this.currentNeedleAngle = this.desiredNeedleAngle;
         }
-        drawImageRotated(needlePic, canvas.width / 2 + 280, canvas.height - 120,
+
+        drawImageRotated(needlePic, canvas.width / 2 + 281, canvas.height - 120,
             -90 * DEGREES_TO_RADIANS + // rotate art to face left at 0
             this.currentNeedleAngle);
+
+        // RPM dial
+        drawImageRotated(needlePic, canvas.width / 2 - 277, canvas.height - 120,
+            -90 * DEGREES_TO_RADIANS + // rotate art to face left at 0
+            this.currentNeedleAngle * 6 // 6 fake gears
+            % (180 * DEGREES_TO_RADIANS)); // loop from 0-180
+
 
         // TIME
         canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
