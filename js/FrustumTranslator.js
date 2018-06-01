@@ -1,9 +1,9 @@
 //FrustumTranslator
 function FrustumTranslator(camera, nearPlane) {
 	const baseX = canvas.width / 2;
-	const baseY = canvas.height / 2.08;//2.08  = swag
+	const baseY = GAME_HEIGHT / 2.08;//2.08  = swag
 	
-	this.fov = 2 * Math.atan2(nearPlane, (canvas.height / 2));
+	this.fov = 2 * Math.atan2(nearPlane, (GAME_HEIGHT / 2));
 	
 	this.screenPosForWorldPos = function(worldPos) {
 		const screenX = Math.round(baseX + (camera.position.x + worldPos.x) * nearPlane / (worldPos.z - camera.position.z));

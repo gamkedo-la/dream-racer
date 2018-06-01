@@ -1,4 +1,4 @@
-const CAMERA_Y_OFFSET = 220; // used in GameScene.js line 80 to init camera higher than canvas.height/2 due to dashboard
+const CAMERA_Y_OFFSET = 0;//220; //used in GameScene.js (around line 80) to init camera higher than canvas.height/2 due to dashboard
 
 //CameraClass
 function Camera(initialPosition) {
@@ -9,15 +9,6 @@ function Camera(initialPosition) {
 	this.isCrashingLeft = false;
 	this.isResetting = false;
 	
-/*	let isRecentering = false;
-	this.getIsRecentering = function() {
-		return isRecentering;
-	}
-	
-	this.didCrashLeft = false;
-	this.recenteringRate = 0;
-	this.recenteringSegment;*/
-	
 	if((initialPosition != undefined) && (initialPosition != null)) {
 		this.position = initialPosition;
 	}
@@ -26,31 +17,6 @@ function Camera(initialPosition) {
 		if(this.isCrashing || this.isResetting) {
 			return;
 		}
-		
-/*		if(this.isCrashing) {
-			if(this.didCrashLeft) {
-				this.position.x -= panSpeed / 2;
-			} else {
-				this.position.x += panSpeed / 2;
-			}
-			
-			return;
-		}
-		
-		if(isRecentering) {
-			this.position.x += this.recenteringRate;
-			
-			const deltaPos = Math.abs(this.position.x + this.recenteringSegment.nearPos.world.x);
-			if(deltaPos < 10) {
-				this.position.x = -(this.recenteringSegment.nearPos.world.x);
-				this.recenteringSegment = null;
-				this.recenteringRate = 0;
-				this.isCrashing = false;
-				isRecentering = false;
-			}
-			
-			return;
-		}*/
 				
 		this.position.z += forward;
 		
@@ -88,38 +54,23 @@ function Camera(initialPosition) {
 	this.resetPlayer = function(crashCount, maxCount, segment) {
 		const remainingTime = maxCount - crashCount;
 		
-		const remainingX = this.position.x - segment.nearPos.world.x;
+		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - segment.nearPos.world.z) / (segment.farPos.world.z - segment.nearPos.world.z);
+		const currentCenter = segment.nearPos.world.x + interpolation * (segment.farPos.world.x - segment.nearPos.world.x);
+		
+		const remainingX = this.position.x + currentCenter;
 		const deltaX = remainingX / remainingTime;
 		
-		if(this.position.x - deltaX > -segment.nearPos.world.x) {
+		if(this.position.x - deltaX > -currentCenter) {
 			console.log("greater than");
 			this.position.x -= deltaX;
-		} else if(this.position.x + deltaX < -segment.nearPos.world.x) {
+		} else if(this.position.x + deltaX < -currentCenter) {
 			console.log("Less than");
 			this.position.x -= deltaX;
 		} else {
-			this.position.x = -segment.nearPos.world.x;
+			this.position.x = -currentCenter;
 		}
-		
-		
-		
-		
-		
-/*		if(Math.abs(remainingX) > 50) {
-			this.position.x -= deltaX;
-		} else {
-			this.position.x = -segment.nearPos.world.x;
-		}*/
 	}
-	
-/*	this.recenterOnSegment = function(segment, time) {
-		this.recenteringSegment = segment;
-		isRecentering = true;
-		this.isCrashing = false;
 		
-		this.recenteringRate = -(this.position.x - segment.nearPos.world.x) / time;
-	}*/
-	
 	this.playerDidCrashLeft = function(didCrashLeft) {
 		this.isCrashingLeft = didCrashLeft;
 	}

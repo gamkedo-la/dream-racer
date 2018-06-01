@@ -3,6 +3,7 @@ let canvas;
 let canvasContext;
 
 const DEBUG = true;
+const GAME_HEIGHT = 600;
 
 let scene;
 const CAMERA_INITIAL_Z = -85;
@@ -104,7 +105,7 @@ window.onload = function () {
 
 	document.body.appendChild(canvas);
 	canvas.width = 800;
-	canvas.height = 600;
+	canvas.height = 843;
 	drawRect(0, 0, canvas.width, canvas.height, textColor.Red);
 	colorText(loadingText, canvas.width / 2, canvas.height / 2, textColor.White, fonts.Subtitle, textAlignment.Center, opacity = 1);
 
@@ -151,12 +152,12 @@ function startGame() {
 
 	scene = new GameScene({
 		totalWidth: canvas.width,
-		totalHeight: canvas.height,
-		nearHeight: 0.5 * canvas.height,
-		horizonHeight: 1.0 * canvas.height,
+		totalHeight: GAME_HEIGHT,
+		nearHeight: 0.5 * GAME_HEIGHT,
+		horizonHeight: 1.0 * GAME_HEIGHT,
 		near: 90,//arbitrary
 		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -canvas.height / 2, z: CAMERA_INITIAL_Z },
+		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: CAMERA_INITIAL_Z },
 		skyPic: undefined,
 		backgroundPic: tempBackgroundPic,
 		middleGroundPic: undefined
@@ -173,12 +174,12 @@ function startEditing() {
 
 	scene = new EditorScene({
 		totalWidth: canvas.width,
-		totalHeight: canvas.height,
-		nearHeight: 0.0 * canvas.height,
-		horizonHeight: 1.0 * canvas.height,
+		totalHeight: GAME_HEIGHT,
+		nearHeight: 0.0 * GAME_HEIGHT,
+		horizonHeight: 1.0 * GAME_HEIGHT,
 		near: 90,//arbitrary
 		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -canvas.height / 2, z: -85 },
+		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
 		skyPic: undefined,
 		backgroundPic: tempBackgroundPic,
 		middleGroundPic: undefined

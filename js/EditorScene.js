@@ -62,7 +62,9 @@ function EditorScene(data) {
 			
 			new DecorationUIElement(rightStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}),
 			new DecorationUIElement(leftStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}),
-			new DecorationUIElement(blankBillboard, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height})
+			new DecorationUIElement(rightStreetLightNoLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height}),
+			new DecorationUIElement(leftStreetLightNoLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height}),
+			new DecorationUIElement(blankBillboard, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height})
 		];
 		return array;
 	}
@@ -102,7 +104,7 @@ function EditorScene(data) {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		if (baseSegment != null) {
 			const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
-			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (canvas.height / 2);
+			this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (GAME_HEIGHT / 2);
 		}
 
 		if (holdBackSpace) {

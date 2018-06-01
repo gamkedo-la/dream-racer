@@ -8,7 +8,7 @@ function Road(frustum) {
 	const magicNumber = 50;
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
-	const segmentLength = 4 * canvas.height / magicNumber;
+	const segmentLength = 4 * GAME_HEIGHT / magicNumber;
 	
 	this.indexOfFinishLine = -1;
 
@@ -31,7 +31,7 @@ function Road(frustum) {
 	}
 	let selectedGround = null;
 	let farthest = {x:0, y:0, z:0};
-	const baseY = canvas.height / 2.08;//2.08  = swag
+	const baseY = GAME_HEIGHT / 2.08;//2.08  = swag
 
 	function Segment() {
 		this.width = canvas.width;
@@ -136,7 +136,7 @@ function Road(frustum) {
 	}
 	
 	this.drawSelected = function() {
-		let minY = canvas.height;
+		let minY = GAME_HEIGHT;
 		for(let i = 0; i < selectedSegments.length; i++) {
 			if(selectedSegments[i].farPos.screen.y < minY) {
 				minY = selectedSegments[i].farPos.screen.y;

@@ -9,7 +9,7 @@ function Player() {
 	const ACCELERATION = 0.4;
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
-	const MAX_CRASH_HEIGHT = 2 * canvas.height / 3;
+	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
 	this.MAX_CRASH_COUNT = 120;
 
 	this.sprite = tempPlayerCarPic;
@@ -18,7 +18,7 @@ function Player() {
 	this.depth = 60;//swag
 	this.position = {
 		x: (canvas.width - (this.width)) / 2,
-		y: (canvas.height - (this.height) - 10) - CAMERA_Y_OFFSET,
+		y: (GAME_HEIGHT - (this.height) - 10) - CAMERA_Y_OFFSET,
 		z: 0
 	};
 

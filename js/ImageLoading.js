@@ -30,6 +30,8 @@ const sideBarrierMidPic = document.createElement("img");
 const hudPic = document.createElement("img");
 const rightStreetLightPic = document.createElement("img");
 const leftStreetLightPic = document.createElement("img");
+const rightStreetLightNoLightPic = document.createElement("img");
+const leftStreetLightNoLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
@@ -82,6 +84,8 @@ function loadImages() {
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: rightStreetLightPic, theFile: "RightStreetLight.png" });
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
+	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
+	imageList.push({ imgName: leftStreetLightNoLightPic, theFile: "LeftStreetLight_NoLight.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
