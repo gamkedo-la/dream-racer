@@ -65,6 +65,7 @@ function Player() {
 		this.speed -= FRICTION;
 		
 		if (this.isOffRoad) {
+			console.log("Offroad");
 			this.speed -= OFF_ROAD_FRICTION;
 			if (this.speed <= 0) {
 				this.speed = 0;//makes sure the player can get back on the road because speed will be +0.35 later if up arrow held

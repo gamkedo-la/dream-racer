@@ -117,7 +117,7 @@ function GameScene(data) {
 			this.player.move(baseSegment.farPos.world.y);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
-				this.camera.move(this.player.speed, this.player.turnRate);
+				this.camera.move(this.player.speed, this.player.turnRate, baseSegment);
 
 				if (baseSegment != null) {
 					const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);

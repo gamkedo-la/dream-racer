@@ -2,7 +2,8 @@ const CAMERA_Y_OFFSET = 0;//220; //used in GameScene.js (around line 80) to init
 
 //CameraClass
 function Camera(initialPosition) {
-	const panSpeed = 20;
+	const PAN_SPEED = 20;
+	const OFFROAD_DIST = 200;
 
 	this.position = { x: 0, y: 0, z: 0 };	
 	this.isCrashing = false;
@@ -13,7 +14,7 @@ function Camera(initialPosition) {
 		this.position = initialPosition;
 	}
 	
-	this.move = function(forward, turnRate) {
+	this.move = function(forward, turnRate, segment) {
 		if(this.isCrashing || this.isResetting) {
 			return;
 		}
@@ -21,22 +22,35 @@ function Camera(initialPosition) {
 		this.position.z += forward;
 		
 		if((holdRight) || (holdD)) {
-			this.position.x -= turnRate;//moving the world, so backwards
+			this.position.x -= turnRate;//moving the world, so backwards			
 		} else if((holdLeft) || (holdA)) {
 			this.position.x += turnRate;
-		}		
+		}
+		
+		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - segment.nearPos.world.z) / (segment.farPos.world.z - segment.nearPos.world.z);
+		const currentCenter = segment.nearPos.world.x + interpolation * (segment.farPos.world.x - segment.nearPos.world.x);
+
+		const maxRightOffset = -currentCenter - canvas.width / 2 - OFFROAD_DIST;
+		const maxLeftOffset = -currentCenter + canvas.width / 2 + OFFROAD_DIST;
+//		console.log("Max Offset: " + maxRightOffset);
+		
+		if(this.position.x < maxRightOffset) {
+			this.position.x = maxRightOffset;
+		} else if(this.position.x > maxLeftOffset) {
+			this.position.x = maxLeftOffset;
+		}
 	}
 	
 	this.editMove = function() {
 		if(holdRight) {
-			this.position.x -= panSpeed;//moving the world, so backwards
+			this.position.x -= PAN_SPEED;//moving the world, so backwards
 		} else if(holdLeft) {
-			this.position.x += panSpeed;
+			this.position.x += PAN_SPEED;
 		} else if(holdUp) {
-			this.position.z += panSpeed;
+			this.position.z += PAN_SPEED;
 		} else if(holdDown) {
-			if(this.position.z - panSpeed >= CAMERA_INITIAL_Z) {
-				this.position.z -= panSpeed;
+			if(this.position.z - PAN_SPEED >= CAMERA_INITIAL_Z) {
+				this.position.z -= PAN_SPEED;
 			} else {
 				this.position.z = CAMERA_INITIAL_Z;
 			}
@@ -45,9 +59,9 @@ function Camera(initialPosition) {
 	
 	this.showCrashAnimation = function() {
 		if(this.isCrashingLeft) {
-			this.position.x -= panSpeed / 2;
+			this.position.x -= PAN_SPEED / 2;
 		} else {
-			this.position.x += panSpeed / 2;
+			this.position.x += PAN_SPEED / 2;
 		}
 	}
 	
@@ -61,10 +75,8 @@ function Camera(initialPosition) {
 		const deltaX = remainingX / remainingTime;
 		
 		if(this.position.x - deltaX > -currentCenter) {
-			console.log("greater than");
 			this.position.x -= deltaX;
 		} else if(this.position.x + deltaX < -currentCenter) {
-			console.log("Less than");
 			this.position.x -= deltaX;
 		} else {
 			this.position.x = -currentCenter;
