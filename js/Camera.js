@@ -88,13 +88,28 @@ function Camera(initialPosition) {
 	this.resetPlayer = function(crashCount, maxCount, segment) {
 		const remainingTime = maxCount - crashCount;
 		
-		if(remainingTime > 0) {
-			const remainingX = this.position.x - segment.nearPos.world.x;
-			const deltaX = remainingX / remainingTime;
+		const remainingX = this.position.x - segment.nearPos.world.x;
+		const deltaX = remainingX / remainingTime;
+		
+		if(this.position.x - deltaX > -segment.nearPos.world.x) {
+			console.log("greater than");
+			this.position.x -= deltaX;
+		} else if(this.position.x + deltaX < -segment.nearPos.world.x) {
+			console.log("Less than");
 			this.position.x -= deltaX;
 		} else {
 			this.position.x = -segment.nearPos.world.x;
 		}
+		
+		
+		
+		
+		
+/*		if(Math.abs(remainingX) > 50) {
+			this.position.x -= deltaX;
+		} else {
+			this.position.x = -segment.nearPos.world.x;
+		}*/
 	}
 	
 /*	this.recenterOnSegment = function(segment, time) {

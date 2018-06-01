@@ -37,9 +37,9 @@ function RoadsideDecoration(image, pos) {
 		
 		const widthRatio = this.screenSize.width / (4 * this.width);
 		const heightRatio = this.screenSize.height / (4 * this.height);
-		//this.collider.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
+		this.collider.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
 
-		//this.collider.draw();
+		this.collider.draw();
 	}
 
 	this.didClickInside = function (mousePos) {

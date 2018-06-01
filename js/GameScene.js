@@ -112,7 +112,7 @@ function GameScene(data) {
 				currentCrashCount = 0;
 			}
 		} else {
-			//			this.checkForCollisions(baseSegment);
+			this.checkForCollisions(baseSegment);
 
 			this.player.move(baseSegment.farPos.world.y);
 
