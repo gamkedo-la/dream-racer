@@ -6,6 +6,26 @@ const SMOOTHING_DELTA = 0.01; // for the spedometer needle
 var hud = {
     desiredNeedleAngle: 0,
     currentNeedleAngle: 0,
+    drawTimerString: function (num, x, y) {
+        var secs = Math.floor(num / 1000);
+        var ms = Math.floor((num - secs * 1000) / 10); // two digits not three please
+        var str = "";
+        if (secs < 100) str += "0";
+        if (secs < 10) str += "0";
+        str += secs;
+        str += ":";
+        if (ms < 10) ms += "0";
+        str += ms;
+        for (var n = 0; n < str.length; n++) {
+            if (str[n] == ":") {
+                canvasContext.drawImage(hudPic, 0, 9, 8, 9, x + (8 * n) + 2, y + 1, 8, 9); // 0
+            }
+            else {
+                var sprnum = parseInt(str[n]);
+                canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (8 * n), y, 8, 9); // 0
+            }
+        }
+    },
     drawNumPadded: function (num, x, y) {
         var str = ("00000" + num).slice(-5); // pad with zeroes
         for (var n = 0; n < str.length; n++) {
@@ -53,7 +73,8 @@ var hud = {
 
         // TIME
         canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
-        this.drawNumPadded(Math.floor(scene.player.laptime), 49, 11);
+        //this.drawNumPadded(Math.floor(scene.player.laptime), 49, 11);
+        this.drawTimerString(Math.floor(scene.countdownTimeLeft), 49, 11);
 
         // SCORE
         canvasContext.drawImage(hudPic, 165, 0, 46, 16, Math.floor(canvas.width / 2 - 40), 8, 46, 16);
