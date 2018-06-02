@@ -33,6 +33,10 @@ const rightStreetLightPic = document.createElement("img");
 const leftStreetLightPic = document.createElement("img");
 const rightStreetLightNoLightPic = document.createElement("img");
 const leftStreetLightNoLightPic = document.createElement("img");
+const straightPowerPolePic = document.createElement("img");
+const straightPowerPoleCrossBeamsPic = document.createElement("img");
+const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
+const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
@@ -88,6 +92,10 @@ function loadImages() {
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
 	imageList.push({ imgName: leftStreetLightNoLightPic, theFile: "LeftStreetLight_NoLight.png" });
+	imageList.push({ imgName: straightPowerPolePic, theFile: "StraightPowerPole.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "StraightPowerPoleCrossBeams.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "StraightPowerPoleCrossBeamsSlantLeft.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "StraightPowerPoleCrossBeamsSlantRight.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });

@@ -64,7 +64,12 @@ function EditorScene(data) {
 			new DecorationUIElement(leftStreetLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height }),
 			new DecorationUIElement(rightStreetLightNoLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height }),
 			new DecorationUIElement(leftStreetLightNoLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height }),
-			new DecorationUIElement(blankBillboard, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height })
+			new DecorationUIElement(blankBillboard, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height }),
+			new DecorationUIElement(straightPowerPolePic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height }),
+			
+			new DecorationUIElement(straightPowerPoleCrossBeamsPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height }),
+			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height }),
+			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height })
 		];
 		return array;
 	}
