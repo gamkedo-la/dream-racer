@@ -59,12 +59,12 @@ function EditorScene(data) {
 			new DecorationUIElement(sideBarrierStartPic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height }),
 			new DecorationUIElement(sideBarrierMidPic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height }),
 			new DecorationUIElement(palmTreePic, { x: canvas.width - (4 * UI_SIZE.width) - 10, y: 7 * UI_SIZE.height }),
-			
-			new DecorationUIElement(rightStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height}),
-			new DecorationUIElement(leftStreetLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height}),
-			new DecorationUIElement(rightStreetLightNoLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height}),
-			new DecorationUIElement(leftStreetLightNoLightPic, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height}),
-			new DecorationUIElement(blankBillboard, {x: canvas.width - (5 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height})
+
+			new DecorationUIElement(rightStreetLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 2 * UI_SIZE.height }),
+			new DecorationUIElement(leftStreetLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 3 * UI_SIZE.height }),
+			new DecorationUIElement(rightStreetLightNoLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 4 * UI_SIZE.height }),
+			new DecorationUIElement(leftStreetLightNoLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 5 * UI_SIZE.height }),
+			new DecorationUIElement(blankBillboard, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: 6 * UI_SIZE.height })
 		];
 		return array;
 	}
@@ -72,7 +72,9 @@ function EditorScene(data) {
 	let selectedDecorationUIElementIndex = -1;//-1 when no item is selected
 
 	this.draw = function () {
+
 		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
+
 		this.road.draw(this.camera.position);
 		this.road.drawSelected();
 
@@ -187,9 +189,9 @@ function EditorScene(data) {
 		if (holdUp) {
 			if (holdShift) {
 				if (this.road.hasSelectedDecoration()) {
-					for(let i = 0; i < segments.length; i++) {
+					for (let i = 0; i < segments.length; i++) {
 						let thisSegment = segments[i];
-						for(let j = 0; j < thisSegment.decorations.length; j++) {
+						for (let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
 							for (let k = 0; k < billboardSprites.length; k++) {
 								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
@@ -197,22 +199,22 @@ function EditorScene(data) {
 									if (newIndex > billboardSprites.length - 1) {
 										thisDecoration.sprite = billboardSprites[0];
 									} else {
-									thisDecoration.sprite = billboardSprites[newIndex]; 
+										thisDecoration.sprite = billboardSprites[newIndex];
 									} // end of if increased index is greater than array 
 									thisDecoration.selected = false;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
-								break; 
+								break;
 							} // end of for loop for billboardSprites
 							thisDecoration.selected = true;
 						} // end of for loop thisSegment.decorations
 					} // end of for loop for segments
 				} // end of if this.road.hasSelectedDecoration()
 			} else
-			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationFarther();
-			} else {
-				this.camera.editMove();
-			}
+				if (this.road.hasSelectedDecoration()) {
+					this.road.moveDecorationFarther();
+				} else {
+					this.camera.editMove();
+				}
 		}
 
 		if (holdDown) {

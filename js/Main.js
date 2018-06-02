@@ -160,7 +160,7 @@ function startGame() {
 		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: CAMERA_INITIAL_Z },
 		skyPic: undefined,
 		backgroundPic: tempBackgroundPic,
-		middleGroundPic: undefined
+		middleGroundPic: tempMiddlegroundPic
 	});
 };
 
@@ -182,7 +182,7 @@ function startEditing() {
 		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
 		skyPic: undefined,
 		backgroundPic: tempBackgroundPic,
-		middleGroundPic: undefined
+		middleGroundPic: tempMiddlegroundPic
 	});
 };
 

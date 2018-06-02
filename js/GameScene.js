@@ -39,7 +39,7 @@ function GameScene(data) {
 	this.player = new Player();
 
 	this.draw = function () {
-		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 10), data.middleGroundPic, 0);
+		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position);
 		this.player.draw(currentCrashCount);
 		hud.draw();
@@ -68,7 +68,7 @@ function GameScene(data) {
 		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
 		this.countdownTimeLeft -= this.timeSinceLastFrame;
 		if (this.countdownTimeLeft <= 0) { // out of time?
-			console.log("Countdown timer reached 0!");
+			console.log("Countdown timer reached 0. TODO: trigger game over");
 			this.countdownTimeLeft = 0; // no negative numbers allowed
 			// fixme: GAME OVER?
 		}
