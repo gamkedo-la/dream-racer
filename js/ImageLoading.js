@@ -40,6 +40,7 @@ const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
+const eastCoastBillboard = document.createElement("img");
 const needlePic = document.createElement("img");
 
 
@@ -92,10 +93,10 @@ function loadImages() {
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
 	imageList.push({ imgName: leftStreetLightNoLightPic, theFile: "LeftStreetLight_NoLight.png" });
-	imageList.push({ imgName: straightPowerPolePic, theFile: "StraightPowerPole.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "StraightPowerPoleCrossBeams.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "StraightPowerPoleCrossBeamsSlantLeft.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "StraightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: straightPowerPolePic, theFile: "straightPowerPole.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
@@ -109,6 +110,8 @@ function loadImages() {
 	billboardSprites.push(blankBillboard);
 	imageList.push({ imgName: obeyBillboard, theFile: "ObeyBillboard.png" });
 	billboardSprites.push(obeyBillboard);
+	imageList.push({ imgName: eastCoastBillboard, theFile: "EastCoastBillboard.png" });
+	billboardSprites.push(eastCoastBillboard);
 
 
 	picsToLoad = imageList.length;
