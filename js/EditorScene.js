@@ -207,10 +207,12 @@ function EditorScene(data) {
 										thisDecoration.sprite = billboardSprites[newIndex];
 									} // end of if increased index is greater than array 
 									thisDecoration.selected = false;
+									/*if (thisDecoration.sprite != billboardSprites[k]) {
+										thisDecoration.selected = true;
+									}*/
+									break;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
-								break;
 							} // end of for loop for billboardSprites
-							thisDecoration.selected = true;
 						} // end of for loop thisSegment.decorations
 					} // end of for loop for segments
 				} // end of if this.road.hasSelectedDecoration()
@@ -223,11 +225,36 @@ function EditorScene(data) {
 		}
 
 		if (holdDown) {
-			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationCloser();
-			} else {
-				this.camera.editMove();
-			}
+			if (holdShift) {
+				if (this.road.hasSelectedDecoration()) {
+					for (let i = 0; i < segments.length; i++) {
+						let thisSegment = segments[i];
+						for (let j = 0; j < thisSegment.decorations.length; j++) {
+							let thisDecoration = thisSegment.decorations[j];
+							for (let k = 0; k < billboardSprites.length; k++) {
+								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+									let newIndex = k - 1;
+									if (newIndex < 0) {
+										thisDecoration.sprite = billboardSprites[billboardSprites.length - 1];
+									} else {
+										thisDecoration.sprite = billboardSprites[newIndex];
+									} // end of if increased index is greater than array 
+									thisDecoration.selected = false;
+									/*if (thisDecoration.sprite != billboardSprites[k]) {
+										thisDecoration.selected = true;
+									}*/
+									break;
+								} // end of if billboardSprite is the same as a sprite in billboardSprites
+							} // end of for loop for billboardSprites
+						} // end of for loop thisSegment.decorations
+					} // end of for loop for segments
+				} // end of if this.road.hasSelectedDecoration()
+			} else
+				if (this.road.hasSelectedDecoration()) {
+					this.road.moveDecorationCloser();
+				} else {
+					this.camera.editMove();
+				}
 		}
 
 		if (mouseButtonHeld) {
