@@ -43,6 +43,7 @@ const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
+const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
 
 
@@ -114,6 +115,8 @@ function loadImages() {
 	billboardSprites.push(obeyBillboard);
 	imageList.push({ imgName: eastCoastBillboard, theFile: "EastCoastBillboard.png" });
 	billboardSprites.push(eastCoastBillboard);
+	imageList.push({ imgName: niceCityBillboard, theFile: "NiceCityBillboard.png" });
+	billboardSprites.push(niceCityBillboard);
 	imageList.push({ imgName: romanAdventureBillboard, theFile: "RomanAdventureBillboard.png" });
 	billboardSprites.push(romanAdventureBillboard);
 
