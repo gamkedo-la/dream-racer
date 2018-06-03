@@ -5,6 +5,7 @@ const tempMiddlegroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
 
 const tempCheckeredFlagPic = document.createElement("img");
+const checkpointFlagPic = document.createElement("img");
 const curveyRoadSignPic = document.createElement("img");
 const hardLeftTurnSignPic = document.createElement("img");
 const hardRightTurnSignPic = document.createElement("img");
@@ -72,6 +73,7 @@ function loadImages() {
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "PlayerCar.png" });
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
+	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
 	imageList.push({ imgName: curveyRoadSignPic, theFile: "CurveyRoadSign.png" });
 	imageList.push({ imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png" });
 	imageList.push({ imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png" });
