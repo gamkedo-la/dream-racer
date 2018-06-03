@@ -3,11 +3,9 @@ setAudioPath("./audio/");
 
 //set sound clips and music tracks here
 
-var menuMusic = new musicTrackLoop("dreamracerNight", 50.5);
 var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
-var nightMusic = new musicTrackLoop("dreamPunk", 167.335);  //By Vignesh
 
-var currentBackgroundMusic = new musicContainer([menuMusic]);
+var currentBackgroundMusic = new musicContainer([nightMusic]);
 
 MusicVolumeManager.setVolume(0.7);
 
