@@ -4,6 +4,7 @@ setAudioPath("./audio/");
 //set sound clips and music tracks here
 
 var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
+var dreamPunk = new musicTrackLoop("dreamPunk", 167.335);  //By Stebs
 
 var currentBackgroundMusic = new musicContainer([nightMusic]);
 
@@ -320,7 +321,7 @@ function setEngineAudioFromRPMs(RPMs) {
 }
 
 function loadAudio() {
-	nightMusic.play();
+	currentBackgroundMusic.play();
 }
 
 function turnVolumeUp() {
