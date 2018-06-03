@@ -98,6 +98,7 @@ mainMenu = {
 		for(let i = 0; i < this.buttons.length; i++){
 			const bounds = this.buttons[i].bounds;
 			if(mouseInside(bounds.x, bounds.y, bounds.width, bounds.height)) {
+				uiSelect.play();
 				this.buttons[i].onClick();
 			}
 		}

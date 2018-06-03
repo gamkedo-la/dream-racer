@@ -4,12 +4,16 @@ setAudioPath("./audio/");
 //set sound clips and music tracks here
 
 var menuMusic = new musicTrackLoop("menuMusic", 50.5);
+var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
+var nightMusic = new musicTrackLoop("dreamPunk", 167.335);  //By Vignesh
+
 var currentBackgroundMusic = new musicContainer([menuMusic]);
 
 MusicVolumeManager.setVolume(0.7);
 
 var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");
+var uiSelect = new sfxClipSingle("uiSelect");
 
 var engine_idle = new sfxClipLoop("temp_engine_idle", 3.7);
 var engine_0500 = new sfxClipLoop("temp_placeholder", 3);
