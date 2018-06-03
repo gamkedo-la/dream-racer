@@ -320,7 +320,7 @@ function setEngineAudioFromRPMs(RPMs) {
 }
 
 function loadAudio() {
-	menuMusic.play();
+	nightMusic.play();
 }
 
 function turnVolumeUp() {
