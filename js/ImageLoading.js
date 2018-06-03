@@ -37,11 +37,13 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+const needlePic = document.createElement("img");
+// billboards
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
-const needlePic = document.createElement("img");
+const romanAdventureBillboard = document.createElement("img");
 
 
 const imageList = [];
@@ -112,6 +114,8 @@ function loadImages() {
 	billboardSprites.push(obeyBillboard);
 	imageList.push({ imgName: eastCoastBillboard, theFile: "EastCoastBillboard.png" });
 	billboardSprites.push(eastCoastBillboard);
+	imageList.push({ imgName: romanAdventureBillboard, theFile: "RomanAdventureBillboard.png" });
+	billboardSprites.push(romanAdventureBillboard);
 
 
 	picsToLoad = imageList.length;
