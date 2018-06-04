@@ -70,7 +70,7 @@ function Player() {
 			turnRightFramecount++;
 			turnLeftFramecount = 0;
 			// every 4 frames, advance to next sharper angle
-			frameNum = 4 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
+			frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
 			if (frameNum > 8) frameNum = 8;
 		}
 		else if ((holdLeft) || (holdA)) {
