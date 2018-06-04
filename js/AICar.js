@@ -53,7 +53,7 @@ function AICar(image, pos, desiredSpeed) {
 		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - currentSegment.nearPos.world.z) / (currentSegment.farPos.world.z - currentSegment.nearPos.world.z);
 		const currentCenter = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);*/
 		
-		this.position.x = nextSegment.farPos.world.x;
-		this.position.y = nextSegment.farPos.world.y;
+		this.position.x = nextSegment.nearPos.world.x + (nextSegment.farPos.world.x - nextSegment.nearPos.world.x);
+		this.position.y = nextSegment.nearPos.world.y + (nextSegment.farPos.world.y - nextSegment.nearPos.world.y);
 	}
 }

@@ -130,7 +130,7 @@ function GameScene(data) {
 			}
 		}
 		
-		this.aiCar.move(this.road.getSegments()[baseSegment.index + 1]);
+		this.aiCar.move(this.road.getSegmentAtZPos(this.aiCar.position.z));
 	}
 
 	this.checkForCollisions = function (baseSegment) {
