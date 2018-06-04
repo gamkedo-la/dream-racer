@@ -3,6 +3,7 @@
 const tempBackgroundPic = document.createElement("img");
 const tempMiddlegroundPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
+const tempAICarPic = document.createElement("img");
 
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
@@ -71,6 +72,7 @@ function loadImages() {
 	imageList.push({ imgName: tempBackgroundPic, theFile: "backgroundClouds.png" });
 	imageList.push({ imgName: tempMiddlegroundPic, theFile: "middlegroundMountains.png" });
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
+	imageList.push({ imgName: tempAICarPic, theFile: "AICar.png" });
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });

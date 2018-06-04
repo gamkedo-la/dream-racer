@@ -13,6 +13,9 @@ function GameScene(data) {
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
 	this.previousFrameTimestamp = null;
+	
+	//temporary A.I. car for testing
+	this.aiCar = new AICar(tempAICarPic, {x:0, y:0, z:-CAMERA_INITIAL_Z}, 10);
 
 	const roadReferences = [
 		JSON.parse(example),
@@ -41,6 +44,7 @@ function GameScene(data) {
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position);
+		this.aiCar.draw(this.frustum);
 		this.player.draw(currentCrashCount);
 		hud.draw();
 	}
@@ -125,6 +129,8 @@ function GameScene(data) {
 				}
 			}
 		}
+		
+		this.aiCar.move(this.road.getSegments()[baseSegment.index + 1]);
 	}
 
 	this.checkForCollisions = function (baseSegment) {
