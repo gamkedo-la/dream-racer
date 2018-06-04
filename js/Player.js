@@ -13,8 +13,8 @@ function Player() {
 	this.MAX_CRASH_COUNT = 120;
 
 	this.sprite = tempPlayerCarPic;
-	this.width = this.sprite.width / 2;//only dividing by two because player car sprite is so big
-	this.height = this.sprite.height / 2;//only dividing by two because player car sprite is so big
+	this.width = 140; //this.sprite.width / 2;//only dividing by two because player car sprite is so big
+	this.height = 140; //this.sprite.height / 2;//only dividing by two because player car sprite is so big
 	this.depth = 60;//swag
 	this.position = {
 		x: (canvas.width - (this.width)) / 2,
@@ -34,7 +34,7 @@ function Player() {
 	this.isOffRoad = false;
 	let offRoadCounter = 0;
 	let rotation = 0;
-	
+
 	this.isCrashing = false;
 	this.isResetting = false;
 
@@ -47,23 +47,38 @@ function Player() {
 
 	this.draw = function (crashCount) {
 		canvasContext.save();
-	
-		if(this.isCrashing) {
+
+		if (this.isCrashing) {
 			const deltaY = this.deltaYForCrashCount(crashCount);
 			canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
 			canvasContext.rotate(rotation);
 			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
 		}
-	
-		canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
+
+		// old way: single image:
+		// canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
+
+		// new way: spritesheet with re-rendered 3d images at various angles
+		// TODO: change spritesheet frame depending on turn angle
+		var frameNum = 0;
+		canvasContext.drawImage(this.sprite,
+			carSpritesheet.frames[frameNum].frame.x,
+			carSpritesheet.frames[frameNum].frame.y,
+			carSpritesheet.frames[frameNum].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
+			carSpritesheet.frames[frameNum].frame.h * 3,
+			this.position.x, this.position.y,
+			carSpritesheet.frames[frameNum].frame.w * 3,
+			carSpritesheet.frames[frameNum].frame.h * 3
+		);
+
 		this.collider.draw();
-		
+
 		canvasContext.restore();
 	}
 
 	this.move = function (nextRoadY) {
 		this.speed -= FRICTION;
-		
+
 		if (this.isOffRoad) {
 			console.log("Offroad");
 			this.speed -= OFF_ROAD_FRICTION;
@@ -108,29 +123,29 @@ function Player() {
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
 		}
-		
+
 		if (holdN && (boosterCount > 0)) {
 			boosterCount--;
 			boosting = true;
 			this.speed = BOOSTER;
 			holdN = false;
 		}
-		
-		if(boosting) {
+
+		if (boosting) {
 			this.speed -= 2 * FRICTION;
-			if(this.speed <= MAX_SPEED) {
+			if (this.speed <= MAX_SPEED) {
 				boosting = false;
 			}
 		}
 
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
-		
+
 		if (this.turnRate > MAX_TURN_RATE) {
 			this.turnRate = MAX_TURN_RATE;
 		}
 
 		currentRoadY = nextRoadY;
-		
+
 		setEngineAudioFromRPMs(this.speed / 15 * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
@@ -142,42 +157,42 @@ function Player() {
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
 	}
-	
-	this.speedChangeForCrashing = function() {
+
+	this.speedChangeForCrashing = function () {
 		this.speed -= CRASH_DECELERATION;
-		if(this.speed <= 0) {
+		if (this.speed <= 0) {
 			this.speed = 0;
 		}
 	}
-	
-	this.deltaYForCrashCount = function(count) {
+
+	this.deltaYForCrashCount = function (count) {
 		let deltaY = 0;
-		
-		if(count <= 6 * this.MAX_CRASH_COUNT / 8) {
+
+		if (count <= 6 * this.MAX_CRASH_COUNT / 8) {
 			rotation = (count / (6 * this.MAX_CRASH_COUNT / 8)) * (2 * Math.PI);
 		}
-		
-		if(count <= 1 * this.MAX_CRASH_COUNT / 8) {
+
+		if (count <= 1 * this.MAX_CRASH_COUNT / 8) {
 			deltaY = MAX_CRASH_HEIGHT * (count / (this.MAX_CRASH_COUNT / 8));
-		} else if(count <= 2 * this.MAX_CRASH_COUNT / 8) {
+		} else if (count <= 2 * this.MAX_CRASH_COUNT / 8) {
 			const remainingCount = count - (this.MAX_CRASH_COUNT / 8);
 			deltaY = MAX_CRASH_HEIGHT - (MAX_CRASH_HEIGHT * (remainingCount / (this.MAX_CRASH_COUNT / 8)));
-		} else if(count <= 3 * this.MAX_CRASH_COUNT / 8) {
+		} else if (count <= 3 * this.MAX_CRASH_COUNT / 8) {
 			const remainingCount = count - (2 * this.MAX_CRASH_COUNT / 8);
 			deltaY = (MAX_CRASH_HEIGHT / 2) * (remainingCount / (this.MAX_CRASH_COUNT / 8));
-		} else if(count <= 4 * this.MAX_CRASH_COUNT / 8) {
+		} else if (count <= 4 * this.MAX_CRASH_COUNT / 8) {
 			const remainingCount = count - (3 * this.MAX_CRASH_COUNT / 8);
 			deltaY = MAX_CRASH_HEIGHT / 2 - ((MAX_CRASH_HEIGHT / 2) * (remainingCount / (this.MAX_CRASH_COUNT / 8)));
-		} else if(count <= 5 * this.MAX_CRASH_COUNT / 8) {
+		} else if (count <= 5 * this.MAX_CRASH_COUNT / 8) {
 			const remainingCount = count - (4 * this.MAX_CRASH_COUNT / 8);
 			deltaY = (MAX_CRASH_HEIGHT / 4) * (remainingCount / (this.MAX_CRASH_COUNT / 8));
-		} else if(count <= 6 * this.MAX_CRASH_COUNT / 8) {
+		} else if (count <= 6 * this.MAX_CRASH_COUNT / 8) {
 			const remainingCount = count - (5 * this.MAX_CRASH_COUNT / 8);
 			deltaY = MAX_CRASH_HEIGHT / 4 - ((MAX_CRASH_HEIGHT / 4) * (remainingCount / (this.MAX_CRASH_COUNT / 8)));
 		} else {
 			deltaY = 0;
 		}
-		
+
 		return deltaY;
 	}
 }
