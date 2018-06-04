@@ -45,6 +45,9 @@ function Player() {
 	let boosterCount = 1;
 	let boosting = false;
 
+	let turnLeftFramecount = 0;
+	let turnRightFramecount = 0;
+
 	this.draw = function (crashCount) {
 		canvasContext.save();
 
@@ -59,11 +62,32 @@ function Player() {
 		// canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
 
 		// new way: spritesheet with re-rendered 3d images at various angles
-		// TODO: change spritesheet frame depending on turn angle
-		var frameNum = 0;
+
+		var frameNum = 0; // straight forward 0 degrees
+
+		// this is a heinous hack, but the car never really turns at all - the world does
+		if ((holdRight) || (holdD)) {
+			turnRightFramecount++;
+			turnLeftFramecount = 0;
+			// every 4 frames, advance to next sharper angle
+			frameNum = 4 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
+			if (frameNum > 8) frameNum = 8;
+		}
+		else if ((holdLeft) || (holdA)) {
+			turnRightFramecount = 0;
+			turnLeftFramecount++;
+			frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
+			if (frameNum > 4) frameNum = 4;
+		}
+		else {
+			turnRightFramecount = 0;
+			turnLeftFramecount = 0;
+		}
+		// TODO: when you let go of controls, gradually turn back to zero degrees
+
 		canvasContext.drawImage(this.sprite,
-			carSpritesheet.frames[frameNum].frame.x,
-			carSpritesheet.frames[frameNum].frame.y,
+			carSpritesheet.frames[frameNum].frame.x * 3,
+			carSpritesheet.frames[frameNum].frame.y * 3,
 			carSpritesheet.frames[frameNum].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
 			carSpritesheet.frames[frameNum].frame.h * 3,
 			this.position.x, this.position.y,
