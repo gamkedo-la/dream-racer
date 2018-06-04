@@ -44,7 +44,9 @@ function GameScene(data) {
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position);
-		this.aiCar.draw(this.frustum);
+		if(this.aiCar.position.z > this.camera.position.z) {
+			this.aiCar.draw(this.frustum);
+		}
 		this.player.draw(currentCrashCount);
 		hud.draw();
 	}

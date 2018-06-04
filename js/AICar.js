@@ -40,9 +40,8 @@ function AICar(image, pos, desiredSpeed) {
 		}
 		
 		this.position.z += this.speed;
-		console.log(this.position.z);
 		
-/*		if(currentSegment == null) {
+		if(currentSegment == null) {
 			currentSegment = nextSegment;
 		}
 		
@@ -50,10 +49,10 @@ function AICar(image, pos, desiredSpeed) {
 			currentSegment = nextSegment;
 		}
 		
-		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - currentSegment.nearPos.world.z) / (currentSegment.farPos.world.z - currentSegment.nearPos.world.z);
-		const currentCenter = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);*/
+		const interpolation = ((this.position.z) - currentSegment.nearPos.world.z) / (currentSegment.farPos.world.z - currentSegment.nearPos.world.z);
+		const currentCenter = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);
 		
-		this.position.x = nextSegment.nearPos.world.x + (nextSegment.farPos.world.x - nextSegment.nearPos.world.x);
-		this.position.y = nextSegment.nearPos.world.y + (nextSegment.farPos.world.y - nextSegment.nearPos.world.y);
+		this.position.x = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);
+		this.position.y = currentSegment.nearPos.world.y + interpolation * (currentSegment.farPos.world.y - currentSegment.nearPos.world.y);
 	}
 }
