@@ -29,6 +29,11 @@ var engine_5500 = new sfxClipLoop("temp_engine_5500", 2.6);
 var engine_6000 = new sfxClipLoop("temp_engine_6000", 2.35);
 var engine_master = new sfxContainer([engine_idle,engine_0500,engine_1000,engine_1500,engine_2000,engine_2500,engine_3000,
 								  engine_3500,engine_4000,engine_4500,engine_5000,engine_5500,engine_6000]);
+var brake_off = new sfxClipLoop("temp_placeholder", 2);
+var brake_low = new sfxClipLoop("brake_low", 4);
+var brake_mid = new sfxClipLoop("brake_mid", 2.5);
+var brake_high = new sfxClipLoop("brake_high", 2);
+var brake_master = new sfxContainer([brake_off,brake_low,brake_mid,brake_high])
 var offroadSound = new sfxClipLoop("temp_offroad", 10);
 
 SFXVolumeManager.setVolume(0.7);
@@ -273,6 +278,7 @@ function scaleRange(inputStart, inputEnd, outputStart, outputEnd, value) {
 
 //Game hooks
 const VOLUME_INCREMENT = 0.5;
+
 var engineIndex = [engine_idle,
 				   engine_0500,
 				   engine_1000,
@@ -287,12 +293,11 @@ var engineIndex = [engine_idle,
 				   engine_5500,
 				   engine_6000];
 var engineOverlap = 500;
-
 function setEngineAudioFromRPMs(RPMs) {
 	//colorText(RPMs,20,20,'black','Courier')
 	var rpms = RPMs;
 	if (rpms < 0) {
-		engine_master.stop();
+		engine_master.pause();
 		return;
 	}
 	rpms = rpms > 6000 ? 6000 : rpms;
@@ -318,6 +323,32 @@ function setEngineAudioFromRPMs(RPMs) {
 			}
 		}
 	}
+}
+
+function brakeAudio(speed) {
+	if (speed <= 3) {
+		brake_low.setVolume(speed/3);
+		brake_mid.setVolume(0);
+		brake_high.setVolume(0);
+	}
+	if (speed > 3 && speed <= 6) {
+		brake_low.setVolume(1);
+		brake_mid.setVolume((speed-3)/3);
+		brake_high.setVolume(0);
+	}
+	if (speed > 6 && speed <= 9) {
+		brake_low.setVolume(Math.abs((speed-9))/3);
+		brake_mid.setVolume(1);
+		brake_high.setVolume((speed-6)/3);
+	}
+	if (speed > 9) {
+		brake_low.setVolume(0);
+		brake_mid.setVolume(Math.abs((speed-12))/3);
+		brake_high.setVolume(1);
+	}
+	if (brake_low.getPaused()) {brake_low.playFrom(0.5);}
+	if (brake_mid.getPaused()) {brake_mid.playFrom(0.5);}
+	if (brake_high.getPaused()) {brake_high.playFrom(0.5);}
 }
 
 function loadAudio() {
