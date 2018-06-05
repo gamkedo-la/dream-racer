@@ -20,7 +20,7 @@ function AICar(image, pos, desiredSpeed) {
 	this.draw = function(frustum) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
-		canvasContext.drawImage(this.sprite, screenPos.x - this.width / 2, screenPos.y - this.height / 2, screenSize.width, screenSize.height);
+		canvasContext.drawImage(this.sprite, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 		this.collider.draw();
 	}
 	
