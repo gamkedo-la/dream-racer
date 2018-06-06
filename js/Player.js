@@ -70,7 +70,7 @@ function Player() {
 			turnRightFramecount++;
 			turnLeftFramecount = 0;
 			// every 4 frames, advance to next sharper angle
-			frameNum = 4 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
+			frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
 			if (frameNum > 8) frameNum = 8;
 		}
 		else if ((holdLeft) || (holdA)) {
@@ -130,9 +130,9 @@ function Player() {
 
 		if ((holdDown) || (holdX)) {
 			this.speed -= BRAKING;
-			//brakingSound.play(); -> placeholder until braking sound is added
+			brakeAudio(this.speed);
 		} else {
-			//brakingsound.pause(); -> placeholder until braking sound is added
+			brake_master.pause();
 		}
 
 		if ((!boosting) && (this.speed > MAX_SPEED)) {
@@ -170,7 +170,7 @@ function Player() {
 
 		currentRoadY = nextRoadY;
 
-		setEngineAudioFromRPMs(this.speed / 15 * 6000);//temporary implementation until gear shifting is implemented
+		setEngineAudioFromRPMs(this.speed / 12 * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
 		this.laptime++; // FIXME: perhaps use a real time stamp
