@@ -24,6 +24,12 @@ function AICar(image, pos, desiredSpeed) {
 		this.collider.draw();
 	}
 	
+	this.getRect = function(frustum) {
+		const screenPos = frustum.screenPosForWorldPos(this.position);
+		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
+		return {x: screenPos.x, y: screenPos.y, width:screenSize.width, height:screenSize.height};
+	}
+	
 	this.move = function(nextSegment) {
 		this.speed += ACCELERATION;
 		

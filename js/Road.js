@@ -11,7 +11,8 @@ function Road(frustum) {
 	const segmentLength = 4 * GAME_HEIGHT / magicNumber;
 	
 	this.indexOfFinishLine = -1;
-
+	
+	let activeCars = [];
 	let segments = [];
 	let selectedSegments = [];
 	this.hasSelectedSegments = function() {
@@ -52,10 +53,12 @@ function Road(frustum) {
 	}
 		
 	let ticks = 0;
-	this.draw = function(cameraPos) {
+	this.draw = function(cameraPos, cars) {
 		if(currentBaseSegment == null) {
 			currentBaseSegment = findsegment(0);
 		}
+		
+		activeCars = cars;
 				
 		for(let i = segments.length - 1; i >= 0; i--) {
 			const thisSegment = segments[(currentBaseSegment.index + i) % segments.length];
@@ -132,8 +135,18 @@ function Road(frustum) {
 				
 				thisSegment.decorations[j].drawWithFrustum(frustum);
 			}
-		}
-	}
+			
+			for(let k = activeCars.length - 1; k >= 0; k--) {
+				const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
+				const carRect = activeCars[k].getRect(frustum);
+				const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
+				if(thisSegment.index == carSegment.index - carSpan) {
+					activeCars[k].draw(frustum);
+					activeCars.splice(k, 1);
+				}
+			}
+		}//end of for-loop: segments
+	}//end of this.draw()
 	
 	this.drawSelected = function() {
 		let minY = GAME_HEIGHT;
