@@ -346,9 +346,12 @@ function brakeAudio(speed) {
 		brake_mid.setVolume(Math.abs((speed-12))/3);
 		brake_high.setVolume(1);
 	}
-	if (brake_low.getPaused()) {brake_low.playFrom(0.5);}
-	if (brake_mid.getPaused()) {brake_mid.playFrom(0.5);}
-	if (brake_high.getPaused()) {brake_high.playFrom(0.5);}
+	if (brake_low.getPaused() && brake_low.getTime() < 0.5) {brake_low.playFrom(0.5);}
+	else if (brake_low.getPaused()) {brake_low.resume()}
+	if (brake_mid.getPaused() && brake_mid.getTime() < 0.5) {brake_mid.playFrom(0.5);}
+	else if (brake_mid.getPaused()) {brake_mid.resume()}
+	if (brake_high.getPaused() && brake_high.getTime() < 0.5) {brake_high.playFrom(0.5);}
+	else if (brake_high.getPaused()) {brake_high.resume()}
 }
 
 function loadAudio() {
