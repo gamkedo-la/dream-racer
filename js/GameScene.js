@@ -15,7 +15,7 @@ function GameScene(data) {
 	this.previousFrameTimestamp = null;
 	
 	//temporary A.I. car for testing
-	this.aiCar = new AICar(tempAICarPic, {x:0, y:0, z:-CAMERA_INITIAL_Z}, 10);
+	this.aiCars = [new AICar(tempAICarPic, {x:0, y:0, z:-CAMERA_INITIAL_Z}, 10)];
 
 	const roadReferences = [
 		JSON.parse(example),
@@ -43,10 +43,7 @@ function GameScene(data) {
 
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
-		this.road.draw(this.camera.position, [this.aiCar]);
-//		if(this.aiCar.position.z > this.camera.position.z) {
-//			this.aiCar.draw(this.frustum);
-//		}
+		this.road.draw(this.camera.position, this.aiCars);
 		this.player.draw(currentCrashCount);
 		hud.draw();
 	}
@@ -132,27 +129,42 @@ function GameScene(data) {
 			}
 		}
 		
-		this.aiCar.move(this.road.getSegmentAtZPos(this.aiCar.position.z));
+		for(let i = 0; i < this.aiCars.length; i++) {
+			this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
+		}
 	}
 
-	this.checkForCollisions = function (baseSegment) {
+	this.checkForCollisions = function(baseSegment) {
+		this.checkForAICarCollisions();
+		
 		for (let i = 0; i < baseSegment.decorations.length; i++) {
 			const thisDecoration = baseSegment.decorations[i];
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
 			if (collisionData.isColliding) {
-				if (thisDecoration.collider.isDynamic) {
-					//maybe just bumped the other object?
+				if(thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
+					this.setPlayerCrashingState(true);
 				} else {
-					//definitely crashed since we hit a sign or something
-					this.player.isCrashing = true;
-					this.player.isResetting = false;
-					this.camera.isCrashing = true;
-					this.camera.isResetting = false;
-					if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
-						this.camera.playerDidCrashLeft(true);
-					} else {
-						this.camera.playerDidCrashLeft(false);
-					}
+					this.setPlayerCrashingState(false);
+				}
+			}
+		}
+	}
+	
+	this.setPlayerCrashingState = function(didCrashLeft) {
+		this.player.isCrashing = true;
+		this.player.isResetting = false;
+		this.camera.isCrashing = true;
+		this.camera.isResetting = false;
+		this.camera.playerDidCrashLeft(didCrashLeft);
+	}
+	
+	this.checkForAICarCollisions = function() {
+		for(let i = 0; i < this.aiCars.length; i++) {
+			const deltaZ = Math.abs(this.aiCars[i].position.z + CAMERA_INITIAL_Z - this.camera.position.z);
+			if(deltaZ <= 60) {
+				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
+				if(collisionData.isColliding) {
+					this.setPlayerCrashingState(true);
 				}
 			}
 		}

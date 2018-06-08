@@ -1,5 +1,5 @@
 //Collider
-const _DEBUG_DRAW_HITBOX_COLLIDERS = false;
+const _DEBUG_DRAW_HITBOX_COLLIDERS = true;
 
 //function boxCollider(x, y, z, width, height, depth, offsetX, offsetY, offsetZ) {
 function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
@@ -77,6 +77,7 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 			}
 		}
 
+		console.log("Collided")
 		return { isColliding: true, direction: direction };
 	}
 

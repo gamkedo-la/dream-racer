@@ -21,6 +21,11 @@ function AICar(image, pos, desiredSpeed) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
 		canvasContext.drawImage(this.sprite, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
+		
+		const widthRatio = screenSize.width / (this.width);
+		const heightRatio = screenSize.height / (this.height);
+
+		this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
 		this.collider.draw();
 	}
 	
@@ -60,5 +65,7 @@ function AICar(image, pos, desiredSpeed) {
 		
 		this.position.x = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);
 		this.position.y = currentSegment.nearPos.world.y + interpolation * (currentSegment.farPos.world.y - currentSegment.nearPos.world.y);
+		
+		this.collider.update();
 	}
 }

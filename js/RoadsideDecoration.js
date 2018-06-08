@@ -35,7 +35,7 @@ function RoadsideDecoration(image, pos) {
 		canvasContext.drawImage(this.sprite, this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height);
 		canvasContext.imageSmoothingEnabled = true; // reset to smooth and blurry
 		
-		const widthRatio = this.screenSize.width / (4 * this.width);
+		const widthRatio = this.screenSize.width / (4 * this.width);//divide by 4 because we multiplied the screenSize by 4
 		const heightRatio = this.screenSize.height / (4 * this.height);
 		if(this.collider != undefined) {
 			this.collider.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);

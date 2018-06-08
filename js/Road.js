@@ -63,7 +63,19 @@ function Road(frustum) {
 		for(let i = segments.length - 1; i >= 0; i--) {
 			const thisSegment = segments[(currentBaseSegment.index + i) % segments.length];
 			
-			if(thisSegment.nearPos.world.z <= cameraPos.z) {continue;}
+			if(thisSegment.nearPos.world.z <= cameraPos.z) {
+				for(let k = activeCars.length - 1; k >= 0; k--) {
+					if(activeCars[k].position.z < cameraPos.z) {continue;}
+					const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
+					const carRect = activeCars[k].getRect(frustum);
+					const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
+					if(thisSegment.index == carSegment.index - carSpan) {
+						activeCars[k].draw(frustum);
+					}
+				}
+				
+				continue;
+			}
 			
 			thisSegment.nearPos.screen = frustum.screenPosForWorldPos(thisSegment.nearPos.world);
 			thisSegment.nearWidth = frustum.screenSizeForWorldSizeAndPos({width:canvas.width, height:segmentLength}, thisSegment.nearPos.world).width;
@@ -142,7 +154,6 @@ function Road(frustum) {
 				const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
 				if(thisSegment.index == carSegment.index - carSpan) {
 					activeCars[k].draw(frustum);
-					activeCars.splice(k, 1);
 				}
 			}
 		}//end of for-loop: segments
