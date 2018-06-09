@@ -1,6 +1,7 @@
 //GameScene
 function GameScene(data) {
 	let currentCrashCount = 0;
+	const CRASH_DELTA_SPEED = 4;
 
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
@@ -164,7 +165,13 @@ function GameScene(data) {
 			if(deltaZ <= 60) {
 				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
 				if(collisionData.isColliding) {
-					this.setPlayerCrashingState(true);
+					if(Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
+						this.setPlayerCrashingState(true);
+					} else {
+						const playerSpeed = this.player.speed;
+						this.player.speed = this.aiCars[i].speed - CRASH_DELTA_SPEED;
+						this.aiCars[i].speed = playerSpeed + CRASH_DELTA_SPEED;
+					}
 				}
 			}
 		}

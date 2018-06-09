@@ -77,7 +77,6 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 			}
 		}
 
-		console.log("Collided")
 		return { isColliding: true, direction: direction };
 	}
 
