@@ -63,27 +63,36 @@ function Player() {
 
 		// new way: spritesheet with re-rendered 3d images at various angles
 
-		var frameNum = 0; // straight forward 0 degrees
+		let frameNum = 0; // straight forward 0 degrees
 
 		// this is a heinous hack, but the car never really turns at all - the world does
 		if ((holdRight) || (holdD)) {
 			turnRightFramecount++;
+			if(turnRightFramecount > 12) {turnRightFramecount = 12;}
 			turnLeftFramecount = 0;
 			// every 4 frames, advance to next sharper angle
 			frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
 			if (frameNum > 8) frameNum = 8;
-		}
-		else if ((holdLeft) || (holdA)) {
+		} else if ((holdLeft) || (holdA)) {
 			turnRightFramecount = 0;
 			turnLeftFramecount++;
+			if(turnLeftFramecount > 12) {turnLeftFramecount = 12;}
 			frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
 			if (frameNum > 4) frameNum = 4;
-		}
-		else {
+		} else if(turnRightFramecount > 0) {
+			turnRightFramecount -= 2;
+			turnLeftFramecount = 0;
+			frameNum = 5 + Math.round(turnRightFramecount / 4);
+			if (frameNum > 8) frameNum = 8;
+		} else if(turnLeftFramecount > 0) {
+			turnRightFramecount = 0;
+			turnLeftFramecount -= 2;
+			frameNum = Math.round(turnLeftFramecount / 4);
+			if (frameNum > 4) frameNum = 4;
+		} else {
 			turnRightFramecount = 0;
 			turnLeftFramecount = 0;
 		}
-		// TODO: when you let go of controls, gradually turn back to zero degrees
 
 		canvasContext.drawImage(this.sprite,
 			carSpritesheet.frames[frameNum].frame.x * 3,
