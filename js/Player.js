@@ -48,7 +48,7 @@ function Player() {
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
 
-	this.draw = function (crashCount) {
+	this.draw = function (crashCount, deltaY) {
 		canvasContext.save();
 
 		if (this.isCrashing) {
@@ -92,6 +92,12 @@ function Player() {
 		} else {
 			turnRightFramecount = 0;
 			turnLeftFramecount = 0;
+		}
+		
+		if(deltaY > 30) {//going uphill
+			frameNum += 9;
+		} else if(deltaY < -30) {//going downhill
+			frameNum += 18;
 		}
 
 		canvasContext.drawImage(this.sprite,

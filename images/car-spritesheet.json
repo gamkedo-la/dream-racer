@@ -1,6 +1,6 @@
 {"frames": [
 
-{
+{//0
 	"filename": "car0.png",
 	"frame": {"x":553,"y":0,"w":46,"h":41},
 	"rotated": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//1
 	"filename": "car1.png",
 	"frame": {"x":807,"y":0,"w":50,"h":43},
 	"rotated": false,
@@ -18,7 +18,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//2
 	"filename": "car2.png",
 	"frame": {"x":857,"y":0,"w":61,"h":44},
 	"rotated": false,
@@ -27,7 +27,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//3
 	"filename": "car3.png",
 	"frame": {"x":217,"y":44,"w":71,"h":44},
 	"rotated": false,
@@ -36,7 +36,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//4
 	"filename": "car4.png",
 	"frame": {"x":78,"y":44,"w":78,"h":44},
 	"rotated": false,
@@ -45,7 +45,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//5
 	"filename": "car5.png",
 	"frame": {"x":757,"y":0,"w":50,"h":43},
 	"rotated": false,
@@ -54,7 +54,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//6
 	"filename": "car6.png",
 	"frame": {"x":156,"y":44,"w":61,"h":44},
 	"rotated": false,
@@ -63,7 +63,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//7
 	"filename": "car7.png",
 	"frame": {"x":288,"y":44,"w":71,"h":44},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//8
 	"filename": "car8.png",
 	"frame": {"x":0,"y":44,"w":78,"h":44},
 	"rotated": false,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//9
 	"filename": "cardown0.png",
 	"frame": {"x":0,"y":0,"w":46,"h":37},
 	"rotated": false,
@@ -90,7 +90,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//10
 	"filename": "cardown1.png",
 	"frame": {"x":95,"y":0,"w":49,"h":38},
 	"rotated": false,
@@ -99,7 +99,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//11
 	"filename": "cardown2.png",
 	"frame": {"x":144,"y":0,"w":59,"h":40},
 	"rotated": false,
@@ -108,7 +108,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//12
 	"filename": "cardown3.png",
 	"frame": {"x":484,"y":0,"w":69,"h":41},
 	"rotated": false,
@@ -117,7 +117,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//13
 	"filename": "cardown4.png",
 	"frame": {"x":331,"y":0,"w":76,"h":41},
 	"rotated": false,
@@ -126,7 +126,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//14
 	"filename": "cardown5.png",
 	"frame": {"x":46,"y":0,"w":49,"h":38},
 	"rotated": false,
@@ -135,7 +135,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//15
 	"filename": "cardown6.png",
 	"frame": {"x":203,"y":0,"w":59,"h":40},
 	"rotated": false,
@@ -144,7 +144,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//16
 	"filename": "cardown7.png",
 	"frame": {"x":262,"y":0,"w":69,"h":40},
 	"rotated": false,
@@ -153,7 +153,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//17
 	"filename": "cardown8.png",
 	"frame": {"x":407,"y":0,"w":77,"h":41},
 	"rotated": false,
@@ -162,7 +162,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//18
 	"filename": "carup0.png",
 	"frame": {"x":436,"y":44,"w":44,"h":54},
 	"rotated": false,
@@ -171,7 +171,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//19
 	"filename": "carup1.png",
 	"frame": {"x":640,"y":44,"w":51,"h":55},
 	"rotated": false,
@@ -180,7 +180,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//20
 	"filename": "carup2.png",
 	"frame": {"x":741,"y":44,"w":62,"h":55},
 	"rotated": false,
@@ -189,7 +189,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//21
 	"filename": "carup3.png",
 	"frame": {"x":936,"y":44,"w":71,"h":55},
 	"rotated": false,
@@ -198,7 +198,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//22
 	"filename": "carup4.png",
 	"frame": {"x":560,"y":44,"w":80,"h":54},
 	"rotated": false,
@@ -207,7 +207,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//23
 	"filename": "carup5.png",
 	"frame": {"x":691,"y":44,"w":50,"h":55},
 	"rotated": false,
@@ -216,7 +216,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//24
 	"filename": "carup6.png",
 	"frame": {"x":874,"y":44,"w":62,"h":55},
 	"rotated": false,
@@ -225,7 +225,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//25
 	"filename": "carup7.png",
 	"frame": {"x":803,"y":44,"w":71,"h":55},
 	"rotated": false,
@@ -234,7 +234,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//26
 	"filename": "carup8.png",
 	"frame": {"x":480,"y":44,"w":80,"h":54},
 	"rotated": false,
@@ -243,7 +243,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//27
 	"filename": "crash0.png",
 	"frame": {"x":599,"y":0,"w":78,"h":42},
 	"rotated": false,
@@ -252,7 +252,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//28
 	"filename": "crash1.png",
 	"frame": {"x":918,"y":0,"w":79,"h":44},
 	"rotated": false,
@@ -261,7 +261,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//29
 	"filename": "crash2.png",
 	"frame": {"x":677,"y":0,"w":80,"h":42},
 	"rotated": false,
@@ -270,7 +270,7 @@
 	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
-{
+{//30
 	"filename": "crash3.png",
 	"frame": {"x":359,"y":44,"w":77,"h":45},
 	"rotated": false,
