@@ -13,8 +13,8 @@ function Player() {
 	this.MAX_CRASH_COUNT = 120;
 
 	this.sprite = tempPlayerCarPic;
-	this.width = 140; //this.sprite.width / 2;//only dividing by two because player car sprite is so big
-	this.height = 140; //this.sprite.height / 2;//only dividing by two because player car sprite is so big
+	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
+	this.height = 140; //Can someone put a comment in here to describe why 140 is the magic number?
 	this.depth = 60;//swag
 
 	this.position = {
@@ -24,8 +24,8 @@ function Player() {
 	};
 
 	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
-		0, 0, 30, //x, y and z offsets for the collider
-		this.width, this.height, this.depth);
+									0, 0, 30, //x, y and z offsets for the collider
+									this.width, this.height, this.depth);
 	this.collider.isDynamic = true;//player can move (unlike road signs for example)
 
 	const baseY = this.position.y;
@@ -49,8 +49,6 @@ function Player() {
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
-//	this.goingUphill = false;
-//	this.goingDownhill = false;
 
 	this.draw = function (crashCount, deltaY) {
 		canvasContext.save();
@@ -62,11 +60,6 @@ function Player() {
 			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
 		}
 
-		// old way: single image:
-		// canvasContext.drawImage(this.sprite, this.position.x, this.position.y, this.width, this.height);
-
-		// new way: spritesheet with re-rendered 3d images at various angles
-
 		// TODO FIXME: frameNum should actually ask the data in carSpritesheet.js for file names in case it changes order in the img
 		// if carSpritesheet.frames[x].filename=='car0.png'
 
@@ -75,6 +68,7 @@ function Player() {
 		if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
 
 		// this is a heinous hack, but the car never really turns at all - the world does
+		//Christer, not sure what the hack is.  Can you explain it?
 		if ((holdRight) || (holdD)) {
 			turnRightFramecount++;
 			turnLeftFramecount = 0;
@@ -89,10 +83,6 @@ function Player() {
 			if (frameNum > 4) frameNum = 4;
 		}
 
-		// debug spam:
-		// console.log("goingUphill:" + this.goingUphill + " goingDownhill:" + this.goingDownhill + " turnRightFramecount:" + turnRightFramecount + " turnLeftFramecount:" + turnLeftFramecount + " frameNum:" + frameNum);
-
-		// hardcoded locations for uphill and downhill variants on the spritesheet
 		let goingUphill = false;
 		let goingDownhill = false;
 		var frameOffset = 0;
@@ -102,11 +92,9 @@ function Player() {
 			goingDownhill = true;
 		}
 		
+		// hardcoded locations for uphill and downhill variants on the spritesheet
 		if (goingUphill) frameOffset = 18;
 		if (goingDownhill) frameOffset = 9;
-
-		// debug: what is the name of the current frame in spritesheet?
-		//console.log(carSpritesheet.frames[frameNum + frameOffset].filename);
 
 		canvasContext.drawImage(this.sprite,
 			carSpritesheet.frames[frameNum + frameOffset].frame.x * 3,
@@ -123,7 +111,7 @@ function Player() {
 		canvasContext.restore();
 	}
 
-	this.move = function (nextRoadY) {
+	this.move = function (nextRoadY, canAccelerate) {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
@@ -144,7 +132,7 @@ function Player() {
 			offroadSound.pause();
 		}
 
-		if ((holdUp) || (holdW)) {
+		if((canAccelerate) && ((holdUp) || (holdW))) {
 			this.speed += ACCELERATION;
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
@@ -166,18 +154,10 @@ function Player() {
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
 		if (nextRoadY < currentRoadY) {//going uphill (Y gets bigger as you go down)
-//			this.goingUphill = true;
-//			this.goingDownhill = false;
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
-//			this.goingUphill = false;
-//			this.goingDownhill = true;
 			this.speed += HILL_DELTA_SPEED;
 		}
-//		else { // driving on flat road
-//			this.goingUphill = false;
-//			this.goingDownhill = false;
-//		}
 
 		if (holdN && (boosterCount > 0)) {
 			boosterCount--;

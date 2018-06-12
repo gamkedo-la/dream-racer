@@ -77,11 +77,11 @@ function GameScene(data) {
 		if (this.countdownTimeLeft <= 0) { // out of time?
 			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
 			this.countdownTimeLeft = 0; // no negative numbers allowed
-			// fixme: GAME OVER?
+			if(this.player.speed <= 0) {
+				this.gameIsOver = true;
+			}
 		}
 		this.previousFrameTimestamp = this.currentFrameTimestamp;
-		//console.log("timeSinceLastFrame=" + this.timeSinceLastFrame);
-		//console.log("countdownTimeLeft=" + this.countdownTimeLeft);
 	}
 
 	this.move = function () {
