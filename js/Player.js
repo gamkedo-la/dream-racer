@@ -35,9 +35,6 @@ function Player() {
 	let offRoadCounter = 0;
 	let rotation = 0;
 
-	this.currentGear = 1;
-	this.currentGearMaxSpeed;
-
 	this.isCrashing = false;
 	this.isResetting = false;
 
@@ -48,10 +45,11 @@ function Player() {
 	let boosterCount = 1;
 	let boosting = false;
 
+	let frameNum = 0;
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
 
-	this.draw = function (crashCount, deltaY) {
+	this.draw = function (crashCount) {
 		canvasContext.save();
 
 		if (this.isCrashing) {
@@ -66,42 +64,31 @@ function Player() {
 
 		// new way: spritesheet with re-rendered 3d images at various angles
 
-		let frameNum = 0; // straight forward 0 degrees
+		// TODO FIXME: frameNum should actually ask the data in carSpritesheet.js for file names in case it changes order in the img
+		// if carSpritesheet.frames[x].filename=='car0.png'
+
+		// when you let go of controls, gradually turn back to zero degrees
+		if (frameNum > 0) frameNum--; // 4,3,2,1,0
+		if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
 
 		// this is a heinous hack, but the car never really turns at all - the world does
 		if ((holdRight) || (holdD)) {
 			turnRightFramecount++;
-			if(turnRightFramecount > 12) {turnRightFramecount = 12;}
 			turnLeftFramecount = 0;
 			// every 4 frames, advance to next sharper angle
 			frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
 			if (frameNum > 8) frameNum = 8;
-		} else if ((holdLeft) || (holdA)) {
+		}
+		else if ((holdLeft) || (holdA)) {
 			turnRightFramecount = 0;
 			turnLeftFramecount++;
-			if(turnLeftFramecount > 12) {turnLeftFramecount = 12;}
 			frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
 			if (frameNum > 4) frameNum = 4;
-		} else if(turnRightFramecount > 0) {
-			turnRightFramecount -= 2;
-			turnLeftFramecount = 0;
-			frameNum = 5 + Math.round(turnRightFramecount / 4);
-			if (frameNum > 8) frameNum = 8;
-		} else if(turnLeftFramecount > 0) {
-			turnRightFramecount = 0;
-			turnLeftFramecount -= 2;
-			frameNum = Math.round(turnLeftFramecount / 4);
-			if (frameNum > 4) frameNum = 4;
-		} else {
-			turnRightFramecount = 0;
-			turnLeftFramecount = 0;
 		}
 
-		if(deltaY > 30) {//going uphill
-			frameNum += 9;
-		} else if(deltaY < -30) {//going downhill
-			frameNum += 18;
-		}
+		// debug only:
+		if (frameNum != 0) // avoid too much 0,0,0 spam
+			console.log("turnRightFramecount:" + turnRightFramecount + " turnLeftFramecount:" + turnLeftFramecount + " frameNum:" + frameNum);
 
 		canvasContext.drawImage(this.sprite,
 			carSpritesheet.frames[frameNum].frame.x * 3,
@@ -118,9 +105,8 @@ function Player() {
 		canvasContext.restore();
 	}
 
-	this.move = function (nextRoadY, canAccelerate) {
+	this.move = function (nextRoadY) {
 		this.speed -= FRICTION;
-
 
 		if (this.isOffRoad) {
 			console.log("Offroad");
@@ -140,8 +126,8 @@ function Player() {
 			offroadSound.pause();
 		}
 
-		if (canAccelerate && ((holdUp) || (holdW))) {
-			this.speed += ACCELERATION / (1 - ((this.speed/100) * this.currentGearMaxSpeed)/100);
+		if ((holdUp) || (holdW)) {
+			this.speed += ACCELERATION;
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
 			//acceleratingSound.pause(); -> placeholder until engine sounds are added
@@ -154,8 +140,8 @@ function Player() {
 			brake_master.pause();
 		}
 
-		if ((!boosting) && (this.speed > this.currentGearMaxSpeed)) {
-			this.speed = this.currentGearMaxSpeed;//clamp to MAX_SPEED
+		if ((!boosting) && (this.speed > MAX_SPEED)) {
+			this.speed = MAX_SPEED;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
 		}
@@ -181,23 +167,6 @@ function Player() {
 			}
 		}
 
-		if (holdShift && holdUp && (((this.speed*100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
-			this.currentGear += 1;
-		}
-
-
-		switch (this.currentGear) {
-			case 1:
-				this.currentGearMaxSpeed = MAX_SPEED -8;
-				break;
-			case 2:
-				this.currentGearMaxSpeed = MAX_SPEED -4;
-				break;
-			case 3:
-				this.currentGearMaxSpeed = MAX_SPEED;
-				break;
-		}
-
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
 		if (this.turnRate > MAX_TURN_RATE) {
@@ -220,7 +189,6 @@ function Player() {
 
 	this.speedChangeForCrashing = function () {
 		this.speed -= CRASH_DECELERATION;
-		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}

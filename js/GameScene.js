@@ -9,15 +9,15 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 3000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 30000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
 	this.previousFrameTimestamp = null;
 	this.gameIsOver = false;
-	
+
 	//temporary A.I. car for testing
-	this.aiCars = [new AICar(tempAICarPic, {x:0, y:0, z:-CAMERA_INITIAL_Z}, 10)];
+	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z }, 10)];
 
 	const roadReferences = [
 		JSON.parse(example),
@@ -75,7 +75,7 @@ function GameScene(data) {
 		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
 		this.countdownTimeLeft -= this.timeSinceLastFrame;
 		if (this.countdownTimeLeft <= 0) { // out of time?
-			console.log("Countdown timer reached 0. TODO: trigger game over");
+			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
 			this.countdownTimeLeft = 0; // no negative numbers allowed
 			// fixme: GAME OVER?
 		}
@@ -122,7 +122,7 @@ function GameScene(data) {
 			this.checkForCollisions(baseSegment);
 
 			let canAccelerate = true;
-			if(this.countdownTimeLeft <= 0) {canAccelerate = false;}
+			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			this.player.move(baseSegment.farPos.world.y, canAccelerate);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
@@ -134,22 +134,22 @@ function GameScene(data) {
 				}
 			}
 		}
-		
-		for(let i = 0; i < this.aiCars.length; i++) {
+
+		for (let i = 0; i < this.aiCars.length; i++) {
 			this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
 		}
-		
-		if((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {this.gameIsOver = true;}
+
+		if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { this.gameIsOver = true; }
 	}
 
-	this.checkForCollisions = function(baseSegment) {
+	this.checkForCollisions = function (baseSegment) {
 		this.checkForAICarCollisions();
-		
+
 		for (let i = 0; i < baseSegment.decorations.length; i++) {
 			const thisDecoration = baseSegment.decorations[i];
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
 			if (collisionData.isColliding) {
-				if(thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
+				if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
 					this.setPlayerCrashingState(true);
 				} else {
 					this.setPlayerCrashingState(false);
@@ -157,22 +157,22 @@ function GameScene(data) {
 			}
 		}
 	}
-	
-	this.setPlayerCrashingState = function(didCrashLeft) {
+
+	this.setPlayerCrashingState = function (didCrashLeft) {
 		this.player.isCrashing = true;
 		this.player.isResetting = false;
 		this.camera.isCrashing = true;
 		this.camera.isResetting = false;
 		this.camera.playerDidCrashLeft(didCrashLeft);
 	}
-	
-	this.checkForAICarCollisions = function() {
-		for(let i = 0; i < this.aiCars.length; i++) {
+
+	this.checkForAICarCollisions = function () {
+		for (let i = 0; i < this.aiCars.length; i++) {
 			const deltaZ = Math.abs(this.aiCars[i].position.z + CAMERA_INITIAL_Z - this.camera.position.z);
-			if(deltaZ <= 60) {
+			if (deltaZ <= 60) {
 				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
-				if(collisionData.isColliding) {
-					if(Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
+				if (collisionData.isColliding) {
+					if (Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
 						this.setPlayerCrashingState(true);
 					} else {
 						const playerSpeed = this.player.speed;
