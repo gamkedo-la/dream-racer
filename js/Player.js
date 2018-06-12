@@ -16,6 +16,7 @@ function Player() {
 	this.width = 140; //this.sprite.width / 2;//only dividing by two because player car sprite is so big
 	this.height = 140; //this.sprite.height / 2;//only dividing by two because player car sprite is so big
 	this.depth = 60;//swag
+
 	this.position = {
 		x: (canvas.width - (this.width)) / 2,
 		y: (GAME_HEIGHT - (this.height) - 10) - CAMERA_Y_OFFSET,
@@ -48,6 +49,8 @@ function Player() {
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
+	this.goingUphill = false;
+	this.goingDownhill = false;
 
 	this.draw = function (crashCount) {
 		canvasContext.save();
@@ -86,18 +89,25 @@ function Player() {
 			if (frameNum > 4) frameNum = 4;
 		}
 
-		// debug only:
-		if (frameNum != 0) // avoid too much 0,0,0 spam
-			console.log("turnRightFramecount:" + turnRightFramecount + " turnLeftFramecount:" + turnLeftFramecount + " frameNum:" + frameNum);
+		// debug spam:
+		// console.log("goingUphill:" + this.goingUphill + " goingDownhill:" + this.goingDownhill + " turnRightFramecount:" + turnRightFramecount + " turnLeftFramecount:" + turnLeftFramecount + " frameNum:" + frameNum);
+
+		// hardcoded locations for uphill and downhill variants on the spritesheet
+		var frameOffset = 0;
+		if (this.goingUphill) frameOffset = 18;
+		if (this.goingDown) frameOffset = 10;
+
+		// debug: what is the name of the current frame in spritesheet?
+		//console.log(carSpritesheet.frames[frameNum + frameOffset].filename);
 
 		canvasContext.drawImage(this.sprite,
-			carSpritesheet.frames[frameNum].frame.x * 3,
-			carSpritesheet.frames[frameNum].frame.y * 3,
-			carSpritesheet.frames[frameNum].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
-			carSpritesheet.frames[frameNum].frame.h * 3,
+			carSpritesheet.frames[frameNum + frameOffset].frame.x * 3,
+			carSpritesheet.frames[frameNum + frameOffset].frame.y * 3,
+			carSpritesheet.frames[frameNum + frameOffset].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
+			carSpritesheet.frames[frameNum + frameOffset].frame.h * 3,
 			this.position.x, this.position.y,
-			carSpritesheet.frames[frameNum].frame.w * 3,
-			carSpritesheet.frames[frameNum].frame.h * 3
+			carSpritesheet.frames[frameNum + frameOffset].frame.w * 3,
+			carSpritesheet.frames[frameNum + frameOffset].frame.h * 3
 		);
 
 		this.collider.draw();
@@ -148,9 +158,17 @@ function Player() {
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
 		if (nextRoadY < currentRoadY) {//going uphill (Y gets bigger as you go down)
+			this.goingUphill = true;
+			this.goingDownhill = false;
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
+			this.goingUphill = false;
+			this.goingDownhill = true;
 			this.speed += HILL_DELTA_SPEED;
+		}
+		else { // driving on flat road
+			this.goingUphill = false;
+			this.goingDownhill = false;
 		}
 
 		if (holdN && (boosterCount > 0)) {
