@@ -49,10 +49,10 @@ function Player() {
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
-	this.goingUphill = false;
-	this.goingDownhill = false;
+//	this.goingUphill = false;
+//	this.goingDownhill = false;
 
-	this.draw = function (crashCount) {
+	this.draw = function (crashCount, deltaY) {
 		canvasContext.save();
 
 		if (this.isCrashing) {
@@ -93,9 +93,17 @@ function Player() {
 		// console.log("goingUphill:" + this.goingUphill + " goingDownhill:" + this.goingDownhill + " turnRightFramecount:" + turnRightFramecount + " turnLeftFramecount:" + turnLeftFramecount + " frameNum:" + frameNum);
 
 		// hardcoded locations for uphill and downhill variants on the spritesheet
+		let goingUphill = false;
+		let goingDownhill = false;
 		var frameOffset = 0;
-		if (this.goingUphill) frameOffset = 18;
-		if (this.goingDown) frameOffset = 10;
+		if(deltaY < -30) {
+			goingUphill = true;
+		} else if(deltaY > 30) {
+			goingDownhill = true;
+		}
+		
+		if (goingUphill) frameOffset = 18;
+		if (goingDownhill) frameOffset = 9;
 
 		// debug: what is the name of the current frame in spritesheet?
 		//console.log(carSpritesheet.frames[frameNum + frameOffset].filename);
@@ -158,18 +166,18 @@ function Player() {
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
 		if (nextRoadY < currentRoadY) {//going uphill (Y gets bigger as you go down)
-			this.goingUphill = true;
-			this.goingDownhill = false;
+//			this.goingUphill = true;
+//			this.goingDownhill = false;
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
-			this.goingUphill = false;
-			this.goingDownhill = true;
+//			this.goingUphill = false;
+//			this.goingDownhill = true;
 			this.speed += HILL_DELTA_SPEED;
 		}
-		else { // driving on flat road
-			this.goingUphill = false;
-			this.goingDownhill = false;
-		}
+//		else { // driving on flat road
+//			this.goingUphill = false;
+//			this.goingDownhill = false;
+//		}
 
 		if (holdN && (boosterCount > 0)) {
 			boosterCount--;
