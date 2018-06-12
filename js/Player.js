@@ -35,6 +35,9 @@ function Player() {
 	let offRoadCounter = 0;
 	let rotation = 0;
 
+	this.currentGear = 1;
+	this.currentGearMaxSpeed;
+
 	this.isCrashing = false;
 	this.isResetting = false;
 
@@ -93,7 +96,7 @@ function Player() {
 			turnRightFramecount = 0;
 			turnLeftFramecount = 0;
 		}
-		
+
 		if(deltaY > 30) {//going uphill
 			frameNum += 9;
 		} else if(deltaY < -30) {//going downhill
@@ -118,6 +121,7 @@ function Player() {
 	this.move = function (nextRoadY, canAccelerate) {
 		this.speed -= FRICTION;
 
+
 		if (this.isOffRoad) {
 			console.log("Offroad");
 			this.speed -= OFF_ROAD_FRICTION;
@@ -137,7 +141,7 @@ function Player() {
 		}
 
 		if (canAccelerate && ((holdUp) || (holdW))) {
-			this.speed += ACCELERATION;
+			this.speed += ACCELERATION / (1 - ((this.speed/100) * this.currentGearMaxSpeed)/100);
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
 			//acceleratingSound.pause(); -> placeholder until engine sounds are added
@@ -150,8 +154,8 @@ function Player() {
 			brake_master.pause();
 		}
 
-		if ((!boosting) && (this.speed > MAX_SPEED)) {
-			this.speed = MAX_SPEED;//clamp to MAX_SPEED
+		if ((!boosting) && (this.speed > this.currentGearMaxSpeed)) {
+			this.speed = this.currentGearMaxSpeed;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
 		}
@@ -177,6 +181,23 @@ function Player() {
 			}
 		}
 
+		if (holdShift && holdUp && (((this.speed*100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
+			this.currentGear += 1;
+		}
+
+
+		switch (this.currentGear) {
+			case 1:
+				this.currentGearMaxSpeed = MAX_SPEED -8;
+				break;
+			case 2:
+				this.currentGearMaxSpeed = MAX_SPEED -4;
+				break;
+			case 3:
+				this.currentGearMaxSpeed = MAX_SPEED;
+				break;
+		}
+
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
 		if (this.turnRate > MAX_TURN_RATE) {
@@ -199,6 +220,7 @@ function Player() {
 
 	this.speedChangeForCrashing = function () {
 		this.speed -= CRASH_DECELERATION;
+		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}
