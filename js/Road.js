@@ -468,15 +468,15 @@ function Road(frustum) {
 		}
 	}
 	
-	this.moveDecorationLeft = function() {
+	this.moveDecorationLeft = function(distance) {
 		if(this.hasSelectedDecoration()) {
-			selectedDecoration.moveLeft();
+			selectedDecoration.moveLeft(distance);
 		}
 	}
 
-	this.moveDecorationRight = function() {
+	this.moveDecorationRight = function(distance) {
 		if(this.hasSelectedDecoration()) {
-			selectedDecoration.moveRight();
+			selectedDecoration.moveRight(distance);
 		}
 	}
 	

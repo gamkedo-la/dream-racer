@@ -1,9 +1,22 @@
 //RoadsideDecoration
+const DecorationType = {
+	Sign:"sign",
+	Billboard:"billboard",
+	Car:"car",
+}
 function RoadsideDecoration(image, pos) {
-	this.sprite = image;
+	let sprite = image;
+	this.type = DecorationType.Sign;
+	this.setSprite = function(newSprite) {
+		sprite = newSprite;
+		this.fileName = fileNameForImgName(newSprite);
+	}
+	this.getSprite = function() {
+		return sprite;
+	}
 	this.fileName = fileNameForImgName(image);
-	this.width = this.sprite.width;
-	this.height = this.sprite.height;
+	this.width = sprite.width;
+	this.height = sprite.height;
 	this.depth = 10;//swag
 	this.world = pos;
 	this.screen = { x: 0, y: 0, z: 0 };
@@ -29,10 +42,10 @@ function RoadsideDecoration(image, pos) {
 		}
 
 
-		if (this.screenSize.width > this.sprite.width) { // zoomed in over 100% in size? 
+		if (this.screenSize.width > sprite.width) { // zoomed in over 100% in size? 
 			canvasContext.imageSmoothingEnabled = false; // avoid blurry bilinear interpolation and go crisp
 		}
-		canvasContext.drawImage(this.sprite, this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height);
+		canvasContext.drawImage(sprite, this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height);
 		canvasContext.imageSmoothingEnabled = true; // reset to smooth and blurry
 		
 		const widthRatio = this.screenSize.width / (4 * this.width);//divide by 4 because we multiplied the screenSize by 4
@@ -55,12 +68,12 @@ function RoadsideDecoration(image, pos) {
 		return false;
 	}
 
-	this.moveLeft = function () {
-		this.world.x--;
+	this.moveLeft = function (distance) {
+		this.world.x -= distance;
 	}
 
-	this.moveRight = function () {
-		this.world.x++;
+	this.moveRight = function (distance) {
+		this.world.x += distance;
 	}
 
 	this.moveUp = function (nearPos, farPos) {
@@ -92,6 +105,10 @@ function RoadsideDecoration(image, pos) {
 	this.adjustYValue = function (nearPos, farPos) {
 		const interpolation = (this.world.z - nearPos.z) / (farPos.z - nearPos.z);
 		this.world.y = nearPos.y + interpolation * (farPos.y - nearPos.y);
+	}
+	
+	this.updateFileName = function() {
+		
 	}
 	
 	const colliderDimsForFileName = function(fileName) {

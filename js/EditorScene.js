@@ -27,6 +27,7 @@ function EditorScene(data) {
 		this.road.addSegment();
 	}
 	this.currentZIndex = 0;
+	this.aiCars = [];
 
 	const UI_SIZE = { width: 32, height: 32 }
 
@@ -81,7 +82,7 @@ function EditorScene(data) {
 
 		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
 
-		this.road.draw(this.camera.position);
+		this.road.draw(this.camera.position, []);
 		this.road.drawSelected();
 
 		drawDecorationsUI();
@@ -178,7 +179,11 @@ function EditorScene(data) {
 
 		if (holdLeft) {
 			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationLeft();
+				if(holdShift) {
+					this.road.moveDecorationLeft(10);
+				} else {
+					this.road.moveDecorationLeft(1);
+				}
 			} else {
 				this.camera.editMove();
 			}
@@ -186,7 +191,11 @@ function EditorScene(data) {
 
 		if (holdRight) {
 			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationRight();
+				if(holdShift) {
+					this.road.moveDecorationRight(10);
+				} else {
+					this.road.moveDecorationRight(1);
+				}
 			} else {
 				this.camera.editMove();
 			}
@@ -200,14 +209,15 @@ function EditorScene(data) {
 						for (let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
 							for (let k = 0; k < billboardSprites.length; k++) {
-								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+								if (thisDecoration.getSprite() == billboardSprites[k] && thisDecoration.selected == true) {
 									let newIndex = k + 1;
 									if (newIndex > billboardSprites.length - 1) {
-										thisDecoration.sprite = billboardSprites[0];
+										thisDecoration.setSprite(billboardSprites[0]);
 									} else {
-										thisDecoration.sprite = billboardSprites[newIndex];
+										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-									thisDecoration.selected = false;
+//									thisDecoration.selected = false;
+									holdUp = false;
 									/*if (thisDecoration.sprite != billboardSprites[k]) {
 										thisDecoration.selected = true;
 									}*/
@@ -233,14 +243,15 @@ function EditorScene(data) {
 						for (let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
 							for (let k = 0; k < billboardSprites.length; k++) {
-								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+								if (thisDecoration.getSprite() == billboardSprites[k] && thisDecoration.selected == true) {
 									let newIndex = k - 1;
 									if (newIndex < 0) {
-										thisDecoration.sprite = billboardSprites[billboardSprites.length - 1];
+										thisDecoration.setSprite(billboardSprites[billboardSprites.length - 1]);
 									} else {
-										thisDecoration.sprite = billboardSprites[newIndex];
+										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-									thisDecoration.selected = false;
+//									thisDecoration.selected = false;
+									holdDown = false;
 									/*if (thisDecoration.sprite != billboardSprites[k]) {
 										thisDecoration.selected = true;
 									}*/
@@ -334,6 +345,7 @@ function EditorScene(data) {
 		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, ground.nearPos.world.z);
 		const finalWorldPos = { x: worldPos.x, y: ground.nearPos.world.y, z: ground.nearPos.world.z };
 		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, finalWorldPos);
+		//TODO: set decoration type (sign, billboard, car)
 		this.road.addDecorationToGround(aDecoration, ground);
 	}
 

@@ -47,6 +47,11 @@ const dashboardPic = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
 const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
+const mageHookBillboard = document.createElement("img");
+const tinyRoboRacersBillboard = document.createElement("img");
+const chrisForPresidentBillboard = document.createElement("img");
+const burgerBillboard = document.createElement("img");
+const clashTracksBillboard = document.createElement("img");
 
 
 const imageList = [];
@@ -123,7 +128,22 @@ function loadImages() {
 	billboardSprites.push(niceCityBillboard);
 	imageList.push({ imgName: romanAdventureBillboard, theFile: "RomanAdventureBillboard.png" });
 	billboardSprites.push(romanAdventureBillboard);
+	imageList.push({ imgName: mageHookBillboard, theFile: "MageHookBillboard.png" });
+	billboardSprites.push(mageHookBillboard);
+	imageList.push({ imgName: tinyRoboRacersBillboard, theFile: "TinyRoboRacersBillboard.png" });
+	billboardSprites.push(tinyRoboRacersBillboard);
+	imageList.push({ imgName: chrisForPresidentBillboard, theFile: "chrisForPresident.png" });
+	billboardSprites.push(chrisForPresidentBillboard);
+	imageList.push({ imgName: burgerBillboard, theFile: "BurgerBillboard.png" });
+	billboardSprites.push(burgerBillboard);
+	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
+	billboardSprites.push(clashTracksBillboard);
 
+/*const tinyRoboRacersBillboard = document.createElement("img");
+const chrisForPresidentBillboard = document.createElement("img");
+const burgerBillboard = document.createElement("img");
+const clashTracksBillboard = document.createElement("img");
+*/
 
 	picsToLoad = imageList.length;
 
