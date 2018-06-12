@@ -52,7 +52,6 @@ function mainMenuStates() {
 	if(windowState.mainMenu) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		canvasContext.drawImage(currentBackgroundFar,0,0);//Use this.  Would be cool to change this to a demo video
 		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
 		
@@ -61,15 +60,12 @@ function mainMenuStates() {
 	} else if(windowState.credits) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		drawSkyGradient();
-//		canvasContext.drawImage(currentBackgroundFar,0,0);//Will need an image for this
 		colorText('Credits will go here',canvas.width/2 ,100,textColor.White,gameTitle.Subtitle,textAlignment.Center,opacity);
 		var textX = 150;
 		var textY = 150;
 		var textSkip = 20;
 		var creditsFont = fonts.CreditsText;
-		colorText("Name: ShadyDave Roles: Placeholder music available from freesound.org - ",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("       https://freesound.org/people/ShadyDave/sounds/325647/",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+
 		colorText("Name: H Trayford - Roles: Game Lead, Prototype, Level Editor",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
@@ -81,8 +77,6 @@ function mainMenuStates() {
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		drawSkyGradient(); 
-//		canvasContext.drawImage(currentBackgroundFar,0,0);
 		colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 		colorText("1) Press [C] to switch between input options:",250,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText(" Default Inputs: A/D or arrows for left/right, mouse to aim tank cannon, mouse click or spacebar for shooting",0,180 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
@@ -131,6 +125,12 @@ function mainMenuStates() {
 		colorText('Press [-] to see previous help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
 	} else if(windowState.gameOver) {
 		//Need lose conditions that drive us here, then need to impliment
+		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
+		
+//		gameOver.handleSliders();
+		gameOver.drawButtons(opacity);
 	} else if(windowState.endingScreen) {
 		//Need win conditions that drive us here, then need to impliment
 	}

@@ -9,11 +9,12 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 30000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 3000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
 	this.previousFrameTimestamp = null;
+	this.gameIsOver = false;
 	
 	//temporary A.I. car for testing
 	this.aiCars = [new AICar(tempAICarPic, {x:0, y:0, z:-CAMERA_INITIAL_Z}, 10)];
@@ -120,7 +121,9 @@ function GameScene(data) {
 		} else {
 			this.checkForCollisions(baseSegment);
 
-			this.player.move(baseSegment.farPos.world.y);
+			let canAccelerate = true;
+			if(this.countdownTimeLeft <= 0) {canAccelerate = false;}
+			this.player.move(baseSegment.farPos.world.y, canAccelerate);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
 				this.camera.move(this.player.speed, this.player.turnRate, baseSegment);
@@ -135,6 +138,8 @@ function GameScene(data) {
 		for(let i = 0; i < this.aiCars.length; i++) {
 			this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
 		}
+		
+		if((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {this.gameIsOver = true;}
 	}
 
 	this.checkForCollisions = function(baseSegment) {

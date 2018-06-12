@@ -115,7 +115,7 @@ function Player() {
 		canvasContext.restore();
 	}
 
-	this.move = function (nextRoadY) {
+	this.move = function (nextRoadY, canAccelerate) {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
@@ -136,7 +136,7 @@ function Player() {
 			offroadSound.pause();
 		}
 
-		if ((holdUp) || (holdW)) {
+		if (canAccelerate && ((holdUp) || (holdW))) {
 			this.speed += ACCELERATION;
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {

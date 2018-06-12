@@ -202,6 +202,12 @@ function editingDrawAll() {
 };
 
 function moveAll() {
+	if(scene.gameIsOver) {
+		//change window state to game over
+		windowState.playing = false;
+		windowState.gameOver = true;
+		gameOver.initialize();
+	}
 	scene.move();
 };
 

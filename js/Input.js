@@ -109,7 +109,7 @@ function keyPress(evt) {
 			break;
 		case KEY_ENTER:
 			keyUsedByGame = true;
-			if((windowState.mainMenu) || (windowState.help)) {
+			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
 				if(firstLoad) {
 					openHelp();
 				} else {
@@ -157,7 +157,7 @@ function keyPress(evt) {
 			break;
       	case KEY_C:
 			keyUsedByGame = true;
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				openCredits();
 			}
 			break;
@@ -167,7 +167,7 @@ function keyPress(evt) {
 			break;
 		case KEY_E:
 			keyUsedByGame = true;
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				startEditing();
 			}
 			break;
@@ -178,7 +178,7 @@ function keyPress(evt) {
 		case KEY_H:
 			keyUsedByGame = true;
 
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				openHelp();
 			} else if(windowState.editing) {
 				showEditorHelp();
@@ -433,6 +433,8 @@ function onMouseDown(evt) {
 			} else if (windowState.help) {
 				startGame();
 //				resetGame();
+			} else if(windowState.gameOver) {
+				gameOver.checkButtons();
 			}
 			break;
 	}
