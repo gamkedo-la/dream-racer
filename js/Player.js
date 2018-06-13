@@ -201,7 +201,7 @@ function Player() {
 
 		currentRoadY = nextRoadY;
 
-		setEngineAudioFromRPMs(this.speed / 12 * 6000);//temporary implementation until gear shifting is implemented
+		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
 		this.laptime++; // FIXME: perhaps use a real time stamp
