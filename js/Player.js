@@ -36,6 +36,9 @@ function Player() {
 	let offRoadCounter = 0;
 	let rotation = 0;
 
+	this.currentGear = 1;
+	this.currentGearMaxSpeed;
+
 	this.isCrashing = false;
 	this.isResetting = false;
 
@@ -91,7 +94,7 @@ function Player() {
 		} else if(deltaY > 30) {
 			goingDownhill = true;
 		}
-		
+
 		// hardcoded locations for uphill and downhill variants on the spritesheet
 		if (goingUphill) frameOffset = 18;
 		if (goingDownhill) frameOffset = 9;
@@ -133,7 +136,7 @@ function Player() {
 		}
 
 		if((canAccelerate) && ((holdUp) || (holdW))) {
-			this.speed += ACCELERATION;
+			this.speed += ACCELERATION / (1 - ((this.speed/100) * this.currentGearMaxSpeed)/100);
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
 			//acceleratingSound.pause(); -> placeholder until engine sounds are added
@@ -146,8 +149,8 @@ function Player() {
 			brake_master.pause();
 		}
 
-		if ((!boosting) && (this.speed > MAX_SPEED)) {
-			this.speed = MAX_SPEED;//clamp to MAX_SPEED
+		if ((!boosting) && (this.speed > this.currentGearMaxSpeed)) {
+			this.speed = this.currentGearMaxSpeed;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
 		}
@@ -173,6 +176,23 @@ function Player() {
 			}
 		}
 
+		if (holdSpace && holdUp && (((this.speed*100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
+			this.currentGear += 1;
+		}
+
+
+		switch (this.currentGear) {
+			case 1:
+				this.currentGearMaxSpeed = MAX_SPEED -8;
+				break;
+			case 2:
+				this.currentGearMaxSpeed = MAX_SPEED -4;
+				break;
+			case 3:
+				this.currentGearMaxSpeed = MAX_SPEED;
+				break;
+		}
+
 		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
 		if (this.turnRate > MAX_TURN_RATE) {
@@ -195,6 +215,7 @@ function Player() {
 
 	this.speedChangeForCrashing = function () {
 		this.speed -= CRASH_DECELERATION;
+		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}

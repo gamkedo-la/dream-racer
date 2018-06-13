@@ -39,7 +39,7 @@ const KEY_M = 77;
 const KEY_N = 78;
 const KEY_O = 79;
 const KEY_P = 80;
-const KEY_Q = 81;  
+const KEY_Q = 81;
 const KEY_R = 82;
 const KEY_S = 83;
 const KEY_T = 84;
@@ -61,6 +61,7 @@ let holdShift, holdA, holdCmd_Cntrl = false;
 let holdS, holdBackSpace, holdD = false;
 let holdW, holdX, holdZero = false;
 let holdN = false;
+let holdSpace = false;
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -132,6 +133,8 @@ function keyPress(evt) {
 			holdEscape = true;
 			break;
 		case KEY_SPACE:
+			keyUsedByGame = true;
+			holdSpace = true;
 			break;
 		case KEY_LEFT:
 			keyUsedByGame = true;
@@ -308,6 +311,7 @@ function keyRelease(evt) {
 			holdEscape = false;
 			break;
 		case KEY_SPACE:
+			holdSpace = false;
 			break;
 		case KEY_LEFT:
 			holdLeft = false;
