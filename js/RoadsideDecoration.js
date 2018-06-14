@@ -129,6 +129,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 356, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
 			case "LeftStreetLight.png":
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case "CheckPoint.png":
+				return {xOffset: 48, yOffset: 0, zOffset: -5, width: -canvas.width + 275, height: 120, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
 		}
