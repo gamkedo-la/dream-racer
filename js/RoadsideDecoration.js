@@ -1,12 +1,49 @@
 //RoadsideDecoration
 const DecorationType = {
-	Sign:"sign",
-	Billboard:"billboard",
+	BlankBillboard:"BlankBillboard",
+	BurgerBillboard:"BurgerBillboard",
+	ClashTracksBillboard:"ClashTracksBillboard",
+	EastCoastBillboard:"EastCoastBillboard",
+	MageHookBillboard:"MageHookBillboard",
+	NiceCityBillboard:"NiceCityBillboard",
+	ObeyBillboard:"ObeyBillboard",
+	RomanAdventureBillboard:"RomanAdventureBillboard",
+	TinyRoboRacersBillboard:"TinyRoboRacersBillboard",
+	ChrisForPresidentBillboard:"chrisForPresident",
+	CheckeredFlag:"CheckeredFlag",
+	CheckPoint:"CheckPoint",
+	CurvyRoadSign:"CurvyRoadSign",
+	HardLeftTurnSign:"HardLeftTurnSign",
+	HardRightTurnSign:"HardRightTurnSign",
+	HillDownSignV0:"HillDownSignV0",
+	HillDownSignV1:"HillDownSignV1",
+	HillDownSignV2:"HillDownSignV2",
+	HillUpSignV0:"HillUpSignV0",
+	HillUpSignV1:"HillUpSignV1",
+	HillUpSignV2:"HillUpSignV2",
+	IceSignV0:"IceSignV0",
+	IceSignV1:"IceSignV1",
+	LeftStreetLight_NoLight:"LeftStreetLight_NoLight",
+	LeftStreetLight:"LeftStreetLight",
+	LeftTurnSign:"LeftTurnSign",
+	OtherDriversSign:"OtherDriversSign",
+	PalmTree:"palmTree",
+	QuestionSign:"QuestionSign",
+	RightStreetLight_NoLight:"RightStreetLight_NoLight",
+	RightStreetLight:"RightStreetLight",
+	RightTurnSign:"RightTurnSign",
+	RoadNarrowSign:"RoadNarrowSign",
+	Speed50Sign:"Speed50Sign",
+	Speed100Sign:"Speed100Sign",
+	StraightPowerPole:"straightPowerPole",
+	StraightPowerPoleCrossBeams:"straightPowerPoleCrossBeams",
+	StraightPowerPoleCrossBeamsSlantLeft:"straightPowerPoleCrossBeamsSlantLeft",
+	StraightPowerPoleCrossBeamsSlantRight:"straightPowerPoleCrossBeamsSlantRight",
+	WarningSign:"WarningSign",
 	Car:"car",
 }
 function RoadsideDecoration(image, pos) {
 	let sprite = image;
-	this.type = DecorationType.Sign;
 	this.setSprite = function(newSprite) {
 		sprite = newSprite;
 		this.fileName = fileNameForImgName(newSprite);
@@ -15,6 +52,7 @@ function RoadsideDecoration(image, pos) {
 		return sprite;
 	}
 	this.fileName = fileNameForImgName(image);
+	this.type;
 	this.width = sprite.width;
 	this.height = sprite.height;
 	this.depth = 10;//swag
@@ -27,7 +65,7 @@ function RoadsideDecoration(image, pos) {
 	this.collider;
 	
 	this.addCollider = function() {
-		const dims = colliderDimsForFileName(this.fileName);
+		const dims = colliderDimsForType(this.type);
 		this.collider = new boxCollider(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
 										dims.width, dims.height, this.depth);
@@ -35,7 +73,8 @@ function RoadsideDecoration(image, pos) {
 	
 	this.drawWithFrustum = function (frustum) {
 		this.screen = frustum.screenPosForWorldPos(this.world);
-		this.screenSize = frustum.screenSizeForWorldSizeAndPos({ width: 4 * this.width, height: 4 * this.height }, this.world);
+		const sizeMultiplier = baseSizeMultiplierForType(this.type);
+			this.screenSize = frustum.screenSizeForWorldSizeAndPos({ width: sizeMultiplier * this.width, height: sizeMultiplier * this.height }, this.world);
 
 		if (this.selected) {
 			drawRect(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height, this.selectedColor, canvasContext);
@@ -107,52 +146,242 @@ function RoadsideDecoration(image, pos) {
 		this.world.y = nearPos.y + interpolation * (farPos.y - nearPos.y);
 	}
 	
-	this.updateFileName = function() {
+	this.typeForFileName = function() {
+		switch(this.fileName) {
+			case "BlankBillboard.png":
+				this.type = DecorationType.BlankBillboard;
+				break;
+			case "BurgerBillboard.png":
+				this.type = DecorationType.BurgerBillboard;
+				break;
+			case "ClashTracksBillboard.png":
+				this.type = DecorationType.ClashTracksBillboard;
+				break;
+			case "EastCoastBillboard.png":
+				this.type = DecorationType.EastCoastBillboard;
+				break;
+			case "MageHookBillboard.png":
+				this.type = DecorationType.MageHookBillboard;
+				break;
+			case "NiceCityBillboard.png":
+				this.type = DecorationType.NiceCityBillboard;
+				break;
+			case "ObeyBillboard.png":
+				this.type = DecorationType.ObeyBillboard;
+				break;
+			case "RomanAdventureBillboard.png":
+				this.type = DecorationType.RomanAdventureBillboard;
+				break;
+			case "TinyRoboRacersBillboard.png":
+				this.type = DecorationType.TinyRoboRacersBillboard;
+				break;
+			case "chrisForPresident.png":
+				this.type = DecorationType.ChrisForPresident;
+				break;
+			case "CheckeredFlag.png":
+				this.type = DecorationType.CheckeredFlag;
+				break;
+			case "CheckPoint.png":
+				this.type = DecorationType.CheckPoint;
+				break;
+			case "CurvyRoadSign.png":
+				this.type = DecorationType.CurvyRoadSign;
+				break;
+			case "HardLeftTurnSign.png":
+				this.type = DecorationType.HardLeftTurnSign;
+				break;
+			case "HardRightTurnSign.png":
+				this.type = DecorationType.HardRightTurnSign;
+				break;
+			case "HillDownSignV0.png":
+				this.type = DecorationType.HillDownSignV0;
+				break;
+			case "HillDownSignV1.png":
+				this.type = DecorationType.HillDownSignV1;
+				break;
+			case "HillDownSignV2.png":
+				this.type = DecorationType.HillDownSignV2;
+				break;
+			case "HillUpSignV0.png":
+				this.type = DecorationType.HillUpSignV0;
+				break;
+			case "HillUpSignV1.png":
+				this.type = DecorationType.HillUpSignV1;
+				break;
+			case "HillUpSignV2.png":
+				this.type = DecorationType.HillUpSignV2;
+				break;
+			case "IceSignV0.png":
+				this.type = DecorationType.IceSignV0;
+				break;
+			case "IceSignV1.png":
+				this.type = DecorationType.IceSignV1;
+				break;
+			case "LeftStreetLight_NoLight.png":
+				this.type = DecorationType.LeftStreetLight_NoLight;
+				break;
+			case "LeftStreetLight.png":
+				this.type = DecorationType.LeftStreetLight;
+				break;
+			case "LeftTurnSign.png":
+				this.type = DecorationType.LeftTurnSign;
+				break;
+			case "OtherDriversSign.png":
+				this.type = DecorationType.OtherDriversSign;
+				break;
+			case "palmTree.png":
+				this.type = DecorationType.PalmTree;
+				break;
+			case "QuestionSign.png":
+				this.type = DecorationType.QuestionSign;
+				break;
+			case "RightStreetLight_NoLight.png":
+				this.type = DecorationType.RightStreetLight_NoLight;
+				break;
+			case "RightStreetLight.png":
+				this.type = DecorationType.RightStreetLight;
+				break;
+			case "RightTurnSign.png":
+				this.type = DecorationType.RightTurnSign;
+				break;
+			case "RoadNarrowSign.png":
+				this.type = DecorationType.RoadNarrowSign;
+				break;
+			case "Speed50Sign.png":
+				this.type = DecorationType.Speed50Sign;
+				break;
+			case "Speed100Sign.png":
+				this.type = DecorationType.Speed100Sign;
+				break;
+			case "straightPowerPole.png":
+			console.log("PowerPole?");
+				this.type = DecorationType.StraightPowerPole;
+				break;
+			case "straightPowerPoleCrossBeams.png":
+				this.type = DecorationType.StraightPowerPoleCrossBeams;
+				break;
+			case "straightPowerPoleCrossBeamsSlantLeft.png":
+				this.type = DecorationType.StraightPowerPoleCrossBeamsSlantLeft;
+				break;
+			case "straightPowerPoleCrossBeamsSlantRight.png":
+				this.type = DecorationType.StraightPowerPoleCrossBeamsSlantRight;
+				break;
+			case "WarningSign.png":
+				this.type = DecorationType.WarningSign;
+				break;
+			case "AICar.png":
+				this.type = DecorationType.Car;
+				break;
+			default:
+				return DecorationType.Sign;
+		}
+	}
 		
+	const colliderDimsForType = function(type) {
+		switch(type) {
+/*			case DecorationType.CheckeredFlag:
+				return {xOffset: 8, yOffset: 0, zOffset: -5, width: 48, height: 128, depth: 10};
+			case DecorationType.CurveyRoadSign:
+				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
+			case DecorationType.HardLeftTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
+			case DecorationType.HardRightTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
+			case DecorationType.LeftTurnSign:
+				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
+			case DecorationType.RightTurnSign:
+				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
+			case DecorationType.HillDownSignV0:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.HillDownSignV1:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.HillDownSignV2:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.HillUpSignV0:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.HillUpSignV1:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.HillUpSignV2:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.IceSignV0:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.IceSignV1:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.LeftTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.OtherDriversSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.PalmTree:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.QuestionSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.RightStreetLight:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.RightTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.RoadNarrowSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.Speed50Sign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.Speed100Sign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.WarningSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};*/
+				
+				
+				
+				
+//PALM TREE NEEDS TO BE ADJUSTED NEXT
+				
+				
+				
+			case DecorationType.StraightPowerPole:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.StraightPowerPoleCrossBeams:
+			case DecorationType.StraightPowerPoleCrossBeamsSlantRight:
+				return {xOffset: 112, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.StraightPowerPoleCrossBeamsSlantLeft:
+				return {xOffset: 116, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.RightStreetLight:
+			case DecorationType.RightStreetLight_NoLight:
+				return {xOffset: 356, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.LeftStreetLight:
+			case DecorationType.LeftStreetLight_NoLight:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+			case DecorationType.ObeyBillboard:
+			case DecorationType.NiceCityBillboard:
+			case DecorationType.BlankBillboard:
+			case DecorationType.BurgerBillboard:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 395, height: 256, depth: 10};
+			case DecorationType.ClashTracksBillboard:
+			case DecorationType.MageHookBillboard:
+			case DecorationType.RomanAdventureBillboard:
+			case DecorationType.TinyRoboRacersBillboard:
+			case DecorationType.EastCoastBillboard:
+				return {xOffset: 25, yOffset: 15, zOffset: -5, width: 735, height: 385, depth: 10};
+			case DecorationType.ChrisForPresident:
+				return {xOffset: 16, yOffset: 15, zOffset: -5, width: 862, height: 378, depth: 10};
+			default:
+				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
+		}
 	}
 	
-	const colliderDimsForFileName = function(fileName) {
-		switch(fileName) {
-			case "CheckeredFlag.png":
-				return {xOffset: 8, yOffset: 0, zOffset: -5, width: 48, height: 128, depth: 10};
-			case "CurveyRoadSign.png":
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case "HardLeftTurnSign.png":
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
-			case "HardRightTurnSign.png":
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
-			case "LeftTurnSign.png":
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case "RightTurnSign.png":
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case "RightStreetLight.png":
-				return {xOffset: 356, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case "LeftStreetLight.png":
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case "CheckPoint.png":
-				return {xOffset: 48, yOffset: 0, zOffset: -5, width: -canvas.width + 275, height: 120, depth: 10};
+	const baseSizeMultiplierForType = function(type) {
+		switch(type) {
+			case DecorationType.ObeyBillboard:
+			case DecorationType.BlankBillboard:
+			case DecorationType.ClashTracksBillboard:
+			case DecorationType.MageHookBillboard:
+			case DecorationType.RomanAdventureBillboard:
+			case DecorationType.TinyRoboRacersBillboard:
+			case DecorationType.EastCoastBillboard:
+			case DecorationType.ChrisForPresident:
+				return 2;
+			case DecorationType.NiceCityBillboard:
+			case DecorationType.BurgerBillboard:
+				return 3;
 			default:
-				return {xOffset: 28, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
+				return 4;
 		}
 	}
 }
-
-/*  });
-	imageList.push({ imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png" });
-	imageList.push({ imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png" });
-	imageList.push({ imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png" });
-	imageList.push({ imgName: downHillSignPic, theFile: "HillDownSignV2.png" });
-	imageList.push({ imgName: upHillGenericSignPic, theFile: "HillUpSignV0.png" });
-	imageList.push({ imgName: upHillAheadSignPic, theFile: "HillUpSignV1.png" });
-	imageList.push({ imgName: upHillSignPic, theFile: "HillUpSignV2.png" });
-	imageList.push({ imgName: iceSignPic, theFile: "IceSignV0.png" });
-	imageList.push({ imgName: snowflakeSignPic, theFile: "IceSignV1.png" });
-	imageList.push({ imgName: otherDriversSignPic, theFile: "OtherDriversSign.png" });
-	imageList.push({ imgName: questionSignPic, theFile: "QuestionSign.png" });
-	imageList.push({ imgName: roadNarrowSignPic, theFile: "RoadNarrowSign.png" });
-	imageList.push({ imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png" });
-	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
-	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
-	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
-	imageList.push({ imgName: rightStreetLightPic, theFile:  });
-	imageList.push({ imgName: leftStreetLightPic, theFile:  */

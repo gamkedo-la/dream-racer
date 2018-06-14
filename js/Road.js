@@ -227,6 +227,7 @@ function Road(frustum) {
 				for(let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
+					thisDecoration.typeForFileName();
 					thisDecoration.addCollider();
 					newSegment.decorations.push(thisDecoration);
 				}

@@ -71,7 +71,8 @@ function EditorScene(data) {
 			new DecorationUIElement(straightPowerPoleCrossBeamsPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height })
+			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(tempAICarPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height })
 		];
 		return array;
 	}
@@ -216,11 +217,7 @@ function EditorScene(data) {
 									} else {
 										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-//									thisDecoration.selected = false;
 									holdUp = false;
-									/*if (thisDecoration.sprite != billboardSprites[k]) {
-										thisDecoration.selected = true;
-									}*/
 									break;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
 							} // end of for loop for billboardSprites
@@ -250,11 +247,7 @@ function EditorScene(data) {
 									} else {
 										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-//									thisDecoration.selected = false;
 									holdDown = false;
-									/*if (thisDecoration.sprite != billboardSprites[k]) {
-										thisDecoration.selected = true;
-									}*/
 									break;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
 							} // end of for loop for billboardSprites
@@ -345,7 +338,7 @@ function EditorScene(data) {
 		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, ground.nearPos.world.z);
 		const finalWorldPos = { x: worldPos.x, y: ground.nearPos.world.y, z: ground.nearPos.world.z };
 		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, finalWorldPos);
-		//TODO: set decoration type (sign, billboard, car)
+		aDecoration.typeForFileName();
 		this.road.addDecorationToGround(aDecoration, ground);
 	}
 
