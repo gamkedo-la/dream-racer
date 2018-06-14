@@ -65,10 +65,18 @@ var hud = {
             this.currentNeedleAngle);
 
         // RPM dial
-        drawImageRotated(needlePic, canvas.width / 2 - 277, canvas.height - 120,
-            -90 * DEGREES_TO_RADIANS + // rotate art to face left at 0
-            this.currentNeedleAngle * 6 // 6 fake gears
-            % (180 * DEGREES_TO_RADIANS)); // loop from 0-180
+
+        var spd = scene.player.speed;
+        var max = scene.player.currentGearMaxSpeed;
+        var gear = scene.player.currentGear;
+
+        //console.log("spd:" + spd + " max:" + max + " gear:" + gear);
+        this.rpmNeedleAngle = (spd / max * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
+
+        drawImageRotated(needlePic,
+            canvas.width / 2 - 277, canvas.height - 120,
+            -90 * DEGREES_TO_RADIANS + this.rpmNeedleAngle
+        );
 
 
         // TIME
