@@ -14,6 +14,8 @@ var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");
 var uiSelect = new sfxClipSingle("uiSelect");
 
+var countDown = new sfxClipSingle("countdown");
+
 var engine_idle = new sfxClipLoop("temp_engine_idle", 3.7);
 var engine_0500 = new sfxClipLoop("temp_placeholder", 3);
 var engine_1000 = new sfxClipLoop("temp_engine_1000", 16.5);
