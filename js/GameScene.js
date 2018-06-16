@@ -16,6 +16,8 @@ function GameScene(data) {
 	this.previousFrameTimestamp = null;
 	this.gameIsOver = false;
 
+	var countdownfinished = false;
+
 	//temporary A.I. car for testing
 	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z }, 10)];
 
@@ -85,6 +87,17 @@ function GameScene(data) {
 	}
 
 	this.move = function () {
+
+		if (!countdownfinished) {
+			if(countDown.getPaused()) {
+				countDown.play();
+			}
+			if (countDown.getTime() > 3.3){
+				countdownfinished = true;
+			} else {
+				return;
+			}
+		}
 
 		this.updateTimer();
 
