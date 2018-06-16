@@ -28,7 +28,7 @@ function showPausedScreen() {
 }
 
 function windowOnFocus() {
-	currentBackgroundMusic.resume();
+	resumeAudio();
 	if(!windowState.inFocus) {
 		windowState.inFocus = true;
 		gameUpdate = setInterval(update, 1000/30);
@@ -38,7 +38,7 @@ function windowOnFocus() {
 
 function windowOnBlur() {
     tintScreen();
-	currentBackgroundMusic.pause();
+	pauseAudio();
 	if (!isPaused && !windowState.help) {
 		windowState.inFocus = false;
 		clearInterval(gameUpdate);

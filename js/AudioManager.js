@@ -369,3 +369,13 @@ function turnVolumeDown() {
 	MusicVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
 	SFXVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
 }
+
+function pauseAudio() {
+	currentBackgroundMusic.pause();
+	engine_master.pause();
+	brake_master.pause();
+}
+
+function resumeAudio() {
+	currentBackgroundMusic.resume();
+}
