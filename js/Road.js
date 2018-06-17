@@ -9,6 +9,7 @@ function Road(frustum) {
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
 	const segmentLength = 4 * GAME_HEIGHT / magicNumber;
+	let cameraPosition = {};
 	
 	this.indexOfFinishLine = -1;
 	
@@ -54,6 +55,7 @@ function Road(frustum) {
 		
 	let ticks = 0;
 	this.draw = function(cameraPos, cars) {
+		cameraPosition = cameraPos;
 		if(currentBaseSegment == null) {
 			currentBaseSegment = findsegment(0);
 		}
@@ -604,7 +606,8 @@ function Road(frustum) {
 	}
 	
 	this.selectedDecorationAt = function(screenPosition) {
-		for(let i = 0; i < segments.length; i++) {
+		const baseSeg = this.getSegmentAtZPos(cameraPosition.z);
+		for(let i = baseSeg.index; i < segments.length; i++) {
 			const thisSegment = segments[i];
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
 				const thisDecoration = thisSegment.decorations[j];

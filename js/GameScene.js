@@ -22,8 +22,8 @@ function GameScene(data) {
 	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z }, 10)];
 
 	const roadReferences = [
-		JSON.parse(example),
-		JSON.parse(straight_Level_wLights),
+		JSON.parse(testTrack),
+//		JSON.parse(straight_Level_wLights),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -87,18 +87,6 @@ function GameScene(data) {
 	}
 
 	this.move = function () {
-
-		if (!countdownfinished) {
-			if(countDown.getPaused()) {
-				countDown.play();
-			}
-			if (countDown.getTime() > 3.3){
-				countdownfinished = true;
-			} else {
-				return;
-			}
-		}
-
 		this.updateTimer();
 
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
@@ -132,9 +120,26 @@ function GameScene(data) {
 				currentCrashCount = 0;
 			}
 		} else {
-			this.checkForCollisions(baseSegment);
+//			this.checkForCollisions(baseSegment);
 
 			let canAccelerate = true;
+			
+			
+			
+			if (!countdownfinished) {
+				if(countDown.getPaused()) {
+					countDown.play();
+				}
+				if (countDown.getTime() > 3.3){
+					countdownfinished = true;
+				} else {
+					canAccelerate = false;
+				}
+			}
+			
+			
+			
+			
 			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			this.player.move(baseSegment.farPos.world.y, canAccelerate);
 
@@ -148,8 +153,10 @@ function GameScene(data) {
 			}
 		}
 
-		for (let i = 0; i < this.aiCars.length; i++) {
-			this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
+		if(countdownfinished) {
+			for (let i = 0; i < this.aiCars.length; i++) {
+				this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
+			}
 		}
 
 		if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { this.gameIsOver = true; }

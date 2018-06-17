@@ -279,19 +279,7 @@ function RoadsideDecoration(image, pos) {
 		
 	const colliderDimsForType = function(type) {
 		switch(type) {
-/*			case DecorationType.CheckeredFlag:
-				return {xOffset: 8, yOffset: 0, zOffset: -5, width: 48, height: 128, depth: 10};
-			case DecorationType.CurveyRoadSign:
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case DecorationType.HardLeftTurnSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
-			case DecorationType.HardRightTurnSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
-			case DecorationType.LeftTurnSign:
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case DecorationType.RightTurnSign:
-				return {xOffset: 24, yOffset: 0, zOffset: -5, width: 20, height: 128, depth: 10};
-			case DecorationType.HillDownSignV0:
+/*			case DecorationType.HillDownSignV0:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
 			case DecorationType.HillDownSignV1:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
@@ -332,35 +320,42 @@ function RoadsideDecoration(image, pos) {
 				
 				
 //PALM TREE NEEDS TO BE ADJUSTED NEXT
-				
-				
-				
+			case DecorationType.CheckeredFlag:
+				return {xOffset: 8, yOffset: 26, zOffset: -5, width: 12, height: 38, depth: 10};
+			case DecorationType.CurveyRoadSign:
+			case DecorationType.LeftTurnSign:
+			case DecorationType.RightTurnSign:
+				return {xOffset: 24, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
+			case DecorationType.HardLeftTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
+			case DecorationType.HardRightTurnSign:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
 			case DecorationType.StraightPowerPole:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+				return {xOffset: 0, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.StraightPowerPoleCrossBeams:
 			case DecorationType.StraightPowerPoleCrossBeamsSlantRight:
-				return {xOffset: 112, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+				return {xOffset: 112, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.StraightPowerPoleCrossBeamsSlantLeft:
-				return {xOffset: 116, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+				return {xOffset: 116, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.RightStreetLight:
 			case DecorationType.RightStreetLight_NoLight:
-				return {xOffset: 356, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+				return {xOffset: 356, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.LeftStreetLight:
 			case DecorationType.LeftStreetLight_NoLight:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
+				return {xOffset: 0, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.ObeyBillboard:
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BlankBillboard:
 			case DecorationType.BurgerBillboard:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 395, height: 256, depth: 10};
+				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.MageHookBillboard:
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
-				return {xOffset: 25, yOffset: 15, zOffset: -5, width: 735, height: 385, depth: 10};
+				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
 			case DecorationType.ChrisForPresident:
-				return {xOffset: 16, yOffset: 15, zOffset: -5, width: 862, height: 378, depth: 10};
+				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
 		}
