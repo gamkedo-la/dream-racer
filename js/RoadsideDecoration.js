@@ -254,7 +254,6 @@ function RoadsideDecoration(image, pos) {
 				this.type = DecorationType.Speed100Sign;
 				break;
 			case "straightPowerPole.png":
-			console.log("PowerPole?");
 				this.type = DecorationType.StraightPowerPole;
 				break;
 			case "straightPowerPoleCrossBeams.png":
@@ -279,47 +278,6 @@ function RoadsideDecoration(image, pos) {
 		
 	const colliderDimsForType = function(type) {
 		switch(type) {
-/*			case DecorationType.HillDownSignV0:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.HillDownSignV1:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.HillDownSignV2:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.HillUpSignV0:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.HillUpSignV1:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.HillUpSignV2:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.IceSignV0:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.IceSignV1:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.LeftTurnSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.OtherDriversSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.PalmTree:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.QuestionSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.RightStreetLight:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.RightTurnSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.RoadNarrowSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.Speed50Sign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.Speed100Sign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};
-			case DecorationType.WarningSign:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 28, height: 512, depth: 10};*/
-				
-				
-				
-				
-//PALM TREE NEEDS TO BE ADJUSTED NEXT
 			case DecorationType.CheckeredFlag:
 				return {xOffset: 8, yOffset: 26, zOffset: -5, width: 12, height: 38, depth: 10};
 			case DecorationType.CurveyRoadSign:
@@ -356,6 +314,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
 			case DecorationType.ChrisForPresident:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
+			case DecorationType.PalmTree:
+				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
 		}

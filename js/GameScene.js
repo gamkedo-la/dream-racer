@@ -9,7 +9,7 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 30000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 300000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
@@ -120,7 +120,7 @@ function GameScene(data) {
 				currentCrashCount = 0;
 			}
 		} else {
-//			this.checkForCollisions(baseSegment);
+			this.checkForCollisions(baseSegment);
 
 			let canAccelerate = true;
 			
@@ -170,9 +170,9 @@ function GameScene(data) {
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
 			if (collisionData.isColliding) {
 				if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
-					this.setPlayerCrashingState(true);
+					this.setPlayerCrashingState(true);//true = didCrashLeft
 				} else {
-					this.setPlayerCrashingState(false);
+					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
 		}
