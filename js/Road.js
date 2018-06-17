@@ -606,7 +606,7 @@ function Road(frustum) {
 	}
 	
 	this.selectedDecorationAt = function(screenPosition) {
-		const baseSeg = this.getSegmentAtZPos(cameraPosition.z);
+		const baseSeg = this.getSegmentAtZPos(cameraPosition.z - CAMERA_INITIAL_Z);
 		for(let i = baseSeg.index; i < segments.length; i++) {
 			const thisSegment = segments[i];
 			for(let j = 0; j < thisSegment.decorations.length; j++) {
