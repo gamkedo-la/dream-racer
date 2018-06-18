@@ -24,8 +24,8 @@ function Player() {
 	};
 
 	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
-									0, 0, 30, //x, y and z offsets for the collider
-									this.width, this.height, this.depth);
+		0, 0, 30, //x, y and z offsets for the collider
+		this.width, this.height, this.depth);
 	this.collider.isDynamic = true;//player can move (unlike road signs for example)
 
 	const baseY = this.position.y;
@@ -52,6 +52,16 @@ function Player() {
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
+
+	// smoke and dirt debris under tires, skid marks, impact sparks? crash fire? etc?
+	const USE_FX = true;
+	const EXHAUST_X = 32;
+	const EXHAUST_Y = 120;
+	const EXHAUST_COLOR = "rgba(0,0,0,0.5)";
+	const EXHAUST_LIFESPAN = 500; // ms
+	const EXHAUST_SIZE = 64; // TODO: unimplemented 
+	const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
+	this.fx = new fxSystem();
 
 	this.draw = function (crashCount, deltaY) {
 		canvasContext.save();
@@ -89,9 +99,9 @@ function Player() {
 		let goingUphill = false;
 		let goingDownhill = false;
 		var frameOffset = 0;
-		if(deltaY < -30) {
+		if (deltaY < -30) {
 			goingUphill = true;
-		} else if(deltaY > 30) {
+		} else if (deltaY > 30) {
 			goingDownhill = true;
 		}
 
@@ -108,6 +118,12 @@ function Player() {
 			carSpritesheet.frames[frameNum + frameOffset].frame.w * 3,
 			carSpritesheet.frames[frameNum + frameOffset].frame.h * 3
 		);
+
+		// smoke/dust/dirt effects
+		if (USE_FX) {
+			this.fx.update();
+			this.fx.draw();
+		}
 
 		this.collider.draw();
 
@@ -135,8 +151,8 @@ function Player() {
 			offroadSound.pause();
 		}
 
-		if((canAccelerate) && ((holdUp) || (holdW))) {
-			this.speed += ACCELERATION / (1 - ((this.speed/100) * this.currentGearMaxSpeed)/100);
+		if ((canAccelerate) && ((holdUp) || (holdW))) {
+			this.speed += ACCELERATION / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
 			//acceleratingSound.pause(); -> placeholder until engine sounds are added
@@ -176,17 +192,17 @@ function Player() {
 			}
 		}
 
-		if (holdSpace && holdUp && (((this.speed*100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
+		if (holdSpace && holdUp && (((this.speed * 100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
 			this.currentGear += 1;
 		}
 
 
 		switch (this.currentGear) {
 			case 1:
-				this.currentGearMaxSpeed = MAX_SPEED -8;
+				this.currentGearMaxSpeed = MAX_SPEED - 8;
 				break;
 			case 2:
-				this.currentGearMaxSpeed = MAX_SPEED -4;
+				this.currentGearMaxSpeed = MAX_SPEED - 4;
 				break;
 			case 3:
 				this.currentGearMaxSpeed = MAX_SPEED;
@@ -211,6 +227,13 @@ function Player() {
 		// TODO add more, like if in 1st, or penalties for hitting barriers or other cars
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
+
+		if (USE_FX) {
+			if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
+				this.fx.add(this.position.x + EXHAUST_X, this.position.y + EXHAUST_Y,
+					particlePic, EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR);
+		}
+
 	}
 
 	this.speedChangeForCrashing = function () {

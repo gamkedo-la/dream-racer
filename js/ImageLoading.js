@@ -52,7 +52,8 @@ const tinyRoboRacersBillboard = document.createElement("img");
 const chrisForPresidentBillboard = document.createElement("img");
 const burgerBillboard = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
-
+// FX.js
+const particlePic = document.createElement("img");
 
 const imageList = [];
 const billboardSprites = [];
@@ -138,12 +139,15 @@ function loadImages() {
 	billboardSprites.push(burgerBillboard);
 	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
 	billboardSprites.push(clashTracksBillboard);
+	// FX.js
+	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 
-/*const tinyRoboRacersBillboard = document.createElement("img");
-const chrisForPresidentBillboard = document.createElement("img");
-const burgerBillboard = document.createElement("img");
-const clashTracksBillboard = document.createElement("img");
-*/
+
+	/*const tinyRoboRacersBillboard = document.createElement("img");
+	const chrisForPresidentBillboard = document.createElement("img");
+	const burgerBillboard = document.createElement("img");
+	const clashTracksBillboard = document.createElement("img");
+	*/
 
 	picsToLoad = imageList.length;
 
