@@ -57,8 +57,8 @@ function Player() {
 	const USE_FX = true;
 	const EXHAUST_X = 32;
 	const EXHAUST_Y = 120;
-	const EXHAUST_COLOR = "rgba(0,0,0,0.5)";
-	const EXHAUST_LIFESPAN = 500; // ms
+	const EXHAUST_COLOR = "rgba(0,0,0,0.1)";
+	const EXHAUST_LIFESPAN = 700; // ms
 	const EXHAUST_SIZE = 64; // TODO: unimplemented 
 	const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
 	this.fx = new fxSystem();

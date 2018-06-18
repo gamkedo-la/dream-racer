@@ -6,6 +6,7 @@ function fxSystem() { // class constructor
     var particle = [];
     const SPEED_X_RANDOMNESS = 1;
     const SPEED_Y_RANDOMNESS = 4;
+    const ALPHA_SCALE = 0.5; // max opacity
 
     this.add = function (x, y, sprite, life, size, color) {
 
@@ -39,7 +40,7 @@ function fxSystem() { // class constructor
             p.death = p.birth + life;
             p.color = color;
             p.angle = 0;
-            p.alpha = 1;
+            p.alpha = ALPHA_SCALE;
             p.rotSpd = Math.random() * 3 - 2;
         }
 
@@ -65,7 +66,7 @@ function fxSystem() { // class constructor
                     //console.log('timestamp: ' + timestamp);
 
                     p.scale = p.size * lifePercent; // grow
-                    p.alpha = (1 - lifePercent); // fade
+                    p.alpha = (1 - lifePercent) * ALPHA_SCALE; // fade
                     p.angle = Math.PI * 2 * lifePercent * p.rotSpd;
 
                     p.x += p.xspd;
