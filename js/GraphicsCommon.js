@@ -21,7 +21,7 @@ function fillPath(path, color, context) {
 function strokePath(path, color, context) {
 	if (context == null) { context = canvasContext; }
 
-	context.strokeStyle = "yellow";
+	context.strokeStyle = color;
 	context.strokeWidth = 2;
 	context.beginPath();
 	context.moveTo(path[0].x, path[0].y);

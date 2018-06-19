@@ -63,8 +63,16 @@ function RoadsideDecoration(image, pos) {
 	this.selectedColor = "yellow";
 	
 	this.collider;
+	this.trigger;
 	
 	this.addCollider = function() {
+		const dims = colliderDimsForType(this.type);
+		this.collider = new boxCollider(this.world.x, this.world.y, this.world.z, 
+										dims.xOffset, dims.yOffset, dims.zOffset, 
+										dims.width, dims.height, this.depth);
+	}
+
+	this.addTrigger = function() {
 		const dims = colliderDimsForType(this.type);
 		this.collider = new boxCollider(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
