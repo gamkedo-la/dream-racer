@@ -335,7 +335,7 @@ function RoadsideDecoration(image, pos) {
 	const triggerDimsForType = function(type) {
 		switch(type) {
 			default:
-				return {xOffset: 48, yOffset: 0, zOffset: -5, width: -525, height: 120, depth: 10};
+				return {xOffset: 48, yOffset: 0, zOffset: -5, width: 525, height: 120, depth: 10};
 		}
 	}
 	

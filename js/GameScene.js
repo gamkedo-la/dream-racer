@@ -168,6 +168,12 @@ function GameScene(data) {
 		for (let i = 0; i < baseSegment.decorations.length; i++) {
 			const thisDecoration = baseSegment.decorations[i];
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
+			if (thisDecoration.trigger != undefined) {
+				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
+				if (interactingData.isInteracting) {
+					this.countdownTimeLeft += 1000;
+				}
+			}
 			if (collisionData.isColliding) {
 				if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
 					this.setPlayerCrashingState(true);//true = didCrashLeft
@@ -175,6 +181,7 @@ function GameScene(data) {
 					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
+			
 		}
 	}
 
