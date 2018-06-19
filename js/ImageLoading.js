@@ -26,6 +26,8 @@ const roadNarrowSignPic = document.createElement("img");
 const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
 const palmTreePic = document.createElement("img");
+const tree3Pic = document.createElement("img");
+const tree4Pic = document.createElement("img");
 const warningSignPic = document.createElement("img");
 const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
@@ -102,6 +104,8 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
+	imageList.push({ imgName: tree3Pic, theFile: "Tree3.png" });
+	imageList.push({ imgName: tree4Pic, theFile: "Tree4.png" });
 	imageList.push({ imgName: rightStreetLightPic, theFile: "RightStreetLight.png" });
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
