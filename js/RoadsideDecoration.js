@@ -73,8 +73,8 @@ function RoadsideDecoration(image, pos) {
 	}
 
 	this.addTrigger = function() {
-		const dims = colliderDimsForType(this.type);
-		this.collider = new boxCollider(this.world.x, this.world.y, this.world.z, 
+		const dims = triggerDimsForType(this.type);
+		this.trigger = new boxTrigger(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
 										dims.width, dims.height, this.depth);
 	}
@@ -99,8 +99,11 @@ function RoadsideDecoration(image, pos) {
 		const heightRatio = this.screenSize.height / (4 * this.height);
 		if(this.collider != undefined) {
 			this.collider.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
-	
 			this.collider.draw();
+		}
+		if(this.trigger != undefined) {
+			this.trigger.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
+			this.trigger.draw();
 		}
 	}
 
@@ -326,6 +329,13 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
+		}
+	}
+
+	const triggerDimsForType = function(type) {
+		switch(type) {
+			default:
+				return {xOffset: 48, yOffset: 0, zOffset: -5, width: -525, height: 120, depth: 10};
 		}
 	}
 	

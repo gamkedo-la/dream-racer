@@ -86,7 +86,7 @@ function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 				{ x: this.right, y: this.top }
 			];
 
-			strokePath(path, 'yellow');
+			strokePath(path, 'blue');
 		}
 	}
 }
