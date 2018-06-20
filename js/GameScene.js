@@ -9,7 +9,7 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 300000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 3000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
@@ -122,9 +122,9 @@ function GameScene(data) {
 			this.checkForCollisions(baseSegment);
 
 			let canAccelerate = true;
-			
-			
-			
+
+
+
 			if (!countdownfinished) {
 				if(countDown.getPaused()) {
 					countDown.play();
@@ -135,10 +135,10 @@ function GameScene(data) {
 					canAccelerate = false;
 				}
 			}
-			
-			
-			
-			
+
+
+
+
 			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			this.player.move(baseSegment.farPos.world.y, canAccelerate);
 
@@ -180,7 +180,7 @@ function GameScene(data) {
 					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
-			
+
 		}
 	}
 

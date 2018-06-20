@@ -1,6 +1,6 @@
 //WindowStates
 let firstLoad;
-let isPaused = false; 
+let isPaused = false;
 let windowState = {
 	inFocus : true,
 	mainMenu : true,
@@ -42,7 +42,7 @@ function windowOnBlur() {
 	if (!isPaused && !windowState.help) {
 		windowState.inFocus = false;
 		clearInterval(gameUpdate);
-		
+
 			pauseSound.play();
 			showPausedScreen();
 	}
@@ -54,7 +54,7 @@ function mainMenuStates() {
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-		
+
 		mainMenu.handleSliders();
 		mainMenu.drawButtons(opacity);
 	} else if(windowState.credits) {
@@ -91,7 +91,7 @@ function mainMenuStates() {
 		moveAll();
 		drawAll();
 	} else if(windowState.editing) {
-		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video	
+		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		editingMoveAll();
 		editingDrawAll();
 	} else if(windowState.editorHelp) {
@@ -128,7 +128,7 @@ function mainMenuStates() {
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-		
+
 //		gameOver.handleSliders();
 		gameOver.drawButtons(opacity);
 	} else if(windowState.endingScreen) {
@@ -138,7 +138,7 @@ function mainMenuStates() {
 
 function openHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.mainMenu = false;
 	windowState.help = true;
 	firstLoad = false;
@@ -147,14 +147,14 @@ function openHelp() {
 
 function showEditorHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.editing = false;
 	windowState.editorHelp = true;
 }
 
 function showMoreEditorHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.editorHelp = false;
 	windowState.moreEditorHelp = true;
 }
@@ -171,12 +171,13 @@ function backToMainMenu() {
 	if(isPaused) {
 		return;
 	}
+  windowState.gameOver = false;
 	windowState.credits = false;
 	windowState.mainMenu = true;
 }
 
 function togglePause() {
-    isPaused = !isPaused;	
+    isPaused = !isPaused;
     if(isPaused) {
         showPausedScreen();
         pauseSound.play();
