@@ -59,67 +59,7 @@ function Player() {
 
 	this.draw = function (crashCount, deltaY) {
 		if (this.isCrashing) {
-
-
-			canvasContext.save();
-			const frameModulous = 20;
-			const deltaY = this.deltaYForCrashCount(crashCount);
-			canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
-			canvasContext.rotate(rotation);
-			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
-			if (0 <= crashCount % frameModulous && crashCount % frameModulous <= 4) {
-				canvasContext.drawImage(this.sprite,
-					carSpritesheet.frames[27].frame.x * 3,
-					carSpritesheet.frames[27].frame.y * 3,
-					carSpritesheet.frames[27].frame.w * 3,
-					carSpritesheet.frames[27].frame.h * 3,
-					this.position.x, this.position.y,
-					carSpritesheet.frames[27].frame.w * 3,
-					carSpritesheet.frames[27].frame.h * 3
-				);
-			}
-			if (5 <= crashCount % frameModulous && crashCount % frameModulous <= 9) {
-				canvasContext.drawImage(this.sprite,
-					carSpritesheet.frames[28].frame.x * 3,
-					carSpritesheet.frames[28].frame.y * 3,
-					carSpritesheet.frames[28].frame.w * 3,
-					carSpritesheet.frames[28].frame.h * 3,
-					this.position.x, this.position.y,
-					carSpritesheet.frames[28].frame.w * 3,
-					carSpritesheet.frames[28].frame.h * 3
-				);
-			}
-			if (10 <= crashCount % frameModulous && crashCount % frameModulous <= 14) {
-				canvasContext.drawImage(this.sprite,
-					carSpritesheet.frames[29].frame.x * 3,
-					carSpritesheet.frames[29].frame.y * 3,
-					carSpritesheet.frames[29].frame.w * 3,
-					carSpritesheet.frames[29].frame.h * 3,
-					this.position.x, this.position.y,
-					carSpritesheet.frames[29].frame.w * 3,
-					carSpritesheet.frames[29].frame.h * 3
-				);
-			}
-			if (15 <= crashCount % frameModulous && crashCount % frameModulous <= 19) {
-				canvasContext.drawImage(this.sprite,
-					carSpritesheet.frames[30].frame.x * 3,
-					carSpritesheet.frames[30].frame.y * 3,
-					carSpritesheet.frames[30].frame.w * 3,
-					carSpritesheet.frames[30].frame.h * 3,
-					this.position.x, this.position.y,
-					carSpritesheet.frames[30].frame.w * 3,
-					carSpritesheet.frames[30].frame.h * 3
-				);
-			}
-			if (USE_FX) { // particles while crashing
-				// FIXME: the whole system spins too lol
-				//  but if we place outside the restore() the explosion is on the ground
-				this.fx.smoke(this);
-				this.fx.sparks(this);
-				this.fx.update();
-				this.fx.draw();
-			}
-			canvasContext.restore();
+			this.drawCrashAnimation(crashCount);
 		} else {
 			canvasContext.save();
 
@@ -290,6 +230,68 @@ function Player() {
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}
+	}
+	
+	this.drawCrashAnimation = function(crashCount) {
+					canvasContext.save();
+			const frameModulous = 20;
+			const deltaY = this.deltaYForCrashCount(crashCount);
+			canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
+			canvasContext.rotate(rotation);
+			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
+			if (0 <= crashCount % frameModulous && crashCount % frameModulous <= 4) {
+				canvasContext.drawImage(this.sprite,
+					carSpritesheet.frames[27].frame.x * 3,
+					carSpritesheet.frames[27].frame.y * 3,
+					carSpritesheet.frames[27].frame.w * 3,
+					carSpritesheet.frames[27].frame.h * 3,
+					this.position.x, this.position.y,
+					carSpritesheet.frames[27].frame.w * 3,
+					carSpritesheet.frames[27].frame.h * 3
+				);
+			}
+			if (5 <= crashCount % frameModulous && crashCount % frameModulous <= 9) {
+				canvasContext.drawImage(this.sprite,
+					carSpritesheet.frames[28].frame.x * 3,
+					carSpritesheet.frames[28].frame.y * 3,
+					carSpritesheet.frames[28].frame.w * 3,
+					carSpritesheet.frames[28].frame.h * 3,
+					this.position.x, this.position.y,
+					carSpritesheet.frames[28].frame.w * 3,
+					carSpritesheet.frames[28].frame.h * 3
+				);
+			}
+			if (10 <= crashCount % frameModulous && crashCount % frameModulous <= 14) {
+				canvasContext.drawImage(this.sprite,
+					carSpritesheet.frames[29].frame.x * 3,
+					carSpritesheet.frames[29].frame.y * 3,
+					carSpritesheet.frames[29].frame.w * 3,
+					carSpritesheet.frames[29].frame.h * 3,
+					this.position.x, this.position.y,
+					carSpritesheet.frames[29].frame.w * 3,
+					carSpritesheet.frames[29].frame.h * 3
+				);
+			}
+			if (15 <= crashCount % frameModulous && crashCount % frameModulous <= 19) {
+				canvasContext.drawImage(this.sprite,
+					carSpritesheet.frames[30].frame.x * 3,
+					carSpritesheet.frames[30].frame.y * 3,
+					carSpritesheet.frames[30].frame.w * 3,
+					carSpritesheet.frames[30].frame.h * 3,
+					this.position.x, this.position.y,
+					carSpritesheet.frames[30].frame.w * 3,
+					carSpritesheet.frames[30].frame.h * 3
+				);
+			}
+			if (USE_FX) { // particles while crashing
+				// FIXME: the whole system spins too lol
+				//  but if we place outside the restore() the explosion is on the ground
+				this.fx.smoke(this);
+				this.fx.sparks(this);
+				this.fx.update();
+				this.fx.draw();
+			}
+			canvasContext.restore();
 	}
 
 	this.deltaYForCrashCount = function (count) {
