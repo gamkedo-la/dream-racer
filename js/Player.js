@@ -71,7 +71,7 @@ function Player() {
 			canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
 			canvasContext.rotate(rotation);
 			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
-			if (0 <= crashCount % frameModulous && crashCount % frameModulous < 4) {
+			if (0 <= crashCount % frameModulous && crashCount % frameModulous <= 4) {
 				canvasContext.drawImage(this.sprite,
 					carSpritesheet.frames[27].frame.x * 3,
 					carSpritesheet.frames[27].frame.y * 3,
@@ -82,7 +82,7 @@ function Player() {
 					carSpritesheet.frames[27].frame.h * 3
 				);
 			}
-			if (5 <= crashCount % frameModulous && crashCount % frameModulous < 9) {
+			if (5 <= crashCount % frameModulous && crashCount % frameModulous <= 9) {
 				canvasContext.drawImage(this.sprite,
 					carSpritesheet.frames[28].frame.x * 3,
 					carSpritesheet.frames[28].frame.y * 3,
@@ -93,7 +93,7 @@ function Player() {
 					carSpritesheet.frames[28].frame.h * 3
 				);
 			}
-			if (10 <= crashCount % frameModulous && crashCount % frameModulous < 14) {
+			if (10 <= crashCount % frameModulous && crashCount % frameModulous <= 14) {
 				canvasContext.drawImage(this.sprite,
 					carSpritesheet.frames[29].frame.x * 3,
 					carSpritesheet.frames[29].frame.y * 3,
@@ -104,7 +104,7 @@ function Player() {
 					carSpritesheet.frames[29].frame.h * 3
 				);
 			}
-			if (15 <= crashCount % frameModulous && crashCount % frameModulous < 19) {
+			if (15 <= crashCount % frameModulous && crashCount % frameModulous <= 19) {
 				canvasContext.drawImage(this.sprite,
 					carSpritesheet.frames[30].frame.x * 3,
 					carSpritesheet.frames[30].frame.y * 3,
