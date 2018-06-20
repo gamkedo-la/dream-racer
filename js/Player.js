@@ -59,6 +59,8 @@ function Player() {
 
 	this.draw = function (crashCount, deltaY) {
 		if (this.isCrashing) {
+
+
 			canvasContext.save();
 			const frameModulous = 20;
 			const deltaY = this.deltaYForCrashCount(crashCount);
@@ -108,6 +110,14 @@ function Player() {
 					carSpritesheet.frames[30].frame.w * 3,
 					carSpritesheet.frames[30].frame.h * 3
 				);
+			}
+			if (USE_FX) { // particles while crashing
+				// FIXME: the whole system spins too lol
+				//  but if we place outside the restore() the explosion is on the ground
+				this.fx.smoke(this);
+				this.fx.sparks(this);
+				this.fx.update();
+				this.fx.draw();
 			}
 			canvasContext.restore();
 		} else {

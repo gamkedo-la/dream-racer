@@ -49,7 +49,7 @@ function fxSystem() { // class constructor
             p.rotSpd = Math.random() * 3 - 2;
         }
 
-    }
+    };
 
     this.update = function () {
 
@@ -112,7 +112,7 @@ function fxSystem() { // class constructor
             }
         );
         //console.log('drew'+drew);
-    }
+    };
 
     // helper function (inclusive: eg 1,10 may include 1 or 10)
     function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
@@ -122,7 +122,8 @@ function fxSystem() { // class constructor
         const OFFROAD_DIRT_CHANCE = 0.1;
         const OFFROAD_DIRT_LIFESPAN = 1000;
         const OFFROAD_DIRT_SIZE = 32;
-        const OFFROAD_DIRT_COLOR = 'rgba(117,76,36,1)'; // brown
+        const OFFROAD_DIRT_COLOR1 = 'rgba(117,76,36,1)'; // brown
+        const OFFROAD_DIRT_COLOR2 = 'rgba(20,255,20,1)'; // light green
         const XMINS = -2; // speeds
         const XMAXS = 2;
         const YMINS = 0;
@@ -135,7 +136,8 @@ function fxSystem() { // class constructor
                 car.position.x + 16,
                 car.position.y + 16,
                 particlePic,
-                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE, OFFROAD_DIRT_COLOR,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // front right tire    
@@ -143,7 +145,8 @@ function fxSystem() { // class constructor
                 car.position.x + 128,
                 car.position.y + 16,
                 particlePic,
-                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE, OFFROAD_DIRT_COLOR,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // back left tire    
@@ -151,7 +154,8 @@ function fxSystem() { // class constructor
                 car.position.x + 16,
                 car.position.y + 128,
                 particlePic,
-                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE, OFFROAD_DIRT_COLOR,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // back right tire    
@@ -159,11 +163,12 @@ function fxSystem() { // class constructor
                 car.position.x + 128,
                 car.position.y + 128,
                 particlePic,
-                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE, OFFROAD_DIRT_COLOR,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
                 XMINS, XMAXS, YMINS, YMAXS
             );
         }
-    }
+    };
 
     this.exhaust = function (car) {
 
@@ -179,11 +184,40 @@ function fxSystem() { // class constructor
                 car.position.x + EXHAUST_X,
                 car.position.y + EXHAUST_Y,
                 particlePic,
-                EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR);
-    }
+                EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR,
+                -0.5, 0.5, 0, 4 // * this.speed?
+            );
+    };
 
     this.sparks = function (car) {
-    }
+        for (let num = 0; num < 4; num++) {
+            this.add(
+                car.position.x + Math.random() * 80,
+                car.position.y + Math.random() * 128,
+                particlePic,
+                //1000, 4, 'rgba(255,255,0,1)', // yellow
+                600, 4, 'rgba(255,80,0,1)', // red
+                Math.random() * -8,
+                Math.random() * 8,
+                Math.random() * -8,
+                Math.random() * 8
+            );
+        }
+    };
 
+    this.smoke = function (car) {
+        for (let num = 0; num < 4; num++) {
+            this.add(
+                car.position.x + Math.random() * 80,
+                car.position.y + Math.random() * 128,
+                particlePic,
+                4000, 4, 'rgba(0,0,0,1)', // yellow
+                Math.random() * -1,
+                Math.random() * 1,
+                Math.random() * -3,
+                Math.random() * 0
+            );
+        }
+    };
 
 };
