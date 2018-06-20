@@ -9,7 +9,7 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 3000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 30000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
@@ -23,7 +23,7 @@ function GameScene(data) {
 
 	const roadReferences = [
 		JSON.parse(testTrack),
-//		JSON.parse(straight_Level_wLights),
+		//		JSON.parse(straight_Level_wLights),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -79,7 +79,7 @@ function GameScene(data) {
 		if (this.countdownTimeLeft <= 0) { // out of time?
 			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
 			this.countdownTimeLeft = 0; // no negative numbers allowed
-			if(this.player.speed <= 0) {
+			if (this.player.speed <= 0) {
 				this.gameIsOver = true;
 			}
 		}
@@ -126,10 +126,10 @@ function GameScene(data) {
 
 
 			if (!countdownfinished) {
-				if(countDown.getPaused()) {
+				if (countDown.getPaused()) {
 					countDown.play();
 				}
-				if (countDown.getTime() > 3.3){
+				if (countDown.getTime() > 3.3) {
 					countdownfinished = true;
 				} else {
 					canAccelerate = false;
@@ -152,7 +152,7 @@ function GameScene(data) {
 			}
 		}
 
-		if(countdownfinished) {
+		if (countdownfinished) {
 			for (let i = 0; i < this.aiCars.length; i++) {
 				this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
 			}

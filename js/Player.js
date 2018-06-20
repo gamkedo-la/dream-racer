@@ -55,12 +55,6 @@ function Player() {
 
 	// smoke and dirt debris under tires, skid marks, impact sparks? crash fire? etc?
 	const USE_FX = true;
-	const EXHAUST_X = 32;
-	const EXHAUST_Y = 120;
-	const EXHAUST_COLOR = "rgba(0,0,0,0.1)";
-	const EXHAUST_LIFESPAN = 700; // ms
-	const EXHAUST_SIZE = 64; // TODO: unimplemented 
-	const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
 	this.fx = new fxSystem();
 
 	this.draw = function (crashCount, deltaY) {
@@ -182,6 +176,9 @@ function Player() {
 
 		if (this.isOffRoad) {
 			console.log("Offroad");
+
+			if (USE_FX) this.fx.dirt(this); // dirt particles near the tires
+
 			this.speed -= OFF_ROAD_FRICTION;
 			if (this.speed <= 0) {
 				this.speed = 0;//makes sure the player can get back on the road because speed will be +0.35 later if up arrow held
@@ -275,11 +272,7 @@ function Player() {
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
 
-		if (USE_FX) {
-			if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
-				this.fx.add(this.position.x + EXHAUST_X, this.position.y + EXHAUST_Y,
-					particlePic, EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR);
-		}
+		if (USE_FX) this.fx.exhaust(this); // smoke particles near the bumper
 
 	}
 
