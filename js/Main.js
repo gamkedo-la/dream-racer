@@ -34,7 +34,7 @@ const buttonTitle = {
 	Credits: "[C] for Credits",
 	Editor: "[E] to Edit",
 	Enter: "[Enter] to Play",
-  MainMenu: "[Escape] to Main Menu"
+	MainMenu: "[Escape] to Main Menu"
 };
 
 const sliderTitle = {
@@ -92,7 +92,7 @@ function force_pixel_art() {
 	if (canvasContext.hasOwnProperty('webkitImageSmoothingEnabled')) canvasContext.webkitImageSmoothingEnabled = false;
 	if (canvasContext.hasOwnProperty('msImageSmoothingEnabled')) canvasContext.msImageSmoothingEnabled = false;
 	canvasContext.imageSmoothingEnabled = false;
-	// FIXME: the above seems to get reset at a later time! does canvas get init twice?
+	// FIXME: the above seems to get reset at a later time! does canvas get init twice? 
 	// current fix: we set it in RoadideDecoration.js line 22 which feels like a hack
 }
 
@@ -166,7 +166,6 @@ function startGame() {
 };
 
 function startEditing() {
-	console.log("Editing");
 	windowState.help = false;
 	windowState.mainMenu = false;
 	windowState.editorHelp = false;

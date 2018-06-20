@@ -1,8 +1,8 @@
 //Player Class
 function Player() {
-	const MAX_SPEED = 14;
+	const MAX_SPEED = 30;
 	const MAX_TURN_RATE = 65;
-	const HILL_DELTA_SPEED = 0.75;
+	const HILL_DELTA_SPEED = 0.15;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION = 0.25;
@@ -181,7 +181,7 @@ function Player() {
 		}
 	}
 
-	this.move = function (nextRoadY, canAccelerate) {
+	this.move = function (deltaY, canAccelerate) {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
@@ -226,9 +226,9 @@ function Player() {
 		}
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
-		if (nextRoadY < currentRoadY) {//going uphill (Y gets bigger as you go down)
+		if (deltaY < 0) {//going uphill (Y gets bigger as you go down)
 			this.speed -= HILL_DELTA_SPEED;
-		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
+		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
 		}
 
@@ -268,8 +268,6 @@ function Player() {
 		if (this.turnRate > MAX_TURN_RATE) {
 			this.turnRate = MAX_TURN_RATE;
 		}
-
-		currentRoadY = nextRoadY;
 
 		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 

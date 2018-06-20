@@ -5,6 +5,7 @@ function Road(frustum) {
 		Light: "#888888"
 	};
 	
+	const MAX_SEGMENT_DRAW_COUNT = 75;
 	const magicNumber = 50;
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
@@ -56,16 +57,18 @@ function Road(frustum) {
 	let ticks = 0;
 	this.draw = function(cameraPos, cars) {
 		cameraPosition = cameraPos;
-		if(currentBaseSegment == null) {
-			currentBaseSegment = findsegment(0);
-		}
+			currentBaseSegment = findsegment(cameraPos.z - CAMERA_INITIAL_Z);
 		
 		activeCars = cars;
 				
 		for(let i = segments.length - 1; i >= 0; i--) {
 			const thisSegment = segments[(currentBaseSegment.index + i) % segments.length];
 			
-			if(thisSegment.nearPos.world.z <= cameraPos.z) {
+			if(thisSegment.index > MAX_SEGMENT_DRAW_COUNT + currentBaseSegment.index) {//don't draw anything too far down the road
+				continue;
+			}
+			
+			if(thisSegment.nearPos.world.z <= cameraPos.z) {//don't draw anything behind us
 				for(let k = activeCars.length - 1; k >= 0; k--) {
 					if(activeCars[k].position.z < cameraPos.z) {continue;}
 					const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
