@@ -102,7 +102,6 @@ function GameScene(data) {
 		}
 
 		if (this.player.isCrashing) {
-			//			this.player.showCrashAnimation(currentCrashCount++);
 			currentCrashCount++;
 			this.player.speedChangeForCrashing();
 			this.camera.showCrashAnimation();
