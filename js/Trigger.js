@@ -27,6 +27,8 @@ function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 	this.near = this.z;
 	this.far = this.z + this.depth;
 
+	this.hasInteracted = false;
+
 	this.update = function (posX, posY, posZ, widthRatio, heightRatio) {
 		const newWidth = this.width * widthRatio;
 		const newHeight = this.height * heightRatio;
@@ -73,8 +75,7 @@ function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 				direction.y = this.top - otherCollider.bottom;
 			}
 		}
-
-		return { isInteracting: true, direction: direction };
+		return { isInteracting: true, direction: direction,};
 	}
 
 	this.draw = function () {

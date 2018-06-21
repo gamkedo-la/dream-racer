@@ -170,8 +170,9 @@ function GameScene(data) {
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
 			if (thisDecoration.trigger != undefined) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
-				if (interactingData.isInteracting) {
-					this.countdownTimeLeft += 1000;
+				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
+					this.countdownTimeLeft += 10000;
+					thisDecoration.trigger.hasInteracted = true;
 				}
 			}
 			if (collisionData.isColliding) {
