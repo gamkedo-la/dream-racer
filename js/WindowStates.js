@@ -71,7 +71,6 @@ function mainMenuStates() {
 		var textY = 150;
 		var textSkip = 20;
 		var creditsFont = fonts.CreditsText;
-
 		colorText('Name: H Trayford - Roles: Game Lead, Prototype, Level Editor',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
@@ -88,7 +87,7 @@ function mainMenuStates() {
 /*		colorText(' Default Inputs: A/D or arrows for left/right, mouse to aim tank cannon, mouse click or spacebar for shooting',0,180 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
 		colorText(' Optional Inputs: Arrows for left/right, A/D for moving cannon left/right, spacebar for shooting',0,210 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);*/
 		colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [S] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [X] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText(bulletPointIcon + '  [N] to use Nitro',200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText(bulletPointIcon + '  [P] to pause and resume game',200,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText('Press [Backspace] to Return to Main Menu',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);

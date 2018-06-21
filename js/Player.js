@@ -57,6 +57,18 @@ function Player() {
 	const USE_FX = true;
 	this.fx = new fxSystem();
 
+	this.drawPlayerCarSprite = function(index) {
+		canvasContext.drawImage(this.sprite,
+				carSpritesheet.frames[index].frame.x * 3,
+				carSpritesheet.frames[index].frame.y * 3,
+				carSpritesheet.frames[index].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
+				carSpritesheet.frames[index].frame.h * 3,
+				this.position.x, this.position.y,
+				carSpritesheet.frames[index].frame.w * 3,
+				carSpritesheet.frames[index].frame.h * 3
+		);
+	}
+
 	this.draw = function (crashCount, deltaY) {
 		if (this.isCrashing) {
 			this.drawCrashAnimation(crashCount);
@@ -111,18 +123,6 @@ function Player() {
 
 			canvasContext.restore();
 		}
-	}
-
-	this.drawPlayerCarSprite = function(index) {
-		canvasContext.drawImage(this.sprite,
-				carSpritesheet.frames[index].frame.x * 3,
-				carSpritesheet.frames[index].frame.y * 3,
-				carSpritesheet.frames[index].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
-				carSpritesheet.frames[index].frame.h * 3,
-				this.position.x, this.position.y,
-				carSpritesheet.frames[index].frame.w * 3,
-				carSpritesheet.frames[index].frame.h * 3
-		);
 	}
 
 	this.move = function (deltaY, canAccelerate) {

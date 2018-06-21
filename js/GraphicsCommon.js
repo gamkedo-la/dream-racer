@@ -136,3 +136,20 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
 	canvasContext.restore();
 }
+
+function drawTimeExtend () {
+	const timeOnScreen = 90;
+	if (passedACheckPoint) {
+		if (counter >= timeOnScreen) {
+			passedACheckPoint = false;
+			counter = 0;
+			return;
+		} else {
+			const timeAdded = 10000/1000 //based on checkForCollision timeExtendBonus line ~173
+			colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
+				textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+			console.log('counter++');
+			counter++;
+		}
+	}
+}

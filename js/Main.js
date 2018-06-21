@@ -6,6 +6,10 @@ const DEBUG = true;
 const GAME_HEIGHT = 600;
 
 let scene;
+
+let passedACheckPoint = false;
+let counter	= 0;
+
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {

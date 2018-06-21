@@ -48,6 +48,7 @@ function GameScene(data) {
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position, this.aiCars);
+		drawTimeExtend();
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
 		this.player.draw(currentCrashCount, deltaY);
@@ -170,8 +171,10 @@ function GameScene(data) {
 			if (thisDecoration.trigger != undefined) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
-					this.countdownTimeLeft += 10000;
+					let timeExtendBonus = 10000; // make bonus trigger dependent
+					this.countdownTimeLeft += timeExtendBonus;
 					thisDecoration.trigger.hasInteracted = true;
+					passedACheckPoint = true;
 				}
 			}
 			if (collisionData.isColliding) {
