@@ -14,6 +14,12 @@ let windowState = {
 	endingScreen: false//displayed when the game is beat
 };
 
+let bulletPointIcon = '\u2022'
+let leftArrowIcon = '\u2190';
+let upArrowIcon = '\u2191';
+let rightArrowIcon = '\u2192';
+let downArrowIcon = '\u2193';
+
 function tintScreen() {
     canvasContext.fillStyle = textColor.Black;
     canvasContext.globalAlpha = 0.75;
@@ -66,23 +72,25 @@ function mainMenuStates() {
 		var textSkip = 20;
 		var creditsFont = fonts.CreditsText;
 
-		colorText("Name: H Trayford - Roles: Game Lead, Prototype, Level Editor",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: H Trayford - Roles: Game Lead, Prototype, Level Editor',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
+		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
 		colorText('Press [Backspace] to go Back to Menu',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 		colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText("1) Press [C] to switch between input options:",250,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(" Default Inputs: A/D or arrows for left/right, mouse to aim tank cannon, mouse click or spacebar for shooting",0,180 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
-		colorText(" Optional Inputs: Arrows for left/right, A/D for moving cannon left/right, spacebar for shooting",0,210 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
-		colorText("2) Pick-up power-ups using Excalibur",250,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("3) [P] to pause and resume game",250,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [W] or [' + upArrowIcon + '] to accellerate',200,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+/*		colorText(' Default Inputs: A/D or arrows for left/right, mouse to aim tank cannon, mouse click or spacebar for shooting',0,180 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
+		colorText(' Optional Inputs: Arrows for left/right, A/D for moving cannon left/right, spacebar for shooting',0,210 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);*/
+		colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [S] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [N] to use Nitro',200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [P] to pause and resume game',200,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText('Press [Backspace] to Return to Main Menu',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 		colorText('Press [Enter] to Start game',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 	} else if(windowState.playing) {
@@ -99,7 +107,7 @@ function mainMenuStates() {
 		const leftEdge = 125;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 		colorText('How To Edit',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText("1) Press [+]/[-] to add/remove segments to the road.", leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText('1) Press [+]/[-] to add/remove segments to the road.', leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("2) Click on each segment to select (or [CMD+A]/[CNTRL+A] to select all).", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("3) With >1 segment selected, press left/right arrows to curve the road.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("4) With >1 segment selected, press [+]/[-] to make hills/valleys.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
