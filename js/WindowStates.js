@@ -190,9 +190,11 @@ function togglePause() {
         showPausedScreen();
         pauseSound.play();
         clearInterval(gameUpdate);
+        scene.timeSinceLastFrame = null;
+		scene.currentFrameTimestamp = null;
+		scene.previousFrameTimestamp = null;
     } else {
 		gameUpdate = setInterval(update, 1000/30);
         resumeSound.play();
-		timeStartedActive = new Date().getTime();
     }
 }

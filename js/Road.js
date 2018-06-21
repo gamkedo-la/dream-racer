@@ -57,7 +57,7 @@ function Road(frustum) {
 	let ticks = 0;
 	this.draw = function(cameraPos, cars) {
 		cameraPosition = cameraPos;
-			currentBaseSegment = findsegment(cameraPos.z - CAMERA_INITIAL_Z);
+		currentBaseSegment = findsegment(cameraPos.z - CAMERA_INITIAL_Z);
 		
 		activeCars = cars;
 				

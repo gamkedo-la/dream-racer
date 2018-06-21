@@ -69,21 +69,25 @@ function GameScene(data) {
 	}
 
 	this.updateTimer = function () {
-		this.currentFrameTimestamp = Date.now();
-		if (!this.previousFrameTimestamp) { // first frame?
-			console.log("Countdown timer starting!");
+		if (isPaused) {
+			return;
+		} else {
+			this.currentFrameTimestamp = Date.now();
+			if (!this.previousFrameTimestamp) { // first frame?
+				console.log("Countdown timer starting!");
+				this.previousFrameTimestamp = this.currentFrameTimestamp;
+			}
+			this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
+			this.countdownTimeLeft -= this.timeSinceLastFrame;
+			if (this.countdownTimeLeft <= 0) { // out of time?
+				console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
+				this.countdownTimeLeft = 0; // no negative numbers allowed
+				if(this.player.speed <= 0) {
+					this.gameIsOver = true;
+				}
+			}
 			this.previousFrameTimestamp = this.currentFrameTimestamp;
 		}
-		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
-		this.countdownTimeLeft -= this.timeSinceLastFrame;
-		if (this.countdownTimeLeft <= 0) { // out of time?
-			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
-			this.countdownTimeLeft = 0; // no negative numbers allowed
-			if(this.player.speed <= 0) {
-				this.gameIsOver = true;
-			}
-		}
-		this.previousFrameTimestamp = this.currentFrameTimestamp;
 	}
 
 	this.move = function () {
@@ -123,8 +127,6 @@ function GameScene(data) {
 
 			let canAccelerate = true;
 			
-			
-			
 			if (!countdownfinished) {
 				if(countDown.getPaused()) {
 					countDown.play();
@@ -135,9 +137,6 @@ function GameScene(data) {
 					canAccelerate = false;
 				}
 			}
-			
-			
-			
 			
 			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
