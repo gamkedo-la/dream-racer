@@ -54,6 +54,7 @@ const tinyRoboRacersBillboard = document.createElement("img");
 const chrisForPresidentBillboard = document.createElement("img");
 const burgerBillboard = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
+const notABillboard = document.createElement("img")
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -143,6 +144,8 @@ function loadImages() {
 	billboardSprites.push(burgerBillboard);
 	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
 	billboardSprites.push(clashTracksBillboard);
+	imageList.push({ imgName: notABillboard, theFile: "NotABillboard.png" });
+	billboardSprites.push(notABillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 
