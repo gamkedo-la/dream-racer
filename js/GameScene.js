@@ -4,7 +4,8 @@ function GameScene(data) {
 	const CRASH_DELTA_SPEED = 4;
 
 	let passedACheckPoint = false;
-	let timeExtendCounter = 0;	
+	let timeExtendCounter = 0;
+	let newTimeBonus = 0;	
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
@@ -62,18 +63,8 @@ function GameScene(data) {
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position, this.aiCars);
-		drawTimeExtend();
-		if (!countdownfinished) {
-			drawCountdownTimerAndGO();
-			if(countDown.getPaused()) {
-				countDown.play();
-			}
-			if (countDown.getTime() > 3.3){
-				canTurn = true;
-			} else {
-				canTurn = false;
-			}
-		}
+		drawTimeExtend(newTimeBonus);
+		drawCountdownTimerAndGO();
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
 		this.player.draw(currentCrashCount, deltaY, canTurn);
@@ -94,7 +85,7 @@ function GameScene(data) {
 		}
 	}
 
-	const drawTimeExtend = function() {
+	const drawTimeExtend = function(timeBonusToDisplay) {
 		const timeOnScreen = 90;
 		if (passedACheckPoint) {
 			if (timeExtendCounter >= timeOnScreen) {
@@ -102,7 +93,7 @@ function GameScene(data) {
 				timeExtendCounter = 0;
 				return;
 			} else {
-				const timeAdded = 10000/1000 //based on checkForCollision timeExtendBonus line ~173
+				const timeAdded = timeBonusToDisplay/1000 //based on checkForCollision() timeExtendBonus
 				colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
 					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
 				timeExtendCounter++;
@@ -114,6 +105,16 @@ function GameScene(data) {
 		const timeOnScreen = 30;
 		const framesPerSecond = 30;
 		if (!countdownfinished) {
+			if(countDown.getPaused()) {
+				countDown.play();
+			}
+			if (countDown.getTime() > 3.3){
+				canTurn = true;
+				canAccelerate = true;
+			} else {
+				canTurn = false;
+				canAccelerate = false;
+			}
 			if (countdownDisplayCounter >= framesPerSecond*4) {
 				countdownDisplayCounter = 0;
 				countdownfinished = true;
@@ -201,14 +202,6 @@ function GameScene(data) {
 			}
 		} else {
 			this.checkForCollisions(baseSegment);
-
-			if (!countdownfinished) {
-				if (countDown.getTime() > 3.3){
-					canAccelerate = true;
-				} else {
-					canAccelerate = false;
-				}
-			}
 			
 			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
@@ -242,10 +235,10 @@ function GameScene(data) {
 			if (thisDecoration.trigger != undefined) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
-					let timeExtendBonus = 10000; // make bonus trigger dependent
-					this.countdownTimeLeft += timeExtendBonus;
+					this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
 					thisDecoration.trigger.hasInteracted = true;
 					passedACheckPoint = true;
+					newTimeBonus = thisDecoration.trigger.timeBonus;
 				}
 			}
 			if (collisionData.isColliding) {
@@ -255,7 +248,6 @@ function GameScene(data) {
 					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
-			
 		}
 	}
 

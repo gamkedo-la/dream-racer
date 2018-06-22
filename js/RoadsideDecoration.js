@@ -75,11 +75,11 @@ function RoadsideDecoration(image, pos) {
 										dims.width, dims.height, this.depth);
 	}
 
-	this.addTrigger = function() {
+	this.addTrigger = function(timeBonus) {
 		const dims = triggerDimsForType(this.type);
 		this.trigger = new boxTrigger(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
-										dims.width, dims.height, this.depth);
+										dims.width, dims.height, this.depth, timeBonus);
 	}
 	
 	this.drawWithFrustum = function (frustum) {
