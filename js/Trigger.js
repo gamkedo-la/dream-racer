@@ -1,8 +1,5 @@
-//Collider
-const _DEBUG_DRAW_HITBOX_COLLIDERS = true;
-
 //function boxCollider(x, y, z, width, height, depth, offsetX, offsetY, offsetZ) {
-function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
+function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 	this.isDynamic = false;//false = doesn't move (i.e. a street sign)
 
 	this.x = x + xOffset;
@@ -30,6 +27,8 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 	this.near = this.z;
 	this.far = this.z + this.depth;
 
+	this.hasInteracted = false;
+
 	this.update = function (posX, posY, posZ, widthRatio, heightRatio) {
 		const newWidth = this.width * widthRatio;
 		const newHeight = this.height * heightRatio;
@@ -54,11 +53,11 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 		this.far = this.z + this.depth;
 	}
 
-	this.isCollidingWith = function (otherCollider) {
+	this.isInteractingWith = function (otherCollider) {
 		const direction = {};
 
 		if ((this.right < otherCollider.left) || (this.left > otherCollider.right)) {
-			return { isColliding: false, direction: { x: 0, y: 0, z: 0 } };
+			return { isInteracting: false, direction: { x: 0, y: 0, z: 0 } };
 		} else {
 			if (this.x < otherCollider.x) {
 				direction.x = otherCollider.left - this.right;
@@ -68,7 +67,7 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 		}
 
 		if ((this.bottom < otherCollider.top) || (this.top > otherCollider.Body)) {
-			return { isColliding: false, direction: { x: 0, y: 0, z: 0 } };
+			return { isInteracting: false, direction: { x: 0, y: 0, z: 0 } };
 		} else {
 			if (this.y < otherCollider.y) {
 				direction.y = this.bottom - otherCollider.top;
@@ -76,8 +75,7 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 				direction.y = this.top - otherCollider.bottom;
 			}
 		}
-
-		return { isColliding: true, direction: direction };
+		return { isInteracting: true, direction: direction,};
 	}
 
 	this.draw = function () {
@@ -89,7 +87,7 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 				{ x: this.right, y: this.top }
 			];
 
-			strokePath(path, 'yellow');
+			strokePath(path, 'blue');
 		}
 	}
 }

@@ -1,8 +1,8 @@
 //Player Class
 function Player() {
-	const MAX_SPEED = 14;
+	const MAX_SPEED = 30;
 	const MAX_TURN_RATE = 65;
-	const HILL_DELTA_SPEED = 0.75;
+	const HILL_DELTA_SPEED = 0.15;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION = 0.25;
@@ -55,86 +55,84 @@ function Player() {
 
 	// smoke and dirt debris under tires, skid marks, impact sparks? crash fire? etc?
 	const USE_FX = true;
-	const EXHAUST_X = 32;
-	const EXHAUST_Y = 120;
-	const EXHAUST_COLOR = "rgba(0,0,0,0.1)";
-	const EXHAUST_LIFESPAN = 700; // ms
-	const EXHAUST_SIZE = 64; // TODO: unimplemented 
-	const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
 	this.fx = new fxSystem();
 
-	this.draw = function (crashCount, deltaY) {
-		canvasContext.save();
-
-		if (this.isCrashing) {
-			const deltaY = this.deltaYForCrashCount(crashCount);
-			canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
-			canvasContext.rotate(rotation);
-			canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
-		}
-
-		// TODO FIXME: frameNum should actually ask the data in carSpritesheet.js for file names in case it changes order in the img
-		// if carSpritesheet.frames[x].filename=='car0.png'
-
-		// when you let go of controls, gradually turn back to zero degrees
-		if (frameNum > 0) frameNum--; // 4,3,2,1,0
-		if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
-
-		// this is a heinous hack, but the car never really turns at all - the world does
-		//Christer, not sure what the hack is.  Can you explain it?
-		if ((holdRight) || (holdD)) {
-			turnRightFramecount++;
-			turnLeftFramecount = 0;
-			// every 4 frames, advance to next sharper angle
-			frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
-			if (frameNum > 8) frameNum = 8;
-		}
-		else if ((holdLeft) || (holdA)) {
-			turnRightFramecount = 0;
-			turnLeftFramecount++;
-			frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
-			if (frameNum > 4) frameNum = 4;
-		}
-
-		let goingUphill = false;
-		let goingDownhill = false;
-		var frameOffset = 0;
-		if (deltaY < -30) {
-			goingUphill = true;
-		} else if (deltaY > 30) {
-			goingDownhill = true;
-		}
-
-		// hardcoded locations for uphill and downhill variants on the spritesheet
-		if (goingUphill) frameOffset = 18;
-		if (goingDownhill) frameOffset = 9;
-
+	this.drawPlayerCarSprite = function(index) {
 		canvasContext.drawImage(this.sprite,
-			carSpritesheet.frames[frameNum + frameOffset].frame.x * 3,
-			carSpritesheet.frames[frameNum + frameOffset].frame.y * 3,
-			carSpritesheet.frames[frameNum + frameOffset].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
-			carSpritesheet.frames[frameNum + frameOffset].frame.h * 3,
-			this.position.x, this.position.y,
-			carSpritesheet.frames[frameNum + frameOffset].frame.w * 3,
-			carSpritesheet.frames[frameNum + frameOffset].frame.h * 3
+				carSpritesheet.frames[index].frame.x * 3,
+				carSpritesheet.frames[index].frame.y * 3,
+				carSpritesheet.frames[index].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
+				carSpritesheet.frames[index].frame.h * 3,
+				this.position.x, this.position.y,
+				carSpritesheet.frames[index].frame.w * 3,
+				carSpritesheet.frames[index].frame.h * 3
 		);
-
-		// smoke/dust/dirt effects
-		if (USE_FX) {
-			this.fx.update();
-			this.fx.draw();
-		}
-
-		this.collider.draw();
-
-		canvasContext.restore();
 	}
 
-	this.move = function (nextRoadY, canAccelerate) {
+	this.draw = function (crashCount, deltaY) {
+		if (this.isCrashing) {
+			this.drawCrashAnimation(crashCount);
+		} else {
+			canvasContext.save();
+
+			// TODO FIXME: frameNum should actually ask the data in carSpritesheet.js for file names in case it changes order in the img
+			// if carSpritesheet.frames[x].filename=='car0.png'
+
+			// when you let go of controls, gradually turn back to zero degrees
+			if (frameNum > 0) frameNum--; // 4,3,2,1,0
+			if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
+
+			// this is a heinous hack, but the car never really turns at all - the world does
+			//Christer, not sure what the hack is.  Can you explain it?
+			if ((holdRight) || (holdD)) {
+				turnRightFramecount++;
+				turnLeftFramecount = 0;
+				// every 4 frames, advance to next sharper angle
+				frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
+				if (frameNum > 8) frameNum = 8;
+			}
+			else if ((holdLeft) || (holdA)) {
+				turnRightFramecount = 0;
+				turnLeftFramecount++;
+				frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
+				if (frameNum > 4) frameNum = 4;
+			}
+
+			let goingUphill = false;
+			let goingDownhill = false;
+			var frameOffset = 0;
+			if (deltaY < -30) {
+				goingUphill = true;
+			} else if (deltaY > 30) {
+				goingDownhill = true;
+			}
+
+			// hardcoded locations for uphill and downhill variants on the spritesheet
+			if (goingUphill) frameOffset = 18;
+			if (goingDownhill) frameOffset = 9;
+
+			this.drawPlayerCarSprite(frameNum + frameOffset);
+
+			// smoke/dust/dirt effects
+			if (USE_FX) {
+				this.fx.update();
+				this.fx.draw();
+			}
+
+			this.collider.draw();
+
+			canvasContext.restore();
+		}
+	}
+
+	this.move = function (deltaY, canAccelerate) {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
 			console.log("Offroad");
+
+			if (USE_FX) this.fx.dirt(this); // dirt particles near the tires
+
 			this.speed -= OFF_ROAD_FRICTION;
 			if (this.speed <= 0) {
 				this.speed = 0;//makes sure the player can get back on the road because speed will be +0.35 later if up arrow held
@@ -172,9 +170,9 @@ function Player() {
 		}
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
-		if (nextRoadY < currentRoadY) {//going uphill (Y gets bigger as you go down)
+		if (deltaY < 0) {//going uphill (Y gets bigger as you go down)
 			this.speed -= HILL_DELTA_SPEED;
-		} else if (nextRoadY > currentRoadY) {//going downhill (Y gets bigger as you go down)
+		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
 		}
 
@@ -215,8 +213,6 @@ function Player() {
 			this.turnRate = MAX_TURN_RATE;
 		}
 
-		currentRoadY = nextRoadY;
-
 		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
@@ -228,11 +224,7 @@ function Player() {
 		if (this.isOffRoad) this.score -= this.speed * 2;
 		if (this.speed == MAX_SPEED) this.score += 1;
 
-		if (USE_FX) {
-			if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
-				this.fx.add(this.position.x + EXHAUST_X, this.position.y + EXHAUST_Y,
-					particlePic, EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR);
-		}
+		if (USE_FX) this.fx.exhaust(this); // smoke particles near the bumper
 
 	}
 
@@ -242,6 +234,40 @@ function Player() {
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}
+	}
+	
+	this.drawCrashAnimation = function(crashCount) {
+		canvasContext.save();
+		const frameModulous = 20;
+		const deltaY = this.deltaYForCrashCount(crashCount);
+		canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
+		canvasContext.rotate(rotation);
+		canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
+		if (0 <= crashCount % frameModulous && crashCount % frameModulous <= 4) {
+			let frameNum = 27;
+			this.drawPlayerCarSprite(frameNum);
+		}
+		if (5 <= crashCount % frameModulous && crashCount % frameModulous <= 9) {
+			let frameNum = 28;
+			this.drawPlayerCarSprite(frameNum);
+		}
+		if (10 <= crashCount % frameModulous && crashCount % frameModulous <= 14) {
+			let frameNum = 29;
+			this.drawPlayerCarSprite(frameNum);
+		}
+		if (15 <= crashCount % frameModulous && crashCount % frameModulous <= 19) {
+			let frameNum = 30;
+			this.drawPlayerCarSprite(frameNum);
+		}
+		if (USE_FX) { // particles while crashing
+			// FIXME: the whole system spins too lol
+			//  but if we place outside the restore() the explosion is on the ground
+			this.fx.smoke(this);
+			this.fx.sparks(this);
+			this.fx.update();
+			this.fx.draw();
+		}
+		canvasContext.restore();
 	}
 
 	this.deltaYForCrashCount = function (count) {

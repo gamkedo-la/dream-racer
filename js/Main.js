@@ -6,6 +6,10 @@ const DEBUG = true;
 const GAME_HEIGHT = 600;
 
 let scene;
+
+let passedACheckPoint = false;
+let counter	= 0;
+
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
@@ -33,7 +37,8 @@ const buttonTitle = {
 	Help: "[H] for Help",
 	Credits: "[C] for Credits",
 	Editor: "[E] to Edit",
-	Enter: "[Enter] to Play"
+	Enter: "[Enter] to Play",
+	MainMenu: "[Escape] to Main Menu"
 };
 
 const sliderTitle = {
@@ -165,7 +170,6 @@ function startGame() {
 };
 
 function startEditing() {
-	console.log("Editing");
 	windowState.help = false;
 	windowState.mainMenu = false;
 	windowState.editorHelp = false;

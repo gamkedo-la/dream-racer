@@ -48,6 +48,7 @@ function GameScene(data) {
 	this.draw = function () {
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position, this.aiCars);
+		drawTimeExtend();
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
 		this.player.draw(currentCrashCount, deltaY);
@@ -69,21 +70,25 @@ function GameScene(data) {
 	}
 
 	this.updateTimer = function () {
-		this.currentFrameTimestamp = Date.now();
-		if (!this.previousFrameTimestamp) { // first frame?
-			console.log("Countdown timer starting!");
+		if (isPaused) {
+			return;
+		} else {
+			this.currentFrameTimestamp = Date.now();
+			if (!this.previousFrameTimestamp) { // first frame?
+				console.log("Countdown timer starting!");
+				this.previousFrameTimestamp = this.currentFrameTimestamp;
+			}
+			this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
+			this.countdownTimeLeft -= this.timeSinceLastFrame;
+			if (this.countdownTimeLeft <= 0) { // out of time?
+				console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
+				this.countdownTimeLeft = 0; // no negative numbers allowed
+				if(this.player.speed <= 0) {
+					this.gameIsOver = true;
+				}
+			}
 			this.previousFrameTimestamp = this.currentFrameTimestamp;
 		}
-		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
-		this.countdownTimeLeft -= this.timeSinceLastFrame;
-		if (this.countdownTimeLeft <= 0) { // out of time?
-			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
-			this.countdownTimeLeft = 0; // no negative numbers allowed
-			if(this.player.speed <= 0) {
-				this.gameIsOver = true;
-			}
-		}
-		this.previousFrameTimestamp = this.currentFrameTimestamp;
 	}
 
 	this.move = function () {
@@ -102,7 +107,6 @@ function GameScene(data) {
 		}
 
 		if (this.player.isCrashing) {
-			//			this.player.showCrashAnimation(currentCrashCount++);
 			currentCrashCount++;
 			this.player.speedChangeForCrashing();
 			this.camera.showCrashAnimation();
@@ -124,8 +128,6 @@ function GameScene(data) {
 
 			let canAccelerate = true;
 			
-			
-			
 			if (!countdownfinished) {
 				if(countDown.getPaused()) {
 					countDown.play();
@@ -137,11 +139,9 @@ function GameScene(data) {
 				}
 			}
 			
-			
-			
-			
 			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
-			this.player.move(baseSegment.farPos.world.y, canAccelerate);
+			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+			this.player.move(deltaY, canAccelerate);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
 				this.camera.move(this.player.speed, this.player.turnRate, baseSegment);
@@ -168,6 +168,15 @@ function GameScene(data) {
 		for (let i = 0; i < baseSegment.decorations.length; i++) {
 			const thisDecoration = baseSegment.decorations[i];
 			const collisionData = this.player.collider.isCollidingWith(thisDecoration.collider);
+			if (thisDecoration.trigger != undefined) {
+				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
+				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
+					let timeExtendBonus = 10000; // make bonus trigger dependent
+					this.countdownTimeLeft += timeExtendBonus;
+					thisDecoration.trigger.hasInteracted = true;
+					passedACheckPoint = true;
+				}
+			}
 			if (collisionData.isColliding) {
 				if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
 					this.setPlayerCrashingState(true);//true = didCrashLeft
@@ -175,6 +184,7 @@ function GameScene(data) {
 					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
+			
 		}
 	}
 

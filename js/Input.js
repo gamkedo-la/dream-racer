@@ -130,7 +130,9 @@ function keyPress(evt) {
 			break;
 		case KEY_ESCAPE:
 			keyUsedByGame = true;
-			holdEscape = true;
+      if (windowState.gameOver) {
+        backToMainMenu();
+      }
 			break;
 		case KEY_SPACE:
 			keyUsedByGame = true;

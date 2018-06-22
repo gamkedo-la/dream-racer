@@ -10,6 +10,7 @@ const DecorationType = {
 	RomanAdventureBillboard:"RomanAdventureBillboard",
 	TinyRoboRacersBillboard:"TinyRoboRacersBillboard",
 	ChrisForPresidentBillboard:"chrisForPresident",
+	NotABillboard:"NotABillboard",
 	CheckeredFlag:"CheckeredFlag",
 	CheckPoint:"CheckPoint",
 	CurvyRoadSign:"CurvyRoadSign",
@@ -28,6 +29,8 @@ const DecorationType = {
 	LeftTurnSign:"LeftTurnSign",
 	OtherDriversSign:"OtherDriversSign",
 	PalmTree:"palmTree",
+	Tree3:"Tree3",
+	Tree4:"Tree4",
 	QuestionSign:"QuestionSign",
 	RightStreetLight_NoLight:"RightStreetLight_NoLight",
 	RightStreetLight:"RightStreetLight",
@@ -63,10 +66,18 @@ function RoadsideDecoration(image, pos) {
 	this.selectedColor = "yellow";
 	
 	this.collider;
+	this.trigger;
 	
 	this.addCollider = function() {
 		const dims = colliderDimsForType(this.type);
 		this.collider = new boxCollider(this.world.x, this.world.y, this.world.z, 
+										dims.xOffset, dims.yOffset, dims.zOffset, 
+										dims.width, dims.height, this.depth);
+	}
+
+	this.addTrigger = function() {
+		const dims = triggerDimsForType(this.type);
+		this.trigger = new boxTrigger(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
 										dims.width, dims.height, this.depth);
 	}
@@ -91,8 +102,11 @@ function RoadsideDecoration(image, pos) {
 		const heightRatio = this.screenSize.height / (4 * this.height);
 		if(this.collider != undefined) {
 			this.collider.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
-	
 			this.collider.draw();
+		}
+		if(this.trigger != undefined) {
+			this.trigger.update(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.world.z, widthRatio, heightRatio);
+			this.trigger.draw();
 		}
 	}
 
@@ -178,6 +192,9 @@ function RoadsideDecoration(image, pos) {
 			case "chrisForPresident.png":
 				this.type = DecorationType.ChrisForPresident;
 				break;
+			case "NotABillboard.png":
+				this.type = DecorationType.NotABillboard;
+				break;
 			case "CheckeredFlag.png":
 				this.type = DecorationType.CheckeredFlag;
 				break;
@@ -231,6 +248,12 @@ function RoadsideDecoration(image, pos) {
 				break;
 			case "palmTree.png":
 				this.type = DecorationType.PalmTree;
+				break;
+			case "Tree3.png":
+				this.type = DecorationType.Tree3;
+				break;
+			case "Tree4.png":
+				this.type = DecorationType.Tree4;
 				break;
 			case "QuestionSign.png":
 				this.type = DecorationType.QuestionSign;
@@ -314,10 +337,23 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
 			case DecorationType.ChrisForPresident:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
+			case DecorationType.NotABillboard:
+				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 285, depth: 10};
 			case DecorationType.PalmTree:
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
+			case DecorationType.Tree3:
+				return {xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10};
+			case DecorationType.Tree4:
+				return {xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
+		}
+	}
+
+	const triggerDimsForType = function(type) {
+		switch(type) {
+			default:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 575, height: 120, depth: 10};
 		}
 	}
 	

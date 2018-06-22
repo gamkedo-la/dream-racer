@@ -6,9 +6,9 @@ function fxSystem() { // class constructor
     var particle = [];
     const SPEED_X_RANDOMNESS = 1;
     const SPEED_Y_RANDOMNESS = 4;
-    const ALPHA_SCALE = 0.5; // max opacity
+    const ALPHA_SCALE = 0.7; // max opacity
 
-    this.add = function (x, y, sprite, life, size, color) {
+    this.add = function (x, y, sprite, life, size, color, minSpeedX, maxSpeedX, minSpeedY, maxSpeedY) {
 
         //console.log('fx add ' + x + ',' + y);
 
@@ -30,8 +30,13 @@ function fxSystem() { // class constructor
         if (p && p.inactive) {
             p.x = x;
             p.y = y;
-            p.xspd = Math.random() - 0.5 * SPEED_X_RANDOMNESS;
-            p.yspd = Math.random() - 0.5 * SPEED_Y_RANDOMNESS;
+            if (minSpeedX == undefined) { // default speed
+                p.xspd = (Math.random() - 0.5) * SPEED_X_RANDOMNESS;
+                p.yspd = (Math.random() - 0.5) * SPEED_Y_RANDOMNESS;
+            } else { // random within a range
+                p.xspd = minSpeedX + (Math.random() * (maxSpeedX - minSpeedX));
+                p.yspd = minSpeedY + (Math.random() * (maxSpeedY - minSpeedY));
+            }
             p.inactive = false;
             p.sprite = sprite;
             p.size = size;
@@ -44,7 +49,7 @@ function fxSystem() { // class constructor
             p.rotSpd = Math.random() * 3 - 2;
         }
 
-    }
+    };
 
     this.update = function () {
 
@@ -107,9 +112,112 @@ function fxSystem() { // class constructor
             }
         );
         //console.log('drew'+drew);
-    }
+    };
 
     // helper function (inclusive: eg 1,10 may include 1 or 10)
     function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+    this.dirt = function (car) {
+
+        const OFFROAD_DIRT_CHANCE = 0.1;
+        const OFFROAD_DIRT_LIFESPAN = 1000;
+        const OFFROAD_DIRT_SIZE = 32;
+        const OFFROAD_DIRT_COLOR1 = 'rgba(117,76,36,1)'; // brown
+        const OFFROAD_DIRT_COLOR2 = 'rgba(20,255,20,1)'; // light green
+        const XMINS = -2; // speeds
+        const XMAXS = 2;
+        const YMINS = 0;
+        const YMAXS = 6;
+
+
+        if (Math.random() < OFFROAD_DIRT_CHANCE) { // so it doesn't add one every single frame
+            // front left tire    
+            this.add(
+                car.position.x + 16,
+                car.position.y + 16,
+                particlePic,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                XMINS, XMAXS, YMINS, YMAXS
+            );
+            // front right tire    
+            this.add(
+                car.position.x + 128,
+                car.position.y + 16,
+                particlePic,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                XMINS, XMAXS, YMINS, YMAXS
+            );
+            // back left tire    
+            this.add(
+                car.position.x + 16,
+                car.position.y + 128,
+                particlePic,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                XMINS, XMAXS, YMINS, YMAXS
+            );
+            // back right tire    
+            this.add(
+                car.position.x + 128,
+                car.position.y + 128,
+                particlePic,
+                OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
+                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                XMINS, XMAXS, YMINS, YMAXS
+            );
+        }
+    };
+
+    this.exhaust = function (car) {
+
+        const EXHAUST_X = 32;
+        const EXHAUST_Y = 120;
+        const EXHAUST_COLOR = "rgba(0,0,0,0.1)";
+        const EXHAUST_LIFESPAN = 700; // ms
+        const EXHAUST_SIZE = 64;
+        const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
+
+        if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
+            this.add(
+                car.position.x + EXHAUST_X,
+                car.position.y + EXHAUST_Y,
+                particlePic,
+                EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR,
+                -0.5, 0.5, 0, 4 // * this.speed?
+            );
+    };
+
+    this.sparks = function (car) {
+        for (let num = 0; num < 4; num++) {
+            this.add(
+                car.position.x + Math.random() * 80,
+                car.position.y + Math.random() * 128,
+                particlePic,
+                //1000, 4, 'rgba(255,255,0,1)', // yellow
+                600, 4, 'rgba(255,80,0,1)', // red
+                Math.random() * -8,
+                Math.random() * 8,
+                Math.random() * -8,
+                Math.random() * 8
+            );
+        }
+    };
+
+    this.smoke = function (car) {
+        for (let num = 0; num < 4; num++) {
+            this.add(
+                car.position.x + Math.random() * 80,
+                car.position.y + Math.random() * 128,
+                particlePic,
+                4000, 4, 'rgba(0,0,0,1)', // yellow
+                Math.random() * -1,
+                Math.random() * 1,
+                Math.random() * -3,
+                Math.random() * 0
+            );
+        }
+    };
 
 };
