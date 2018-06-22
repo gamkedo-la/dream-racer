@@ -21,9 +21,6 @@ function GameScene(data) {
 
 	let countdownfinished = false;
 
-	//temporary A.I. car for testing
-	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z }, 10)];
-
 	const roadReferences = [
 		JSON.parse(testTrack),
 //		JSON.parse(straight_Level_wLights),
@@ -44,6 +41,17 @@ function GameScene(data) {
 			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
 		}
 	}
+	
+	//temporary A.I. car for testing
+	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
+	const aiStartPos = new aiStart(AISegment, 10, 0.25, 0);
+	let laneChange = [];
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(10 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(15 * this.road.getSegmentLength()), Lane.Center, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(20 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
+	this.aiCars = [new AICar(tempAICarPic, aiStartPos, laneChange)];
 
 	this.currentZIndex = 0;
 	this.player = new Player();
