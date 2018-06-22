@@ -3,6 +3,9 @@ function GameScene(data) {
 	let currentCrashCount = 0;
 	const CRASH_DELTA_SPEED = 4;
 
+	let passedACheckPoint = false;
+	let counter	= 0;
+	
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
@@ -16,7 +19,7 @@ function GameScene(data) {
 	this.previousFrameTimestamp = null;
 	this.gameIsOver = false;
 
-	var countdownfinished = false;
+	let countdownfinished = false;
 
 	//temporary A.I. car for testing
 	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z }, 10)];
@@ -46,12 +49,28 @@ function GameScene(data) {
 	this.player = new Player();
 
 	this.draw = function () {
+		let canTurn = true;
+
+		if (!countdownfinished) {
+				if(countDown.getPaused()) {
+					countDown.play();
+				}
+				if (countDown.getTime() > 3.3){
+					countdownfinished = true;
+				} else {
+					canTurn = false;
+				}
+			}
+
 		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
 		this.road.draw(this.camera.position, this.aiCars);
 		drawTimeExtend();
+		if (!countdownfinished) {
+
+		}
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
-		this.player.draw(currentCrashCount, deltaY);
+		this.player.draw(currentCrashCount, deltaY, canTurn);
 		hud.draw();
 	}
 
@@ -68,6 +87,40 @@ function GameScene(data) {
 			wrappedDraw(middleGroundImage, middleGroundOffset);
 		}
 	}
+
+	const drawTimeExtend = function() {
+		const timeOnScreen = 90;
+		if (passedACheckPoint) {
+			if (counter >= timeOnScreen) {
+				passedACheckPoint = false;
+				counter = 0;
+				return;
+			} else {
+				const timeAdded = 10000/1000 //based on checkForCollision timeExtendBonus line ~173
+				colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
+					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				console.log('counter++');
+				counter++;
+			}
+		}
+	}
+
+	/*const drawCountdownTimerAndGO = function() {
+		const timeOnScreen = 90;
+		if () {
+			if (counter >= timeOnScreen) {
+				 = false;
+				 = 0;
+				return;
+			} else {
+				const timeAdded = 10000/1000 //based on checkForCollision timeExtendBonus line ~173
+				colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
+					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				console.log('counter++');
+				counter++;
+			}
+		}
+	}*/
 
 	this.updateTimer = function () {
 		if (isPaused) {
@@ -136,6 +189,7 @@ function GameScene(data) {
 					countdownfinished = true;
 				} else {
 					canAccelerate = false;
+					canTurn = false;
 				}
 			}
 			
@@ -214,3 +268,4 @@ function GameScene(data) {
 		}
 	}
 }
+

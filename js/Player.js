@@ -69,7 +69,7 @@ function Player() {
 		);
 	}
 
-	this.draw = function (crashCount, deltaY) {
+	this.draw = function (crashCount, deltaY, canTurn) {
 		if (this.isCrashing) {
 			this.drawCrashAnimation(crashCount);
 		} else {
@@ -84,14 +84,14 @@ function Player() {
 
 			// this is a heinous hack, but the car never really turns at all - the world does
 			//Christer, not sure what the hack is.  Can you explain it?
-			if ((holdRight) || (holdD)) {
+			if ((canTurn) && ((holdRight) || (holdD))) {
 				turnRightFramecount++;
 				turnLeftFramecount = 0;
 				// every 4 frames, advance to next sharper angle
 				frameNum = 5 + Math.round(turnRightFramecount / 4); // frame 5,6,7,8
 				if (frameNum > 8) frameNum = 8;
 			}
-			else if ((holdLeft) || (holdA)) {
+			else if ((canTurn) && ((holdLeft) || (holdA))) {
 				turnRightFramecount = 0;
 				turnLeftFramecount++;
 				frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
