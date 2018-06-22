@@ -122,7 +122,6 @@ window.onload = function () {
 	}
 
 	initializeInput();
-	loadAudio();
 	loadImages();
 	mainMenu.initialize();
 };
