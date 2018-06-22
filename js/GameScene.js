@@ -24,9 +24,6 @@ function GameScene(data) {
 	let countdownfinished = false;
 	let countdownDisplayCounter = 0;
 
-	//temporary A.I. car for testing
-	this.aiCars = [new AICar(tempAICarPic, { x: 0, y: 0, z: -CAMERA_INITIAL_Z * 3 }, 10)];
-
 	const roadReferences = [
 		JSON.parse(testTrack),
 //		JSON.parse(straight_Level_wLights),
