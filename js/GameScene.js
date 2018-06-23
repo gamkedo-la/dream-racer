@@ -122,26 +122,37 @@ function GameScene(data) {
 				return;
 			}
 			if (countdownDisplayCounter < framesPerSecond) {
-				let countDown = 3;
-				colorText(countDown, canvas.width/2 - 25, 150, 
-						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				let frameIndex = 0;
+				/*colorText(countDown, canvas.width/2 - 25, 150, 
+						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);*/
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
+										canvas.width/2 - 25, 150,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
 			}
 			if (framesPerSecond <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*2) {
-				let countDown = 2;
-				colorText(countDown, canvas.width/2 - 25, 150, 
-						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				let frameIndex = 1;
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
+										canvas.width/2 - 25, 150,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
 			}
 			if (framesPerSecond*2 <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*3) {
-				let countDown = 1;
-				colorText(countDown, canvas.width/2 - 25, 150, 
-						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				let frameIndex = 2;
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
+										canvas.width/2 - 25, 150,
+										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				
 			}
 			if (framesPerSecond*3.2/*feels more on time*/ <= countdownDisplayCounter && 
-				countdownDisplayCounter < framesPerSecond*4) {
-				colorText('Go !!', canvas.width/2 - 50, 150, 
-						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				countdownDisplayCounter < framesPerSecond*4.5) {
+				canvasContext.drawImage(goPic, 0, 0,
+										goPic.width, goPic.height,
+										canvas.width/2 - 75, 150,
+										goPic.width, goPic.height);
 			}
 			countdownDisplayCounter++;
 		}

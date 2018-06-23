@@ -83,7 +83,6 @@ function drawImageRotated(graphic, atX, atY, angleInRadians = 0) {
 	canvasContext.restore(); // undo the translation movement and rotation since save()
 }
 
-
 // takes an image and colors and fades it as required
 // returns a new canvas we can use as a sprite
 // reuses the same temp buffer over and over for performance reasons

@@ -41,6 +41,8 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+const countdownSpriteSheetPic = document.createElement("img");
+const goPic = document.createElement("img");
 const needlePic = document.createElement("img");
 // billboards
 const blankBillboard = document.createElement("img");
@@ -115,6 +117,8 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
+	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
