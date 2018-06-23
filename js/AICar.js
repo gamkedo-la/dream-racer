@@ -14,10 +14,10 @@ function aiPathPoint(segment, lane, desiredSpeed, acceleration, laneSpeed) {
 	this.laneSpeed = laneSpeed;
 }
 
-function aiStart(startSegment, speed, acceleration, playerIndexToStart) {
+function aiStart(startSegment, startLane, speed, acceleration, playerIndexToStart) {
 	this.segment = startSegment;
 	this.startIndex = startSegment.index;
-	this.startLane = Lane.Center;
+	this.startLane = startLane;
 	this.speed = speed;
 	this.playerIndexToStart = playerIndexToStart;
 	this.acceleration = acceleration;
@@ -37,9 +37,20 @@ function AICar(image, start, aPath) {
 	this.height = 2 * this.sprite.height;//only dividing by two because A.I. car sprite is so big
 	this.depth = 60;//swag
 	let currentSegment = null;
+	
 	let lanePos = 0;
-	let desiredLanePos = 0;
-	let laneSpeed = 0;
+	let desiredLanePos = 0;	//defaults are the
+	let laneSpeed = 0;		//same as Lane.Center
+	
+	if(start.startLane == Lane.Left) {
+		desiredLanePos = -(start.segment.width / 3);
+		lanePos = -(start.segment.width / 3);
+	} else if(start.startLane == Lane.Right) {
+		desiredLanePos = (start.segment.width / 3);
+		lanePos = (start.segment.width / 3);
+	}
+	this.position.x = lanePos + start.segment.nearPos.world.x;//assumes start.segment is not a turning segment (or that the difference doesn't matter)
+	
 	
 	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
 									0, 0, 30, //x, y and z offsets for the collider
@@ -84,7 +95,6 @@ function AICar(image, start, aPath) {
 			
 			const segmentWidth = this.path[0].segment.width;
 			if(this.path[0].lane == Lane.Left) {
-				console.log("Changing lanes to left lane");
 				desiredLanePos = -(segmentWidth / 3);
 			} else if(this.path[0].lane == Lane.Right) {
 				desiredLanePos = (segmentWidth / 3);				
@@ -102,21 +112,6 @@ function AICar(image, start, aPath) {
 		} else {
 			lanePos = desiredLanePos;
 		}
-		
-		
-		
-/*		
-		if(lanePos > desiredLanePos - (2 * laneSpeed)) {
-			console.log("Too far right: " + lanePos + ", DesiredPos: " + desiredLanePos);
-			lanePos -= laneSpeed;
-		} else if(lanePos < desiredLanePos + (2 * laneSpeed)) {
-			console.log("Too far left: " + lanePos + ", DesiredPos: " + desiredLanePos);
-			lanePos += laneSpeed;
-		} else if(lanePos != desiredLanePos) {
-			console.log("Just right: " + lanePos + ", DesiredPos: " + desiredLanePos);
-			lanePos = desiredLanePos;
-		}*/
-		
 		
 		this.speed += this.acceleration;
 		

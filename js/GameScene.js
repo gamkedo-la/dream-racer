@@ -48,14 +48,24 @@ function GameScene(data) {
 	
 	//temporary A.I. car for testing
 	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
-	const aiStartPos = new aiStart(AISegment, 10, 0.25, 0);
+	const aiStartPos = new aiStart(AISegment, Lane.Left, 10, 0.25, 0);
 	let laneChange = [];
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(10 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(6 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(15 * this.road.getSegmentLength()), Lane.Center, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(20 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
 	this.aiCars = [new AICar(tempAICarPic, aiStartPos, laneChange)];
+	
+	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
+	const aiStartPos2 = new aiStart(AISegment2, Lane.Right, 10, 0.25, 0);
+	let laneChange2 = [];
+	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(16 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
+	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(45 * this.road.getSegmentLength()), Lane.Center, 10, 0.5, 20));
+	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(50 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
+	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(60 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
+	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(70 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
+	this.aiCars.push(new AICar(tempAICarPic, aiStartPos2, laneChange2));	
 
 	this.currentZIndex = 0;
 	this.player = new Player();
@@ -108,13 +118,13 @@ function GameScene(data) {
 			if(countDown.getPaused()) {
 				countDown.play();
 			}
-			if (countDown.getTime() > 3.3){
+/*			if (countDown.getTime() > 3.3){
 				canTurn = true;
 				canAccelerate = true;
 			} else {
 				canTurn = false;
 				canAccelerate = false;
-			}
+			}*/
 			if (countdownDisplayCounter >= framesPerSecond*4) {
 				countdownDisplayCounter = 0;
 				countdownfinished = true;
@@ -129,6 +139,8 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
 										canvas.width/2 - 25, 150,
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				canTurn = false;
+				canAccelerate = false;
 			}
 			if (framesPerSecond <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*2) {
@@ -137,6 +149,8 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
 										canvas.width/2 - 25, 150,
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				canTurn = false;
+				canAccelerate = false;
 			}
 			if (framesPerSecond*2 <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*3) {
@@ -145,7 +159,8 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
 										canvas.width/2 - 25, 150,
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
-				
+				canTurn = false;
+				canAccelerate = false;
 			}
 			if (framesPerSecond*3.2/*feels more on time*/ <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*4.5) {
@@ -153,6 +168,8 @@ function GameScene(data) {
 										goPic.width, goPic.height,
 										canvas.width/2 - 75, 150,
 										goPic.width, goPic.height);
+				canTurn = true;
+				canAccelerate = true;
 			}
 			countdownDisplayCounter++;
 		}

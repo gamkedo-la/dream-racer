@@ -160,7 +160,7 @@ function Road(frustum) {
 				const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
 				const carRect = activeCars[k].getRect(frustum);
 				const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
-				if(thisSegment.index == carSegment.index - carSpan) {
+				if(Math.abs(thisSegment.index - carSegment.index) < 3) {
 					activeCars[k].draw(frustum);
 				}
 			}
