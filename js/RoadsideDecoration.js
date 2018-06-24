@@ -368,6 +368,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.EastCoastBillboard:
 			case DecorationType.ChrisForPresident:
 			case DecorationType.NotABillboard:
+			case DecorationType.Tree3:
+			case DecorationType.Tree4:
 				return 2;
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BurgerBillboard:
