@@ -1,7 +1,6 @@
 //Player Class
 function Player() {
 	const MAX_SPEED = 30;
-	const MAX_TURN_RATE = 65;
 	const HILL_DELTA_SPEED = 0.15;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
@@ -11,6 +10,7 @@ function Player() {
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
 	this.MAX_CRASH_COUNT = 65;
+	this.MAX_TURN_RATE = 65;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
@@ -210,10 +210,10 @@ function Player() {
 				break;
 		}
 
-		this.turnRate = MAX_TURN_RATE * (this.speed / MAX_SPEED);
+		this.turnRate = this.MAX_TURN_RATE * (this.speed / MAX_SPEED);
 
-		if (this.turnRate > MAX_TURN_RATE) {
-			this.turnRate = MAX_TURN_RATE;
+		if (this.turnRate > this.MAX_TURN_RATE) {
+			this.turnRate = this.MAX_TURN_RATE;
 		}
 
 		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
