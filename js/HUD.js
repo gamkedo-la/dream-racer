@@ -73,6 +73,11 @@ var hud = {
         //console.log("spd:" + spd + " max:" + max + " gear:" + gear);
         this.rpmNeedleAngle = (spd / max * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
 
+        // this stops the RPM needle from going over 180 degrees (helps especially when boosting)
+        if (this.rpmNeedleAngle > Math.PI) {
+            this.rpmNeedleAngle = Math.PI;
+        }
+
         drawImageRotated(needlePic,
             canvas.width / 2 - 277, canvas.height - 120,
             -90 * DEGREES_TO_RADIANS + this.rpmNeedleAngle
