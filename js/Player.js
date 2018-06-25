@@ -10,7 +10,7 @@ function Player() {
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
-	this.MAX_CRASH_COUNT = 120;
+	this.MAX_CRASH_COUNT = 65;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
