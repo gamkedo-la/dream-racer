@@ -133,14 +133,17 @@ function Player() {
 
 			if (USE_FX) this.fx.dirt(this); // dirt particles near the tires
 
-			this.speed -= OFF_ROAD_FRICTION;
+			if (this.speed > 3) { // if the car is going too slow, it takes quite some time to get back on the road without this check
+				this.speed -= OFF_ROAD_FRICTION;
+			}
+
 			if (this.speed <= 0) {
-				this.speed = 0;//makes sure the player can get back on the road because speed will be +0.35 later if up arrow held
+				this.speed = 0; // makes sure the player can get back on the road because speed will be +0.35 later if up arrow held
 			}
 
 			this.position.y = baseY + (offRoadCounter % 6) - 3;
 
-			offRoadCounter += (this.speed / 10);//player bumps up/down proportional to forward speed
+			offRoadCounter += (this.speed / 10); // player bumps up/down proportional to forward speed
 
 			offroadSound.resume();
 		} else {
