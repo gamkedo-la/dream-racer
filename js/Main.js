@@ -6,13 +6,15 @@ const DEBUG = true;
 const GAME_HEIGHT = 600;
 
 let scene;
+let isLocalStorageInitialized = false;
 
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
 	MusicVolume: "musicVolume",
 	SFXVolume: "effectsVolume",
-	FirstLoad: "firstLoad"
+	IsLocalStorageInitialized: "isLocalStorageInitialized",
+	ShowedHelp: "showedHelp",
 }
 
 const assetPath = {
@@ -115,16 +117,31 @@ window.onload = function () {
 	subTitleTextX = canvas.width / 2;
 	opacity = 0;
 
-	firstLoad = (localStorageHelper.getItem(localStorageKey.FirstLoad) == true);
-	if ((firstLoad === null) || (firstLoad === undefined)) {
-		firstLoad = true;
-		localStorageHelper.setItem(localStorageKey.FirstLoad, true);
-	}
-
+    setupLocalStorage();
 	initializeInput();
 	loadImages();
 	mainMenu.initialize();
 };
+
+function setupLocalStorage() {
+    isLocalStorageInitialized = localStorageHelper.getFlag(localStorageKey.IsLocalStorageInitialized);
+    if (!isLocalStorageInitialized) {
+        isLocalStorageInitialized = true;
+        musicVolume = DEFAULT_MUSIC_VOLUME;
+        sfxVolume = DEFAULT_SFX_VOLUME;
+        showedHelp = false;
+
+        localStorageHelper.setFlag(localStorageKey.IsLocalStorageInitialized, isLocalStorageInitialized);
+        localStorageHelper.setFlag(localStorageKey.ShowedHelp, showedHelp);
+        localStorageHelper.setItem(localStorageKey.MusicVolume, musicVolume);
+        localStorageHelper.setItem(localStorageKey.SFXVolume, sfxVolume);
+    }
+    else {
+        showedHelp = localStorageHelper.getFlag(localStorageKey.ShowedHelp);
+        musicVolume = localStorageHelper.getItem(localStorageKey.MusicVolume);
+        sfxVolume = localStorageHelper.getItem(localStorageKey.SFXVolume);
+	}
+}
 
 function loadingDoneSoStartGame() {
 	gameUpdate = setInterval(update, 1000 / 30);
@@ -140,10 +157,10 @@ function update() {
 };
 
 function startGame() {
-	if (firstLoad) {
+	if (!showedHelp) {
 		openHelp();
-		firstLoad = false;
-		localStorageHelper.setItem(localStorageKey.FirstLoad, false);
+		showedHelp = true;
+		localStorageHelper.setFlag(localStorageKey.ShowedHelp, true);
 		return;
 	}
 

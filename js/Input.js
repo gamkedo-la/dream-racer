@@ -111,7 +111,7 @@ function keyPress(evt) {
 		case KEY_ENTER:
 			keyUsedByGame = true;
 			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
-				if(firstLoad) {
+				if(!showedHelp) {
 					openHelp();
 				} else {
 					startGame();

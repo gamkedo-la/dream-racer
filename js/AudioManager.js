@@ -1,14 +1,14 @@
 setFormat();
 setAudioPath("./audio/");
 
+const DEFAULT_MUSIC_VOLUME = 0.7;
+const DEFAULT_SFX_VOLUME = 0.6;
 //set sound clips and music tracks here
 
 var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
 var dreamPunk = new musicTrackLoop("dreamPunk", 167.335);  //By Stebs
 
 var currentBackgroundMusic = new musicContainer([nightMusic]);
-
-MusicVolumeManager.setVolume(0.7);
 
 var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");
@@ -37,8 +37,6 @@ var brake_mid = new sfxClipLoop("brake_mid", 2.5);
 var brake_high = new sfxClipLoop("brake_high", 2);
 var brake_master = new sfxContainer([brake_off,brake_low,brake_mid,brake_high])
 var offroadSound = new sfxClipLoop("temp_offroad", 10);
-
-SFXVolumeManager.setVolume(0.7);
 
 function setFormat() {
 	var audio = new Audio();
