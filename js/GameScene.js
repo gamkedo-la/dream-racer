@@ -118,13 +118,6 @@ function GameScene(data) {
 			if(countDown.getPaused()) {
 				countDown.play();
 			}
-/*			if (countDown.getTime() > 3.3){
-				canTurn = true;
-				canAccelerate = true;
-			} else {
-				canTurn = false;
-				canAccelerate = false;
-			}*/
 			if (countdownDisplayCounter >= framesPerSecond*4) {
 				countdownDisplayCounter = 0;
 				countdownfinished = true;
@@ -133,8 +126,6 @@ function GameScene(data) {
 			}
 			if (countdownDisplayCounter < framesPerSecond) {
 				let frameIndex = 0;
-				/*colorText(countDown, canvas.width/2 - 25, 150, 
-						textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);*/
 				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
 										canvas.width/2 - 25, 150,
@@ -189,9 +180,6 @@ function GameScene(data) {
 		if (this.countdownTimeLeft <= 0) { // out of time?
 			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
 			this.countdownTimeLeft = 0; // no negative numbers allowed
-			if(this.player.speed <= 0) {
-				this.gameIsOver = true;
-			}
 		}
 		this.previousFrameTimestamp = this.currentFrameTimestamp;
 	}
@@ -231,7 +219,6 @@ function GameScene(data) {
 		} else {
 			this.checkForCollisions(baseSegment);
 			
-			if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
 			this.player.move(deltaY, canAccelerate);
 
@@ -251,7 +238,13 @@ function GameScene(data) {
 			}
 		}
 
-		if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { this.gameIsOver = true; }
+		if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
+		if (this.countdownTimeLeft > 0) { 
+			this.gameIsOver = false;
+			canAccelerate = true; 
+		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { 
+			this.gameIsOver = true; 
+		}
 	}
 
 	this.checkForCollisions = function (baseSegment) {
