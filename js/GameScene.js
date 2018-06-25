@@ -21,6 +21,7 @@ function GameScene(data) {
 
 	let canTurn = true;
 	let canAccelerate = true;
+	let canBoost = true;
 
 	let countdownfinished = false;
 	let countdownDisplayCounter = 0;
@@ -103,9 +104,10 @@ function GameScene(data) {
 				timeExtendCounter = 0;
 				return;
 			} else {
-				const timeAdded = timeBonusToDisplay/1000 //based on checkForCollision() timeExtendBonus
-				colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
-					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);
+				const timeAdded = timeBonusToDisplay/1000
+				/*colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
+					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);*/
+				canvasContext.drawImage(timeBonusPic, canvas.width/2 - 100, 150);
 				timeExtendCounter++;
 			}
 		}
@@ -132,6 +134,7 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
+				canBoost = false;
 			}
 			if (framesPerSecond <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*2) {
@@ -142,6 +145,7 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
+				canBoost = false;
 			}
 			if (framesPerSecond*2 <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*3) {
@@ -152,6 +156,7 @@ function GameScene(data) {
 										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
+				canBoost = false;
 			}
 			if (framesPerSecond*3.2/*feels more on time*/ <= countdownDisplayCounter && 
 				countdownDisplayCounter < framesPerSecond*4.5) {
@@ -161,6 +166,7 @@ function GameScene(data) {
 										goPic.width, goPic.height);
 				canTurn = true;
 				canAccelerate = true;
+				canBoost = true;
 			}
 			countdownDisplayCounter++;
 		}
@@ -220,7 +226,7 @@ function GameScene(data) {
 			this.checkForCollisions(baseSegment);
 			
 			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
-			this.player.move(deltaY, canAccelerate);
+			this.player.move(deltaY, canAccelerate, canBoost);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
 				this.camera.move(this.player.speed, this.player.turnRate, baseSegment);

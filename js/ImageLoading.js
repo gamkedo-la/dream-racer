@@ -7,7 +7,7 @@ const tempAICarPic = document.createElement("img");
 
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
-const curveyRoadSignPic = document.createElement("img");
+const curvyRoadSignPic = document.createElement("img");
 const hardLeftTurnSignPic = document.createElement("img");
 const hardRightTurnSignPic = document.createElement("img");
 const downHillGenericSignPic = document.createElement("img");
@@ -43,6 +43,7 @@ const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
 const countdownSpriteSheetPic = document.createElement("img");
 const goPic = document.createElement("img");
+const timeBonusPic = document.createElement("img");
 const needlePic = document.createElement("img");
 // billboards
 const blankBillboard = document.createElement("img");
@@ -87,7 +88,7 @@ function loadImages() {
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
-	imageList.push({ imgName: curveyRoadSignPic, theFile: "CurveyRoadSign.png" });
+	imageList.push({ imgName: curvyRoadSignPic, theFile: "CurvyRoadSign.png" });
 	imageList.push({ imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png" });
 	imageList.push({ imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png" });
 	imageList.push({ imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png" });
@@ -119,6 +120,7 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
 	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
 	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
+	imageList.push({ imgName: timeBonusPic, theFile: "timeBonus.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
@@ -152,13 +154,6 @@ function loadImages() {
 	billboardSprites.push(notABillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
-
-
-	/*const tinyRoboRacersBillboard = document.createElement("img");
-	const chrisForPresidentBillboard = document.createElement("img");
-	const burgerBillboard = document.createElement("img");
-	const clashTracksBillboard = document.createElement("img");
-	*/
 
 	picsToLoad = imageList.length;
 

@@ -125,7 +125,7 @@ function Player() {
 		}
 	}
 
-	this.move = function (deltaY, canAccelerate) {
+	this.move = function (deltaY, canAccelerate, canBoost) {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
@@ -179,7 +179,7 @@ function Player() {
 			this.speed += HILL_DELTA_SPEED;
 		}
 
-		if (holdN && (boosterCount > 0)) {
+		if (holdN && canBoost && (boosterCount > 0)) {
 			boosterCount--;
 			boosting = true;
 			this.speed = BOOSTER;
