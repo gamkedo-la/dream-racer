@@ -9,8 +9,11 @@ function Player() {
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
+	const TURN_RATE_DECAY = 15;
+
 	this.MAX_CRASH_COUNT = 75;
-	this.MAX_TURN_RATE = 75;
+	this.TURN_RATE_PER_FRAME = 8;
+	this.MAX_TURN_RATE = 110;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
@@ -211,11 +214,28 @@ function Player() {
 				break;
 		}
 
-		this.turnRate = this.MAX_TURN_RATE * (this.speed / MAX_SPEED);
+		let oldTurnRate = this.turnRate;
+
+		// this.speed > 1 stops the player from turning during countdown
+		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1) {
+			this.turnRate += this.TURN_RATE_PER_FRAME;
+		}
+		
+		// if the turnRate is not being constantly modified, then it decays over time
+		if (this.turnRate == oldTurnRate) {
+			this.turnRate -= this.TURN_RATE_PER_FRAME;
+		}
+
+		// these just make sure that we don't decay under 0, or increase turn rate above max
+		if (this.turnRate < 0) {
+			this.turnRate = 0;
+		}
 
 		if (this.turnRate > this.MAX_TURN_RATE) {
 			this.turnRate = this.MAX_TURN_RATE;
 		}
+
+		// console.log(this.turnRate);
 
 		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 
@@ -234,6 +254,7 @@ function Player() {
 
 	this.speedChangeForCrashing = function () {
 		this.speed -= this.speed * CRASH_DECELERATION_PERCENT;
+		this.turnRate -= TURN_RATE_DECAY;
 		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
