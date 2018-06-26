@@ -20,7 +20,11 @@ function getLevel(index) {
         console.log("Can't get Level at index :" + index);
         return {};
     }
-    let level = Levels[index];
+    let level = {};
+    let camera = {};
+    Object.assign(level, Levels[index]);
+    Object.assign(camera, level.cameraPos);
+    level.cameraPos = camera;
     return transformLevel(level);
 }
 
