@@ -5,7 +5,6 @@ gameOver = {
 	//Must initialize these after the canvas has been set up
 	buttonProperties: {},
 	buttons: [],
-//	sliders: [],
 
 	initialize: function() {
 		this.buttonProperties = {
@@ -35,25 +34,6 @@ gameOver = {
 			}
 		];
 
-/*		this.sliders = [
-			{
-				txt : sliderTitle.MusicVolume,
-				handlePosition : musicVolume,
-				onSlide : function(volume) {
-					MusicVolumeManager.setVolume(volume);
-					localStorageHelper.setItem(localStorageKey.MusicVolume, musicVolume);
-				}
-			},
-			{
-				txt : sliderTitle.SFXVolume,
-				handlePosition : sfxVolume,
-				onSlide : function(volume) {
-					SFXVolumeManager.setVolume(volume);
-					localStorageHelper.setItem(localStorageKey.SFXVolume, sfxVolume);
-				}
-			}
-		];
-		this.setupSliders();*/
 		this.setButtonBounds();
 
 	},
@@ -76,28 +56,6 @@ gameOver = {
 		}
 	},
 
-	//Slider variables live here
-/*	setupSliders: function(){
-		const sliderSpacing = 60;
-
-		for(let i = 0; i < this.sliders.length; i++){
-			this.sliders[i].spacing = 5;
-			this.sliders[i].width = 200;
-			this.sliders[i].height = 10;
-			this.sliders[i].x = canvas.width/2  - 5 - this.sliders[i].width/2;
-			this.sliders[i].y = this.buttons[this.buttons.length - 1].bounds.y + 10 + (i + 1) * sliderSpacing;
-
-			this.sliders[i].handleWidth = 30;
-			this.sliders[i].handleHeight = 30;
-			this.sliders[i].handleY = this.sliders[i].y - this.sliders[i].handleHeight/2 + this.sliders[i].height/2;
-			this.sliders[i].getHandleX = function() {
-				return this.x + this.handlePosition * (this.width - this.handleWidth);
-			};
-
-			this.sliders[i].active = false;
-		}
-	},*/
-
 	checkButtons: function() {
 		for(let i = 0; i < this.buttons.length; i++){
 			const bounds = this.buttons[i].bounds;
@@ -106,38 +64,7 @@ gameOver = {
 				this.buttons[i].onClick();
 			}
 		}
-
-		const sliders = this.sliders;
-
-		for(let i = 0; i < sliders.length; i++){
-			if(mouseInside(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight)) {
-				sliders[i].active = true;
-			}
-		}
 	},
-
-/*	handleSliders: function() {
-		sliders = this.sliders;
-		for(i = 0; i < sliders.length; i++) {
-			if(sliders[i].active) {
-				let handleX = mouseX - sliders[i].handleWidth/2;
-
-				handleX = clamp(handleX, sliders[i].x, sliders[i].x + sliders[i].width - sliders[i].handleWidth);
-
-				sliders[i].handlePosition = (handleX - sliders[i].x)/(sliders[i].width - sliders[i].handleWidth);
-				sliders[i].onSlide(sliders[i].handlePosition);
-			}
-		}
-	},*/
-
-/*	releaseSliders: function() {
-		for(i = 0; i < this.sliders.length; i++) {
-			if(this.sliders[i].txt === sliderTitle.SFXVolume && this.sliders[i].active) {
-//				regularShotSound.play();//want to play an SFX to provide the player with a sample of the new volume level
-			}
-			this.sliders[i].active = false;
-		}
-	},*/
 
 	drawButtons: function(opacity) {
 		const prop = this.buttonProperties;
@@ -162,19 +89,5 @@ gameOver = {
 				canvasContext.globalAlpha = tempAlpha;
 			}
 		}
-
-/*		const sliders = this.sliders;
-		for(let i = 0; i < sliders.length; i++) {
-			drawRect(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height, textColor.Yellow);
-			drawRect(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight, textColor.Purple);
-
-			const txtX = sliders[i].x + sliders[i].width/2;
-			const txtY = sliders[i].y - getFontWeight(fonts.ButtonTitle) + sliders[i].spacing;
-			colorText(sliders[i].txt, txtX, txtY, textColor.White, fonts.ButtonTitle, textAlignment.Center, opacity);
-		}*/
 	},
 };
-
-/*const clamp = function(n, min, max) {
-  return Math.min(Math.max(n, min), max);
-};*/
