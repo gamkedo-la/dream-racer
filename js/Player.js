@@ -5,15 +5,15 @@ function Player() {
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;
-	const ACCELERATION = 0.3;
+	const ACCELERATION = 0.35;
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
-	const TURN_RATE_DECAY = 20;
+	const TURN_RATE_DECAY = .8;
 
 	this.MAX_CRASH_COUNT = 75;
-	this.TURN_RATE_PER_FRAME = 5;
-	this.MAX_TURN_RATE = 75;
+	this.TURN_RATE_PER_FRAME = 4;
+	this.MAX_TURN_RATE = 90;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
@@ -223,7 +223,7 @@ function Player() {
 		
 		// if the turnRate is not being constantly modified, then it decays over time
 		if (this.turnRate == oldTurnRate) {
-			this.turnRate -= this.TURN_RATE_PER_FRAME;
+			this.turnRate *= TURN_RATE_DECAY;
 		}
 
 		// these just make sure that we don't decay under 0, or increase turn rate above max
