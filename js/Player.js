@@ -9,11 +9,11 @@ function Player() {
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
-	const TURN_RATE_DECAY = 15;
+	const TURN_RATE_DECAY = 20;
 
 	this.MAX_CRASH_COUNT = 75;
 	this.TURN_RATE_PER_FRAME = 5;
-	this.MAX_TURN_RATE = 110;
+	this.MAX_TURN_RATE = 75;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
