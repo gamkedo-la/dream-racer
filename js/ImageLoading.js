@@ -84,7 +84,7 @@ function loadImages() {
 	imageList.push({ imgName: tempBackgroundPic, theFile: "backgroundClouds.png" });
 	imageList.push({ imgName: tempMiddlegroundPic, theFile: "middlegroundMountains.png" });
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
-	imageList.push({ imgName: tempAICarPic, theFile: "AICar.png" });
+	imageList.push({ imgName: tempAICarPic, theFile: "pickup-truck-spritesheet.png" });
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
