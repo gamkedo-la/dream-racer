@@ -46,8 +46,9 @@ function Player() {
 	this.score = 0;
 	this.odometer = 0;
 	this.laptime = 0;
+	this.boosting = false;
 	let boosterCount = 1;
-	let boosting = false;
+	
 
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
@@ -166,7 +167,7 @@ function Player() {
 			brake_master.pause();
 		}
 
-		if ((!boosting) && (this.speed > this.currentGearMaxSpeed)) {
+		if ((!this.boosting) && (this.speed > this.currentGearMaxSpeed)) {
 			this.speed = this.currentGearMaxSpeed;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
@@ -181,15 +182,15 @@ function Player() {
 
 		if (holdN && canBoost && (boosterCount > 0)) {
 			boosterCount--;
-			boosting = true;
+			this.boosting = true;
 			this.speed = BOOSTER;
 			holdN = false;
 		}
 
-		if (boosting) {
+		if (this.boosting) {
 			this.speed -= 2 * FRICTION;
 			if (this.speed <= MAX_SPEED) {
-				boosting = false;
+				this.boosting = false;
 			}
 		}
 

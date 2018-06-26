@@ -2,6 +2,7 @@
 function GameScene(data) {
 	let currentCrashCount = 0;
 	const CRASH_DELTA_SPEED = 4;
+	const BUMPED_CAR_SPEED_REDUCTION = 10;
 
 	let passedACheckPoint = false;
 	let timeExtendCounter = 0;
@@ -294,7 +295,14 @@ function GameScene(data) {
 				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
 				if (collisionData.isColliding) {
 					if (Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
-						this.setPlayerCrashingState(true);
+						
+						this.player.speed -= BUMPED_CAR_SPEED_REDUCTION;
+
+						if (this.player.boosting) {
+							this.setPlayerCrashingState(true);
+						}
+
+
 					} else {
 						const playerSpeed = this.player.speed;
 						this.player.speed = this.aiCars[i].speed - CRASH_DELTA_SPEED;
