@@ -59,7 +59,7 @@ function GameScene(data) {
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(20 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
-	this.aiCars = [new AICar(tempAICarPic, aiStartPos, laneChange)];
+	this.aiCars = [new AICar(AIType.Pickup, aiStartPos, laneChange)];
 	
 	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
 	const aiStartPos2 = new aiStart(AISegment2, Lane.Right, 10, 0.25, 0);
@@ -69,7 +69,7 @@ function GameScene(data) {
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(50 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(60 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(70 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	this.aiCars.push(new AICar(tempAICarPic, aiStartPos2, laneChange2));	
+	this.aiCars.push(new AICar(AIType.Pickup, aiStartPos2, laneChange2));	
 
 	this.currentZIndex = 0;
 	this.player = new Player();
