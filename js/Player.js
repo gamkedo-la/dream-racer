@@ -1,18 +1,18 @@
 //Player Class
 function Player() {
-	const MAX_SPEED = 30;
+	const MAX_SPEED = 25;
 	const HILL_DELTA_SPEED = 0.15;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;
-	const ACCELERATION = 0.4;
+	const ACCELERATION = 0.3;
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
 	const TURN_RATE_DECAY = 15;
 
 	this.MAX_CRASH_COUNT = 75;
-	this.TURN_RATE_PER_FRAME = 8;
+	this.TURN_RATE_PER_FRAME = 5;
 	this.MAX_TURN_RATE = 110;
 
 	this.sprite = tempPlayerCarPic;
