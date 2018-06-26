@@ -97,7 +97,7 @@ function GameScene(data) {
 		}
 	}
 
-	const drawTimeExtend = function(timeBonusToDisplay) {
+	const drawTimeExtend = function(timeBonus) {
 		const timeOnScreen = 90;
 		if (passedACheckPoint) {
 			if (timeExtendCounter >= timeOnScreen) {
@@ -105,9 +105,7 @@ function GameScene(data) {
 				timeExtendCounter = 0;
 				return;
 			} else {
-				const timeAdded = timeBonusToDisplay/1000
-				/*colorText('+ ' + timeAdded + 's !!', canvas.width/2 - 50, 150, 
-					textColor.Red, fonts.MainTitle, textAlign = 'left', opacity = 1);*/
+				const timeAdded = timeBonus/1000
 				canvasContext.drawImage(timeBonusPic, canvas.width/2 - 100, 150);
 				timeExtendCounter++;
 			}
@@ -185,8 +183,6 @@ function GameScene(data) {
 		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;
 		this.countdownTimeLeft -= this.timeSinceLastFrame;
 		if (this.countdownTimeLeft <= 0) { // out of time?
-			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
-			this.gameIsOver = true;
 			this.countdownTimeLeft = 0; // no negative numbers allowed
 		}
 		this.previousFrameTimestamp = this.currentFrameTimestamp;
@@ -248,10 +244,9 @@ function GameScene(data) {
 
 		if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
 		if (this.countdownTimeLeft > 0) { 
-			this.gameIsOver = false;
 			canAccelerate = true; 
 		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { 
-			this.gameIsOver = true; 
+			this.gameIsOver = true;
 		}
 	}
 
