@@ -133,7 +133,6 @@ function Player() {
 		this.speed -= FRICTION;
 
 		if (this.isOffRoad) {
-			console.log("Offroad");
 
 			if (USE_FX) this.fx.dirt(this); // dirt particles near the tires
 
@@ -177,6 +176,7 @@ function Player() {
 		}
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
+		// this.speed > 3 allows the player to not get stuck after crashing while on a hill
 		if (deltaY < 0 && this.speed > 3) {//going uphill (Y gets bigger as you go down)
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
@@ -235,8 +235,6 @@ function Player() {
 			this.turnRate = this.MAX_TURN_RATE;
 		}
 
-		// console.log(this.turnRate);
-
 		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
@@ -254,7 +252,7 @@ function Player() {
 
 	this.speedChangeForCrashing = function () {
 		this.speed -= this.speed * CRASH_DECELERATION_PERCENT;
-		this.turnRate -= TURN_RATE_DECAY;
+		this.turnRate *= TURN_RATE_DECAY;
 		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
