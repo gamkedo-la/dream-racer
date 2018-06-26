@@ -1,7 +1,7 @@
 //Player Class
 function Player() {
 	const MAX_SPEED = 25;
-	const HILL_DELTA_SPEED = 0.15;
+	const HILL_DELTA_SPEED = 0.1;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;
@@ -177,7 +177,7 @@ function Player() {
 		}
 
 		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
-		if (deltaY < 0) {//going uphill (Y gets bigger as you go down)
+		if (deltaY < 0 && this.speed > 3) {//going uphill (Y gets bigger as you go down)
 			this.speed -= HILL_DELTA_SPEED;
 		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
 			this.speed += HILL_DELTA_SPEED;
