@@ -101,10 +101,8 @@ function mainMenuStates() {
             windowState.playing = false;
             windowState.gameOver = true;
             scene = null;
-            Levels[LEVEL_TEMP].cameraPos = { x: 0, y: -GAME_HEIGHT / 2, z: -85 }; // FIXME: Needs to be more flexible
             gameOver.initialize();
             console.log("GAME OVER SCREEN")
-			//@FIXME: player state is leaking, should properly reset state when reloading scene
         }
 	} else if(windowState.editing) {
 		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
