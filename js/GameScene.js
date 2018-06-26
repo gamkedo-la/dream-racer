@@ -23,6 +23,7 @@ function GameScene(data) {
 	let canTurn = true;
 	let canAccelerate = true;
 	let canBoost = true;
+	let raceWon = false;
 
 	let countdownfinished = false;
 	let countdownDisplayCounter = 0;
@@ -80,9 +81,15 @@ function GameScene(data) {
 		drawTimeExtend(newTimeBonus);
 		drawCountdownTimerAndGO();
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
-		const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+		let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+		if (raceWon) {
+			deltaY = 0;
+		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
 		hud.draw();
+		if (raceWon && this.player.speed <= 0 /*&& victory animation/sound over?*/) {
+			scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
+		}
 	}
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
@@ -229,7 +236,10 @@ function GameScene(data) {
 		} else {
 			this.checkForCollisions(baseSegment);
 			
-			const deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+			let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+			if (raceWon) {
+				deltaY = 0;
+			}
 			this.player.move(deltaY, canAccelerate, canBoost);
 
 			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
@@ -248,8 +258,9 @@ function GameScene(data) {
 			}
 		}
 
-		if (this.countdownTimeLeft <= 0) { canAccelerate = false; }
-		if (this.countdownTimeLeft > 0) { 
+		if (this.countdownTimeLeft <= 0 || raceWon) { 
+			canAccelerate = false; 
+		} else if (this.countdownTimeLeft > 0) { 
 			canAccelerate = true; 
 		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { 
 			this.gameIsOver = true;
@@ -266,14 +277,13 @@ function GameScene(data) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
 					if (thisDecoration.trigger.sprite == tempCheckeredFlagPic) {
+						console.log("Goal!");
 						thisDecoration.trigger.hasInteracted = true;
 						canAccelerate = false;
 						canTurn = false;
 						canBoost = false;
+						raceWon = true;
 						this.player.speedChangeForCrashing();
-						if (player.speed <= 0) {
-							scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
-						}
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
 						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
