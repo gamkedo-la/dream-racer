@@ -185,6 +185,7 @@ function GameScene(data) {
 		this.countdownTimeLeft -= this.timeSinceLastFrame;
 		if (this.countdownTimeLeft <= 0) { // out of time?
 			console.log("Countdown timer reached 0. TODO: trigger game over"); // FIXME
+			this.gameIsOver = true;
 			this.countdownTimeLeft = 0; // no negative numbers allowed
 		}
 		this.previousFrameTimestamp = this.currentFrameTimestamp;

@@ -167,19 +167,10 @@ function startGame() {
 	windowState.help = false;
 	windowState.mainMenu = false;
 	windowState.playing = true;
+	if(scene == undefined || scene == null) {
+		scene = new GameScene(getLevel(LEVEL_TEMP));
+	}
 
-	scene = new GameScene({
-		totalWidth: canvas.width,
-		totalHeight: GAME_HEIGHT,
-		nearHeight: 0.5 * GAME_HEIGHT,
-		horizonHeight: 1.0 * GAME_HEIGHT,
-		near: 90,//arbitrary
-		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: CAMERA_INITIAL_Z },
-		skyPic: undefined,
-		backgroundPic: tempBackgroundPic,
-		middleGroundPic: tempMiddlegroundPic
-	});
 };
 
 function startEditing() {
@@ -189,18 +180,7 @@ function startEditing() {
 	windowState.playing = false;
 	windowState.editing = true;
 
-	scene = new EditorScene({
-		totalWidth: canvas.width,
-		totalHeight: GAME_HEIGHT,
-		nearHeight: 0.0 * GAME_HEIGHT,
-		horizonHeight: 1.0 * GAME_HEIGHT,
-		near: 90,//arbitrary
-		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-		skyPic: undefined,
-		backgroundPic: tempBackgroundPic,
-		middleGroundPic: tempMiddlegroundPic
-	});
+	scene = new EditorScene(getLevel(LEVEL_TEMP));
 };
 
 function continueEditing() {
@@ -219,13 +199,7 @@ function editingDrawAll() {
 };
 
 function moveAll() {
-	if(scene.gameIsOver) {
-		//change window state to game over
-		windowState.playing = false;
-		windowState.gameOver = true;
-		gameOver.initialize();
-	}
-	scene.move();
+        scene.move();
 };
 
 function editingMoveAll() {

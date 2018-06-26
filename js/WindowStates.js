@@ -96,6 +96,15 @@ function mainMenuStates() {
 		drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		moveAll();
 		drawAll();
+        if(scene.gameIsOver) {
+            //change window state to game over
+            windowState.playing = false;
+            windowState.gameOver = true;
+            scene = null;
+            gameOver.initialize();
+            console.log("GAME OVER SCREEN")
+			//@FIXME: player state is leaking, should properly reset state when reloading scene
+        }
 	} else if(windowState.editing) {
 		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		editingMoveAll();
