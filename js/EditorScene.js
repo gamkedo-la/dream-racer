@@ -6,7 +6,7 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-				JSON.parse(testTrack)
+				JSON.parse(testTrack),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -16,7 +16,9 @@ function EditorScene(data) {
 				JSON.parse(slightDownhill),
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
-		//		JSON.parse(finish)
+				JSON.parse(finish),
+				JSON.parse(straightAndLevel),
+				JSON.parse(normalHillCrest)
 	];
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);

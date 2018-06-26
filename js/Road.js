@@ -237,7 +237,11 @@ function Road(frustum) {
 					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
 					if (thisDecoration.getSprite() == checkpointFlagPic) {
 						let timeExtend = 30000;
-						thisDecoration.addTrigger(timeExtend);
+						thisDecoration.addTrigger(timeExtend,checkpointFlagPic);
+					}
+					if (thisDecoration.getSprite() == tempCheckeredFlagPic) {
+						let timeExtend = 0;
+						thisDecoration.addTrigger(timeExtend,tempCheckeredFlagPic);
 					}
 					thisDecoration.typeForFileName();
 					thisDecoration.addCollider();

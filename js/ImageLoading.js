@@ -2,6 +2,8 @@
 
 const tempBackgroundPic = document.createElement("img");
 const tempMiddlegroundPic = document.createElement("img");
+const nightSkyBackgroundPic = document.createElement("img");
+const nightSkyPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
 const tempAICarPic = document.createElement("img");
 
@@ -83,6 +85,8 @@ function loadImages() {
 	//temp image
 	imageList.push({ imgName: tempBackgroundPic, theFile: "backgroundClouds.png" });
 	imageList.push({ imgName: tempMiddlegroundPic, theFile: "middlegroundMountains.png" });
+	imageList.push({ imgName: nightSkyBackgroundPic, theFile: "nightSkyBackground.png" });
+	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
 	imageList.push({ imgName: tempAICarPic, theFile: "AICar.png" });
 	//signs

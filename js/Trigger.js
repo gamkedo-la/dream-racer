@@ -1,5 +1,5 @@
 //function boxCollider(x, y, z, width, height, depth, offsetX, offsetY, offsetZ) {
-function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth, timeBonus) {
+function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth, timeBonus,sprite) {
 	this.isDynamic = false;//false = doesn't move (i.e. a street sign)
 
 	this.x = x + xOffset;
@@ -19,6 +19,7 @@ function boxTrigger(x, y, z, xOffset, yOffset, zOffset, width, height, depth, ti
 	this.width = width;
 	this.height = height;
 	this.depth = depth;
+	this.sprite = sprite;
 	this.timeBonus = timeBonus;
 
 	this.top = this.y;

@@ -39,7 +39,9 @@ function GameScene(data) {
 				JSON.parse(slightDownhill),
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
-		JSON.parse(finish)
+		JSON.parse(finish),
+		JSON.parse(straightAndLevel),
+		JSON.parse(normalHillCrest)
 	];
 	this.road.newRoadWithJSONArray(roadReferences[0]);
 	if (roadReferences.length > 1) {
@@ -105,9 +107,13 @@ function GameScene(data) {
 				timeExtendCounter = 0;
 				return;
 			} else {
+				if (timeBonus == 0) {
+					return;
+				} else {
 				const timeAdded = timeBonus/1000
 				canvasContext.drawImage(timeBonusPic, canvas.width/2 - 100, 150);
 				timeExtendCounter++;
+				}
 			}
 		}
 	}
@@ -259,10 +265,22 @@ function GameScene(data) {
 			if (thisDecoration.trigger != undefined) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
-					this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
-					thisDecoration.trigger.hasInteracted = true;
-					passedACheckPoint = true;
-					newTimeBonus = thisDecoration.trigger.timeBonus;
+					if (thisDecoration.trigger.sprite == tempCheckeredFlagPic) {
+						thisDecoration.trigger.hasInteracted = true;
+						canAccelerate = false;
+						canTurn = false;
+						canBoost = false;
+						this.player.speedChangeForCrashing();
+						if (player.speed <= 0) {
+							scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
+						}
+					}
+					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
+						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
+						thisDecoration.trigger.hasInteracted = true;
+						passedACheckPoint = true;
+						newTimeBonus = thisDecoration.trigger.timeBonus;
+					}
 				}
 			}
 			if (collisionData.isColliding) {

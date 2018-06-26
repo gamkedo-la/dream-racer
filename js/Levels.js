@@ -1,4 +1,5 @@
 const LEVEL_TEMP = 0;
+const LEVEL_TEMP_TWO = 1;
 
 var Levels = [
     {
@@ -11,6 +12,17 @@ var Levels = [
         skyPic: undefined,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic
+    },
+    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: undefined,
+        backgroundPic: nightSkyPic,
+        middleGroundPic: nightSkyBackgroundPic
     }
 ];
 

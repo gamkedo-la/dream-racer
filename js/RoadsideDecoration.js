@@ -75,11 +75,11 @@ function RoadsideDecoration(image, pos) {
 										dims.width, dims.height, this.depth);
 	}
 
-	this.addTrigger = function(timeBonus) {
+	this.addTrigger = function(timeBonus, sprite) {
 		const dims = triggerDimsForType(this.type);
 		this.trigger = new boxTrigger(this.world.x, this.world.y, this.world.z, 
 										dims.xOffset, dims.yOffset, dims.zOffset, 
-										dims.width, dims.height, this.depth, timeBonus);
+										dims.width, dims.height, this.depth, timeBonus, sprite);
 	}
 	
 	this.drawWithFrustum = function (frustum) {
@@ -352,6 +352,8 @@ function RoadsideDecoration(image, pos) {
 
 	const triggerDimsForType = function(type) {
 		switch(type) {
+			case DecorationType.CheckeredFlag:
+				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 575, height: 120, depth: 10};
 			default:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 575, height: 120, depth: 10};
 		}
