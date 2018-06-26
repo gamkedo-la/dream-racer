@@ -34,7 +34,7 @@ function EditorScene(data) {
 	const buildUIElements = function () {
 		const array = [
 			new DecorationUIElement(tempCheckeredFlagPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(curveyRoadSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(curvyRoadSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(hardLeftTurnSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIElement(hardRightTurnSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(downHillGenericSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),

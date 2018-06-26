@@ -303,7 +303,7 @@ function RoadsideDecoration(image, pos) {
 		switch(type) {
 			case DecorationType.CheckeredFlag:
 				return {xOffset: 8, yOffset: 26, zOffset: -5, width: 12, height: 38, depth: 10};
-			case DecorationType.CurveyRoadSign:
+			case DecorationType.CurvyRoadSign:
 			case DecorationType.LeftTurnSign:
 			case DecorationType.RightTurnSign:
 				return {xOffset: 24, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
