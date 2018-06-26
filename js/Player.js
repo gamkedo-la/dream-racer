@@ -4,13 +4,13 @@ function Player() {
 	const HILL_DELTA_SPEED = 0.15;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
-	const CRASH_DECELERATION = 0.25;
+	const CRASH_DECELERATION_PERCENT = 0.15;
 	const ACCELERATION = 0.4;
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
-	this.MAX_CRASH_COUNT = 65;
-	this.MAX_TURN_RATE = 65;
+	this.MAX_CRASH_COUNT = 75;
+	this.MAX_TURN_RATE = 75;
 
 	this.sprite = tempPlayerCarPic;
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
@@ -232,7 +232,7 @@ function Player() {
 	}
 
 	this.speedChangeForCrashing = function () {
-		this.speed -= CRASH_DECELERATION;
+		this.speed -= this.speed * CRASH_DECELERATION_PERCENT;
 		this.currentGear = 1;
 		if (this.speed <= 0) {
 			this.speed = 0;
