@@ -25,8 +25,10 @@ function GameScene(data) {
 	let canBoost = true;
 	let raceWon = false;
 
+	const framesPerSecond = 30;
 	let countdownfinished = false;
 	let countdownDisplayCounter = 0;
+	let gameOverCounter = 0;
 
 	const roadReferences = [
 		JSON.parse(testTrack),
@@ -135,7 +137,6 @@ function GameScene(data) {
 
 	const drawCountdownTimerAndGO = function () {
 		const timeOnScreen = 30;
-		const framesPerSecond = 30;
 		if (!countdownfinished) {
 			if (countDown.getPaused()) {
 				countDown.play();
@@ -268,10 +269,16 @@ function GameScene(data) {
 
 		if (this.countdownTimeLeft <= 0 || raceWon) {
 			canAccelerate = false;
-		} else if (this.countdownTimeLeft > 0) {
+		}
+
+		if (this.countdownTimeLeft > 0) {
+			gameOverCounter = 0;
 			canAccelerate = true;
 		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
-			this.gameIsOver = true;
+			gameOverCounter++
+			if (gameOverCounter >= framesPerSecond*2) {
+				this.gameIsOver = true;
+			}
 		}
 	}
 
