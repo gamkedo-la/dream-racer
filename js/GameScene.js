@@ -1,3 +1,5 @@
+let raceWon = false;
+
 //GameScene
 function GameScene(data) {
 	let currentCrashCount = 0;
@@ -23,9 +25,7 @@ function GameScene(data) {
 	let canTurn = true;
 	let canAccelerate = true;
 	let canBoost = true;
-	let raceWon = false;
 
-	const framesPerSecond = 30;
 	let countdownfinished = false;
 	let countdownDisplayCounter = 0;
 	let gameOverCounter = 0;
@@ -43,6 +43,8 @@ function GameScene(data) {
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
 		//JSON.parse(finish),
+		JSON.parse(straightAndLevel),
+		JSON.parse(straightAndLevel),
 		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest)
 	];
@@ -100,9 +102,6 @@ function GameScene(data) {
 		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
 		hud.draw();
-		if (raceWon && this.player.speed <= 0 /*&& victory animation/sound/wait over?*/) {
-			scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
-		}
 	}
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
@@ -197,7 +196,7 @@ function GameScene(data) {
 	}
 
 	this.updateTimer = function () {
-		if (!countdownfinished) {
+		if (!countdownfinished || raceWon) {
 			return;
 		}
 		this.currentFrameTimestamp = Date.now();
@@ -275,19 +274,16 @@ function GameScene(data) {
 		}
 
 		if (raceWon) {
-			canAccelerate = false;
-			canTurn = false;
-			canBoost = false;
 			return;
-		}
-
-		if (this.countdownTimeLeft > 0) {
-			gameOverCounter = 0;
-			canAccelerate = true;
-		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
-			gameOverCounter++
-			if (gameOverCounter >= framesPerSecond * 2) {
-				this.gameIsOver = true;
+		} else {
+			if (this.countdownTimeLeft > 0) {
+				gameOverCounter = 0;
+				canAccelerate = true;
+			} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
+				gameOverCounter++
+				if (gameOverCounter >= framesPerSecond * 2) {
+					this.gameIsOver = true;
+				}
 			}
 		}
 	}
@@ -303,6 +299,9 @@ function GameScene(data) {
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
 					if (thisDecoration.trigger.sprite == tempCheckeredFlagPic) {
 						thisDecoration.trigger.hasInteracted = true;
+						canAccelerate = false;
+						canTurn = false;
+						canBoost = false;
 						raceWon = true;
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {

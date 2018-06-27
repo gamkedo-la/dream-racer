@@ -22,9 +22,9 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-        skyPic: undefined,
-        backgroundPic: nightSkyPic,
-        middleGroundPic: nightSkyBackgroundPic,
+        skyPic: nightSkyPic,
+        backgroundPic: nightSkyBackgroundPic,
+        middleGroundPic: undefined,
         name: "Night City Skyline"
     }
 ];

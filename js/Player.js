@@ -57,6 +57,10 @@ function Player() {
 	let turnLeftFramecount = 0;
 	let turnRightFramecount = 0;
 
+	let winCounter = 0;
+	let speedForVictoryAnimation = 5;
+	let victoryAnimation = false;
+
 	// smoke and dirt debris under tires, skid marks, impact sparks? crash fire? etc?
 	const USE_FX = true;
 	this.fx = new fxSystem();
@@ -101,6 +105,17 @@ function Player() {
 				frameNum = Math.round(turnLeftFramecount / 4); // frame 1,2,3,4
 				if (frameNum > 4) frameNum = 4;
 			}
+			else if (victoryAnimation) {
+				frameNum = Math.round(turnLeftFramecount / 4);
+				if (frameNum > 4) frameNum = 4;
+			}
+
+			if (!raceWon) {	
+				if ((!holdLeft && !holdA) && (!holdRight && !holdD))  {
+				turnLeftFramecount = 0;
+				turnRightFramecount = 0;
+				}
+			}
 
 			let goingUphill = false;
 			let goingDownhill = false;
@@ -115,6 +130,9 @@ function Player() {
 			if (goingUphill) frameOffset = 18;
 			if (goingDownhill) frameOffset = 9;
 
+			if (raceWon) {
+				this.raceWonAnimation();
+			}
 			this.drawPlayerCarSprite(frameNum + frameOffset);
 
 			// smoke/dust/dirt effects
@@ -217,7 +235,7 @@ function Player() {
 		let oldTurnRate = this.turnRate;
 
 		// this.speed > 1 stops the player from turning during countdown
-		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1) {
+		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1 && !raceWon) {
 			this.turnRate += this.TURN_RATE_PER_FRAME;
 		}
 		
@@ -291,6 +309,29 @@ function Player() {
 			this.fx.draw();
 		}
 		canvasContext.restore();
+	}
+
+	this.raceWonAnimation = function() {
+		if (frameNum > 0 && !victoryAnimation) {
+			return;
+		} else if (frameNum == 0 && !victoryAnimation) {
+			turnLeftFramecount = 0;
+			turnRightFramecount = 0;
+		}
+		if (this.speed <= speedForVictoryAnimation) { //Other conditions?
+			victoryAnimation = true;
+			turnLeftFramecount += 1.25;
+			brakeAudio(this.speed + 3);
+			if (this.speed == 0) {
+				winCounter++;
+			}
+			if (winCounter > framesPerSecond*3) {
+				scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
+				winCounter = 0;
+				raceWon = false;
+				victoryAnimation = false;
+			}
+		}
 	}
 
 	this.deltaYForCrashCount = function (count) {

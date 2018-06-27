@@ -4,6 +4,7 @@ let canvasContext;
 
 const DEBUG = true;
 const GAME_HEIGHT = 600;
+const framesPerSecond = 30;
 
 let scene;
 let isLocalStorageInitialized = false;
@@ -144,7 +145,7 @@ function setupLocalStorage() {
 }
 
 function loadingDoneSoStartGame() {
-	gameUpdate = setInterval(update, 1000 / 30);
+	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 
 	if (DEBUG) {
 		startGame();
