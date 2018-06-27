@@ -166,12 +166,20 @@ function startGame() {
 
 	windowState.help = false;
 	windowState.mainMenu = false;
+	windowState.levelSelect = false;
 	windowState.playing = true;
 	if(scene == undefined || scene == null) {
-		scene = new GameScene(getLevel(LEVEL_TEMP));
+		scene = new GameScene(getLevel(currentLevelIndex));
 	}
 
 };
+
+function levelSelectScreen() {
+	if(isPaused) return;
+
+	windowState.mainMenu = false;
+	windowState.levelSelect = true;
+}
 
 function startEditing() {
 	windowState.help = false;
@@ -179,8 +187,9 @@ function startEditing() {
 	windowState.editorHelp = false;
 	windowState.playing = false;
 	windowState.editing = true;
+	windowState.levelSelect = false;
 
-	scene = new EditorScene(getLevel(LEVEL_TEMP));
+	scene = new EditorScene(getLevel(currentLevelIndex));
 };
 
 function continueEditing() {
@@ -188,6 +197,7 @@ function continueEditing() {
 	windowState.mainMenu = false;
 	windowState.editorHelp = false;
 	windowState.editing = true;
+    windowState.levelSelect = false;
 };
 
 function drawAll() {

@@ -4,6 +4,7 @@ let isPaused = false;
 let windowState = {
 	inFocus : true,
 	mainMenu : true,
+	levelSelect : false,
 	credits : false,
 	help : false,
 	playing : false,
@@ -64,21 +65,38 @@ function mainMenuStates() {
 		mainMenu.handleSliders();
 		mainMenu.drawButtons(opacity);
 	} else if(windowState.credits) {
-		opacity = 1;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText('Credits will go here',canvas.width/2 ,100,textColor.White,gameTitle.Subtitle,textAlignment.Center,opacity);
-		var textX = 150;
-		var textY = 150;
-		var textSkip = 20;
-		var creditsFont = fonts.CreditsText;
-		colorText('Name: H Trayford - Roles: Game Lead, Prototype, Level Editor',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Name: Roles',textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Press [Backspace] to go Back to Menu',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        opacity = 1;
+        drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText('Credits will go here', canvas.width / 2, 100, textColor.White, gameTitle.Subtitle, textAlignment.Center, opacity);
+        var textX = 150;
+        var textY = 150;
+        var textSkip = 20;
+        var creditsFont = fonts.CreditsText;
+        colorText('Name: H Trayford - Roles: Game Lead, Prototype, Level Editor', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Press [Backspace] to go Back to Menu', canvas.width / 2, 500, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
+    } else if(windowState.levelSelect) {
+        opacity = 1;
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+        colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
+        colorText('Levels: ' + (currentLevelIndex+1) + '/' + Levels.length ,200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText('Name:' + Levels[currentLevelIndex].name );
+
+        drawImageRotated(Levels[currentLevelIndex].backgroundPic, 400, 400, 0);
+        drawImageRotated(Levels[currentLevelIndex].middleGroundPic, 400, 400, 0);
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video

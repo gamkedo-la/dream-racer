@@ -1,6 +1,7 @@
 const LEVEL_TEMP = 0;
 const LEVEL_TEMP_TWO = 1;
 
+
 var Levels = [
     {
         totalHeight: GAME_HEIGHT,
@@ -11,7 +12,8 @@ var Levels = [
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
         skyPic: undefined,
         backgroundPic: tempBackgroundPic,
-        middleGroundPic: tempMiddlegroundPic
+        middleGroundPic: tempMiddlegroundPic,
+        name: "Temp Level"
     },
     {
         totalHeight: GAME_HEIGHT,
@@ -22,10 +24,26 @@ var Levels = [
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
         skyPic: undefined,
         backgroundPic: nightSkyPic,
-        middleGroundPic: nightSkyBackgroundPic
+        middleGroundPic: nightSkyBackgroundPic,
+        name: "Night City Skyline"
     }
 ];
+var currentLevelIndex = 0;
 
+function getLevelIndex(iterIndex) {
+    while (iterIndex < 0) {
+        iterIndex = Levels.length + iterIndex;
+    }
+    return iterIndex % Levels.length;
+}
+
+function nextLevel(){
+    currentLevelIndex = getLevelIndex(currentLevelIndex + 1);
+}
+
+function prevLevel(){
+    currentLevelIndex = getLevelIndex(currentLevelIndex - 1);
+}
 
 function getLevel(index) {
     if(index < 0 || index >= Levels.length) {

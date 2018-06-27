@@ -110,14 +110,19 @@ function keyPress(evt) {
 			break;
 		case KEY_ENTER:
 			keyUsedByGame = true;
+			//@FIXME: Editor resume weird behaviour, level select screen is shown, but returns to same level,
+			//@FIXME: cannot play after entering editing mode
 			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
 				if(!showedHelp) {
 					openHelp();
 				} else {
-					startGame();
+					levelSelectScreen();
 				}
 			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
 				continueEditing();
+			} else if((windowState.levelSelect)) {
+				console.log('GAME STARTS');
+				startGame();
 			}
 			break;
 		case KEY_SHIFT:
@@ -141,6 +146,9 @@ function keyPress(evt) {
 		case KEY_LEFT:
 			keyUsedByGame = true;
 			holdLeft = true;
+			if(windowState.levelSelect) {
+				nextLevel();
+			}
 			break;
 		case KEY_UP:
 			keyUsedByGame = true;
@@ -149,6 +157,9 @@ function keyPress(evt) {
 		case KEY_RIGHT:
 			keyUsedByGame = true;
 			holdRight = true;
+            if(windowState.levelSelect) {
+                nextLevel();
+            }
 			break;
 		case KEY_DOWN:
 			keyUsedByGame = true;
