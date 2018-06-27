@@ -68,6 +68,70 @@ const billboardSprites = [];
 
 let picsToLoad = 0;
 
+
+
+
+
+
+
+
+
+// lookup table of decorations used by Road.generateRandomRoad
+var allDecorations = [
+	tempCheckeredFlagPic,
+	checkpointFlagPic,
+	curvyRoadSignPic,
+	hardLeftTurnSignPic,
+	hardRightTurnSignPic,
+	downHillGenericSignPic,
+	downHillAheadSignPic,
+	downHillSignPic,
+	upHillGenericSignPic,
+	upHillAheadSignPic,
+	upHillSignPic,
+	iceSignPic,
+	snowflakeSignPic,
+	leftTurnSignPic,
+	otherDriversSignPic,
+	questionSignPic,
+	rightTurnSignPic,
+	roadNarrowSignPic,
+	speedLimitSlowSignPic,
+	speedLimitFastSignPic,
+	palmTreePic,
+	tree3Pic,
+	tree4Pic,
+	warningSignPic,
+	sideBarrierEndPic,
+	sideBarrierStartPic,
+	sideBarrierMidPic,
+	rightStreetLightPic,
+	leftStreetLightPic,
+	rightStreetLightNoLightPic,
+	leftStreetLightNoLightPic,
+	straightPowerPolePic,
+	straightPowerPoleCrossBeamsPic,
+	straightPowerPoleCrossBeamsSlantLeftPic,
+	straightPowerPoleCrossBeamsSlantRightPic,
+	blankBillboard,
+	obeyBillboard,
+	eastCoastBillboard,
+	niceCityBillboard,
+	romanAdventureBillboard,
+	mageHookBillboard,
+	tinyRoboRacersBillboard,
+	chrisForPresidentBillboard,
+	burgerBillboard,
+	clashTracksBillboard,
+	notABillboard];
+
+function randomDecoration() {
+	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
+}
+
+
+
+
 function countLoadedImageAndLaunchIfReady() {
 	picsToLoad--;
 	if (picsToLoad == 0) { // last image loaded?

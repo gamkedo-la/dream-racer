@@ -6,7 +6,7 @@ function GameScene(data) {
 
 	let passedACheckPoint = false;
 	let timeExtendCounter = 0;
-	let newTimeBonus = 0;	
+	let newTimeBonus = 0;
 	this.data = data;
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
@@ -30,7 +30,7 @@ function GameScene(data) {
 
 	const roadReferences = [
 		JSON.parse(testTrack),
-//		JSON.parse(straight_Level_wLights),
+		//		JSON.parse(straight_Level_wLights),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -44,13 +44,21 @@ function GameScene(data) {
 		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest)
 	];
-	this.road.newRoadWithJSONArray(roadReferences[0]);
-	if (roadReferences.length > 1) {
-		for (let i = 1; i < roadReferences.length; i++) {
-			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
+
+	// create the road
+	if (USE_RANDOM_TRACK_GENERATOR) {
+		this.road.generateRandomRoad();
+	}
+	else // normal track using JSON data above
+	{
+		this.road.newRoadWithJSONArray(roadReferences[0]);
+		if (roadReferences.length > 1) {
+			for (let i = 1; i < roadReferences.length; i++) {
+				this.road.addRoadSectionWithJSONArray(roadReferences[i]);
+			}
 		}
 	}
-	
+
 	//temporary A.I. car for testing
 	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
 	const aiStartPos = new aiStart(AISegment, Lane.Left, 10, 0.25, 0);
@@ -61,7 +69,7 @@ function GameScene(data) {
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
 	this.aiCars = [new AICar(AIType.Pickup, aiStartPos, laneChange)];
-	
+
 	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
 	const aiStartPos2 = new aiStart(AISegment2, Lane.Right, 10, 0.25, 0);
 	let laneChange2 = [];
@@ -70,7 +78,7 @@ function GameScene(data) {
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(50 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(60 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(70 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	this.aiCars.push(new AICar(AIType.Pickup, aiStartPos2, laneChange2));	
+	this.aiCars.push(new AICar(AIType.Pickup, aiStartPos2, laneChange2));
 
 	this.currentZIndex = 0;
 	this.player = new Player();
@@ -106,7 +114,7 @@ function GameScene(data) {
 		}
 	}
 
-	const drawTimeExtend = function(timeBonus) {
+	const drawTimeExtend = function (timeBonus) {
 		const timeOnScreen = 90;
 		if (passedACheckPoint) {
 			if (timeExtendCounter >= timeOnScreen) {
@@ -117,22 +125,22 @@ function GameScene(data) {
 				if (timeBonus == 0) {
 					return;
 				} else {
-				const timeAdded = timeBonus/1000
-				canvasContext.drawImage(timeBonusPic, canvas.width/2 - 100, 150);
-				timeExtendCounter++;
+					const timeAdded = timeBonus / 1000
+					canvasContext.drawImage(timeBonusPic, canvas.width / 2 - 100, 150);
+					timeExtendCounter++;
 				}
 			}
 		}
 	}
 
-	const drawCountdownTimerAndGO = function() {
+	const drawCountdownTimerAndGO = function () {
 		const timeOnScreen = 30;
 		const framesPerSecond = 30;
 		if (!countdownfinished) {
-			if(countDown.getPaused()) {
+			if (countDown.getPaused()) {
 				countDown.play();
 			}
-			if (countdownDisplayCounter >= framesPerSecond*4) {
+			if (countdownDisplayCounter >= framesPerSecond * 4) {
 				countdownDisplayCounter = 0;
 				countdownfinished = true;
 				loadAudio();
@@ -140,42 +148,42 @@ function GameScene(data) {
 			}
 			if (countdownDisplayCounter < framesPerSecond) {
 				let frameIndex = 0;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
-										canvas.width/2 - 25, 150,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+					canvas.width / 2 - 25, 150,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
 				canBoost = false;
 			}
-			if (framesPerSecond <= countdownDisplayCounter && 
-				countdownDisplayCounter < framesPerSecond*2) {
+			if (framesPerSecond <= countdownDisplayCounter &&
+				countdownDisplayCounter < framesPerSecond * 2) {
 				let frameIndex = 1;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
-										canvas.width/2 - 25, 150,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+					canvas.width / 2 - 25, 150,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
 				canBoost = false;
 			}
-			if (framesPerSecond*2 <= countdownDisplayCounter && 
-				countdownDisplayCounter < framesPerSecond*3) {
+			if (framesPerSecond * 2 <= countdownDisplayCounter &&
+				countdownDisplayCounter < framesPerSecond * 3) {
 				let frameIndex = 2;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width/3, 0,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height,
-										canvas.width/2 - 25, 150,
-										countdownSpriteSheetPic.width/3, countdownSpriteSheetPic.height);
+				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+					canvas.width / 2 - 25, 150,
+					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
 				canTurn = false;
 				canAccelerate = false;
 				canBoost = false;
 			}
-			if (framesPerSecond*3.2/*feels more on time*/ <= countdownDisplayCounter && 
-				countdownDisplayCounter < framesPerSecond*4.5) {
+			if (framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
+				countdownDisplayCounter < framesPerSecond * 4.5) {
 				canvasContext.drawImage(goPic, 0, 0,
-										goPic.width, goPic.height,
-										canvas.width/2 - 75, 150,
-										goPic.width, goPic.height);
+					goPic.width, goPic.height,
+					canvas.width / 2 - 75, 150,
+					goPic.width, goPic.height);
 				canTurn = true;
 				canAccelerate = true;
 				canBoost = true;
@@ -235,7 +243,7 @@ function GameScene(data) {
 			}
 		} else {
 			this.checkForCollisions(baseSegment);
-			
+
 			let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
 			if (raceWon) {
 				deltaY = 0;
@@ -252,17 +260,17 @@ function GameScene(data) {
 			}
 		}
 
-		if(countdownfinished) {
+		if (countdownfinished) {
 			for (let i = 0; i < this.aiCars.length; i++) {
 				this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
 			}
 		}
 
-		if (this.countdownTimeLeft <= 0 || raceWon) { 
-			canAccelerate = false; 
-		} else if (this.countdownTimeLeft > 0) { 
-			canAccelerate = true; 
-		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) { 
+		if (this.countdownTimeLeft <= 0 || raceWon) {
+			canAccelerate = false;
+		} else if (this.countdownTimeLeft > 0) {
+			canAccelerate = true;
+		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
 			this.gameIsOver = true;
 		}
 	}
@@ -318,7 +326,7 @@ function GameScene(data) {
 				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
 				if (collisionData.isColliding) {
 					if (Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
-						
+
 						this.player.speed -= BUMPED_CAR_SPEED_REDUCTION;
 
 						if (this.player.boosting) {
