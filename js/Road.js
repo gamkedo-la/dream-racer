@@ -1,6 +1,6 @@
 
 // if true, the game will not use the json track data
-const USE_RANDOM_TRACK_GENERATOR = false; // work in progress
+const USE_RANDOM_TRACK_GENERATOR = false; // this "works!"
 
 //Road
 function Road(frustum) {
@@ -221,73 +221,35 @@ function Road(frustum) {
 		return findsegment(zPos);
 	}
 
-	this.generateRandomRoad = function (roadLength = 120) {
-		const SEGMENT_LENGTH = 48;
+	// instead of using json track data from hand-crafted levels,
+	// fill an array with random track data just for fun
+	this.generateRandomRoad = function (roadLength = 500) {
+		const CHECKPOINT_INTERVAL = 50;
+		const SEGMENT_LENGTH = 48; // each
 		const MAX_DECORATIONS_PER_SEGMENT = 6;
 		const DECO_MIN_DIST = 480; // from center of road
+		let checkpointCount = 0;
+		let decorationCount = 0;
 		console.log("Generating random road of length " + roadLength);
 		for (let i = 0; i < roadLength; i++) {
-			console.log("Random road segment " + i);
+			//console.log("Random road segment " + i);
 
 			const newSegment = new Segment();
 
 			newSegment.index = i;	// always starts from 0?
 			newSegment.color = (i % 2 ? Colors.Dark : Colors.Light); // alternate
 			newSegment.nearPos.world = { x: 0, y: 0, z: i * SEGMENT_LENGTH };
-			newSegment.nearPos.screen = { x: 0, y: 0, z: i * SEGMENT_LENGTH }; // HMM what is this?
 			newSegment.farPos.world = { x: 0, y: 0, z: (i + 1) * SEGMENT_LENGTH };
-			newSegment.farPos.screen = { x: 0, y: 0, z: (i + 1) * SEGMENT_LENGTH }; // blah
-			if (i == 0) {
-				currentBaseSegment = newSegment;
-			}
-
-			// fill in reasonable values - TODO: understand what these mean
-			newSegment.nearWidth = 28800; // FIXME?
-			newSegment.farWidth = 2716.9811320754716; // huh?
-			/*
-			newSegment.path = [  // what IS this?
-				{
-					x: -391.8826114115634,
-					y: 798
-				},
-				{
-					x: -7993.955680962572,
-					y: 5688
-				},
-				{
-					x: 8793.955680962572,
-					y: 5688
-				},
-				{
-					x: 1191.8826114115634,
-					y: 798
-				}
-			];
-			newSegment.groundPath = [
-				{
-					x: 0,
-					y: 798
-				},
-				{
-					x: 0,
-					y: 5688
-				},
-				{
-					x: 800,
-					y: 5688
-				},
-				{
-					x: 800,
-					y: 798
-				}
-			];
-			*/
+			if (i == 0) { currentBaseSegment = newSegment; }
 
 			let numDecorations = Math.floor(Math.random() * MAX_DECORATIONS_PER_SEGMENT);
+			if (numDecorations == 0) numDecorations = 1; // in case we need a checkpoint now
 
 			for (let d = 0; d < numDecorations; d++) {
 
-				console.log("Random decoration " + d);
+				decorationCount++; // grand total
+
+				//console.log("Random decoration " + d);
 
 				let decoImage = randomDecoration();
 
@@ -297,23 +259,30 @@ function Road(frustum) {
 					z: Math.round(i * SEGMENT_LENGTH / numDecorations)
 				};
 
+				// add checkpoints at regular intervals
+				if ((d == numDecorations - 1) // final decoration in this chunk?
+					&& (i % CHECKPOINT_INTERVAL == CHECKPOINT_INTERVAL - 1)) { // time for a checkpoint?
+					decoImage = checkpointFlagPic;
+					checkpointCount++; //d gran total
+				}
+
 				thisDecoration = new RoadsideDecoration(decoImage, decoPos);
 
 				if (thisDecoration.getSprite() == checkpointFlagPic) {
 					let timeExtend = 30000;
 					thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
 				}
-				if (thisDecoration.getSprite() == tempCheckeredFlagPic) {
-					let timeExtend = 0;
-					thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
-				}
+
+				// random finish line?! works! but makes for bad tracks
+				//if (thisDecoration.getSprite() == tempCheckeredFlagPic) {
+				//	let timeExtend = 0;
+				//	thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
+				//}
 
 				thisDecoration.typeForFileName();
 				thisDecoration.addCollider();
 
-				//thisDecoration.screen = { x: 2290, y: 2365 }; // hmm what is this
-				//thisDecoration.screenSize = { width: 7033.846153846154, height: 6646.153846153846 }; // wierd scale?
-				thisDecoration.screenSize = { width: decoImage.width, height: decoImage.height };
+				thisDecoration.screenSize = { width: decoImage.width / 2, height: decoImage.height / 2 };
 
 				newSegment.decorations.push(thisDecoration);
 
@@ -323,6 +292,9 @@ function Road(frustum) {
 		} // segments
 
 		//farthest = { x: 0, y: 0, z: i * SEGMENT_LENGTH };
+
+		console.log("The " + roadLength + " segment track contained " + checkpointCount + " checkpoints and " + decorationCount + " decorations.");
+
 	} // generateRandomRoad
 
 	this.newRoadWithJSONArray = function (roadArray) {

@@ -78,8 +78,8 @@ let picsToLoad = 0;
 
 // lookup table of decorations used by Road.generateRandomRoad
 var allDecorations = [
-	tempCheckeredFlagPic,
-	checkpointFlagPic,
+	//tempCheckeredFlagPic,
+	//checkpointFlagPic,
 	curvyRoadSignPic,
 	hardLeftTurnSignPic,
 	hardRightTurnSignPic,

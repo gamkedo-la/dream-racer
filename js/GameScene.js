@@ -50,6 +50,9 @@ function GameScene(data) {
 	// create the road
 	if (USE_RANDOM_TRACK_GENERATOR) {
 		this.road.generateRandomRoad();
+		//this.road.addRoadSectionWithJSONArray(roadReferences[roadReferences.length - 1]); // add one final prefab
+		this.road.addRoadSectionWithJSONArray(JSON.parse(finish)); // hardcoded finish line prefab
+		console.log("Random track created successfully.");
 	}
 	else // normal track using JSON data above
 	{
@@ -283,7 +286,7 @@ function GameScene(data) {
 			canAccelerate = true;
 		} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
 			gameOverCounter++
-			if (gameOverCounter >= framesPerSecond*2) {
+			if (gameOverCounter >= framesPerSecond * 2) {
 				this.gameIsOver = true;
 			}
 		}
