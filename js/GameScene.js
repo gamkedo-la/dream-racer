@@ -42,7 +42,7 @@ function GameScene(data) {
 				JSON.parse(slightDownhill),
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
-		JSON.parse(finish),
+		//JSON.parse(finish),
 		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest)
 	];
@@ -97,7 +97,7 @@ function GameScene(data) {
 		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
 		hud.draw();
-		if (raceWon && this.player.speed <= 0 /*&& victory animation/sound over?*/) {
+		if (raceWon && this.player.speed <= 0 /*&& victory animation/sound/wait over?*/) {
 			scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
 		}
 	}
@@ -267,8 +267,15 @@ function GameScene(data) {
 			}
 		}
 
-		if (this.countdownTimeLeft <= 0 || raceWon) {
+		if (this.countdownTimeLeft <= 0) {
 			canAccelerate = false;
+		}
+
+		if (raceWon) {
+			canAccelerate = false;
+			canTurn = false;
+			canBoost = false;
+			return;
 		}
 
 		if (this.countdownTimeLeft > 0) {
@@ -292,13 +299,8 @@ function GameScene(data) {
 				const interactingData = thisDecoration.trigger.isInteractingWith(this.player.collider);
 				if (interactingData.isInteracting && thisDecoration.trigger.hasInteracted == false) {
 					if (thisDecoration.trigger.sprite == tempCheckeredFlagPic) {
-						console.log("Goal!");
 						thisDecoration.trigger.hasInteracted = true;
-						canAccelerate = false;
-						canTurn = false;
-						canBoost = false;
 						raceWon = true;
-						this.player.speedChangeForCrashing();
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
 						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;

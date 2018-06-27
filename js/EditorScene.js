@@ -16,9 +16,9 @@ function EditorScene(data) {
 				JSON.parse(slightDownhill),
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
-				JSON.parse(finish),
-				JSON.parse(straightAndLevel),
-				JSON.parse(normalHillCrest)
+		//		JSON.parse(finish),
+		//		JSON.parse(straightAndLevel),
+		//		JSON.parse(normalHillCrest)
 	];
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
