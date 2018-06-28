@@ -3,6 +3,18 @@ const LEVEL_TEMP_TWO = 1;
 
 
 var Levels = [
+	    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: nightSkyPic,
+        backgroundPic: nightSkyBackgroundPic,
+        middleGroundPic: undefined,
+        name: "Night City Skyline"
+    },
     {
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
@@ -14,18 +26,6 @@ var Levels = [
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
         name: "Temp Level"
-    },
-    {
-        totalHeight: GAME_HEIGHT,
-        nearHeight: 0.0 * GAME_HEIGHT,
-        horizonHeight: 1.0 * GAME_HEIGHT,
-        near: 90,//arbitrary
-        far: 500,//arbitrary
-        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-        skyPic: nightSkyPic,
-        backgroundPic: nightSkyBackgroundPic,
-        middleGroundPic: undefined,
-        name: "Night City Skyline"
     }
 ];
 var currentLevelIndex = 0;
