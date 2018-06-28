@@ -193,7 +193,7 @@ function Road(frustum) {
 				}*/
 				break;
 			case "Night City Skyline":
-				groundColor = "#007C3C";
+				groundColor = "#002412";
 				/*if (segement.index % 2 == 0) {
 					groundColor = "#05a753";
 				}*/
