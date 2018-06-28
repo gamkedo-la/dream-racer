@@ -119,23 +119,23 @@ function AICar(aType, start, aPath) {
 	const framePosFor = function(name) {
 		switch(name) {
 			case AIFrames.UpRight40:
-				return {x:0, y:0};
+				return {x:0, y:2};
 			case AIFrames.UpRight30:
-				return {x:1, y:0};
+				return {x:1, y:2};
 			case AIFrames.UpRight20:
-				return {x:2, y:0};
+				return {x:2, y:2};
 			case AIFrames.UpRight10:
-				return {x:3, y:0};
+				return {x:3, y:2};
 			case AIFrames.UpStraight:
-				return {x:4, y:0};
+				return {x:4, y:2};
 			case AIFrames.UpLeft10:
-				return {x:5, y:0};
+				return {x:5, y:2};
 			case AIFrames.UpLeft20:
-				return {x:6, y:0};
+				return {x:6, y:2};
 			case AIFrames.UpLeft30:
-				return {x:7, y:0};
+				return {x:7, y:2};
 			case AIFrames.UpLeft40:
-				return {x:8, y:0};
+				return {x:8, y:2};
 			case AIFrames.Right40:
 				return {x:0, y:1};
 			case AIFrames.Right30:
@@ -155,47 +155,64 @@ function AICar(aType, start, aPath) {
 			case AIFrames.Left40:
 				return {x:8, y:1};
 			case AIFrames.DownRight40:
-				return {x:0, y:2};
+				return {x:0, y:0};
 			case AIFrames.DownRight30:
-				return {x:1, y:2};
+				return {x:1, y:0};
 			case AIFrames.DownRight20:
-				return {x:2, y:2};
+				return {x:2, y:0};
 			case AIFrames.DownRight10:
-				return {x:3, y:2};
+				return {x:3, y:0};
 			case AIFrames.DownStraight:
-				return {x:4, y:2};
+				return {x:4, y:0};
 			case AIFrames.DownLeft10:
-				return {x:5, y:2};
+				return {x:5, y:0};
 			case AIFrames.DownLeft20:
-				return {x:6, y:2};
+				return {x:6, y:0};
 			case AIFrames.DownLeft30:
-				return {x:7, y:2};
+				return {x:7, y:0};
 			case AIFrames.DownLeft40:
-				return {x:8, y:2};
+				return {x:8, y:0};
 		}
 	}
 	
 	const frameForDeltaPosAndLanePos = function(deltaX, deltaY, lanePos) {
-		if(deltaX < -0.5) {
-			
-		} else if(deltaX > 0.5) {
-			
+		if(deltaY > 0) {
+/*			if(lanePos < 0) {
+				return AIFrames.DownRight10;
+			} else if(lanePos > 0) {
+				return AIFrames.DownLeft10;
+			} else {*/
+				return AIFrames.DownStraight;
+//			}			
+		} else if(deltaY < 0) {
+/*			if(lanePos < 0) {
+				return AIFrames.UpRight10;
+			} else if(lanePos > 0) {
+				return AIFrames.UpLeft10;
+			} else {*/
+				return AIFrames.UpStraight;
+//			}
 		} else {
-			
+/*			if(lanePos < 0) {
+				return AIFrames.Right10;
+			} else if(lanePos > 0) {
+				return AIFrames.Left10;
+			} else {*/
+				return AIFrames.LevelStraight;
+//			}
 		}
 	}
 				
 	this.draw = function(frustum) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
-//		canvasContext.drawImage(this.sprite, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 
 		let framePos = framePosFor(AIFrames.LevelStraight);
 		if((currentSegment != undefined) && (currentSegment != null)) {
 			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
 			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
 			const currentFrame = frameForDeltaPosAndLanePos(deltaX, deltaY, lanePos);
-			const framePos = framePosFor(currentFrame);
+			framePos = framePosFor(currentFrame);
 		}
 		
 		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
