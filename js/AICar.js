@@ -15,9 +15,9 @@ const AIFrames = {
 	UpLeft20:"upLeft20",
 	UpLeft30:"upLeft30",
 	UpLeft40:"upLeft40",
-	Right40:"right10",
-	Right30:"right10",
-	Right20:"right10",
+	Right40:"right40",
+	Right30:"right30",
+	Right20:"right20",
 	Right10:"right10",
 	LevelStraight:"levelStraight",
 	Left10:"left10",
@@ -99,6 +99,9 @@ function AICar(aType, start, aPath) {
 	let desiredLanePos = 0;	//defaults are the
 	let laneSpeed = 0;		//same as Lane.Center
 	
+	let framePos = {x:4, y:1};
+	let previousDeltaX = 0;
+	
 	if(start.startLane == Lane.Left) {
 		desiredLanePos = -(start.segment.width / 3);
 		lanePos = -(start.segment.width / 3);
@@ -175,45 +178,90 @@ function AICar(aType, start, aPath) {
 		}
 	}
 	
-	const frameForDeltaPosAndLanePos = function(deltaX, deltaY, lanePos) {
+	const frameForDeltaPos = function(deltaX, deltaY) {
+//		console.log(deltaX);
+		let xPos = 4;//straight
+		let yPos = 1;//level
+		
 		if(deltaY > 0) {
-/*			if(lanePos < 0) {
-				return AIFrames.DownRight10;
-			} else if(lanePos > 0) {
-				return AIFrames.DownLeft10;
-			} else {*/
-				return AIFrames.DownStraight;
-//			}			
+			yPos = 0;
 		} else if(deltaY < 0) {
-/*			if(lanePos < 0) {
-				return AIFrames.UpRight10;
-			} else if(lanePos > 0) {
-				return AIFrames.UpLeft10;
-			} else {*/
-				return AIFrames.UpStraight;
-//			}
-		} else {
-/*			if(lanePos < 0) {
-				return AIFrames.Right10;
-			} else if(lanePos > 0) {
-				return AIFrames.Left10;
-			} else {*/
-				return AIFrames.LevelStraight;
-//			}
+			yPos = 2;
 		}
+
+		if(deltaX < -50) {
+			xPos = 8;
+		} else if(deltaX < -25) {
+			xPos = 7;
+		} else if(deltaX < -10) {
+			xPos = 6;
+		} else if(deltaX < 0) {
+			xPos = 5;
+		} else if(deltaX > 0) {
+			xPos = 3;
+		} else if(deltaX > 10) {
+			xPos = 2;
+		} else if(deltaX > 25) {
+			xPos = 1;
+		} else if(deltaX > 50) {
+			xPos = 0;
+		}
+		
+//		console.log("(" + xPos + ", " + yPos + ")");
+		return {x:xPos, y:yPos};
+		
+		
+		
+		
+//		console.log("DeltaX: " + deltaX);
+		if(deltaX < 0) {
+			if(deltaY > 0) {
+				return AIFrames.DownLeft10;
+			} else if(deltaY < 0) {
+				return AIFrames.UpLeft10;
+			} else {
+				return AIFrames.Left10;
+			}
+		} else if(deltaX > 0) {
+			if(deltaY > 0) {
+				return AIFrames.DownRight10;
+			} else if(deltaY < 0) {
+				return AIFrames.UpRight10;
+			} else {
+				return AIFrames.Right10;
+			}
+		} else {
+			if(deltaY > 0) {
+				return AIFrames.DownStraight;
+			} else if(deltaY < 0) {
+				return AIFrames.UpStraight;
+			} else {
+				return AIFrames.LevelStraight;
+			}
+		}
+		
+		
+		
+		
+		
+		
 	}
 				
 	this.draw = function(frustum) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
 
-		let framePos = framePosFor(AIFrames.LevelStraight);
+/*		let framePos = framePosFor(AIFrames.LevelStraight);
+		
 		if((currentSegment != undefined) && (currentSegment != null)) {
 			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
 			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
-			const currentFrame = frameForDeltaPosAndLanePos(deltaX, deltaY, lanePos);
-			framePos = framePosFor(currentFrame);
-		}
+			framePos = frameForDeltaPos(deltaX - previousDeltaX, deltaY - previousDeltaY);
+//			const currentFrame = frameForDeltaPos(deltaX, deltaY, lanePos);
+//			framePos = framePosFor(currentFrame);
+			previousDeltaX = deltaX;
+			previousDeltaY = deltaY;
+		}*/
 		
 		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 		
@@ -237,6 +285,11 @@ function AICar(aType, start, aPath) {
 		
 		if(this.position.z > currentSegment.farPos.world.z) {
 			currentSegment = nextSegment;
+			
+			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
+			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
+			framePos = frameForDeltaPos(deltaX - previousDeltaX, deltaY);
+			previousDeltaX = deltaX;
 		}
 		
 
