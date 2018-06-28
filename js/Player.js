@@ -61,6 +61,8 @@ function Player() {
 	let speedForVictoryAnimation = 5;
 	let victoryAnimation = false;
 
+	let currentMusicTrackIndex = 0;
+
 	// smoke and dirt debris under tires, skid marks, impact sparks? crash fire? etc?
 	const USE_FX = true;
 	this.fx = new fxSystem();
@@ -318,17 +320,18 @@ function Player() {
 			turnLeftFramecount = 0;
 			turnRightFramecount = 0;
 		}
-		if (this.speed <= speedForVictoryAnimation) { //Other conditions?
+		if (this.speed <= speedForVictoryAnimation) { 
 			victoryAnimation = true;
 			turnLeftFramecount += 1.25;
 			brakeAudio(this.speed + 3);
 			if (this.speed == 0) {
 				winCounter++;
 			}
-			if (winCounter > framesPerSecond*3) {
+			if (winCounter > framesPerSecond*3) { //Other conditions?
+				currentMusicTrackIndex++;
 				scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
 				currentBackgroundMusic.pause();
-				currentBackgroundMusic.setCurrentTrack(1);
+				currentBackgroundMusic.setCurrentTrack(currentMusicTrackIndex);
 				winCounter = 0;
 				raceWon = false;
 				victoryAnimation = false;

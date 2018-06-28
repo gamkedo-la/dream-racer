@@ -9,6 +9,8 @@ function Road(frustum) {
 		Light: "#888888"
 	};
 
+	let groundColor = "";
+
 	const MAX_SEGMENT_DRAW_COUNT = 75;
 	const magicNumber = 50;
 	let currentBaseSegment = null;
@@ -104,12 +106,8 @@ function Road(frustum) {
 				{ x: thisSegment.farPos.screen.x + (frustum.fov * thisSegment.farWidth / 2), y: thisSegment.farPos.screen.y },
 			];
 
-			let groundColor = "#11dd11";
 			let leftLaneLine = [];
 			let rightLaneLine = [];
-			if (thisSegment.index % 2 == 0) {
-				groundColor = "#00aa00";
-			}
 
 			thisSegment.groundPath = [
 				{ x: 0, y: thisSegment.farPos.screen.y },
@@ -131,6 +129,8 @@ function Road(frustum) {
 				{ x: thisSegment.path[3].x - 0.015 * thisSegment.farWidth, y: thisSegment.path[3].y },
 				{ x: thisSegment.path[2].x - 0.015 * thisSegment.nearWidth, y: thisSegment.path[2].y },
 			];
+
+			getColorForLevel(scene.data.name, thisSegment);
 
 			fillPath(thisSegment.groundPath, groundColor);
 			fillPath(thisSegment.path, thisSegment.color);
@@ -181,6 +181,25 @@ function Road(frustum) {
 
 				strokePath(selectedSegments[i].path);
 			}
+		}
+	}
+
+	const getColorForLevel = function(level, segement) {
+		switch (level) {
+			case "Temp Level":
+				groundColor = "#11dd11";
+				if (segement.index % 2 == 0) {
+					groundColor = "#00aa00";
+				}
+				break;
+			case "Night City Skyline":
+				groundColor = "#007C3C";
+				if (segement.index % 2 == 0) {
+					groundColor = "#05a753";
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
