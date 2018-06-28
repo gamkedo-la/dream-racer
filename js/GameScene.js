@@ -141,7 +141,7 @@ function GameScene(data) {
 		const timeOnScreen = 30;
 		if (!countdownfinished) {
 			if (countDown.getPaused()) {
-				countDown.play();
+				countDown.resume();
 			}
 			if (countdownDisplayCounter >= framesPerSecond * 4) {
 				countdownDisplayCounter = 0;

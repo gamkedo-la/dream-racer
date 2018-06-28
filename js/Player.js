@@ -327,6 +327,8 @@ function Player() {
 			}
 			if (winCounter > framesPerSecond*3) {
 				scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
+				currentBackgroundMusic.pause();
+				currentBackgroundMusic.setCurrentTrack(1);
 				winCounter = 0;
 				raceWon = false;
 				victoryAnimation = false;

@@ -49,9 +49,8 @@ function windowOnBlur() {
 	if (!isPaused && !windowState.help) {
 		windowState.inFocus = false;
 		clearInterval(gameUpdate);
-
-			pauseSound.play();
-			showPausedScreen();
+		pauseSound.play();
+		showPausedScreen();
 	}
 }
 

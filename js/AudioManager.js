@@ -8,7 +8,7 @@ const DEFAULT_SFX_VOLUME = 0.6;
 var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
 var dreamPunk = new musicTrackLoop("dreamPunk", 167.335);  //By Stebs
 
-var currentBackgroundMusic = new musicContainer([nightMusic]);
+var currentBackgroundMusic = new musicContainer([nightMusic, dreamPunk]);
 
 var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");
@@ -372,6 +372,8 @@ function pauseAudio() {
 	currentBackgroundMusic.pause();
 	engine_master.pause();
 	brake_master.pause();
+	countDown.pause();
+
 }
 
 function resumeAudio() {
