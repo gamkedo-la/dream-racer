@@ -377,5 +377,7 @@ function pauseAudio() {
 }
 
 function resumeAudio() {
-	currentBackgroundMusic.resume();
+	if (currentBackgroundMusic.getTime() > 0) {
+		currentBackgroundMusic.resume();
+	}
 }

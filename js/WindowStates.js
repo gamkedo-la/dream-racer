@@ -210,6 +210,7 @@ function togglePause() {
     if(isPaused) {
         showPausedScreen();
         pauseSound.play();
+        pauseAudio();
         clearInterval(gameUpdate);
         scene.timeSinceLastFrame = null;
 		scene.currentFrameTimestamp = null;
