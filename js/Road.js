@@ -5,7 +5,7 @@ const USE_RANDOM_TRACK_GENERATOR = false; // this "works!"
 //Road
 function Road(frustum) {
 	const Colors = {
-		Dark: "#555555",
+		Dark: "#888888",
 		Light: "#888888"
 	};
 
@@ -187,16 +187,16 @@ function Road(frustum) {
 	const getColorForLevel = function(level, segement) {
 		switch (level) {
 			case "Temp Level":
-				groundColor = "#11dd11";
-				if (segement.index % 2 == 0) {
+				groundColor = "#01c101";
+				/*if (segement.index % 2 == 0) {
 					groundColor = "#00aa00";
-				}
+				}*/
 				break;
 			case "Night City Skyline":
 				groundColor = "#007C3C";
-				if (segement.index % 2 == 0) {
+				/*if (segement.index % 2 == 0) {
 					groundColor = "#05a753";
-				}
+				}*/
 				break;
 			default:
 				break;
@@ -243,44 +243,23 @@ function Road(frustum) {
 	// instead of using json track data from hand-crafted levels,
 	// fill an array with random track data just for fun
 	this.generateRandomRoad = function (roadLength = 500) {
-
-		if (!USE_RANDOM_TRACK_GENERATOR) return;
-
 		const CHECKPOINT_INTERVAL = 50;
 		const SEGMENT_LENGTH = 48; // each
 		const MAX_DECORATIONS_PER_SEGMENT = 6;
-		const DECO_LEFT_DIST = -1300;
-		const DECO_RIGHT_DIST = 1300;
-		const CURVE_MAX_SIZE = 400;
-		const HILL_MAX_SIZE = 800;
-
+		const DECO_MIN_DIST = 480; // from center of road
 		let checkpointCount = 0;
 		let decorationCount = 0;
-		let hillStart = 0;
-		let hillEnd = 0;
-		let curveStart = 0;
-		let curveEnd = 0;
-
 		console.log("Generating random road of length " + roadLength);
 		for (let i = 0; i < roadLength; i++) {
 			//console.log("Random road segment " + i);
 
-			let newSegment = new Segment();
+			const newSegment = new Segment();
 
 			newSegment.index = i;	// always starts from 0?
 			newSegment.color = (i % 2 ? Colors.Dark : Colors.Light); // alternate
-
-			// bumps and turns in the road
-			// TODO: perlin noise 
-			hillStart = Math.sin(i / 8) * HILL_MAX_SIZE;
-			hillEnd = Math.sin((i + 1) / 8) * HILL_MAX_SIZE;
-			curveStart = Math.sin(i / 4) * CURVE_MAX_SIZE;
-			curveEnd = Math.sin((i + 1) / 4) * CURVE_MAX_SIZE;
-
-			newSegment.nearPos.world = { x: curveStart, y: hillStart, z: i * SEGMENT_LENGTH };
-			newSegment.farPos.world = { x: curveEnd, y: hillEnd, z: (i + 1) * SEGMENT_LENGTH };
-
-			if (i == 0) { currentBaseSegment = newSegment; } // not sure if this is needed
+			newSegment.nearPos.world = { x: 0, y: 0, z: i * SEGMENT_LENGTH };
+			newSegment.farPos.world = { x: 0, y: 0, z: (i + 1) * SEGMENT_LENGTH };
+			if (i == 0) { currentBaseSegment = newSegment; }
 
 			let numDecorations = Math.floor(Math.random() * MAX_DECORATIONS_PER_SEGMENT);
 			if (numDecorations == 0) numDecorations = 1; // in case we need a checkpoint now
@@ -294,14 +273,9 @@ function Road(frustum) {
 				let decoImage = randomDecoration();
 
 				let decoPos = {
-					x: (Math.random() > 0.5) ? // alternate sides of the road randomly
-						(DECO_LEFT_DIST + curveStart + ((curveStart - curveEnd) * (d / numDecorations)))
-						:
-						(DECO_RIGHT_DIST + curveStart + ((curveStart - curveEnd) * (d / numDecorations)))
-					,
-					//y: -decoImage.height + hillStart,
-					y: hillStart + ((hillEnd - hillStart) * (d / numDecorations)),
-					z: Math.round((i * SEGMENT_LENGTH) + (SEGMENT_LENGTH * (d / numDecorations)))
+					x: (d % 2 ? DECO_MIN_DIST + decoImage.width : -DECO_MIN_DIST - decoImage.width), // alternate sides
+					y: -decoImage.height,
+					z: Math.round(i * SEGMENT_LENGTH / numDecorations)
 				};
 
 				// add checkpoints at regular intervals
@@ -327,9 +301,7 @@ function Road(frustum) {
 				thisDecoration.typeForFileName();
 				thisDecoration.addCollider();
 
-				// hmm how do we make decorations smaller
-				thisDecoration.worldSize = { width: decoImage.width / 4, height: decoImage.height / 4 };
-				thisDecoration.screenSize = { width: decoImage.width / 4, height: decoImage.height / 4 };
+				thisDecoration.screenSize = { width: decoImage.width / 2, height: decoImage.height / 2 };
 
 				newSegment.decorations.push(thisDecoration);
 
