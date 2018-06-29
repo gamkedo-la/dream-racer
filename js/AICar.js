@@ -60,17 +60,15 @@ const AIType = {
 
 //A.I. Car
 function AICar(aType, start, aPath) {
-//function AICar(image, pos, desiredSpeed, path) {
 	this.path = aPath;
 	const ACCELERATION = start.acceleration;
 	this.type = aType;
-//	this.sprite = image;
 	const spriteForType = function(type) {
 		switch(type) {
 			case AIType.Pickup:
-				return tempAICarPic;
+				return pickupAIPic;
 			case AIType.Semi:
-				return tempAICarPic;//Need to change this once the semi exists in game
+				return semiAIPic;//Need to change this once the semi exists in game
 		}
 	}
 	this.sprite = spriteForType(aType);
@@ -84,14 +82,12 @@ function AICar(aType, start, aPath) {
 			case AIType.Pickup:
 				return {width:135, height:145};
 			case AIType.Semi:
-				return {width:135, height:145};//Need to change this once the semi exists in game
+				return {width:300, height:325};//Need to change this once the semi exists in game
 		}
 	}
 	const size = sizeForType(aType);
 	this.width = size.width;
 	this.height = size.height;
-//	this.width = 2 * this.sprite.width;//only dividing by two because A.I. car sprite is so big
-//	this.height = 2 * this.sprite.height;//only dividing by two because A.I. car sprite is so big
 	this.depth = 60;//swag
 	let currentSegment = null;
 	
@@ -179,89 +175,64 @@ function AICar(aType, start, aPath) {
 	}
 	
 	const frameForDeltaPos = function(deltaX, deltaY) {
-//		console.log(deltaX);
-		let xPos = 4;//straight
-		let yPos = 1;//level
-		
 		if(deltaY > 0) {
-			yPos = 0;
+			framePos.y = 0;
 		} else if(deltaY < 0) {
-			yPos = 2;
+			framePos.y = 2;
 		}
-
-		if(deltaX < -50) {
-			xPos = 8;
-		} else if(deltaX < -25) {
-			xPos = 7;
-		} else if(deltaX < -10) {
-			xPos = 6;
+		
+		if(deltaX < -55) {
+			framePos.x++;
+			if(framePos.x > 8) {
+				framePos.x = 8;
+			}
+		} else if(deltaX < -35) {
+			framePos.x++;
+			if(framePos.x > 7) {
+				framePos.x = 7;
+			}
+		} else if(deltaX < -20) {
+			framePos.x++;
+			if(framePos.x > 6) {
+				framePos.x = 6;
+			}
 		} else if(deltaX < 0) {
-			xPos = 5;
-		} else if(deltaX > 0) {
-			xPos = 3;
-		} else if(deltaX > 10) {
-			xPos = 2;
-		} else if(deltaX > 25) {
-			xPos = 1;
-		} else if(deltaX > 50) {
-			xPos = 0;
-		}
-		
-//		console.log("(" + xPos + ", " + yPos + ")");
-		return {x:xPos, y:yPos};
-		
-		
-		
-		
-//		console.log("DeltaX: " + deltaX);
-		if(deltaX < 0) {
-			if(deltaY > 0) {
-				return AIFrames.DownLeft10;
-			} else if(deltaY < 0) {
-				return AIFrames.UpLeft10;
-			} else {
-				return AIFrames.Left10;
+			framePos.x++;
+			if(framePos.x > 5) {
+				framePos.x = 5;
+			}
+		} else if(deltaX == 0) {
+			if(framePos.x > 4) {
+				framePos.x--;
+			} else if(framePos.x < 4) {
+				framePos.x++;
+			}
+		} else if(deltaX > 55) {
+			framePos.x--;
+			if(framePos.x < 0) {
+				framePos.x = 0;
+			}
+		} else if(deltaX > 35) {
+			framePos.x--;
+			if(framePos.x < 1) {
+				framePos.x = 1;
+			}
+		} else if(deltaX > 20) {
+			framePos.x--;
+			if(framePos.x < 2) {
+				framePos.x = 2;
 			}
 		} else if(deltaX > 0) {
-			if(deltaY > 0) {
-				return AIFrames.DownRight10;
-			} else if(deltaY < 0) {
-				return AIFrames.UpRight10;
-			} else {
-				return AIFrames.Right10;
+			framePos.x--;
+			if(framePos.x < 3) {
+				framePos.x = 3;
 			}
-		} else {
-			if(deltaY > 0) {
-				return AIFrames.DownStraight;
-			} else if(deltaY < 0) {
-				return AIFrames.UpStraight;
-			} else {
-				return AIFrames.LevelStraight;
-			}
-		}
-		
-		
-		
-		
-		
-		
+		}		
 	}
 				
 	this.draw = function(frustum) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
-
-/*		let framePos = framePosFor(AIFrames.LevelStraight);
-		
-		if((currentSegment != undefined) && (currentSegment != null)) {
-			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
-			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
-			framePos = frameForDeltaPos(deltaX - previousDeltaX, deltaY - previousDeltaY);
-//			const currentFrame = frameForDeltaPos(deltaX, deltaY, lanePos);
-//			framePos = framePosFor(currentFrame);
-			previousDeltaX = deltaX;
-			previousDeltaY = deltaY;
-		}*/
 		
 		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 		
@@ -282,13 +253,14 @@ function AICar(aType, start, aPath) {
 		if(currentSegment == null) {
 			currentSegment = nextSegment;
 		}
-		
+				
 		if(this.position.z > currentSegment.farPos.world.z) {
 			currentSegment = nextSegment;
-			
+
 			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
 			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
-			framePos = frameForDeltaPos(deltaX - previousDeltaX, deltaY);
+			frameForDeltaPos(deltaX - previousDeltaX, deltaY);
+			
 			previousDeltaX = deltaX;
 		}
 		
