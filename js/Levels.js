@@ -3,7 +3,7 @@ const LEVEL_TEMP_TWO = 1;
 
 
 var Levels = [
-	    {
+    {
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
@@ -13,7 +13,10 @@ var Levels = [
         skyPic: nightSkyPic,
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
-        name: "Night City Skyline"
+        name: "Night City Skyline",
+        skySpeed: function(x) { return 0;},
+        backgroundSpeed: function(x) {return Math.floor(x / 90)},
+        middlegroundSpeed: function(x) {return Math.floor(x / 80)},
     },
     {
         totalHeight: GAME_HEIGHT,
@@ -25,7 +28,10 @@ var Levels = [
         skyPic: tempSkyPic,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
-        name: "Temp Level"
+        name: "Temp Level",
+        skySpeed: function(x) { return 0; },
+        backgroundSpeed: function(x) { return Math.floor(x / 20) },
+        middlegroundSpeed: function(x) { return Math.floor(x / 10) },
     }
 ];
 var currentLevelIndex = 0;

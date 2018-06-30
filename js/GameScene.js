@@ -91,7 +91,7 @@ function GameScene(data) {
 	this.player = new Player();
 
 	this.draw = function () {
-		drawBackground(data.skyPic, 0, data.backgroundPic, Math.floor(this.camera.position.x / 20), data.middleGroundPic, Math.floor(this.camera.position.x / 10));
+		drawBackground(data.skyPic, data.skySpeed(this.camera.position.x), data.backgroundPic, data.backgroundSpeed(this.camera.position.x), data.middleGroundPic, data.middlegroundSpeed(this.camera.position.x));
 		this.road.draw(this.camera.position, this.aiCars);
 		drawTimeExtend(newTimeBonus);
 		drawCountdownTimerAndGO();

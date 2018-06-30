@@ -91,7 +91,7 @@ function EditorScene(data) {
 
 	this.draw = function () {
 
-		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
+		drawBackground(data.skyPic, data.skySpeed(this.camera.position.x), data.backgroundPic, data.backgroundSpeed(this.camera.position.x), data.middleGroundPic, data.middlegroundSpeed(this.camera.position.x));
 
 		this.road.draw(this.camera.position, []);
 		this.road.drawSelected();
