@@ -12,7 +12,7 @@ var Levels = [
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
         skyPic: nightSkyPic,
         backgroundPic: nightSkyBackgroundPic,
-        middleGroundPic: undefined,
+        middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline"
     },
     {
@@ -22,7 +22,7 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-        skyPic: undefined,
+        skyPic: tempSkyPic,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
         name: "Temp Level"

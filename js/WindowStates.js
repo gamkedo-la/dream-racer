@@ -94,6 +94,7 @@ function mainMenuStates() {
         colorText('Levels: ' + (currentLevelIndex+1) + '/' + Levels.length ,200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
         colorText('Name:' + Levels[currentLevelIndex].name );
 
+        drawImageRotated(Levels[currentLevelIndex].skyPic, 400, 400, 0);
         drawImageRotated(Levels[currentLevelIndex].backgroundPic, 400, 400, 0);
         drawImageRotated(Levels[currentLevelIndex].middleGroundPic, 400, 400, 0);
 	} else if(windowState.help) {
