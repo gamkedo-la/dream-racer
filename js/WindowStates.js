@@ -91,10 +91,16 @@ function mainMenuStates() {
         opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 
+        let animationSpeedBackground = clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53, 0, canvas.width/2); //@FIXME: magical LevelSelect AnimationSpeed
+        let animationSpeedForeground = animationSpeedBackground;
 
+        if(animationSpeedBackground > canvas.width/2 - 10) {
+            animationSpeedBackground -= (frameFromGameStart-selectLevelAnimationStartFrame)/14;
+            animationSpeedForeground -= (frameFromGameStart-selectLevelAnimationStartFrame)/10;
+        }
         wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53, 0, canvas.width/2), y:200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53,0, canvas.width/2 ), y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y:200, scale: undefined });
 
         colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
         colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
