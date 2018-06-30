@@ -14,7 +14,7 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 20000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 200000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
@@ -74,7 +74,7 @@ function GameScene(data) {
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(20 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
 	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
-	this.aiCars = [new AICar(AIType.Pickup, aiStartPos, laneChange)];
+	this.aiCars = [new AICar(AIType.Semi, aiStartPos, laneChange)];
 
 	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
 	const aiStartPos2 = new aiStart(AISegment2, Lane.Right, 10, 0.25, 0);
@@ -84,7 +84,7 @@ function GameScene(data) {
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(50 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(60 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
 	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(70 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	this.aiCars.push(new AICar(AIType.Semi, aiStartPos2, laneChange2));
+	this.aiCars.push(new AICar(AIType.Pickup, aiStartPos2, laneChange2));
 
 	this.currentZIndex = 0;
 	this.player = new Player();

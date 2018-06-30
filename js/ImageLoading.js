@@ -159,8 +159,8 @@ function loadImages() {
 	imageList.push({ imgName: nightSkyBackgroundPic, theFile: "nightSkyBackground.png" });
 	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
-	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet.png" });
-	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet.png" });
+	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
+	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet-small.png" });
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });

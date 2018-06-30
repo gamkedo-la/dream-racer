@@ -80,9 +80,9 @@ function AICar(aType, start, aPath) {
 	const sizeForType = function(type) {
 		switch(type) {
 			case AIType.Pickup:
-				return {width:135, height:145};
+				return {width:103, height:75};
 			case AIType.Semi:
-				return {width:300, height:325};//Need to change this once the semi exists in game
+				return {width:200, height:150};//Need to change this once the semi exists in game
 		}
 	}
 	const size = sizeForType(aType);
@@ -175,10 +175,12 @@ function AICar(aType, start, aPath) {
 	}
 	
 	const frameForDeltaPos = function(deltaX, deltaY) {
-		if(deltaY > 0) {
+		if(deltaY < 0) {
 			framePos.y = 0;
-		} else if(deltaY < 0) {
+		} else if(deltaY > 0) {
 			framePos.y = 2;
+		} else {
+			framePos.y = 1;
 		}
 		
 		if(deltaX < -55) {
@@ -234,7 +236,7 @@ function AICar(aType, start, aPath) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
 		
-		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
+		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - 20 - screenSize.height / 2, screenSize.width, screenSize.height);
 		
 		const widthRatio = screenSize.width / (this.width);
 		const heightRatio = screenSize.height / (this.height);
