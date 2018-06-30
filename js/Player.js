@@ -112,7 +112,7 @@ function Player() {
 				if (frameNum > 4) frameNum = 4;
 			}
 
-			if (!raceWon) {	
+			if (!scene.raceWon) {
 				if ((!holdLeft && !holdA) && (!holdRight && !holdD))  {
 				turnLeftFramecount = 0;
 				turnRightFramecount = 0;
@@ -132,7 +132,7 @@ function Player() {
 			if (goingUphill) frameOffset = 18;
 			if (goingDownhill) frameOffset = 9;
 
-			if (raceWon) {
+			if (scene.raceWon) {
 				this.raceWonAnimation();
 			}
 			this.drawPlayerCarSprite(frameNum + frameOffset);
@@ -237,7 +237,7 @@ function Player() {
 		let oldTurnRate = this.turnRate;
 
 		// this.speed > 1 stops the player from turning during countdown
-		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1 && !raceWon) {
+		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1 && !scene.raceWon) {
 			this.turnRate += this.TURN_RATE_PER_FRAME;
 		}
 		
@@ -328,12 +328,9 @@ function Player() {
 				winCounter++;
 			}
 			if (winCounter > framesPerSecond*3) { //Other conditions?
-				currentMusicTrackIndex++;
-				scene = new GameScene(getLevel(LEVEL_TEMP_TWO));
-				currentBackgroundMusic.pause();
-				currentBackgroundMusic.setCurrentTrack(currentMusicTrackIndex);
+				scene.gameIsOver = true;
 				winCounter = 0;
-				raceWon = false;
+				scene.raceWon = false;
 				victoryAnimation = false;
 			}
 		}

@@ -117,7 +117,6 @@ function keyPress(evt) {
 				if(!showedHelp) {
 					openHelp();
 				} else if(scene === undefined || scene == null) {
-                    selectLevelAnimationStartFrame = frameFromGameStart;
 					levelSelectScreen();
 				}
 				else {

@@ -181,8 +181,15 @@ function startGame() {
 function levelSelectScreen() {
 	if(isPaused) return;
 
-	windowState.mainMenu = false;
-	windowState.levelSelect = true;
+    windowState.help = false;
+    windowState.mainMenu = false;
+    windowState.editorHelp = false;
+    windowState.playing = false;
+    windowState.editing = false;
+    windowState.gameOver = false;
+    windowState.levelSelect = true;
+
+    selectLevelAnimationStartFrame = frameFromGameStart;
 }
 
 function startEditing() {

@@ -127,10 +127,11 @@ function mainMenuStates() {
             //change window state to game over
             windowState.playing = false;
             windowState.gameOver = true;
-            scene = null;
+
             gameOver.initialize();
-            console.log("GAME OVER SCREEN")
+            scene = null;
         }
+
 	} else if(windowState.editing) {
 		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		editingMoveAll();

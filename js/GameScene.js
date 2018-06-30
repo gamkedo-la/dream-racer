@@ -1,5 +1,3 @@
-let raceWon = false;
-
 //GameScene
 function GameScene(data) {
 	let currentCrashCount = 0;
@@ -10,6 +8,7 @@ function GameScene(data) {
 	let timeExtendCounter = 0;
 	let newTimeBonus = 0;
 	this.data = data;
+	this.raceWon = false;
 	this.camera = new Camera(data.cameraPos);
 	this.frustum = new FrustumTranslator(this.camera, data.near);
 	this.road = new Road(this.frustum);
@@ -97,7 +96,7 @@ function GameScene(data) {
 		drawCountdownTimerAndGO();
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
-		if (raceWon) {
+		if (this.raceWon) {
 			deltaY = 0;
 		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
@@ -196,7 +195,7 @@ function GameScene(data) {
 	}
 
 	this.updateTimer = function () {
-		if (!countdownfinished || raceWon) {
+		if (!countdownfinished || this.raceWon) {
 			return;
 		}
 		this.currentFrameTimestamp = Date.now();
@@ -248,7 +247,7 @@ function GameScene(data) {
 			this.checkForCollisions(baseSegment);
 
 			let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
-			if (raceWon) {
+			if (this.raceWon) {
 				deltaY = 0;
 			}
 			this.player.move(deltaY, canAccelerate, canBoost);
@@ -273,7 +272,7 @@ function GameScene(data) {
 			canAccelerate = false;
 		}
 
-		if (raceWon) {
+		if (this.raceWon) {
 			return;
 		} else {
 			if (this.countdownTimeLeft > 0) {
@@ -302,7 +301,7 @@ function GameScene(data) {
 						canAccelerate = false;
 						canTurn = false;
 						canBoost = false;
-						raceWon = true;
+						this.raceWon = true;
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
 						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
