@@ -63,6 +63,7 @@ let holdW, holdX, holdZero = false;
 let holdN = false;
 let holdSpace = false;
 
+
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
 
@@ -115,8 +116,12 @@ function keyPress(evt) {
 			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
 				if(!showedHelp) {
 					openHelp();
-				} else {
+				} else if(scene === undefined || scene == null) {
+                    selectLevelAnimationStartFrame = frameFromGameStart;
 					levelSelectScreen();
+				}
+				else {
+					startGame();
 				}
 			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
 				continueEditing();
@@ -147,6 +152,7 @@ function keyPress(evt) {
 			keyUsedByGame = true;
 			holdLeft = true;
 			if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
 				nextLevel();
 			}
 			break;
@@ -158,6 +164,7 @@ function keyPress(evt) {
 			keyUsedByGame = true;
 			holdRight = true;
             if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
                 nextLevel();
             }
 			break;

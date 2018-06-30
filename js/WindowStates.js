@@ -14,6 +14,7 @@ let windowState = {
 	gameOver: false,
 	endingScreen: false//displayed when the game is beat
 };
+let selectLevelAnimationStartFrame = 0;
 
 let bulletPointIcon = '\u2022'
 let leftArrowIcon = '\u2190';
@@ -89,14 +90,16 @@ function mainMenuStates() {
     } else if(windowState.levelSelect) {
         opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-        colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-        colorText('Levels: ' + (currentLevelIndex+1) + '/' + Levels.length ,200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-        colorText('Name:' + Levels[currentLevelIndex].name );
 
-        drawImageRotated(Levels[currentLevelIndex].skyPic, 400, 400, 0);
-        drawImageRotated(Levels[currentLevelIndex].backgroundPic, 400, 400, 0);
-        drawImageRotated(Levels[currentLevelIndex].middleGroundPic, 400, 400, 0);
+
+        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53, 0, canvas.width/2), y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53,0, canvas.width/2 ), y:200, scale: undefined });
+
+        colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+        colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
+        colorText((currentLevelIndex+1) + '/' + Levels.length, TitleTextX,canvas.height/2+160,textColor.White,fonts.Subtitle,textAlignment.Center );
+        colorText(Levels[currentLevelIndex].name, TitleTextX,canvas.height/2+120,textColor.White,fonts.Subtitle,textAlignment.Center );
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video

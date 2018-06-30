@@ -242,17 +242,16 @@ function wrapAndtransformDraw(whichImg, pixelOffset) {
 		0, 0, whichImg.width, whichImg.height,
 		//dstX, dstY, dstW, dstH
 		(1 - scale)/2 * canvas.width + wrappedOffset.x,
-		(1 - scale) * whichImg.height,
+		(1 - scale) * whichImg.height + wrappedOffset.y,
 		scale * ( whichImg.width ),
 		scale * (whichImg.height));
 
 	let drawSize = (whichImg.width - wrappedOffset.x);
-
 	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
 		canvasContext.drawImage(whichImg,
 			drawSize, 0, wrappedOffset.x, whichImg.height,
             (1 - scale)/2 * canvas.width,
-			(1 - scale) * whichImg.height,
+			(1 - scale) * whichImg.height + wrappedOffset.y,
 			scale * wrappedOffset.x,
 			scale * whichImg.height
 		);
