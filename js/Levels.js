@@ -14,9 +14,23 @@ var Levels = [
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline",
-        skySpeed: function(x) { return 0;},
-        backgroundSpeed: function(x) {return Math.floor(x / 90)},
-        middlegroundSpeed: function(x) {return Math.floor(x / 80)},
+        skyTransformFunc: function() {
+            return {x: 0, y: 0, z: undefined};
+        },
+        backgroundTransformFunc: function(position) {
+            return {
+                x: Math.floor(position.x / 90),
+                y: 0,
+                scale: (Math.tanh(position.z / 18000) + 1) / 2
+            }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {
+                x: Math.floor(position.x / 60),
+                y: 0,
+                scale: (Math.tanh(position.z / 18000) + 1) / 2
+            }
+        },
     },
     {
         totalHeight: GAME_HEIGHT,
@@ -29,9 +43,15 @@ var Levels = [
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
         name: "Temp Level",
-        skySpeed: function(x) { return 0; },
-        backgroundSpeed: function(x) { return Math.floor(x / 20) },
-        middlegroundSpeed: function(x) { return Math.floor(x / 10) },
+        skyTransformFunc: function() {
+            return {x: 0, y: 0, scale: undefined };
+        },
+        backgroundTransformFunc: function() {
+            return {x: frameFromGameStart , y: 0, scale: undefined }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 20), y: 0, scale: undefined }
+        },
     }
 ];
 var currentLevelIndex = 0;

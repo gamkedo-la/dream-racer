@@ -6,6 +6,8 @@ const DEBUG = true;
 const GAME_HEIGHT = 600;
 const framesPerSecond = 30;
 
+let frameFromGameStart = 0;
+
 let scene;
 let isLocalStorageInitialized = false;
 
@@ -155,6 +157,7 @@ function loadingDoneSoStartGame() {
 function update() {
 	mainMenuStates();
 	AudioEventManager.updateEvents();
+	frameFromGameStart++; //@FIXME: Is there a global frameCounter that i missed?
 };
 
 function startGame() {
@@ -217,21 +220,41 @@ function editingMoveAll() {
 	scene.move();
 };
 
-function wrappedDraw(whichImg, pixelOffset) {
-	let wrappedOffset = Math.floor(pixelOffset % whichImg.width);
-	if (pixelOffset < 0) {
-		wrappedOffset = whichImg.width + wrappedOffset;
+function wrapAndtransformDraw(whichImg, pixelOffset) {
+	let wrappedOffset = {
+		x: Math.floor(pixelOffset.x % whichImg.width),
+	 	y: Math.floor(pixelOffset.y % whichImg.height)
+	};
+	let scale = 1;
+	if(pixelOffset.scale !== undefined) {
+        scale = pixelOffset.scale;
+    }
+
+	if (wrappedOffset.x < 0) {
+		wrappedOffset.x = whichImg.width + wrappedOffset.x;
+	}
+	if (wrappedOffset.y < 0) {
+		wrappedOffset.y = whichImg.height + wrappedOffset.y
 	}
 
-	canvasContext.drawImage(whichImg, 0, 0,
-		whichImg.width - wrappedOffset, whichImg.height,
-		wrappedOffset, 0,
-		whichImg.width - wrappedOffset, whichImg.height);
-	let drawSize = (whichImg.width - wrappedOffset);
+	canvasContext.drawImage(whichImg,
+		//srcX, srcY, srcW, srcH
+		0, 0, whichImg.width, whichImg.height,
+		//dstX, dstY, dstW, dstH
+		(1 - scale)/2 * canvas.width + wrappedOffset.x,
+		(1 - scale) * whichImg.height,
+		scale * ( whichImg.width ),
+		scale * (whichImg.height));
+
+	let drawSize = (whichImg.width - wrappedOffset.x);
+
 	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
-		canvasContext.drawImage(whichImg, drawSize, 0,
-			wrappedOffset, whichImg.height,
-			0, 0,
-			wrappedOffset, whichImg.height);
+		canvasContext.drawImage(whichImg,
+			drawSize, 0, wrappedOffset.x, whichImg.height,
+            (1 - scale)/2 * canvas.width,
+			(1 - scale) * whichImg.height,
+			scale * wrappedOffset.x,
+			scale * whichImg.height
+		);
 	}
 }

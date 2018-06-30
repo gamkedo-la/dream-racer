@@ -91,7 +91,7 @@ function GameScene(data) {
 	this.player = new Player();
 
 	this.draw = function () {
-		drawBackground(data.skyPic, data.skySpeed(this.camera.position.x), data.backgroundPic, data.backgroundSpeed(this.camera.position.x), data.middleGroundPic, data.middlegroundSpeed(this.camera.position.x));
+		drawBackground(data.skyPic, data.skyTransformFunc(this.camera.position), data.backgroundPic, data.backgroundTransformFunc(this.camera.position), data.middleGroundPic, data.middlegroundTransformFunc(this.camera.position));
 		this.road.draw(this.camera.position, this.aiCars);
 		drawTimeExtend(newTimeBonus);
 		drawCountdownTimerAndGO();
@@ -106,15 +106,15 @@ function GameScene(data) {
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
 		if (skyImage != undefined) {
-			wrappedDraw(skyImage, skyOffset);
+			wrapAndtransformDraw(skyImage, skyOffset);
 		}
 
 		if (backgroundImage != undefined) {
-			wrappedDraw(backgroundImage, backgroundOffset);
+			wrapAndtransformDraw(backgroundImage, backgroundOffset);
 		}
 
 		if (middleGroundImage != undefined) {
-			wrappedDraw(middleGroundImage, middleGroundOffset);
+			wrapAndtransformDraw(middleGroundImage, middleGroundOffset);
 		}
 	}
 
