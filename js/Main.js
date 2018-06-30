@@ -222,8 +222,8 @@ function editingMoveAll() {
 
 function wrapAndtransformDraw(whichImg, pixelOffset) {
 	let wrappedOffset = {
-		x: Math.floor(pixelOffset.x % whichImg.width),
-	 	y: Math.floor(pixelOffset.y % whichImg.height)
+		x: pixelOffset.x % whichImg.width,
+	 	y: pixelOffset.y % whichImg.height
 	};
 	let scale = 1;
 	if(pixelOffset.scale !== undefined) {
@@ -241,7 +241,7 @@ function wrapAndtransformDraw(whichImg, pixelOffset) {
 		//srcX, srcY, srcW, srcH
 		0, 0, whichImg.width, whichImg.height,
 		//dstX, dstY, dstW, dstH
-		(1 - scale)/2 * canvas.width + wrappedOffset.x,
+		(1 - scale)/2 * canvas.width + wrappedOffset.x -1, // -1 fixes float point tearing when drawing two images;
 		(1 - scale) * whichImg.height + wrappedOffset.y,
 		scale * ( whichImg.width ),
 		scale * (whichImg.height));
