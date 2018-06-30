@@ -40,6 +40,40 @@ var hud = {
             canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (8 * n), y, 8, 9); // 0
         }
     },
+    drawTime: function (timeInSeconds, x, y, color) {
+        let minutes = Math.floor(timeInSeconds / 60);
+        let seconds = Math.floor(timeInSeconds % 60);
+        if(seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        if(minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        colorText(minutes + ":" + seconds, x, y, color, fonts.CreditsText, 'left', 1);
+    },
+    drawMusicPanel: function() {
+        let panelLeftTopCorner = {x: canvas.width/2-100, y: canvas.height-155};
+        let color = 'black';
+        let playSymbol = ">";
+        let pauseSymbol = "||";
+        let volume = currentBackgroundMusic.getVolume();
+        let meta = currentBackgroundMusic.getTrackMeta();
+        let currentTime = currentBackgroundMusic.getTime();
+        let totalTime = currentBackgroundMusic.getDuration();
+        let currentSymbol = currentBackgroundMusic.getPaused() ? pauseSymbol : playSymbol;
+
+        colorText("Title:" + meta["title"], panelLeftTopCorner.x, panelLeftTopCorner.y, color, fonts.CreditsText, 'left', 1);
+        this.drawTime(currentTime, panelLeftTopCorner.x + 120, panelLeftTopCorner.y, color);
+        colorText("/", panelLeftTopCorner.x + 160, panelLeftTopCorner.y, color, fonts.CreditsText, 'left', 1);
+        this.drawTime(totalTime, panelLeftTopCorner.x + 165, panelLeftTopCorner.y, 'black');
+        colorText("Artist:" + meta["author"], panelLeftTopCorner.x, panelLeftTopCorner.y+20, color, fonts.CreditsText, 'left', 1);
+        colorText("Album:" + meta["album"], panelLeftTopCorner.x, panelLeftTopCorner.y+40, color, fonts.CreditsText, 'left', 1);
+        colorText("Year:" + meta["year"], panelLeftTopCorner.x, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
+        //@FIXME: Volume does not display correctly;
+        colorText("Volume:" + volume, panelLeftTopCorner.x+80, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
+
+        colorText("" + currentSymbol, panelLeftTopCorner.x+160, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
+    },
 
     draw: function () {
 
@@ -101,5 +135,7 @@ var hud = {
         this.drawNumPadded(Math.floor(scene.player.speed * 10), Math.floor(canvas.width / 2 + 249), canvas.height - 90);
         canvasContext.drawImage(hudPic, 320, 0, 24, 16, Math.floor(canvas.width / 2 + 291), canvas.height - 93, 24, 16);
 
+        //MUSIC PLAYER
+        this.drawMusicPanel();
     }
 };

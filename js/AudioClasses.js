@@ -636,10 +636,14 @@ function musicTrack(filename, playLength) {//Single buffer music file
 		return musicFile.paused;
 	}
 
+    this.getMeta = function() {
+        return this.meta;
+    }
+
 	return this;
 }
 
-function musicTrackLoop(filename, playLength) {//Double buffer music file that loops
+function musicTrackLoop(filename, playLength, meta) {//Double buffer music file that loops
 	var musicFile = new Array(new Audio(audioPath+filename+audioFormat()), new Audio(audioPath+filename+audioFormat()));
 	musicFile[0].onerror = function(){musicFile[0] = new Audio(audioPath+filename+audioFormat(true))}
 	musicFile[1].onerror = function(){musicFile[1] = new Audio(audioPath+filename+audioFormat(true))}
@@ -659,6 +663,7 @@ function musicTrackLoop(filename, playLength) {//Double buffer music file that l
 		musicFile[currentTrack].play();
 		AudioEventManager.addTimerEvent(this, (this.getDuration() - this.getTime()), "loop");
 	}
+	this.meta = meta;
 
 	this.stop = function() {
 		musicFile[0].pause();
@@ -740,6 +745,10 @@ function musicTrackLoop(filename, playLength) {//Double buffer music file that l
 
 	this.getPaused = function() {
 		return musicFile[currentTrack].paused;
+	}
+
+	this.getMeta = function() {
+		return this.meta;
 	}
 }
 
@@ -846,6 +855,10 @@ function musicContainer(trackList) {//Basic containers
 
 	this.getPaused = function() {
 		return musicTrack[currentTrack].getPaused();
+	}
+
+	this.getTrackMeta = function() {
+		return musicTrack[currentTrack].getMeta();
 	}
 }
 
