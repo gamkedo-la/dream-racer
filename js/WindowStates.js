@@ -126,7 +126,8 @@ function mainMenuStates() {
         if(scene.gameIsOver) {
             //change window state to game over
             windowState.playing = false;
-            windowState.gameOver = true;
+//            windowState.gameOver = true;
+			windowState.levelSelect = true;
 
             gameOver.initialize();
             scene = null;
