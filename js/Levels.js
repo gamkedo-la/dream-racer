@@ -14,7 +14,7 @@ var Levels = [
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline",
-        musicTrackIndex: 0,
+        musicTrackIndex: 1,
         skyTransformFunc: function() {
             return {x: 0, y: 0, z: undefined};
         },
@@ -44,7 +44,7 @@ var Levels = [
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
         name: "Temp Level",
-        musicTrackIndex: 1,
+        musicTrackIndex: 2,
         skyTransformFunc: function() {
             return {x: 0, y: 0, scale: undefined };
         },

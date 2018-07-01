@@ -773,6 +773,18 @@ function musicContainer(trackList) {//Basic containers
 		}
 	}
 
+	this.nextTrack = function() {
+	    this.stop();
+        currentTrack = (currentTrack + 1) % trackList.length;
+        this.play();
+    }
+
+    this.prevTrack = function() {
+        this.stop();
+        currentTrack = (currentTrack - 1 + trackList.length) % trackList.length;
+        this.play();
+    }
+
 	this.resume = function() {
 		musicTrack[currentTrack].resume();
 	}

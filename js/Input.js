@@ -50,6 +50,10 @@ const KEY_X = 88;
 const KEY_Y = 89;
 const KEY_Z = 90;
 
+const KEY_GREATER_THAN = 190;
+const KEY_LESS_THAN = 188;
+
+
 const KEY_CMD = KEY_LEFT_WINDOW = 91;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
@@ -96,7 +100,7 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
-//	console.log(evt.keyCode);
+	// console.log(evt.keyCode);
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
@@ -366,8 +370,6 @@ function keyRelease(evt) {
 			break;
         case KEY_K:
             break;
-        case KEY_L:
-            break;
 		case KEY_M:
 			break;
 		case KEY_N:
@@ -432,6 +434,17 @@ function keyRelease(evt) {
 			break;
 		case KEY_TILDE:
 			break;
+		case KEY_GREATER_THAN:
+			//switch to next track
+			currentBackgroundMusic.nextTrack();
+			break;
+		case KEY_LESS_THAN:
+			//switch to prev track
+			currentBackgroundMusic.prevTrack();
+			break;
+		case KEY_L:
+			//pause music
+			currentBackgroundMusic.getPaused() ? currentBackgroundMusic.resume() : currentBackgroundMusic.pause();
 		default:
 			break;
 	}
