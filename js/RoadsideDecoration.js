@@ -31,6 +31,7 @@ const DecorationType = {
 	PalmTree:"palmTree",
 	Tree3:"Tree3",
 	Tree4:"Tree4",
+	Tree6:"tree6-23v2",
 	QuestionSign:"QuestionSign",
 	RightStreetLight_NoLight:"RightStreetLight_NoLight",
 	RightStreetLight:"RightStreetLight",
@@ -255,6 +256,9 @@ function RoadsideDecoration(image, pos) {
 			case "Tree4.png":
 				this.type = DecorationType.Tree4;
 				break;
+			case "Tree6.png":
+				this.type = DecorationType.Tree6;
+				break;
 			case "QuestionSign.png":
 				this.type = DecorationType.QuestionSign;
 				break;
@@ -345,6 +349,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree4:
 				return {xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10};
+			case DecorationType.Tree6:
+				return {xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
 		}
@@ -373,6 +379,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree3:
 			case DecorationType.Tree4:
 				return 2;
+			case DecorationType.Tree6:
+				return 0.5;
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BurgerBillboard:
 				return 3;
