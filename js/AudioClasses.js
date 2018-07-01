@@ -764,6 +764,10 @@ function musicContainer(trackList) {//Basic containers
 	var trackVolume = 1;
 
 	this.play = function() {
+        for (var i in trackList) {
+            musicTrack[i] = trackList[i];
+            musicTrack[i].pause();
+        }
 		musicTrack[currentTrack].play();
 	}
 
