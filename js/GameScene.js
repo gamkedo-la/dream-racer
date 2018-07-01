@@ -3,6 +3,7 @@ function GameScene(data) {
 	let currentCrashCount = 0;
 	const CRASH_DELTA_SPEED = 4;
 	const BUMPED_CAR_SPEED_REDUCTION = 10;
+	const BUMPED_FROM_BEHIND_SPEED_UP =10;
 
 	let passedACheckPoint = false;
 	let timeExtendCounter = 0;
@@ -213,9 +214,7 @@ function GameScene(data) {
 
 	this.move = function () {
 		this.updateTimer();
-
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
-
 		if (baseSegment.path.length == 0) { return; }
 
 		if (baseSegment.path[0].x > 1.05 * this.player.position.x) {//1.05 helps ensure a tire is off the road
@@ -339,10 +338,15 @@ function GameScene(data) {
 
 						this.player.speed -= BUMPED_CAR_SPEED_REDUCTION;
 
-						if (this.player.boosting) {
-							this.setPlayerCrashingState(true);
-						}
+						if (Math.abs(this.aiCars[i].speed - this.player.speed) > CRASH_DELTA_SPEED) {
+							console.log('hit from behind')
+							this.player.speed = 9;
 
+							if (this.player.boosting) {
+						
+									this.setPlayerCrashingState(true);
+							}
+						}
 
 					} else {
 						const playerSpeed = this.player.speed;
