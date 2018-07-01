@@ -62,7 +62,8 @@ var hud = {
         let totalTime = currentBackgroundMusic.getDuration();
         let currentSymbol = currentBackgroundMusic.getPaused() ? pauseSymbol : playSymbol;
 
-        colorText("Title:" + meta["title"], panelLeftTopCorner.x, panelLeftTopCorner.y, color, fonts.CreditsText, 'left', 1);
+
+        scrollingText("Title:" + meta["title"], panelLeftTopCorner.x, panelLeftTopCorner.y, 110, 20, color, fonts.CreditsText, 0.5 ,true);
         this.drawTime(currentTime, panelLeftTopCorner.x + 120, panelLeftTopCorner.y, color);
         colorText("/", panelLeftTopCorner.x + 160, panelLeftTopCorner.y, color, fonts.CreditsText, 'left', 1);
         this.drawTime(totalTime, panelLeftTopCorner.x + 165, panelLeftTopCorner.y, 'black');
