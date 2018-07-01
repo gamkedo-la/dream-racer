@@ -12,7 +12,7 @@ function LocalStorageHelper() {
     catch(e) {
       return null;
     }
-  }
+  };
 
   this.setItem = function(keyName, keyValue) {
     try {
@@ -20,5 +20,16 @@ function LocalStorageHelper() {
     }
     catch(e) {
     }
-  }
+  };
+
+  this.getFlag = function (keyName) {
+      try {
+          var storedValue = window.localStorage.getItem(keyName);
+          return storedValue === "true";
+      }
+      catch(e) {
+          return false;
+      }
+  };
+  this.setFlag = this.setItem;
 }

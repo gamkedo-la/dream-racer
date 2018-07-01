@@ -1,9 +1,10 @@
 //WindowStates
-let firstLoad;
-let isPaused = false; 
+let showedHelp = false;
+let isPaused = false;
 let windowState = {
 	inFocus : true,
 	mainMenu : true,
+	levelSelect : false,
 	credits : false,
 	help : false,
 	playing : false,
@@ -13,6 +14,13 @@ let windowState = {
 	gameOver: false,
 	endingScreen: false//displayed when the game is beat
 };
+let selectLevelAnimationStartFrame = 0;
+
+let bulletPointIcon = '\u2022'
+let leftArrowIcon = '\u2190';
+let upArrowIcon = '\u2191';
+let rightArrowIcon = '\u2192';
+let downArrowIcon = '\u2193';
 
 function tintScreen() {
     canvasContext.fillStyle = textColor.Black;
@@ -28,7 +36,7 @@ function showPausedScreen() {
 }
 
 function windowOnFocus() {
-	currentBackgroundMusic.resume();
+	resumeAudio();
 	if(!windowState.inFocus) {
 		windowState.inFocus = true;
 		gameUpdate = setInterval(update, 1000/30);
@@ -38,13 +46,12 @@ function windowOnFocus() {
 
 function windowOnBlur() {
     tintScreen();
-	currentBackgroundMusic.pause();
+	pauseAudio();
 	if (!isPaused && !windowState.help) {
 		windowState.inFocus = false;
 		clearInterval(gameUpdate);
-		
-			pauseSound.play();
-			showPausedScreen();
+		pauseSound.play();
+		showPausedScreen();
 	}
 }
 
@@ -52,52 +59,82 @@ function mainMenuStates() {
 	if(windowState.mainMenu) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		canvasContext.drawImage(currentBackgroundFar,0,0);//Use this.  Would be cool to change this to a demo video
 		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-		
+
 		mainMenu.handleSliders();
 		mainMenu.drawButtons(opacity);
 	} else if(windowState.credits) {
-		opacity = 1;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		drawSkyGradient();
-//		canvasContext.drawImage(currentBackgroundFar,0,0);//Will need an image for this
-		colorText('Credits will go here',canvas.width/2 ,100,textColor.White,gameTitle.Subtitle,textAlignment.Center,opacity);
-		var textX = 150;
-		var textY = 150;
-		var textSkip = 20;
-		var creditsFont = fonts.CreditsText;
-		colorText("Name: ShadyDave Roles: Placeholder music available from freesound.org - ",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("       https://freesound.org/people/ShadyDave/sounds/325647/",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: H Trayford - Roles: Game Lead, Prototype, Level Editor",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText("Name: Roles",textX,textY ,textColor.White,creditsFont,textAlignment.Left,opacity); textY += textSkip;
-		colorText('Press [Backspace] to go Back to Menu',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        opacity = 1;
+        drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText('Credits will go here', canvas.width / 2, 100, textColor.White, gameTitle.Subtitle, textAlignment.Center, opacity);
+        var textX = 150;
+        var textY = 150;
+        var textSkip = 20;
+        var creditsFont = fonts.CreditsText;
+        colorText('Name: H Trayford - Roles: Game Lead, Prototype, Level Editor', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
+        textY += textSkip;
+        colorText('Press [Backspace] to go Back to Menu', canvas.width / 2, 500, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
+    } else if(windowState.levelSelect) {
+        opacity = 1;
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+
+        let animationSpeedBackground = clamp((frameFromGameStart-selectLevelAnimationStartFrame)*53, 0, canvas.width/2); //@FIXME: magical LevelSelect AnimationSpeed
+        let animationSpeedForeground = animationSpeedBackground;
+
+        if(animationSpeedBackground > canvas.width/2 - 10) {
+            animationSpeedBackground -= (frameFromGameStart-selectLevelAnimationStartFrame)/14;
+            animationSpeedForeground -= (frameFromGameStart-selectLevelAnimationStartFrame)/10;
+        }
+        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y:200, scale: undefined });
+
+        colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+        colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
+        colorText((currentLevelIndex+1) + '/' + Levels.length, TitleTextX,canvas.height/2+160,textColor.White,fonts.Subtitle,textAlignment.Center );
+        colorText(Levels[currentLevelIndex].name, TitleTextX,canvas.height/2+120,textColor.White,fonts.Subtitle,textAlignment.Center );
 	} else if(windowState.help) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-//		drawSkyGradient(); 
-//		canvasContext.drawImage(currentBackgroundFar,0,0);
 		colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText("1) Press [C] to switch between input options:",250,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(" Default Inputs: A/D or arrows for left/right, mouse to aim tank cannon, mouse click or spacebar for shooting",0,180 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
-		colorText(" Optional Inputs: Arrows for left/right, A/D for moving cannon left/right, spacebar for shooting",0,210 ,textColor.White,fonts.CreditsText,textAlignment.Left,opacity);
-		colorText("2) Pick-up power-ups using Excalibur",250,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("3) [P] to pause and resume game",250,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText('Press [Backspace] to Return to Main Menu',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+		colorText(bulletPointIcon + '  [W] or [' + upArrowIcon + '] to accellerate',200,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [X] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [Spacebar] to change gears',200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [N] to use Nitro',200,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText(bulletPointIcon + '  [P] to pause and resume game',200,300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText('Press [Backspace] to Return to the Main Menu at anytime',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 		colorText('Press [Enter] to Start game',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
 	} else if(windowState.playing) {
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		moveAll();
 		drawAll();
+        if(scene.gameIsOver) {
+            //change window state to game over
+            windowState.playing = false;
+//            windowState.gameOver = true;
+			windowState.levelSelect = true;
+
+            gameOver.initialize();
+            scene = null;
+        }
+
 	} else if(windowState.editing) {
-		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video	
+		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
 		editingMoveAll();
 		editingDrawAll();
 	} else if(windowState.editorHelp) {
@@ -105,7 +142,7 @@ function mainMenuStates() {
 		const leftEdge = 125;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
 		colorText('How To Edit',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText("1) Press [+]/[-] to add/remove segments to the road.", leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+		colorText('1) Press [+]/[-] to add/remove segments to the road.', leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("2) Click on each segment to select (or [CMD+A]/[CNTRL+A] to select all).", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("3) With >1 segment selected, press left/right arrows to curve the road.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
 		colorText("4) With >1 segment selected, press [+]/[-] to make hills/valleys.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
@@ -131,6 +168,12 @@ function mainMenuStates() {
 		colorText('Press [-] to see previous help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
 	} else if(windowState.gameOver) {
 		//Need lose conditions that drive us here, then need to impliment
+		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
+
+//		gameOver.handleSliders();
+		gameOver.drawButtons(opacity);
 	} else if(windowState.endingScreen) {
 		//Need win conditions that drive us here, then need to impliment
 	}
@@ -138,23 +181,21 @@ function mainMenuStates() {
 
 function openHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.mainMenu = false;
 	windowState.help = true;
-	firstLoad = false;
-	localStorageHelper.setItem(localStorageKey.FirstLoad, firstLoad);
 }
 
 function showEditorHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.editing = false;
 	windowState.editorHelp = true;
 }
 
 function showMoreEditorHelp() {
 	if(isPaused) {return;}
-	
+
 	windowState.editorHelp = false;
 	windowState.moreEditorHelp = true;
 }
@@ -171,19 +212,23 @@ function backToMainMenu() {
 	if(isPaused) {
 		return;
 	}
+  windowState.gameOver = false;
 	windowState.credits = false;
 	windowState.mainMenu = true;
 }
 
 function togglePause() {
-    isPaused = !isPaused;	
+    isPaused = !isPaused;
     if(isPaused) {
         showPausedScreen();
         pauseSound.play();
+        pauseAudio();
         clearInterval(gameUpdate);
+        scene.timeSinceLastFrame = null;
+		scene.currentFrameTimestamp = null;
+		scene.previousFrameTimestamp = null;
     } else {
 		gameUpdate = setInterval(update, 1000/30);
         resumeSound.play();
-		timeStartedActive = new Date().getTime();
     }
 }

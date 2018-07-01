@@ -39,7 +39,7 @@ const KEY_M = 77;
 const KEY_N = 78;
 const KEY_O = 79;
 const KEY_P = 80;
-const KEY_Q = 81;  
+const KEY_Q = 81;
 const KEY_R = 82;
 const KEY_S = 83;
 const KEY_T = 84;
@@ -49,6 +49,10 @@ const KEY_W = 87;
 const KEY_X = 88;
 const KEY_Y = 89;
 const KEY_Z = 90;
+
+const KEY_GREATER_THAN = 190;
+const KEY_LESS_THAN = 188;
+
 
 const KEY_CMD = KEY_LEFT_WINDOW = 91;
 const KEY_PLUS = 187;
@@ -61,6 +65,8 @@ let holdShift, holdA, holdCmd_Cntrl = false;
 let holdS, holdBackSpace, holdD = false;
 let holdW, holdX, holdZero = false;
 let holdN = false;
+let holdSpace = false;
+
 
 const CONTROL_SCHEME_KEYS_STATIONARY = 0;
 const CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING = 1;
@@ -94,7 +100,7 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
-//	console.log(evt.keyCode);
+	// console.log(evt.keyCode);
 	let keyUsedByGame = false;
 	switch (evt.keyCode) {
 		case KEY_BACKSPACE:
@@ -109,14 +115,22 @@ function keyPress(evt) {
 			break;
 		case KEY_ENTER:
 			keyUsedByGame = true;
-			if((windowState.mainMenu) || (windowState.help)) {
-				if(firstLoad) {
+			//@FIXME: Editor resume weird behaviour, level select screen is shown, but returns to same level,
+			//@FIXME: cannot play after entering editing mode
+			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
+				if(!showedHelp) {
 					openHelp();
-				} else {
+				} else if(scene === undefined || scene == null) {
+					levelSelectScreen();
+				}
+				else {
 					startGame();
 				}
 			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
 				continueEditing();
+			} else if((windowState.levelSelect)) {
+				console.log('GAME STARTS');
+				startGame();
 			}
 			break;
 		case KEY_SHIFT:
@@ -129,13 +143,21 @@ function keyPress(evt) {
 			break;
 		case KEY_ESCAPE:
 			keyUsedByGame = true;
-			holdEscape = true;
+      if (windowState.gameOver) {
+        backToMainMenu();
+      }
 			break;
 		case KEY_SPACE:
+			keyUsedByGame = true;
+			holdSpace = true;
 			break;
 		case KEY_LEFT:
 			keyUsedByGame = true;
 			holdLeft = true;
+			if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
+				nextLevel();
+			}
 			break;
 		case KEY_UP:
 			keyUsedByGame = true;
@@ -144,6 +166,10 @@ function keyPress(evt) {
 		case KEY_RIGHT:
 			keyUsedByGame = true;
 			holdRight = true;
+            if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
+                nextLevel();
+            }
 			break;
 		case KEY_DOWN:
 			keyUsedByGame = true;
@@ -157,7 +183,7 @@ function keyPress(evt) {
 			break;
       	case KEY_C:
 			keyUsedByGame = true;
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				openCredits();
 			}
 			break;
@@ -167,7 +193,7 @@ function keyPress(evt) {
 			break;
 		case KEY_E:
 			keyUsedByGame = true;
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				startEditing();
 			}
 			break;
@@ -178,7 +204,7 @@ function keyPress(evt) {
 		case KEY_H:
 			keyUsedByGame = true;
 
-			if(windowState.mainMenu) {
+			if((windowState.mainMenu) || (windowState.gameOver)) {
 				openHelp();
 			} else if(windowState.editing) {
 				showEditorHelp();
@@ -308,6 +334,7 @@ function keyRelease(evt) {
 			holdEscape = false;
 			break;
 		case KEY_SPACE:
+			holdSpace = false;
 			break;
 		case KEY_LEFT:
 			holdLeft = false;
@@ -342,8 +369,6 @@ function keyRelease(evt) {
 		case KEY_J:
 			break;
         case KEY_K:
-            break;
-        case KEY_L:
             break;
 		case KEY_M:
 			break;
@@ -409,6 +434,17 @@ function keyRelease(evt) {
 			break;
 		case KEY_TILDE:
 			break;
+		case KEY_GREATER_THAN:
+			//switch to next track
+			currentBackgroundMusic.nextTrack();
+			break;
+		case KEY_LESS_THAN:
+			//switch to prev track
+			currentBackgroundMusic.prevTrack();
+			break;
+		case KEY_L:
+			//pause music
+			currentBackgroundMusic.getPaused() ? currentBackgroundMusic.resume() : currentBackgroundMusic.pause();
 		default:
 			break;
 	}
@@ -433,6 +469,8 @@ function onMouseDown(evt) {
 			} else if (windowState.help) {
 				startGame();
 //				resetGame();
+			} else if(windowState.gameOver) {
+				gameOver.checkButtons();
 			}
 			break;
 	}

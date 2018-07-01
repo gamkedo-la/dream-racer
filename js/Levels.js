@@ -1,0 +1,92 @@
+const LEVEL_TEMP = 0;
+const LEVEL_TEMP_TWO = 1;
+
+
+var Levels = [
+    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: nightSkyPic,
+        backgroundPic: nightSkyBackgroundPic,
+        middleGroundPic: nightSkyMiddlegroundPic,
+        name: "Night City Skyline",
+        musicTrackIndex: 1,
+        skyTransformFunc: function() {
+            return {x: 0, y: 0, z: undefined};
+        },
+        backgroundTransformFunc: function(position) {
+            return {
+                x: Math.floor(position.x / 90),
+                y: 0,
+                scale: (Math.tanh(position.z / 18000) + 1) / 2
+            }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {
+                x: Math.floor(position.x / 60),
+                y: 0,
+                scale: (Math.tanh(position.z / 18000) + 1) / 2
+            }
+        },
+    },
+    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: tempSkyPic,
+        backgroundPic: tempBackgroundPic,
+        middleGroundPic: tempMiddlegroundPic,
+        name: "Temp Level",
+        musicTrackIndex: 2,
+        skyTransformFunc: function() {
+            return {x: 0, y: 0, scale: undefined };
+        },
+        backgroundTransformFunc: function() {
+            return {x: frameFromGameStart , y: 0, scale: undefined }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 20), y: 0, scale: undefined }
+        },
+    }
+];
+var currentLevelIndex = 0;
+
+function getLevelIndex(iterIndex) {
+    while (iterIndex < 0) {
+        iterIndex = Levels.length + iterIndex;
+    }
+    return iterIndex % Levels.length;
+}
+
+function nextLevel(){
+    currentLevelIndex = getLevelIndex(currentLevelIndex + 1);
+}
+
+function prevLevel(){
+    currentLevelIndex = getLevelIndex(currentLevelIndex - 1);
+}
+
+function getLevel(index) {
+    if(index < 0 || index >= Levels.length) {
+        console.log("Can't get Level at index :" + index);
+        return {};
+    }
+    let level = {};
+    let camera = {};
+    Object.assign(level, Levels[index]);
+    Object.assign(camera, level.cameraPos);
+    level.cameraPos = camera;
+    return transformLevel(level);
+}
+
+function transformLevel(level) {
+    level.totalWidth = canvas.width;
+    return level;
+}

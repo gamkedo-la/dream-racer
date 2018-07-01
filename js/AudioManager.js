@@ -1,18 +1,21 @@
 setFormat();
 setAudioPath("./audio/");
 
+const DEFAULT_MUSIC_VOLUME = 0.7;
+const DEFAULT_SFX_VOLUME = 0.6;
 //set sound clips and music tracks here
 
-var nightMusic = new musicTrackLoop("dreamracerNight", 208.976);  //By Vignesh
-var dreamPunk = new musicTrackLoop("dreamPunk", 167.335);  //By Stebs
+var nightMusic = new musicTrackLoop("dreamracerNight", 208.976, {author: "Vignesh", album: "DreamRacer OST", year: "2018", title: "dreamracerNight"});  //By Vignesh
+var dreamPunk = new musicTrackLoop("dreamPunk", 167.335, {author: "Stebs", album: "DreamRacer OST", year: "2018", title: "dreamPunk" });  //By Stebs
+var retroDream = new musicTrackLoop("RetroSynthDream", 131.889978, {author: "Vignesh", album: "DreamRacer OST", year: "2018", title: "Retro Dream" });
 
-var currentBackgroundMusic = new musicContainer([nightMusic]);
-
-MusicVolumeManager.setVolume(0.7);
+var currentBackgroundMusic = new musicContainer([retroDream, dreamPunk, nightMusic]);
 
 var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");
 var uiSelect = new sfxClipSingle("uiSelect");
+
+var countDown = new sfxClipSingle("countdown");
 
 var engine_idle = new sfxClipLoop("temp_engine_idle", 3.7);
 var engine_0500 = new sfxClipLoop("temp_placeholder", 3);
@@ -35,8 +38,6 @@ var brake_mid = new sfxClipLoop("brake_mid", 2.5);
 var brake_high = new sfxClipLoop("brake_high", 2);
 var brake_master = new sfxContainer([brake_off,brake_low,brake_mid,brake_high])
 var offroadSound = new sfxClipLoop("temp_offroad", 10);
-
-SFXVolumeManager.setVolume(0.7);
 
 function setFormat() {
 	var audio = new Audio();
@@ -346,9 +347,12 @@ function brakeAudio(speed) {
 		brake_mid.setVolume(Math.abs((speed-12))/3);
 		brake_high.setVolume(1);
 	}
-	if (brake_low.getPaused()) {brake_low.playFrom(0.5);}
-	if (brake_mid.getPaused()) {brake_mid.playFrom(0.5);}
-	if (brake_high.getPaused()) {brake_high.playFrom(0.5);}
+	if (brake_low.getPaused() && brake_low.getTime() < 0.5) {brake_low.playFrom(0.5);}
+	else if (brake_low.getPaused()) {brake_low.resume()}
+	if (brake_mid.getPaused() && brake_mid.getTime() < 0.5) {brake_mid.playFrom(0.5);}
+	else if (brake_mid.getPaused()) {brake_mid.resume()}
+	if (brake_high.getPaused() && brake_high.getTime() < 0.5) {brake_high.playFrom(0.5);}
+	else if (brake_high.getPaused()) {brake_high.resume()}
 }
 
 function loadAudio() {
@@ -363,4 +367,18 @@ function turnVolumeUp() {
 function turnVolumeDown() {
 	MusicVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
 	SFXVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
+}
+
+function pauseAudio() {
+	currentBackgroundMusic.pause();
+	engine_master.pause();
+	brake_master.pause();
+	countDown.pause();
+
+}
+
+function resumeAudio() {
+	if (currentBackgroundMusic.getTime() > 0) {
+		currentBackgroundMusic.resume();
+	}
 }

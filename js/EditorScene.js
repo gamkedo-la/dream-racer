@@ -6,7 +6,7 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-		//		JSON.parse(example)
+				JSON.parse(testTrack),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -16,7 +16,9 @@ function EditorScene(data) {
 				JSON.parse(slightDownhill),
 				JSON.parse(largeSharpLeft_Level),
 				JSON.parse(sharpRight_Level),*/
-		//		JSON.parse(finish)
+		//		JSON.parse(finish),
+		//		JSON.parse(straightAndLevel),
+		//		JSON.parse(normalHillCrest)
 	];
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
@@ -27,13 +29,14 @@ function EditorScene(data) {
 		this.road.addSegment();
 	}
 	this.currentZIndex = 0;
+	this.aiCars = [];
 
 	const UI_SIZE = { width: 32, height: 32 }
 
 	const buildUIElements = function () {
 		const array = [
 			new DecorationUIElement(tempCheckeredFlagPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(curveyRoadSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(curvyRoadSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(hardLeftTurnSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIElement(hardRightTurnSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(downHillGenericSignPic, { x: canvas.width - (1 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
@@ -70,7 +73,16 @@ function EditorScene(data) {
 			new DecorationUIElement(straightPowerPoleCrossBeamsPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height })
+			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(pickupAIPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree3Pic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
+
+			new DecorationUIElement(tree4Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+/*			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(pickupAIPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree3Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height })*/
 		];
 		return array;
 	}
@@ -79,9 +91,9 @@ function EditorScene(data) {
 
 	this.draw = function () {
 
-		drawBackground(data.skyPic, 0, data.backgroundPic, 0, data.middleGroundPic, 0);
+		drawBackground(data.skyPic, data.skyTransformFunc(this.camera.position), data.backgroundPic, data.backgroundTransformFunc(this.camera.position), data.middleGroundPic, data.middlegroundTransformFunc(this.camera.position));
 
-		this.road.draw(this.camera.position);
+		this.road.draw(this.camera.position, []);
 		this.road.drawSelected();
 
 		drawDecorationsUI();
@@ -90,15 +102,15 @@ function EditorScene(data) {
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
 		if (skyImage != undefined) {
-			wrappedDraw(skyImage, skyOffset);
+			wrapAndtransformDraw(skyImage, skyOffset);
 		}
 
 		if (backgroundImage != undefined) {
-			wrappedDraw(backgroundImage, backgroundOffset);
+			wrapAndtransformDraw(backgroundImage, backgroundOffset);
 		}
 
 		if (middleGroundImage != undefined) {
-			wrappedDraw(middleGroundImage, middleGroundOffset);
+			wrapAndtransformDraw(middleGroundImage, middleGroundOffset);
 		}
 	}
 
@@ -178,7 +190,11 @@ function EditorScene(data) {
 
 		if (holdLeft) {
 			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationLeft();
+				if(holdShift) {
+					this.road.moveDecorationLeft(10);
+				} else {
+					this.road.moveDecorationLeft(1);
+				}
 			} else {
 				this.camera.editMove();
 			}
@@ -186,7 +202,11 @@ function EditorScene(data) {
 
 		if (holdRight) {
 			if (this.road.hasSelectedDecoration()) {
-				this.road.moveDecorationRight();
+				if(holdShift) {
+					this.road.moveDecorationRight(10);
+				} else {
+					this.road.moveDecorationRight(1);
+				}
 			} else {
 				this.camera.editMove();
 			}
@@ -200,17 +220,14 @@ function EditorScene(data) {
 						for (let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
 							for (let k = 0; k < billboardSprites.length; k++) {
-								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+								if (thisDecoration.getSprite() == billboardSprites[k] && thisDecoration.selected == true) {
 									let newIndex = k + 1;
 									if (newIndex > billboardSprites.length - 1) {
-										thisDecoration.sprite = billboardSprites[0];
+										thisDecoration.setSprite(billboardSprites[0]);
 									} else {
-										thisDecoration.sprite = billboardSprites[newIndex];
+										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-									thisDecoration.selected = false;
-									/*if (thisDecoration.sprite != billboardSprites[k]) {
-										thisDecoration.selected = true;
-									}*/
+									holdUp = false;
 									break;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
 							} // end of for loop for billboardSprites
@@ -233,17 +250,14 @@ function EditorScene(data) {
 						for (let j = 0; j < thisSegment.decorations.length; j++) {
 							let thisDecoration = thisSegment.decorations[j];
 							for (let k = 0; k < billboardSprites.length; k++) {
-								if (thisDecoration.sprite == billboardSprites[k] && thisDecoration.selected == true) {
+								if (thisDecoration.getSprite() == billboardSprites[k] && thisDecoration.selected == true) {
 									let newIndex = k - 1;
 									if (newIndex < 0) {
-										thisDecoration.sprite = billboardSprites[billboardSprites.length - 1];
+										thisDecoration.setSprite(billboardSprites[billboardSprites.length - 1]);
 									} else {
-										thisDecoration.sprite = billboardSprites[newIndex];
+										thisDecoration.setSprite(billboardSprites[newIndex]);
 									} // end of if increased index is greater than array 
-									thisDecoration.selected = false;
-									/*if (thisDecoration.sprite != billboardSprites[k]) {
-										thisDecoration.selected = true;
-									}*/
+									holdDown = false;
 									break;
 								} // end of if billboardSprite is the same as a sprite in billboardSprites
 							} // end of for loop for billboardSprites
@@ -334,6 +348,7 @@ function EditorScene(data) {
 		const worldPos = this.frustum.worldPosForScreenPosAndDepth(mousePos, ground.nearPos.world.z);
 		const finalWorldPos = { x: worldPos.x, y: ground.nearPos.world.y, z: ground.nearPos.world.z };
 		const aDecoration = new RoadsideDecoration(decorationUIElements[selectedDecorationUIElementIndex].sprite, finalWorldPos);
+		aDecoration.typeForFileName();
 		this.road.addDecorationToGround(aDecoration, ground);
 	}
 

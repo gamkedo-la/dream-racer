@@ -134,7 +134,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>../images/car-spritesheet.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -192,6 +192,24 @@
             <key type="filename">car6.png</key>
             <key type="filename">car7.png</key>
             <key type="filename">car8.png</key>
+            <key type="filename">cardown0.png</key>
+            <key type="filename">cardown1.png</key>
+            <key type="filename">cardown2.png</key>
+            <key type="filename">cardown3.png</key>
+            <key type="filename">cardown4.png</key>
+            <key type="filename">cardown5.png</key>
+            <key type="filename">cardown6.png</key>
+            <key type="filename">cardown7.png</key>
+            <key type="filename">cardown8.png</key>
+            <key type="filename">carup0.png</key>
+            <key type="filename">carup1.png</key>
+            <key type="filename">carup2.png</key>
+            <key type="filename">carup3.png</key>
+            <key type="filename">carup4.png</key>
+            <key type="filename">carup5.png</key>
+            <key type="filename">carup6.png</key>
+            <key type="filename">carup7.png</key>
+            <key type="filename">carup8.png</key>
             <key type="filename">crash0.png</key>
             <key type="filename">crash1.png</key>
             <key type="filename">crash2.png</key>

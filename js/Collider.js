@@ -89,7 +89,7 @@ function boxCollider(x, y, z, xOffset, yOffset, zOffset, width, height, depth) {
 				{ x: this.right, y: this.top }
 			];
 
-			strokePath(path, 'lime');
+			strokePath(path, 'yellow');
 		}
 	}
 }

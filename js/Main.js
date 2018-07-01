@@ -4,14 +4,20 @@ let canvasContext;
 
 const DEBUG = true;
 const GAME_HEIGHT = 600;
+const framesPerSecond = 30;
+
+let frameFromGameStart = 0;
 
 let scene;
+let isLocalStorageInitialized = false;
+
 const CAMERA_INITIAL_Z = -85;
 
 const localStorageKey = {
 	MusicVolume: "musicVolume",
 	SFXVolume: "effectsVolume",
-	FirstLoad: "firstLoad"
+	IsLocalStorageInitialized: "isLocalStorageInitialized",
+	ShowedHelp: "showedHelp",
 }
 
 const assetPath = {
@@ -33,7 +39,8 @@ const buttonTitle = {
 	Help: "[H] for Help",
 	Credits: "[C] for Credits",
 	Editor: "[E] to Edit",
-	Enter: "[Enter] to Play"
+	Enter: "[Enter] to Play",
+	MainMenu: "[Escape] to Main Menu"
 };
 
 const sliderTitle = {
@@ -113,20 +120,34 @@ window.onload = function () {
 	subTitleTextX = canvas.width / 2;
 	opacity = 0;
 
-	firstLoad = (localStorageHelper.getItem(localStorageKey.FirstLoad) == true);
-	if ((firstLoad === null) || (firstLoad === undefined)) {
-		firstLoad = true;
-		localStorageHelper.setItem(localStorageKey.FirstLoad, true);
-	}
-
+    setupLocalStorage();
 	initializeInput();
-	loadAudio();
 	loadImages();
 	mainMenu.initialize();
 };
 
+function setupLocalStorage() {
+    isLocalStorageInitialized = localStorageHelper.getFlag(localStorageKey.IsLocalStorageInitialized);
+    if (!isLocalStorageInitialized) {
+        isLocalStorageInitialized = true;
+        musicVolume = DEFAULT_MUSIC_VOLUME;
+        sfxVolume = DEFAULT_SFX_VOLUME;
+        showedHelp = false;
+
+        localStorageHelper.setFlag(localStorageKey.IsLocalStorageInitialized, isLocalStorageInitialized);
+        localStorageHelper.setFlag(localStorageKey.ShowedHelp, showedHelp);
+        localStorageHelper.setItem(localStorageKey.MusicVolume, musicVolume);
+        localStorageHelper.setItem(localStorageKey.SFXVolume, sfxVolume);
+    }
+    else {
+        showedHelp = localStorageHelper.getFlag(localStorageKey.ShowedHelp);
+        musicVolume = localStorageHelper.getItem(localStorageKey.MusicVolume);
+        sfxVolume = localStorageHelper.getItem(localStorageKey.SFXVolume);
+	}
+}
+
 function loadingDoneSoStartGame() {
-	gameUpdate = setInterval(update, 1000 / 30);
+	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 
 	if (DEBUG) {
 		startGame();
@@ -136,54 +157,50 @@ function loadingDoneSoStartGame() {
 function update() {
 	mainMenuStates();
 	AudioEventManager.updateEvents();
+	frameFromGameStart++; //@FIXME: Is there a global frameCounter that i missed?
 };
 
 function startGame() {
-	if (firstLoad) {
+	if (!showedHelp) {
 		openHelp();
-		firstLoad = false;
-		localStorageHelper.setItem(localStorageKey.FirstLoad, false);
+		showedHelp = true;
+		localStorageHelper.setFlag(localStorageKey.ShowedHelp, true);
 		return;
 	}
 
 	windowState.help = false;
 	windowState.mainMenu = false;
+	windowState.levelSelect = false;
 	windowState.playing = true;
+	if(scene == undefined || scene == null) {
+		scene = new GameScene(getLevel(currentLevelIndex));
+	}
 
-	scene = new GameScene({
-		totalWidth: canvas.width,
-		totalHeight: GAME_HEIGHT,
-		nearHeight: 0.5 * GAME_HEIGHT,
-		horizonHeight: 1.0 * GAME_HEIGHT,
-		near: 90,//arbitrary
-		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: CAMERA_INITIAL_Z },
-		skyPic: undefined,
-		backgroundPic: tempBackgroundPic,
-		middleGroundPic: tempMiddlegroundPic
-	});
 };
 
+function levelSelectScreen() {
+	if(isPaused) return;
+
+    windowState.help = false;
+    windowState.mainMenu = false;
+    windowState.editorHelp = false;
+    windowState.playing = false;
+    windowState.editing = false;
+    windowState.gameOver = false;
+    windowState.levelSelect = true;
+
+    selectLevelAnimationStartFrame = frameFromGameStart;
+}
+
 function startEditing() {
-	console.log("Editing");
 	windowState.help = false;
 	windowState.mainMenu = false;
 	windowState.editorHelp = false;
 	windowState.playing = false;
 	windowState.editing = true;
+	windowState.levelSelect = false;
 
-	scene = new EditorScene({
-		totalWidth: canvas.width,
-		totalHeight: GAME_HEIGHT,
-		nearHeight: 0.0 * GAME_HEIGHT,
-		horizonHeight: 1.0 * GAME_HEIGHT,
-		near: 90,//arbitrary
-		far: 500,//arbitrary
-		cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-		skyPic: undefined,
-		backgroundPic: tempBackgroundPic,
-		middleGroundPic: tempMiddlegroundPic
-	});
+	scene = new EditorScene(getLevel(currentLevelIndex));
 };
 
 function continueEditing() {
@@ -191,6 +208,7 @@ function continueEditing() {
 	windowState.mainMenu = false;
 	windowState.editorHelp = false;
 	windowState.editing = true;
+    windowState.levelSelect = false;
 };
 
 function drawAll() {
@@ -202,28 +220,47 @@ function editingDrawAll() {
 };
 
 function moveAll() {
-	scene.move();
+        scene.move();
 };
 
 function editingMoveAll() {
 	scene.move();
 };
 
-function wrappedDraw(whichImg, pixelOffset) {
-	let wrappedOffset = Math.floor(pixelOffset % whichImg.width);
-	if (pixelOffset < 0) {
-		wrappedOffset = whichImg.width + wrappedOffset;
+function wrapAndtransformDraw(whichImg, pixelOffset) {
+	let wrappedOffset = {
+		x: pixelOffset.x % whichImg.width,
+	 	y: pixelOffset.y % whichImg.height
+	};
+	let scale = 1;
+	if(pixelOffset.scale !== undefined) {
+        scale = pixelOffset.scale;
+    }
+
+	if (wrappedOffset.x < 0) {
+		wrappedOffset.x = whichImg.width + wrappedOffset.x;
+	}
+	if (wrappedOffset.y < 0) {
+		wrappedOffset.y = whichImg.height + wrappedOffset.y
 	}
 
-	canvasContext.drawImage(whichImg, 0, 0,
-		whichImg.width - wrappedOffset, whichImg.height,
-		wrappedOffset, 0,
-		whichImg.width - wrappedOffset, whichImg.height);
-	let drawSize = (whichImg.width - wrappedOffset);
+	canvasContext.drawImage(whichImg,
+		//srcX, srcY, srcW, srcH
+		0, 0, whichImg.width, whichImg.height,
+		//dstX, dstY, dstW, dstH
+		(1 - scale)/2 * canvas.width + wrappedOffset.x -1, // -1 fixes float point tearing when drawing two images;
+		(1 - scale) * whichImg.height + wrappedOffset.y,
+		scale * ( whichImg.width ),
+		scale * (whichImg.height));
+
+	let drawSize = (whichImg.width - wrappedOffset.x);
 	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
-		canvasContext.drawImage(whichImg, drawSize, 0,
-			wrappedOffset, whichImg.height,
-			0, 0,
-			wrappedOffset, whichImg.height);
+		canvasContext.drawImage(whichImg,
+			drawSize, 0, wrappedOffset.x, whichImg.height,
+            (1 - scale)/2 * canvas.width,
+			(1 - scale) * whichImg.height + wrappedOffset.y,
+			scale * wrappedOffset.x,
+			scale * whichImg.height
+		);
 	}
 }

@@ -2,12 +2,18 @@
 
 const tempBackgroundPic = document.createElement("img");
 const tempMiddlegroundPic = document.createElement("img");
+const tempSkyPic = document.createElement("img");
+
+const nightSkyMiddlegroundPic = document.createElement("img");
+const nightSkyBackgroundPic = document.createElement("img");
+const nightSkyPic = document.createElement("img");
 const tempPlayerCarPic = document.createElement("img");
-const tempAICarPic = document.createElement("img");
+const pickupAIPic = document.createElement("img");
+const semiAIPic = document.createElement("img");
 
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
-const curveyRoadSignPic = document.createElement("img");
+const curvyRoadSignPic = document.createElement("img");
 const hardLeftTurnSignPic = document.createElement("img");
 const hardRightTurnSignPic = document.createElement("img");
 const downHillGenericSignPic = document.createElement("img");
@@ -26,6 +32,8 @@ const roadNarrowSignPic = document.createElement("img");
 const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
 const palmTreePic = document.createElement("img");
+const tree3Pic = document.createElement("img");
+const tree4Pic = document.createElement("img");
 const warningSignPic = document.createElement("img");
 const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
@@ -39,6 +47,9 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+const countdownSpriteSheetPic = document.createElement("img");
+const goPic = document.createElement("img");
+const timeBonusPic = document.createElement("img");
 const needlePic = document.createElement("img");
 // billboards
 const blankBillboard = document.createElement("img");
@@ -47,12 +58,83 @@ const dashboardPic = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
 const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
-
+const mageHookBillboard = document.createElement("img");
+const tinyRoboRacersBillboard = document.createElement("img");
+const chrisForPresidentBillboard = document.createElement("img");
+const burgerBillboard = document.createElement("img");
+const clashTracksBillboard = document.createElement("img");
+const notABillboard = document.createElement("img")
+// FX.js
+const particlePic = document.createElement("img");
 
 const imageList = [];
 const billboardSprites = [];
 
 let picsToLoad = 0;
+
+
+
+
+
+
+
+
+
+// lookup table of decorations used by Road.generateRandomRoad
+var allDecorations = [
+	//tempCheckeredFlagPic,
+	//checkpointFlagPic,
+	curvyRoadSignPic,
+	hardLeftTurnSignPic,
+	hardRightTurnSignPic,
+	downHillGenericSignPic,
+	downHillAheadSignPic,
+	downHillSignPic,
+	upHillGenericSignPic,
+	upHillAheadSignPic,
+	upHillSignPic,
+	iceSignPic,
+	snowflakeSignPic,
+	leftTurnSignPic,
+	otherDriversSignPic,
+	questionSignPic,
+	rightTurnSignPic,
+	roadNarrowSignPic,
+	speedLimitSlowSignPic,
+	speedLimitFastSignPic,
+	palmTreePic,
+	tree3Pic,
+	tree4Pic,
+	warningSignPic,
+	sideBarrierEndPic,
+	sideBarrierStartPic,
+	sideBarrierMidPic,
+	rightStreetLightPic,
+	leftStreetLightPic,
+	rightStreetLightNoLightPic,
+	leftStreetLightNoLightPic,
+	straightPowerPolePic,
+	straightPowerPoleCrossBeamsPic,
+	straightPowerPoleCrossBeamsSlantLeftPic,
+	straightPowerPoleCrossBeamsSlantRightPic,
+	blankBillboard,
+	obeyBillboard,
+	eastCoastBillboard,
+	niceCityBillboard,
+	romanAdventureBillboard,
+	mageHookBillboard,
+	tinyRoboRacersBillboard,
+	chrisForPresidentBillboard,
+	burgerBillboard,
+	clashTracksBillboard,
+	notABillboard];
+
+function randomDecoration() {
+	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
+}
+
+
+
 
 function countLoadedImageAndLaunchIfReady() {
 	picsToLoad--;
@@ -71,12 +153,18 @@ function loadImages() {
 	//temp image
 	imageList.push({ imgName: tempBackgroundPic, theFile: "backgroundClouds.png" });
 	imageList.push({ imgName: tempMiddlegroundPic, theFile: "middlegroundMountains.png" });
+	imageList.push({ imgName: tempSkyPic, theFile: "tempSky.png" });
+
+	imageList.push({ imgName: nightSkyMiddlegroundPic, theFile: "nightSkyMiddleground.png" });
+	imageList.push({ imgName: nightSkyBackgroundPic, theFile: "nightSkyBackground.png" });
+	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
-	imageList.push({ imgName: tempAICarPic, theFile: "AICar.png" });
+	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
+	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet-small.png" });
 	//signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
-	imageList.push({ imgName: curveyRoadSignPic, theFile: "CurveyRoadSign.png" });
+	imageList.push({ imgName: curvyRoadSignPic, theFile: "CurvyRoadSign.png" });
 	imageList.push({ imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png" });
 	imageList.push({ imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png" });
 	imageList.push({ imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png" });
@@ -96,6 +184,8 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
+	imageList.push({ imgName: tree3Pic, theFile: "Tree3.png" });
+	imageList.push({ imgName: tree4Pic, theFile: "Tree4.png" });
 	imageList.push({ imgName: rightStreetLightPic, theFile: "RightStreetLight.png" });
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
@@ -104,6 +194,9 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
+	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
+	imageList.push({ imgName: timeBonusPic, theFile: "timeBonus.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
@@ -123,7 +216,20 @@ function loadImages() {
 	billboardSprites.push(niceCityBillboard);
 	imageList.push({ imgName: romanAdventureBillboard, theFile: "RomanAdventureBillboard.png" });
 	billboardSprites.push(romanAdventureBillboard);
-
+	imageList.push({ imgName: mageHookBillboard, theFile: "MageHookBillboard.png" });
+	billboardSprites.push(mageHookBillboard);
+	imageList.push({ imgName: tinyRoboRacersBillboard, theFile: "TinyRoboRacersBillboard.png" });
+	billboardSprites.push(tinyRoboRacersBillboard);
+	imageList.push({ imgName: chrisForPresidentBillboard, theFile: "chrisForPresident.png" });
+	billboardSprites.push(chrisForPresidentBillboard);
+	imageList.push({ imgName: burgerBillboard, theFile: "BurgerBillboard.png" });
+	billboardSprites.push(burgerBillboard);
+	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
+	billboardSprites.push(clashTracksBillboard);
+	imageList.push({ imgName: notABillboard, theFile: "NotABillboard.png" });
+	billboardSprites.push(notABillboard);
+	// FX.js
+	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 
 	picsToLoad = imageList.length;
 
