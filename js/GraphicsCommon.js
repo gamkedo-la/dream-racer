@@ -52,6 +52,21 @@ function colorText(showWords, textX, textY, fillColor, fontface, textAlign = 'le
 	canvasContext.restore();
 }
 
+function scrollingText(text, x, y, w, h, color, font, speed, nopause) {
+	let TEXT_GAP = 10;
+
+    canvasContext.save();
+    canvasContext.beginPath();
+    canvasContext.rect(x, y-h, w, h);
+    canvasContext.clip();
+    canvasContext.font = font;
+    canvasContext.fillStyle = color;
+    let textLength = canvasContext.measureText(text).width + TEXT_GAP; //this should be called after font is set
+    canvasContext.fillText(text, x + (frameFromGameStart * speed) % textLength - textLength, y);
+	canvasContext.fillText(text, x + (frameFromGameStart * speed) % textLength, y);
+    canvasContext.restore();
+}
+
 function getFontWeight(font) {
 	canvasContext.save();
 	canvasContext.font = this.buttonFont;
