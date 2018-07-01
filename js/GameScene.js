@@ -145,7 +145,8 @@ function GameScene(data) {
 			if (countdownDisplayCounter >= framesPerSecond * 4) {
 				countdownDisplayCounter = 0;
 				countdownfinished = true;
-				loadAudio();
+				currentBackgroundMusic.setCurrentTrack(scene.data.musicTrackIndex);
+				currentBackgroundMusic.play();
 				return;
 			}
 			if (countdownDisplayCounter < framesPerSecond) {
