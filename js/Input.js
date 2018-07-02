@@ -154,10 +154,7 @@ function keyPress(evt) {
 		case KEY_LEFT:
 			keyUsedByGame = true;
 			holdLeft = true;
-			if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = frameFromGameStart;
-				nextLevel();
-			}
+
 			break;
 		case KEY_UP:
 			keyUsedByGame = true;
@@ -166,10 +163,6 @@ function keyPress(evt) {
 		case KEY_RIGHT:
 			keyUsedByGame = true;
 			holdRight = true;
-            if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = frameFromGameStart;
-                nextLevel();
-            }
 			break;
 		case KEY_DOWN:
 			keyUsedByGame = true;
@@ -338,12 +331,20 @@ function keyRelease(evt) {
 			break;
 		case KEY_LEFT:
 			holdLeft = false;
+            if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
+                prevLevel();
+            }
 			break;
 		case KEY_UP:
 			holdUp = false;
 			break;
 		case KEY_RIGHT:
 			holdRight = false;
+            if(windowState.levelSelect) {
+                selectLevelAnimationStartFrame = frameFromGameStart;
+                nextLevel();
+            }
 			break;
 		case KEY_DOWN:
 			holdDown = false;

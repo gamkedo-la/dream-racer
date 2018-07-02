@@ -54,7 +54,55 @@ var Levels = [
         middlegroundTransformFunc: function(position) {
             return {x: Math.floor(position.x / 20), y: 0, scale: undefined }
         },
+
+    },
+    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: tempBackgroundPic,
+        backgroundPic: nightSkyBackgroundPic,
+        middleGroundPic: nightSkyMiddlegroundPic,
+        name: "Frankenstein",
+        musicTrackIndex: 0,
+        skyTransformFunc: function() {
+            return {x: frameFromGameStart/2, y: 0, scale: undefined };
+        },
+        backgroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 65) , y: 0, scale: undefined }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 70), y: 0, scale: undefined }
+        },
+
+    },
+    {
+        totalHeight: GAME_HEIGHT,
+        nearHeight: 0.0 * GAME_HEIGHT,
+        horizonHeight: 1.0 * GAME_HEIGHT,
+        near: 90,//arbitrary
+        far: 500,//arbitrary
+        cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        skyPic: nightSkyPic,
+        backgroundPic: tempMiddlegroundPic,
+        middleGroundPic: tempMiddlegroundPic,
+        name: "Frankenstein Reverse",
+        musicTrackIndex: 0,
+        skyTransformFunc: function(position) {
+            return {x: Math.floor(position.x/170), y: 0, scale: undefined };
+        },
+        backgroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 35) , y: 0, scale: undefined }
+        },
+        middlegroundTransformFunc: function(position) {
+            return {x: Math.floor(position.x / 45), y: 0, scale: undefined }
+        },
+
     }
+
 ];
 var currentLevelIndex = 0;
 
