@@ -6,7 +6,7 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-				JSON.parse(testTrack),
+				JSON.parse(skylineTrack),
 		/*		JSON.parse(straightAndLevel),
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
