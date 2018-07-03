@@ -186,7 +186,7 @@ function Road(frustum) {
 
 	const getColorForLevel = function(level, segement) {
 		switch (level) {
-			case "Temp Level":
+			case "Forest Cruise":
 				groundColor = "#01c101";
 				/*if (segement.index % 2 == 0) {
 					groundColor = "#00aa00";

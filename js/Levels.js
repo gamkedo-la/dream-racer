@@ -48,7 +48,7 @@ var Levels = [
         skyPic: tempSkyPic,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
-        name: "Temp Level",
+        name: "Forest Cruise",
         musicTrackIndex: 2,
         skyTransformFunc: function() {
             return {x: 0, y: 0, scale: undefined };
