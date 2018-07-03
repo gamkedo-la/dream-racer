@@ -73,10 +73,10 @@ function AICar(aType, start, aPath) {
 	}
 	this.sprite = spriteForType(aType);
 
-	this.position = {x:start.segment.farPos.world.x, y:start.segment.farPos.world.y, z:start.segment.farPos.world.z};
 	this.speed = 0;
 	this.acceleration = start.acceleration;
 	this.desiredSpeed = start.speed;
+	
 	const sizeForType = function(type) {
 		switch(type) {
 			case AIType.Pickup:
@@ -88,6 +88,18 @@ function AICar(aType, start, aPath) {
 	const size = sizeForType(aType);
 	this.width = size.width;
 	this.height = size.height;
+	this.position = {x:start.segment.farPos.world.x, y:start.segment.farPos.world.y - this.height, z:start.segment.farPos.world.z};
+	
+	const colliderDimsForType = function(type) {
+		switch(type) {
+			case AIType.Pickup:
+				return {xOffset: 20, yOffset: 20, zOffset: 0, width: 65, height: 50};
+			case AIType.Semi:
+				return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
+		}
+	}
+
+	
 	this.depth = 60;//swag
 	let currentSegment = null;
 	
@@ -107,9 +119,10 @@ function AICar(aType, start, aPath) {
 	}
 	this.position.x = lanePos + start.segment.nearPos.world.x;//assumes start.segment is not a turning segment (or that the difference doesn't matter)
 	
+	const colliderDims = colliderDimsForType(this.type);
 	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
-									0, 0, 30, //x, y and z offsets for the collider
-									this.width, this.height, this.depth);
+									colliderDims.xOffset, colliderDims.yOffset, colliderDims.zOffset, //x, y and z offsets for the collider
+									colliderDims.width, colliderDims.height, this.depth);
 	this.collider.isDynamic = true;//A.I. car can move (unlike road signs for example)
 	
 	let currentRoadY = 0;
@@ -229,14 +242,14 @@ function AICar(aType, start, aPath) {
 			if(framePos.x < 3) {
 				framePos.x = 3;
 			}
-		}		
+		}
 	}
-				
+					
 	this.draw = function(frustum) {
 		const screenPos = frustum.screenPosForWorldPos(this.position);
 		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
 		
-		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - 20 - screenSize.height / 2, screenSize.width, screenSize.height);
+		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 		
 		const widthRatio = screenSize.width / (this.width);
 		const heightRatio = screenSize.height / (this.height);
@@ -312,8 +325,6 @@ function AICar(aType, start, aPath) {
 		const currentCenter = currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);
 		
 		this.position.x = lanePos + currentSegment.nearPos.world.x + interpolation * (currentSegment.farPos.world.x - currentSegment.nearPos.world.x);
-		this.position.y = currentSegment.nearPos.world.y + interpolation * (currentSegment.farPos.world.y - currentSegment.nearPos.world.y);
-		
-		this.collider.update();
+		this.position.y = currentSegment.nearPos.world.y + interpolation * (currentSegment.farPos.world.y - currentSegment.nearPos.world.y) - this.height;
 	}
 }
