@@ -11,10 +11,11 @@ var Levels = [
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
-        JSON.parse(straightAndLevel)], 
+        JSON.parse(straightAndLevel)],
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        groundColor: "#002412",
         skyPic: nightSkyPic,
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
@@ -46,6 +47,7 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        groundColor: "#01c101",
         skyPic: tempSkyPic,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,

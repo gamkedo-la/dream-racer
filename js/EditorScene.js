@@ -79,8 +79,10 @@ function EditorScene(data) {
 
 			new DecorationUIElement(tree4Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(tree6Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-/*			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			
+			
+			new DecorationUIColor('#888888', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
+/*			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(pickupAIPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(tree3Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height })*/
 		];
@@ -119,7 +121,7 @@ function EditorScene(data) {
 			decorationUIElements[i].draw();
 		}
 	}
-
+	
 	this.move = function () {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		if (baseSegment != null) {
