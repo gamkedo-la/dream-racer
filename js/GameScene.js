@@ -30,24 +30,26 @@ function GameScene(data) {
 	let countdownDisplayCounter = 0;
 	let gameOverCounter = 0;
 
-	const roadReferences = [
+	let roadReferences = data.roadReferences;
+
+	/*[
 		JSON.parse(testTrack),
 		//		JSON.parse(straight_Level_wLights),
-		/*		JSON.parse(straightAndLevel),
-				JSON.parse(normalHillCrest),
-				JSON.parse(sCurveLeftFirst),
-				JSON.parse(doubleBump),
-				JSON.parse(multiCurveRightFirst),
-				JSON.parse(normalHillValley),
-				JSON.parse(slightDownhill),
-				JSON.parse(largeSharpLeft_Level),
-				JSON.parse(sharpRight_Level),*/
-		//JSON.parse(finish),
+		//		JSON.parse(straightAndLevel),
+		//		JSON.parse(normalHillCrest),
+		//		JSON.parse(sCurveLeftFirst),
+		//		JSON.parse(doubleBump),
+		//		JSON.parse(multiCurveRightFirst),
+		//		JSON.parse(normalHillValley),
+		//		JSON.parse(slightDownhill),
+		//		JSON.parse(largeSharpLeft_Level),
+		//		JSON.parse(sharpRight_Level),
+		//		JSON.parse(finish),
 		JSON.parse(straightAndLevel),
 		JSON.parse(straightAndLevel),
 		JSON.parse(straightAndLevel),
 		JSON.parse(normalHillCrest)
-	];
+	];*/
 
 	// create the road
 	if (USE_RANDOM_TRACK_GENERATOR) {
