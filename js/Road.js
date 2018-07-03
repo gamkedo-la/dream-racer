@@ -344,6 +344,9 @@ function Road(frustum) {
 						let timeExtend = 0;
 						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 					}
+					if (thisDecoration.getSprite() == attractionsBillboard) {
+						thisDecoration.animated = true;
+					}
 					thisDecoration.typeForFileName();
 					thisDecoration.addCollider();
 					newSegment.decorations.push(thisDecoration);

@@ -11,6 +11,8 @@ const DecorationType = {
 	TinyRoboRacersBillboard:"TinyRoboRacersBillboard",
 	ChrisForPresidentBillboard:"chrisForPresident",
 	NotABillboard:"NotABillboard",
+	AttractionsBillboard:"roadsideAttractions",
+	CoffeeBillboard:"CoffeeBillboard",
 	CheckeredFlag:"CheckeredFlag",
 	CheckPoint:"CheckPoint",
 	CurvyRoadSign:"CurvyRoadSign",
@@ -31,7 +33,7 @@ const DecorationType = {
 	PalmTree:"palmTree",
 	Tree3:"Tree3",
 	Tree4:"Tree4",
-	Tree6:"tree6-23v2",
+	Tree6:"Tree6",
 	QuestionSign:"QuestionSign",
 	RightStreetLight_NoLight:"RightStreetLight_NoLight",
 	RightStreetLight:"RightStreetLight",
@@ -59,6 +61,9 @@ function RoadsideDecoration(image, pos) {
 	this.type;
 	this.width = sprite.width;
 	this.height = sprite.height;
+	this.currentAnimationFrame = 0;
+	this.animationFrames = 0;
+	this.animated = false;
 	this.depth = 10;//swag
 	this.world = pos;
 	this.screen = { x: 0, y: 0, z: 0 };
@@ -92,12 +97,27 @@ function RoadsideDecoration(image, pos) {
 			drawRect(this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height, this.selectedColor, canvasContext);
 		}
 
-
 		if (this.screenSize.width > sprite.width) { // zoomed in over 100% in size? 
 			canvasContext.imageSmoothingEnabled = false; // avoid blurry bilinear interpolation and go crisp
 		}
-		canvasContext.drawImage(sprite, this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, this.screenSize.width, this.screenSize.height);
+		if (this.animated) {
+			this.animationFrames = 2;
+			if (frameFromGameStart % 14 == 0) {
+				this.currentAnimationFrame++;
+				if (this.currentAnimationFrame > 1) {
+					this.currentAnimationFrame = 0;
+				}
+			}
+			canvasContext.drawImage(sprite, this.currentAnimationFrame * sprite.width/this.animationFrames, 0, //top of original image
+									sprite.width/this.animationFrames, sprite.height,
+									this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height,
+									this.screenSize.width, this.screenSize.height);
+		} else {
+		canvasContext.drawImage(sprite,
+								this.screen.x - this.screenSize.width / 2, this.screen.y - this.screenSize.height, 
+								this.screenSize.width, this.screenSize.height);
 		canvasContext.imageSmoothingEnabled = true; // reset to smooth and blurry
+		}
 		
 		const widthRatio = this.screenSize.width / (4 * this.width);//divide by 4 because we multiplied the screenSize by 4
 		const heightRatio = this.screenSize.height / (4 * this.height);
@@ -196,6 +216,11 @@ function RoadsideDecoration(image, pos) {
 			case "NotABillboard.png":
 				this.type = DecorationType.NotABillboard;
 				break;
+			case "roadsideAttractions.png":
+				this.type = DecorationType.AttractionsBillboard;
+				break;
+			case "CoffeeBillboard.png":
+				this.type = DecorationType.CoffeeBillboard;
 			case "CheckeredFlag.png":
 				this.type = DecorationType.CheckeredFlag;
 				break;
@@ -335,6 +360,7 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.MageHookBillboard:
+			case DecorationType.CoffeeBillboard:
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
@@ -343,6 +369,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
 			case DecorationType.NotABillboard:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 285, depth: 10};
+			case DecorationType.AttractionsBillboard:
+				return {xOffset: 55, yOffset: 100, zOffset: -5, width: 1050, height: 200, depth: 10};
 			case DecorationType.PalmTree:
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree3:
@@ -350,7 +378,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree4:
 				return {xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree6:
-				return {xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10};
+				return {xOffset: 235, yOffset: 1125, zOffset: -5, width: 150, height: 400, depth: 10};
 			default:
 				return {xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10};
 		}
@@ -378,7 +406,9 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.NotABillboard:
 			case DecorationType.Tree3:
 			case DecorationType.Tree4:
+			case DecorationType.AttractionsBillboard:
 				return 2;
+			case DecorationType.CoffeeBillboard:
 			case DecorationType.Tree6:
 				return 0.5;
 			case DecorationType.NiceCityBillboard:

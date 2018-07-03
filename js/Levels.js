@@ -7,7 +7,7 @@ var Levels = [
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
-        roadReferences:[JSON.parse(skylineTrack), JSON.parse(straightAndLevel),
+        roadReferences:[JSON.parse(forestTrack), JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
@@ -42,7 +42,7 @@ var Levels = [
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
-        roadReferences:[JSON.parse(doubleBump),JSON.parse(multiCurveRightFirst),JSON.parse(normalHillCrest)],
+        roadReferences:[JSON.parse(forestTrack),JSON.parse(multiCurveRightFirst),JSON.parse(normalHillCrest)],
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
@@ -66,7 +66,7 @@ var Levels = [
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
-        roadReferences:[JSON.parse(skylineTrack),JSON.parse(straightAndLevel)],
+        roadReferences:[JSON.parse(forestTrack),JSON.parse(straightAndLevel)],
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
@@ -90,7 +90,7 @@ var Levels = [
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
-        roadReferences:[JSON.parse(skylineTrack),JSON.parse(straightAndLevel)],
+        roadReferences:[JSON.parse(forestTrack),JSON.parse(straightAndLevel)],
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },

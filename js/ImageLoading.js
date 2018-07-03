@@ -64,7 +64,8 @@ const tinyRoboRacersBillboard = document.createElement("img");
 const chrisForPresidentBillboard = document.createElement("img");
 const burgerBillboard = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
-const notABillboard = document.createElement("img")
+const notABillboard = document.createElement("img");
+const attractionsBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -72,14 +73,6 @@ const imageList = [];
 const billboardSprites = [];
 
 let picsToLoad = 0;
-
-
-
-
-
-
-
-
 
 // lookup table of decorations used by Road.generateRandomRoad
 var allDecorations = [
@@ -129,14 +122,13 @@ var allDecorations = [
 	chrisForPresidentBillboard,
 	burgerBillboard,
 	clashTracksBillboard,
-	notABillboard];
+	notABillboard,
+	attractionsBillboard,
+	coffeeBillboard];
 
 function randomDecoration() {
 	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
 }
-
-
-
 
 function countLoadedImageAndLaunchIfReady() {
 	picsToLoad--;
@@ -231,6 +223,10 @@ function loadImages() {
 	billboardSprites.push(clashTracksBillboard);
 	imageList.push({ imgName: notABillboard, theFile: "NotABillboard.png" });
 	billboardSprites.push(notABillboard);
+	imageList.push({ imgName: attractionsBillboard, theFile: "roadsideAttractions.png" });
+	billboardSprites.push(attractionsBillboard);
+	imageList.push({ imgName: coffeeBillboard, theFile: "CoffeeBillboard.png" });
+	billboardSprites.push(coffeeBillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 
