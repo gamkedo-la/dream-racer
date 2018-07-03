@@ -66,6 +66,7 @@ const burgerBillboard = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
 const notABillboard = document.createElement("img");
 const attractionsBillboard = document.createElement("img");
+const coffeeBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
