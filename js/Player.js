@@ -185,6 +185,7 @@ function Player() {
 		if ((holdDown) || (holdX)) {
 			this.speed -= BRAKING;
 			brakeAudio(this.speed);
+			this.fx.brakeFX(this);
 		} else {
 			brake_master.pause();
 		}

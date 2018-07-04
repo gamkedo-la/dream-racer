@@ -249,4 +249,34 @@ function fxSystem() { // class constructor
         }
     };
 
-};
+    this.brakeFX = function (car) {
+        const X1 = 16;
+        const X2 = 128;
+        const Y = 128;
+        const WOBBLE = 6;
+        for (let num = 0; num < 2; num++) {
+            this.add(
+                car.position.x + X1 + ((Math.random() - 0.5) * WOBBLE),
+                car.position.y + Y + ((Math.random() - 0.5) * WOBBLE),
+                particlePic,
+                1000, 4, 'rgba(0,0,0,1)',
+                Math.random() * -8,
+                Math.random() * 8,
+                Math.random() * -4,
+                Math.random() * 8
+            );
+            this.add(
+                car.position.x + X2 + ((Math.random() - 0.5) * WOBBLE),
+                car.position.y + Y + ((Math.random() - 0.5) * WOBBLE),
+                particlePic,
+                1000, 4, 'rgba(0,0,0,1)',
+                Math.random() * -8,
+                Math.random() * 8,
+                Math.random() * -4,
+                Math.random() * 8
+            );
+        }
+    };
+
+
+}; // end class 
