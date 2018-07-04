@@ -220,4 +220,33 @@ function fxSystem() { // class constructor
         }
     };
 
+    this.boosterFX = function (car) {
+        const BOOST_X1 = 16;    // back tires
+        const BOOST_X2 = 128;
+        const BOOST_Y = 128;
+        const BOOST_WOBBLE = 6;
+        for (let num = 0; num < 2; num++) {
+            this.add(
+                car.position.x + BOOST_X1 + ((Math.random() - 0.5) * BOOST_WOBBLE),
+                car.position.y + BOOST_Y + ((Math.random() - 0.5) * BOOST_WOBBLE),
+                particlePic,
+                1000, 4, 'rgba(255,' + (Math.round(Math.random() * 255)) + ',40,1)',
+                Math.random() * -2,
+                Math.random() * 2,
+                Math.random() * 0,
+                Math.random() * 8
+            );
+            this.add(
+                car.position.x + BOOST_X2 + ((Math.random() - 0.5) * BOOST_WOBBLE),
+                car.position.y + BOOST_Y + ((Math.random() - 0.5) * BOOST_WOBBLE),
+                particlePic,
+                1000, 4, 'rgba(255,' + (Math.round(Math.random() * 255)) + ', 40, 1)',
+                Math.random() * -2,
+                Math.random() * 2,
+                Math.random() * 0,
+                Math.random() * 8
+            );
+        }
+    };
+
 };
