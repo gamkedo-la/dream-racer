@@ -60,6 +60,13 @@ function RoadsideDecoration(image, pos) {
 	}
 	this.fileName = fileNameForImgName(image);
 	this.type;
+	this.getType = function() {
+		if(this.type == undefined) {
+			this.type = this.typeForFileName(this.fileName);
+		}
+		
+		return this.type;
+	}
 	this.width = sprite.width;
 	this.height = sprite.height;
 	this.currentAnimationFrame = 0;
@@ -102,11 +109,11 @@ function RoadsideDecoration(image, pos) {
 			canvasContext.imageSmoothingEnabled = false; // avoid blurry bilinear interpolation and go crisp
 		}
 		if (this.animated) {
-			this.animationFrames = 2;
+			this.animationFrames = animationFramesForType(this.type);
 			this.width = sprite.width / this.animationFrames;
 			if (frameFromGameStart % 14 == 0) {
 				this.currentAnimationFrame++;
-				if (this.currentAnimationFrame > 1) {
+				if (this.currentAnimationFrame > (this.animationFrames - 1)) {
 					this.currentAnimationFrame = 0;
 				}
 			}
@@ -183,156 +190,120 @@ function RoadsideDecoration(image, pos) {
 		this.world.y = nearPos.y + interpolation * (farPos.y - nearPos.y);
 	}
 	
-	this.typeForFileName = function() {
-		switch(this.fileName) {
+	this.typeForFileName = function(name) {
+		switch(name) {
 			case "BlankBillboard.png":
-				this.type = DecorationType.BlankBillboard;
-				break;
+				return DecorationType.BlankBillboard;
 			case "BurgerBillboard.png":
-				this.type = DecorationType.BurgerBillboard;
-				break;
+				return DecorationType.BurgerBillboard;
 			case "ClashTracksBillboard.png":
-				this.type = DecorationType.ClashTracksBillboard;
-				break;
+				return DecorationType.ClashTracksBillboard;
 			case "EastCoastBillboard.png":
-				this.type = DecorationType.EastCoastBillboard;
-				break;
+				return DecorationType.EastCoastBillboard;
 			case "MageHookBillboard.png":
-				this.type = DecorationType.MageHookBillboard;
-				break;
+				return DecorationType.MageHookBillboard;
 			case "NiceCityBillboard.png":
-				this.type = DecorationType.NiceCityBillboard;
-				break;
+				return DecorationType.NiceCityBillboard;
 			case "ObeyBillboard.png":
-				this.type = DecorationType.ObeyBillboard;
-				break;
+				return DecorationType.ObeyBillboard;
 			case "RomanAdventureBillboard.png":
-				this.type = DecorationType.RomanAdventureBillboard;
-				break;
+				return DecorationType.RomanAdventureBillboard;
 			case "TinyRoboRacersBillboard.png":
-				this.type = DecorationType.TinyRoboRacersBillboard;
-				break;
+				return DecorationType.TinyRoboRacersBillboard;
 			case "chrisForPresident.png":
-				this.type = DecorationType.ChrisForPresident;
-				break;
+				return DecorationType.ChrisForPresident;
 			case "NotABillboard.png":
-				this.type = DecorationType.NotABillboard;
-				break;
+				return DecorationType.NotABillboard;
 			case "roadsideAttractions.png":
-				this.type = DecorationType.AttractionsBillboard;
-				break;
+				return DecorationType.AttractionsBillboard;
 			case "CoffeeBillboard.png":
-				this.type = DecorationType.CoffeeBillboard;
+				return DecorationType.CoffeeBillboard;
 			case "BillboardLight.png":
-				this.type = DecorationType.BillboardLight;
-				break;
+				return DecorationType.BillboardLight;
 			case "CheckeredFlag.png":
-				this.type = DecorationType.CheckeredFlag;
-				break;
+				return DecorationType.CheckeredFlag;
 			case "CheckPoint.png":
-				this.type = DecorationType.CheckPoint;
-				break;
+				return DecorationType.CheckPoint;
 			case "CurvyRoadSign.png":
-				this.type = DecorationType.CurvyRoadSign;
-				break;
+				return DecorationType.CurvyRoadSign;
 			case "HardLeftTurnSign.png":
-				this.type = DecorationType.HardLeftTurnSign;
-				break;
+				return DecorationType.HardLeftTurnSign;
 			case "HardRightTurnSign.png":
-				this.type = DecorationType.HardRightTurnSign;
-				break;
+				return DecorationType.HardRightTurnSign;
 			case "HillDownSignV0.png":
-				this.type = DecorationType.HillDownSignV0;
-				break;
+				return DecorationType.HillDownSignV0;
 			case "HillDownSignV1.png":
-				this.type = DecorationType.HillDownSignV1;
-				break;
+				return DecorationType.HillDownSignV1;
 			case "HillDownSignV2.png":
-				this.type = DecorationType.HillDownSignV2;
-				break;
+				return DecorationType.HillDownSignV2;
 			case "HillUpSignV0.png":
-				this.type = DecorationType.HillUpSignV0;
-				break;
+				return DecorationType.HillUpSignV0;
 			case "HillUpSignV1.png":
-				this.type = DecorationType.HillUpSignV1;
-				break;
+				return DecorationType.HillUpSignV1;
 			case "HillUpSignV2.png":
-				this.type = DecorationType.HillUpSignV2;
-				break;
+				return DecorationType.HillUpSignV2;
 			case "IceSignV0.png":
-				this.type = DecorationType.IceSignV0;
-				break;
+				return DecorationType.IceSignV0;
 			case "IceSignV1.png":
-				this.type = DecorationType.IceSignV1;
-				break;
+				return DecorationType.IceSignV1;
 			case "LeftStreetLight_NoLight.png":
-				this.type = DecorationType.LeftStreetLight_NoLight;
-				break;
+				return DecorationType.LeftStreetLight_NoLight;
 			case "LeftStreetLight.png":
-				this.type = DecorationType.LeftStreetLight;
-				break;
+				return DecorationType.LeftStreetLight;
 			case "LeftTurnSign.png":
-				this.type = DecorationType.LeftTurnSign;
-				break;
+				return DecorationType.LeftTurnSign;
 			case "OtherDriversSign.png":
-				this.type = DecorationType.OtherDriversSign;
-				break;
+				return DecorationType.OtherDriversSign;
 			case "palmTree.png":
-				this.type = DecorationType.PalmTree;
-				break;
+				return DecorationType.PalmTree;
 			case "Tree3.png":
-				this.type = DecorationType.Tree3;
-				break;
+				return DecorationType.Tree3;
 			case "Tree4.png":
-				this.type = DecorationType.Tree4;
-				break;
+				return DecorationType.Tree4;
 			case "Tree6.png":
-				this.type = DecorationType.Tree6;
-				break;
+				return DecorationType.Tree6;
 			case "QuestionSign.png":
-				this.type = DecorationType.QuestionSign;
-				break;
+				return DecorationType.QuestionSign;
 			case "RightStreetLight_NoLight.png":
-				this.type = DecorationType.RightStreetLight_NoLight;
-				break;
+				return DecorationType.RightStreetLight_NoLight;
 			case "RightStreetLight.png":
-				this.type = DecorationType.RightStreetLight;
-				break;
+				return DecorationType.RightStreetLight;
 			case "RightTurnSign.png":
-				this.type = DecorationType.RightTurnSign;
-				break;
+				return DecorationType.RightTurnSign;
 			case "RoadNarrowSign.png":
-				this.type = DecorationType.RoadNarrowSign;
-				break;
+				return DecorationType.RoadNarrowSign;
 			case "Speed50Sign.png":
-				this.type = DecorationType.Speed50Sign;
-				break;
+				return DecorationType.Speed50Sign;
 			case "Speed100Sign.png":
-				this.type = DecorationType.Speed100Sign;
-				break;
+				return DecorationType.Speed100Sign;
 			case "straightPowerPole.png":
-				this.type = DecorationType.StraightPowerPole;
-				break;
+				return DecorationType.StraightPowerPole;
 			case "straightPowerPoleCrossBeams.png":
-				this.type = DecorationType.StraightPowerPoleCrossBeams;
-				break;
+				return DecorationType.StraightPowerPoleCrossBeams;
 			case "straightPowerPoleCrossBeamsSlantLeft.png":
-				this.type = DecorationType.StraightPowerPoleCrossBeamsSlantLeft;
-				break;
+				return DecorationType.StraightPowerPoleCrossBeamsSlantLeft;
 			case "straightPowerPoleCrossBeamsSlantRight.png":
-				this.type = DecorationType.StraightPowerPoleCrossBeamsSlantRight;
-				break;
+				return DecorationType.StraightPowerPoleCrossBeamsSlantRight;
 			case "WarningSign.png":
-				this.type = DecorationType.WarningSign;
-				break;
+				return DecorationType.WarningSign;
 			case "AICar.png":
-				this.type = DecorationType.Car;
-				break;
+				return DecorationType.Car;
 			default:
 				return DecorationType.Sign;
 		}
 	}
-		
+	
+	const animationFramesForType = function(type) {
+		switch(type) {
+			case DecorationType.AttractionsBillboard:
+				return 2;
+			case DecorationType.CheckeredFlag:
+				return 5;
+			default:
+				return 1;
+		}
+	}
+	
 	const colliderDimsForType = function(type) {
 		switch(type) {
 			case DecorationType.CheckeredFlag:
@@ -415,8 +386,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree4:
 			case DecorationType.AttractionsBillboard:
 			case DecorationType.BillboardLight:
-				return 2;
 			case DecorationType.CoffeeBillboard:
+				return 2;
 			case DecorationType.Tree6:
 				return 0.5;
 			case DecorationType.NiceCityBillboard:

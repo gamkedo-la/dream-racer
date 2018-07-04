@@ -338,15 +338,16 @@ function Road(frustum) {
 				for (let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
-					if (thisDecoration.getSprite() == checkpointFlagPic) {
+					if (thisDecoration.getType() == DecorationType.CheckPoint) {
 						let timeExtend = 30000;
 						thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
 					}
-					if (thisDecoration.getSprite() == tempCheckeredFlagPic) {
+					if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
 						let timeExtend = 0;
 						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
+						thisDecoration.animated = true;
 					}
-					if (thisDecoration.getSprite() == attractionsBillboard) {
+					if (thisDecoration.getType() == DecorationType.AttractionsBillboard) {
 						thisDecoration.animated = true;
 					}
 					thisDecoration.typeForFileName();
