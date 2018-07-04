@@ -52,6 +52,7 @@ const countdownSpriteSheetPic = document.createElement("img");
 const goPic = document.createElement("img");
 const timeBonusPic = document.createElement("img");
 const needlePic = document.createElement("img");
+const billboardLightPic = document.createElement("img");
 // billboards
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
@@ -125,6 +126,7 @@ var allDecorations = [
 	clashTracksBillboard,
 	notABillboard,
 	attractionsBillboard,
+	billboardLightPic,
 	coffeeBillboard];
 
 function randomDecoration() {
@@ -201,6 +203,7 @@ function loadImages() {
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
 	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
 	imageList.push({ imgName: needlePic, theFile: "needle.png" });
+	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });
 	// billboard and images
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
 	billboardSprites.push(blankBillboard);

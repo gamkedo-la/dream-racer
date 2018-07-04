@@ -13,6 +13,7 @@ const DecorationType = {
 	NotABillboard:"NotABillboard",
 	AttractionsBillboard:"roadsideAttractions",
 	CoffeeBillboard:"CoffeeBillboard",
+	BillboardLight:"BillboardLight",
 	CheckeredFlag:"CheckeredFlag",
 	CheckPoint:"CheckPoint",
 	CurvyRoadSign:"CurvyRoadSign",
@@ -221,6 +222,9 @@ function RoadsideDecoration(image, pos) {
 				break;
 			case "CoffeeBillboard.png":
 				this.type = DecorationType.CoffeeBillboard;
+			case "BillboardLight.png":
+				this.type = DecorationType.BillboardLight;
+				break;
 			case "CheckeredFlag.png":
 				this.type = DecorationType.CheckeredFlag;
 				break;
@@ -371,6 +375,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 285, depth: 10};
 			case DecorationType.AttractionsBillboard:
 				return {xOffset: 55, yOffset: 100, zOffset: -5, width: 1050, height: 200, depth: 10};
+			case DecorationType.BillboardLight:
+				return {xOffset: 80, yOffset: 240, zOffset: -5, width: 25, height: 15, depth: 10};
 			case DecorationType.PalmTree:
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree3:
@@ -407,6 +413,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree3:
 			case DecorationType.Tree4:
 			case DecorationType.AttractionsBillboard:
+			case DecorationType.BillboardLight:
 				return 2;
 			case DecorationType.CoffeeBillboard:
 			case DecorationType.Tree6:

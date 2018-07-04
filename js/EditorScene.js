@@ -7,10 +7,6 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		JSON.parse(sampleLighting),
-		JSON.parse(straightAndLevel),
-		JSON.parse(straightAndLevel),
-		JSON.parse(straightAndLevel),
-		JSON.parse(straightAndLevel),
 		/*		JSON.parse(skylineTrack),		
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -82,6 +78,7 @@ function EditorScene(data) {
 			new DecorationUIElement(tree4Pic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
 			new DecorationUIElement(tree6Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(billboardLightPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			
 			
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
