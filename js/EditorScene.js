@@ -74,14 +74,13 @@ function EditorScene(data) {
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(pickupAIPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(tree3Pic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
+			new DecorationUIElement(tree3Pic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree4Pic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
-			new DecorationUIElement(tree4Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(tree6Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(tree6Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			
 			
-			new DecorationUIColor('#888888', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIColor('#008800', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
 /*			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(pickupAIPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(tree3Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height })*/
@@ -276,11 +275,18 @@ function EditorScene(data) {
 
 		if (mouseButtonHeld) {
 			const mousePos = { x: mouseX, y: mouseY };
+			const selectedSegment = this.road.selectedSegmentAt(mousePos);
 			if (this.road.selectedDecorationAt(mousePos)) {
 				//do some stuff here
 				this.clearDecorationUISelection();
 				mouseButtonHeld = false;
-			} else if (this.road.selectedSegmentAt(mousePos) != null) {
+			} else if (selectedSegment != null) {
+				if(selectedDecorationUIElementIndex >= 0) {
+					if(decorationUIElements[selectedDecorationUIElementIndex].type == "color") {
+						selectedSegment.color = decorationUIElements[selectedDecorationUIElementIndex].color;
+					}
+				}
+				
 				mouseButtonHeld = false;
 				this.clearDecorationUISelection();
 				this.road.clearDecorationSelection();
