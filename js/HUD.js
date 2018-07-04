@@ -54,14 +54,13 @@ var hud = {
     drawMusicPanel: function() {
         let panelLeftTopCorner = {x: canvas.width/2-100, y: canvas.height-155};
         let color = 'black';
-        let playSymbol = ">";
-        let pauseSymbol = "||";
-        let volume = currentBackgroundMusic.getVolume();
+        playSymbol = "\u25B6";
+        pauseSymbol = "\u258D" + "\u258D";
+        let volume = Math.floor(MusicVolumeManager.getVolume() * 10);
         let meta = currentBackgroundMusic.getTrackMeta();
         let currentTime = currentBackgroundMusic.getTime();
         let totalTime = currentBackgroundMusic.getDuration();
         let currentSymbol = currentBackgroundMusic.getPaused() ? pauseSymbol : playSymbol;
-
 
         scrollingText("Title:" + meta["title"], panelLeftTopCorner.x, panelLeftTopCorner.y, 110, 20, color, fonts.CreditsText, 0.5 ,true);
         this.drawTime(currentTime, panelLeftTopCorner.x + 120, panelLeftTopCorner.y, color);
@@ -70,9 +69,7 @@ var hud = {
         colorText("Artist:" + meta["author"], panelLeftTopCorner.x, panelLeftTopCorner.y+20, color, fonts.CreditsText, 'left', 1);
         colorText("Album:" + meta["album"], panelLeftTopCorner.x, panelLeftTopCorner.y+40, color, fonts.CreditsText, 'left', 1);
         colorText("Year:" + meta["year"], panelLeftTopCorner.x, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
-        //@FIXME: Volume does not display correctly;
         colorText("Volume:" + volume, panelLeftTopCorner.x+80, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
-
         colorText("" + currentSymbol, panelLeftTopCorner.x+160, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
     },
 

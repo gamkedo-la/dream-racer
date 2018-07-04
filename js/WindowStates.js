@@ -15,6 +15,7 @@ let windowState = {
 	endingScreen: false//displayed when the game is beat
 };
 let selectLevelAnimationStartFrame = 0;
+let currentlyTinted = false; 
 
 let bulletPointIcon = '\u2022'
 let leftArrowIcon = '\u2190';
@@ -23,12 +24,16 @@ let rightArrowIcon = '\u2192';
 let downArrowIcon = '\u2193';
 
 function tintScreen() {
-    canvasContext.fillStyle = textColor.Black;
-    canvasContext.globalAlpha = 0.75;
-    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-	canvasContext.globalAlpha = 1.0;
+	if (currentlyTinted) {
+		return;
+	} else {
+		currentlyTinted = true;
+	    canvasContext.fillStyle = textColor.Black;
+	    canvasContext.globalAlpha = 0.75;
+	    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+		canvasContext.globalAlpha = 1.0;
+	}
 }
-
 
 function showPausedScreen() {
     tintScreen();
@@ -36,11 +41,12 @@ function showPausedScreen() {
 }
 
 function windowOnFocus() {
-	resumeAudio();
-	if(!windowState.inFocus) {
+	if(!windowState.inFocus && !isPaused) {
 		windowState.inFocus = true;
+		currentlyTinted = false;
 		gameUpdate = setInterval(update, 1000/30);
 		resumeSound.play();
+		resumeAudio();
 	}
 }
 
@@ -218,11 +224,13 @@ function backToMainMenu() {
 }
 
 function togglePause() {
-    isPaused = !isPaused;
+	isPaused = !isPaused;
     if(isPaused) {
+    	pauseAudio();
+    	drawRect(0,0, canvas.width, canvas.height, canvasClearColor);
+    	scene.draw(); 
         showPausedScreen();
         pauseSound.play();
-        pauseAudio();
         clearInterval(gameUpdate);
         scene.timeSinceLastFrame = null;
 		scene.currentFrameTimestamp = null;
@@ -230,5 +238,9 @@ function togglePause() {
     } else {
 		gameUpdate = setInterval(update, 1000/30);
         resumeSound.play();
+        if (currentBackgroundMusic.getTime() > 0) {
+			currentBackgroundMusic.resume();
+		}
+		currentlyTinted = false;
     }
 }

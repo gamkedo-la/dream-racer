@@ -278,7 +278,7 @@ function scaleRange(inputStart, inputEnd, outputStart, outputEnd, value) {
 }
 
 //Game hooks
-const VOLUME_INCREMENT = 0.5;
+const VOLUME_INCREMENT = 0.1;
 
 var engineIndex = [engine_idle,
 				   engine_0500,
@@ -374,7 +374,6 @@ function pauseAudio() {
 	engine_master.pause();
 	brake_master.pause();
 	countDown.pause();
-
 }
 
 function resumeAudio() {

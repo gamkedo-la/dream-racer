@@ -1,16 +1,16 @@
 //Image Loading
-
+//backgrounds
 const tempBackgroundPic = document.createElement("img");
 const tempMiddlegroundPic = document.createElement("img");
 const tempSkyPic = document.createElement("img");
-
 const nightSkyMiddlegroundPic = document.createElement("img");
 const nightSkyBackgroundPic = document.createElement("img");
 const nightSkyPic = document.createElement("img");
+//player/AI cars
 const tempPlayerCarPic = document.createElement("img");
 const pickupAIPic = document.createElement("img");
 const semiAIPic = document.createElement("img");
-
+//signs/flags
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
 const curvyRoadSignPic = document.createElement("img");
@@ -31,15 +31,12 @@ const rightTurnSignPic = document.createElement("img");
 const roadNarrowSignPic = document.createElement("img");
 const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
+// trees/poles
 const palmTreePic = document.createElement("img");
 const tree3Pic = document.createElement("img");
 const tree4Pic = document.createElement("img");
 const tree6Pic = document.createElement("img");
 const warningSignPic = document.createElement("img");
-const sideBarrierEndPic = document.createElement("img");
-const sideBarrierStartPic = document.createElement("img");
-const sideBarrierMidPic = document.createElement("img");
-const hudPic = document.createElement("img");
 const rightStreetLightPic = document.createElement("img");
 const leftStreetLightPic = document.createElement("img");
 const rightStreetLightNoLightPic = document.createElement("img");
@@ -48,12 +45,22 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+//barriers
+const sideBarrierEndPic = document.createElement("img");
+const sideBarrierStartPic = document.createElement("img");
+const sideBarrierMidPic = document.createElement("img");
+// gui and hud
+const hudPic = document.createElement("img");
 const countdownSpriteSheetPic = document.createElement("img");
 const goPic = document.createElement("img");
 const timeBonusPic = document.createElement("img");
 const needlePic = document.createElement("img");
-const billboardLightPic = document.createElement("img");
+const mainMenuButtons = document.createElement("img");
+const mainMenuLogo = document.createElement("img");
+const mainMenuSelector = document.createElement("img");
+const mainMenuSlider = document.createElement("img");
 // billboards
+const billboardLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
 const dashboardPic = document.createElement("img");
@@ -146,15 +153,14 @@ function beginLoadingImage(imgVar, fileName) {
 }
 
 function loadImages() {
-
-	//temp image
+	//background images
 	imageList.push({ imgName: tempBackgroundPic, theFile: "backgroundClouds.png" });
 	imageList.push({ imgName: tempMiddlegroundPic, theFile: "middlegroundMountains.png" });
 	imageList.push({ imgName: tempSkyPic, theFile: "tempSky.png" });
-
 	imageList.push({ imgName: nightSkyMiddlegroundPic, theFile: "nightSkyMiddleground.png" });
 	imageList.push({ imgName: nightSkyBackgroundPic, theFile: "nightSkyBackground.png" });
 	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
+	//player car & AIcar
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
 	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
 	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet-small.png" });
@@ -180,6 +186,7 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png" });
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
+	// trees and general obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree3Pic, theFile: "Tree3.png" });
 	imageList.push({ imgName: tree4Pic, theFile: "Tree4.png" });
@@ -191,20 +198,24 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPolePic, theFile: "straightPowerPole.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
-	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });	
+	// hud gui and ui
+	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
+	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
+	imageList.push({ imgName: needlePic, theFile: "needle.png" });
 	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
 	imageList.push({ imgName: timeBonusPic, theFile: "timeBonus.png" });
+	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
+	imageList.push({ imgName: mainMenuButtons, theFile: "UI-Buttons.png" });
+	imageList.push({ imgName: mainMenuLogo, theFile: "UI-Logo.png" });
+	imageList.push({ imgName: mainMenuSelector, theFile: "UI-Selector.png" });
+	imageList.push({ imgName: mainMenuSlider, theFile: "UI-Slider.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
 	imageList.push({ imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png" });
-	// hud gui
-	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
-	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
-	imageList.push({ imgName: needlePic, theFile: "needle.png" });
-	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });
 	// billboard and images
+	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
 	billboardSprites.push(blankBillboard);
 	imageList.push({ imgName: obeyBillboard, theFile: "ObeyBillboard.png" });
