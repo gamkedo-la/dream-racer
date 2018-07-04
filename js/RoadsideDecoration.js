@@ -307,7 +307,7 @@ function RoadsideDecoration(image, pos) {
 	const colliderDimsForType = function(type) {
 		switch(type) {
 			case DecorationType.CheckeredFlag:
-				return {xOffset: 8, yOffset: 26, zOffset: -5, width: 12, height: 38, depth: 10};
+				return {xOffset: 0, yOffset: 310, zOffset: -5, width: 35, height: 200, depth: 10};
 			case DecorationType.CurvyRoadSign:
 			case DecorationType.LeftTurnSign:
 			case DecorationType.RightTurnSign:
@@ -340,13 +340,14 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
-				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
+//				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
+				return {xOffset: 0, yOffset: 75, zOffset: -5, width: 400, height: 180, depth: 10};
 			case DecorationType.ChrisForPresident:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
 			case DecorationType.NotABillboard:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 285, depth: 10};
 			case DecorationType.AttractionsBillboard:
-				return {xOffset: 55, yOffset: 100, zOffset: -5, width: 1050, height: 200, depth: 10};
+				return {xOffset: 35, yOffset: 150, zOffset: -5, width: 515, height: 150, depth: 10};
 			case DecorationType.BillboardLight:
 				return {xOffset: 80, yOffset: 240, zOffset: -5, width: 25, height: 15, depth: 10};
 			case DecorationType.PalmTree:
@@ -365,7 +366,7 @@ function RoadsideDecoration(image, pos) {
 	const triggerDimsForType = function(type) {
 		switch(type) {
 			case DecorationType.CheckeredFlag:
-				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 575, height: 120, depth: 10};
+				return {xOffset: -2500, yOffset: 310, zOffset: -5, width: 5000, height: 200, depth: 10};
 			default:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 575, height: 120, depth: 10};
 		}
@@ -387,6 +388,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.AttractionsBillboard:
 			case DecorationType.BillboardLight:
 			case DecorationType.CoffeeBillboard:
+			case DecorationType.CheckeredFlag:
 				return 2;
 			case DecorationType.Tree6:
 				return 0.5;
