@@ -18,6 +18,7 @@ var Levels = [
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
         groundColor: "#001206",
+        secondaryGroundColor: "#002412",
         skyPic: nightSkyPic,
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
@@ -50,6 +51,7 @@ var Levels = [
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
         groundColor: "#01c101",
+        secondaryGroundColor: "#00b400",
         skyPic: tempSkyPic,
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
@@ -74,6 +76,8 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        groundColor: "#001206",
+        secondaryGroundColor: "#002412",
         skyPic: tempBackgroundPic,
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
@@ -98,6 +102,8 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
+        groundColor: "#001206",
+        secondaryGroundColor: "#002412",
         skyPic: nightSkyPic,
         backgroundPic: tempMiddlegroundPic,
         middleGroundPic: tempMiddlegroundPic,

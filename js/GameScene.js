@@ -140,7 +140,6 @@ function GameScene(data) {
 	}
 
 	const drawCountdownTimerAndGO = function () {
-		const timeOnScreen = 30;
 		if (!countdownfinished) {
 			if (countDown.getPaused()) {
 				countDown.resume();

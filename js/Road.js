@@ -132,6 +132,9 @@ function Road(frustum) {
 
 //			getColorForLevel(scene.data.name, thisSegment);
 			groundColor = scene.data.groundColor;
+			if (thisSegment.index % 2 == 0) {
+					groundColor = scene.data.secondaryGroundColor;
+				}
 
 			fillPath(thisSegment.groundPath, groundColor);
 			fillPath(thisSegment.path, thisSegment.color);
@@ -190,15 +193,15 @@ function Road(frustum) {
 		switch (level) {
 			case "Forest Cruise":
 				groundColor = "#01c101";
-				/*if (segement.index % 2 == 0) {
+				if (segement.index % 2 == 0) {
 					groundColor = "#00aa00";
-				}*/
+				}
 				break;
 			case "Night City Skyline":
 				groundColor = "#002412";
-				/*if (segement.index % 2 == 0) {
+				if (segement.index % 2 == 0) {
 					groundColor = "#05a753";
-				}*/
+				}
 				break;
 			default:
 				break;
@@ -420,8 +423,22 @@ function Road(frustum) {
 					z: existingWorldPos.z + (segmentLength * initialTrackLength)
 				};
 				const thisDecoration = new RoadsideDecoration(imageName, newWorldPos);
+				if (thisDecoration.getType() == DecorationType.CheckPoint) {
+						let timeExtend = 30000;
+						thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
+					}
+					if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
+						let timeExtend = 0;
+						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
+						thisDecoration.animated = true;
+					}
+					if (thisDecoration.getType() == DecorationType.AttractionsBillboard) {
+						thisDecoration.animated = true;
+					}
 				thisDecoration.addCollider();
 				newSegment.decorations.push(thisDecoration);
+
+				newSegment.decorations[j].drawWithFrustum(frustum);
 			}
 		}
 	}
