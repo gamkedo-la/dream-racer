@@ -369,9 +369,8 @@ function Road(frustum) {
 		for (let i = 0; i < roadArray.length; i++) {
 			const newSegment = new Segment();
 			newSegment.index = roadArray[i].index + initialTrackLength;
+			newSegment.color = roadArray[i].color;
 			const lastColor = segments[segments.length - 1].color;
-			newSegment.color = (lastColor == Colors.Dark ? Colors.Light : Colors.Dark);
-
 			const lastFarPos = segments[segments.length - 1].farPos.world;
 			newSegment.nearPos.world = segments[segments.length - 1].farPos.world;
 			newSegment.farPos.world = {
