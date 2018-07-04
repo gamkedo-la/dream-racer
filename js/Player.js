@@ -51,7 +51,7 @@ function Player() {
 	this.laptime = 0;
 	this.boosting = false;
 	let boosterCount = 1;
-	
+
 
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
@@ -67,15 +67,15 @@ function Player() {
 	const USE_FX = true;
 	this.fx = new fxSystem();
 
-	this.drawPlayerCarSprite = function(index) {
+	this.drawPlayerCarSprite = function (index) {
 		canvasContext.drawImage(this.sprite,
-				carSpritesheet.frames[index].frame.x * 3,
-				carSpritesheet.frames[index].frame.y * 3,
-				carSpritesheet.frames[index].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
-				carSpritesheet.frames[index].frame.h * 3,
-				this.position.x, this.position.y,
-				carSpritesheet.frames[index].frame.w * 3,
-				carSpritesheet.frames[index].frame.h * 3
+			carSpritesheet.frames[index].frame.x * 3,
+			carSpritesheet.frames[index].frame.y * 3,
+			carSpritesheet.frames[index].frame.w * 3,	// why x3? tripled pixels in photoshop as an experiment
+			carSpritesheet.frames[index].frame.h * 3,
+			this.position.x, this.position.y,
+			carSpritesheet.frames[index].frame.w * 3,
+			carSpritesheet.frames[index].frame.h * 3
 		);
 	}
 
@@ -113,9 +113,9 @@ function Player() {
 			}
 
 			if (!scene.raceWon) {
-				if ((!holdLeft && !holdA) && (!holdRight && !holdD))  {
-				turnLeftFramecount = 0;
-				turnRightFramecount = 0;
+				if ((!holdLeft && !holdA) && (!holdRight && !holdD)) {
+					turnLeftFramecount = 0;
+					turnRightFramecount = 0;
 				}
 			}
 
@@ -185,6 +185,7 @@ function Player() {
 		if ((holdDown) || (holdX)) {
 			this.speed -= BRAKING;
 			brakeAudio(this.speed);
+			this.fx.brakeFX(this);
 		} else {
 			brake_master.pause();
 		}
@@ -217,6 +218,11 @@ function Player() {
 			}
 		}
 
+		// booster particles
+		if (this.boosting) {
+			this.fx.boosterFX(this);
+		}
+
 		if (holdSpace && holdUp && (((this.speed * 100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
 			this.currentGear += 1;
 		}
@@ -240,7 +246,7 @@ function Player() {
 		if ((holdLeft || holdRight || holdD || holdA) && this.speed > 1 && !scene.raceWon) {
 			this.turnRate += this.TURN_RATE_PER_FRAME;
 		}
-		
+
 		// if the turnRate is not being constantly modified, then it decays over time
 		if (this.turnRate == oldTurnRate) {
 			this.turnRate *= TURN_RATE_DECAY;
@@ -278,8 +284,8 @@ function Player() {
 			this.speed = 0;
 		}
 	}
-	
-	this.drawCrashAnimation = function(crashCount) {
+
+	this.drawCrashAnimation = function (crashCount) {
 		canvasContext.save();
 		const frameModulous = 20;
 		const deltaY = this.deltaYForCrashCount(crashCount);
@@ -313,21 +319,21 @@ function Player() {
 		canvasContext.restore();
 	}
 
-	this.raceWonAnimation = function() {
+	this.raceWonAnimation = function () {
 		if (frameNum > 0 && !victoryAnimation) {
 			return;
 		} else if (frameNum == 0 && !victoryAnimation) {
 			turnLeftFramecount = 0;
 			turnRightFramecount = 0;
 		}
-		if (this.speed <= speedForVictoryAnimation) { 
+		if (this.speed <= speedForVictoryAnimation) {
 			victoryAnimation = true;
 			turnLeftFramecount += 1.25;
 			brakeAudio(this.speed + 3);
 			if (this.speed == 0) {
 				winCounter++;
 			}
-			if (winCounter > framesPerSecond*3) { //Other conditions?
+			if (winCounter > framesPerSecond * 3) { //Other conditions?
 				currentBackgroundMusic.stop();
 				scene.gameIsOver = true;
 				winCounter = 0;
