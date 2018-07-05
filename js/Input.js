@@ -335,7 +335,7 @@ function keyRelease(evt) {
 		case KEY_LEFT:
 			holdLeft = false;
             if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = frameFromGameStart;
+                selectLevelAnimationStartFrame = framesFromGameStart;
                 prevLevel();
             }
 			break;
@@ -345,7 +345,7 @@ function keyRelease(evt) {
 		case KEY_RIGHT:
 			holdRight = false;
             if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = frameFromGameStart;
+                selectLevelAnimationStartFrame = framesFromGameStart;
                 nextLevel();
             }
 			break;

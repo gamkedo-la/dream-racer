@@ -6,7 +6,7 @@ const DEBUG = true;
 const GAME_HEIGHT = 600;
 const framesPerSecond = 30;
 
-let frameFromGameStart = 0;
+let framesFromGameStart = 0;
 
 let scene;
 let isLocalStorageInitialized = false;
@@ -124,6 +124,7 @@ window.onload = function () {
     setupLocalStorage();
 	initializeInput();
 	loadImages();
+	makeAnimatedSprites();
 	mainMenu.initialize();
 };
 
@@ -158,7 +159,7 @@ function loadingDoneSoStartGame() {
 function update() {
 	mainMenuStates();
 	AudioEventManager.updateEvents();
-	frameFromGameStart++; //@FIXME: Is there a global frameCounter that i missed?
+	framesFromGameStart++; //@FIXME: Is there a global frameCounter that i missed?
 };
 
 function startGame() {
@@ -190,7 +191,7 @@ function levelSelectScreen() {
     windowState.gameOver = false;
     windowState.levelSelect = true;
 
-    selectLevelAnimationStartFrame = frameFromGameStart;
+    selectLevelAnimationStartFrame = framesFromGameStart;
 }
 
 function startEditing() {

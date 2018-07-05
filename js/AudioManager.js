@@ -361,12 +361,12 @@ function loadAudio() {
 
 function turnVolumeUp() {
 	MusicVolumeManager.setVolume(musicVolume + VOLUME_INCREMENT);
-	SFXVolumeManager.setVolume(musicVolume + VOLUME_INCREMENT);
+	SFXVolumeManager.setVolume(sfxVolume + VOLUME_INCREMENT);
 }
 
 function turnVolumeDown() {
 	MusicVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
-	SFXVolumeManager.setVolume(musicVolume - VOLUME_INCREMENT);
+	SFXVolumeManager.setVolume(sfxVolume - VOLUME_INCREMENT);
 }
 
 function pauseAudio() {

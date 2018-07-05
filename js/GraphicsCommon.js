@@ -62,8 +62,8 @@ function scrollingText(text, x, y, w, h, color, font, speed, nopause) {
     canvasContext.font = font;
     canvasContext.fillStyle = color;
     let textLength = canvasContext.measureText(text).width + TEXT_GAP; //this should be called after font is set
-    canvasContext.fillText(text, x + (frameFromGameStart * speed) % textLength - textLength, y);
-	canvasContext.fillText(text, x + (frameFromGameStart * speed) % textLength, y);
+    canvasContext.fillText(text, x + (framesFromGameStart * speed) % textLength - textLength, y);
+	canvasContext.fillText(text, x + (framesFromGameStart * speed) % textLength, y);
     canvasContext.restore();
 }
 

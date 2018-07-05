@@ -62,7 +62,7 @@ var Levels = [
             return {x: 0, y: 0, scale: undefined };
         },
         backgroundTransformFunc: function() {
-            return {x: frameFromGameStart , y: 0, scale: undefined }
+            return {x: framesFromGameStart , y: 0, scale: undefined }
         },
         middlegroundTransformFunc: function(position) {
             return {x: Math.floor(position.x / 20), y: 0, scale: undefined }
@@ -93,7 +93,7 @@ var Levels = [
         name: "Frankenstein",
         musicTrackIndex: 0,
         skyTransformFunc: function() {
-            return {x: frameFromGameStart/2, y: 0, scale: undefined };
+            return {x: framesFromGameStart/2, y: 0, scale: undefined };
         },
         backgroundTransformFunc: function(position) {
             return {x: Math.floor(position.x / 65) , y: 0, scale: undefined }

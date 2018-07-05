@@ -111,7 +111,7 @@ function RoadsideDecoration(image, pos) {
 		if (this.animated) {
 			this.animationFrames = animationFramesForType(this.type);
 			this.width = sprite.width / this.animationFrames;
-			if (frameFromGameStart % 14 == 0) {
+			if (framesFromGameStart % 14 == 0) {
 				this.currentAnimationFrame++;
 				if (this.currentAnimationFrame > (this.animationFrames - 1)) {
 					this.currentAnimationFrame = 0;
