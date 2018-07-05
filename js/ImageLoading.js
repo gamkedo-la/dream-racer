@@ -49,6 +49,9 @@ const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
 const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
 const sideBarrierMidPic = document.createElement("img");
+
+const testRoadTexturePic = document.createElement("img");
+
 // gui and hud
 const hudPic = document.createElement("img");
 const countdownSpriteSheetPic = document.createElement("img");
@@ -214,6 +217,9 @@ function loadImages() {
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
 	imageList.push({ imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png" });
+	
+	imageList.push({ imgName: testRoadTexturePic, theFile: "DreamRacerTestRoadTexture.png" });
+	
 	// billboard and images
 	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
