@@ -118,6 +118,7 @@ window.onload = function () {
 
 	TitleTextX = canvas.width / 2;
 	subTitleTextX = canvas.width / 2;
+
 	opacity = 0;
 
     setupLocalStorage();
@@ -220,7 +221,7 @@ function editingDrawAll() {
 };
 
 function moveAll() {
-        scene.move();
+    scene.move();
 };
 
 function editingMoveAll() {

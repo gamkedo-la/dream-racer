@@ -14,8 +14,12 @@ let windowState = {
 	gameOver: false,
 	endingScreen: false//displayed when the game is beat
 };
+
 let selectLevelAnimationStartFrame = 0;
 let currentlyTinted = false; 
+
+let animationFrames = 6;
+let currentAnimationFrameIndex = 0;
 
 let bulletPointIcon = '\u2022'
 let leftArrowIcon = '\u2190';
@@ -63,13 +67,82 @@ function windowOnBlur() {
 
 function mainMenuStates() {
 	if(windowState.mainMenu) {
+		let TitleImageX = canvas.width/2 - 150;
+		let TitleImageY = canvas.height/2 - 380; 
 		opacity = 1;
 		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+		mainMenuSelector
+		if (frameFromGameStart % 3 == 0) {
+			currentAnimationFrameIndex++;
+			if (currentAnimationFrameIndex > animationFrames - 1) {
+				currentAnimationFrameIndex = 0;
+			}
+		}
+		//canvasContext.drawImage(image,
+		//						source x, source y, source width, source height,
+		//						destination x, destination y, destination width, destination height);
+		canvasContext.imageSmoothingEnabled = false;
+		canvasContext.drawImage(mainMenuLogo, 
+								currentAnimationFrameIndex * mainMenuLogo.width/animationFrames, 0,
+								mainMenuLogo.width/animationFrames, mainMenuLogo.height,
+								TitleImageX, TitleImageY,
+								mainMenuLogo.width/animationFrames, mainMenuLogo.height);
+		let buttonSpacing = 0;
+		canvasContext.drawImage(mainMenuButtons,
+								0, 0 * mainMenuButtons.height/5,
+								mainMenuButtons.width, mainMenuButtons.height/5,
+								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
+								mainMenuButtons.width, mainMenuButtons.height/5);
+		buttonSpacing += 50;
+		canvasContext.drawImage(mainMenuButtons,
+								0, 1 * mainMenuButtons.height/5,
+								mainMenuButtons.width, mainMenuButtons.height/5,
+								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
+								mainMenuButtons.width, mainMenuButtons.height/5);
+		buttonSpacing += 50;
+		canvasContext.drawImage(mainMenuButtons,
+								0, 2 * mainMenuButtons.height/5,
+								mainMenuButtons.width, mainMenuButtons.height/5,
+								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
+								mainMenuButtons.width, mainMenuButtons.height/5);
+		buttonSpacing += 50;
+		canvasContext.drawImage(mainMenuButtons,
+								0, 3 * mainMenuButtons.height/5,
+								mainMenuButtons.width, mainMenuButtons.height/5,
+								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
+								mainMenuButtons.width, mainMenuButtons.height/5);
+		buttonSpacing += 50;
+		canvasContext.save();
+		canvasContext.translate(canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing)
+		canvasContext.rotate(90*DEGREES_TO_RADIANS);
+		canvasContext.drawImage(mainMenuSlider,
+								(10 - (Math.floor(SFXVolumeManager.getVolume() * 10))) * mainMenuSlider.width/12, 0,
+								mainMenuSlider.width/12, mainMenuSlider.height - 41,
+								0, -mainMenuSlider.height + 42,
+								mainMenuSlider.width/12, mainMenuSlider.height - 41);
+		canvasContext.restore();
+		buttonSpacing += 20;
+		canvasContext.drawImage(mainMenuButtons,
+								0, 4 * mainMenuButtons.height/5,
+								mainMenuButtons.width, mainMenuButtons.height/5,
+								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
+								mainMenuButtons.width, mainMenuButtons.height/5);
+		buttonSpacing += 50;
+		canvasContext.save();
+		canvasContext.translate(canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing)
+		canvasContext.rotate(90*DEGREES_TO_RADIANS);
+		canvasContext.drawImage(mainMenuSlider,
+								(10 - (Math.floor(SFXVolumeManager.getVolume() * 10))) * mainMenuSlider.width/12, 0,
+								mainMenuSlider.width/12, mainMenuSlider.height - 41,
+								0, -mainMenuSlider.height + 42,
+								mainMenuSlider.width/12, mainMenuSlider.height - 41);
+		canvasContext.restore();
+		
+		/*colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
 
 		mainMenu.handleSliders();
-		mainMenu.drawButtons(opacity);
+		mainMenu.drawButtons(opacity);*/
 	} else if(windowState.credits) {
         opacity = 1;
         drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
@@ -218,7 +291,8 @@ function backToMainMenu() {
 	if(isPaused) {
 		return;
 	}
-  windowState.gameOver = false;
+	windowState.playing = false;
+    windowState.gameOver = false;
 	windowState.credits = false;
 	windowState.mainMenu = true;
 }

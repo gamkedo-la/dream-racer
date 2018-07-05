@@ -222,7 +222,9 @@ function keyPress(evt) {
 			break;
 		case KEY_P:
 			keyUsedByGame = true;
+			if (!windowState.mainMenu) {
 			togglePause();
+			}
 			break;
 		case KEY_Q:
 			break;

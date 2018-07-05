@@ -33,6 +33,8 @@ const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
 // trees/poles
 const palmTreePic = document.createElement("img");
+const tree1Pic = document.createElement("img");
+const tree2Pic = document.createElement("img");
 const tree3Pic = document.createElement("img");
 const tree4Pic = document.createElement("img");
 const tree6Pic = document.createElement("img");
@@ -191,6 +193,8 @@ function loadImages() {
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
 	// trees/poles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
+	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });
+	imageList.push({ imgName: tree2Pic, theFile: "Tree2.png" });
 	imageList.push({ imgName: tree3Pic, theFile: "Tree3.png" });
 	imageList.push({ imgName: tree4Pic, theFile: "Tree4.png" });
 	imageList.push({ imgName: tree6Pic, theFile: "Tree6.png" });
