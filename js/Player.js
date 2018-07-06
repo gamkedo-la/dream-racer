@@ -16,6 +16,7 @@ function Player() {
 	this.MAX_TURN_RATE = 90;
 
 	this.sprite = tempPlayerCarPic;
+	this.currentSpriteFrame = 0; // current car sprite index referred to by particle fx
 	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
 	this.height = 140; //Can someone put a comment in here to describe why 140 is the magic number?
 	this.depth = 60;//swag
@@ -135,7 +136,12 @@ function Player() {
 			if (scene.raceWon) {
 				this.raceWonAnimation();
 			}
-			this.drawPlayerCarSprite(frameNum + frameOffset);
+
+			// remember for use in particle FX
+			this.currentSpriteFrame = frameNum + frameOffset;
+
+			// draw the appropriate sprite
+			this.drawPlayerCarSprite(this.currentSpriteFrame);
 
 			// smoke/dust/dirt effects
 			if (USE_FX) {

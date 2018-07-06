@@ -1,6 +1,38 @@
 // a very simple particle system that rotates scales and fades sprites
 // made by McFunkypants for Dream Racer, a gamekdo.com club project!
 
+// hardoded "back tire / bumper" offsets for car animation frames
+// remember, the car sprite has x3 pixel zoom
+const carParticleOffset = [
+    [0, 0],  // straight
+    [40, 0],
+    [70, 0],
+    [100, 0],
+    [140, 0], // far left
+    [-5, -10],
+    [-10, -20],
+    [-15, -30],
+    [-20, -40], // far right
+    [0, 0], // downhill straight
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0], // downhill left
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0], // downhill right
+    [0, 0], // uphill straight
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0], // uphill left
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0] // uphill right
+];
+
 function fxSystem() { // class constructor
 
     var particle = [];
@@ -179,10 +211,14 @@ function fxSystem() { // class constructor
         const EXHAUST_SIZE = 64;
         const EXHAUST_CHANCE = 0.5; // per frame chance a particle is spawned
 
+        var offsetX = carParticleOffset[car.currentSpriteFrame][0];
+        var offsetY = carParticleOffset[car.currentSpriteFrame][1];
+        //console.log('car frame:' + car.currentSpriteFrame + ' offset: ' + offsetX + ',' + offsetY);
+
         if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
             this.add(
-                car.position.x + EXHAUST_X,
-                car.position.y + EXHAUST_Y,
+                car.position.x + EXHAUST_X + offsetX,
+                car.position.y + EXHAUST_Y + offsetY,
                 particlePic,
                 EXHAUST_LIFESPAN, EXHAUST_SIZE, EXHAUST_COLOR,
                 -0.5, 0.5, 0, 4 // * this.speed?
