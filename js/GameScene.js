@@ -340,6 +340,8 @@ function GameScene(data) {
 
 						this.player.speed -= BUMPED_CAR_SPEED_REDUCTION;
 
+						bumpMasterSFX.play();
+
 						if (Math.abs(this.aiCars[i].speed - this.player.speed) > CRASH_DELTA_SPEED) {
 							console.log('hit from behind')
 							this.player.speed = 9;
@@ -354,6 +356,8 @@ function GameScene(data) {
 						const playerSpeed = this.player.speed;
 						this.player.speed = this.aiCars[i].speed - CRASH_DELTA_SPEED;
 						this.aiCars[i].speed = playerSpeed + CRASH_DELTA_SPEED;
+						
+						bumpMasterSFX.play();
 					}
 				}
 			}

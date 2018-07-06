@@ -44,7 +44,7 @@ var offroadSound = new sfxClipLoop("temp_offroad", 10);
 var bumpSFX1 = new sfxClipSingle("sfx_bump_01");
 var bumpSFX2 = new sfxClipSingle("sfx_bump_02");
 var bumpSFX3 = new sfxClipSingle("sfx_bump_03");
-var bumpMasterSFX = new sfxContainerRandom([bumpSFX1,bumpSFX4,bumpSFX3]);
+var bumpMasterSFX = new sfxContainerRandom([bumpSFX1,bumpSFX2,bumpSFX3]);
 
 function setFormat() {
 	var audio = new Audio();
