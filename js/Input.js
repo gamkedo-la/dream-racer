@@ -115,12 +115,29 @@ function keyPress(evt) {
 			break;
 		case KEY_ENTER:
 			keyUsedByGame = true;
+			holdEnter = true;
 			//@FIXME: Editor resume weird behaviour, level select screen is shown, but returns to same level,
 			//@FIXME: cannot play after entering editing mode
-			if((windowState.mainMenu) || (windowState.help) || (windowState.gameOver)) {
-				if(!showedHelp) {
-					openHelp();
-				} else if(scene === undefined || scene == null) {
+			if (windowState.mainMenu) {
+				switch (selectorPositionsIndex) {
+					case 0:
+						holdEnter = false;
+						startGame();
+						break;
+					case 1:
+						holdEnter = false;
+						openHelp();
+						break;
+					case 2:
+						holdEnter = false;
+						openCredits();
+						break;
+				}
+				return;
+			}
+
+			if ((windowState.help) || (windowState.gameOver)) {
+				if (scene === undefined || scene == null) {
 					levelSelectScreen();
 				}
 				else {
@@ -155,7 +172,6 @@ function keyPress(evt) {
 		case KEY_LEFT:
 			keyUsedByGame = true;
 			holdLeft = true;
-
 			break;
 		case KEY_UP:
 			keyUsedByGame = true;
@@ -319,6 +335,7 @@ function keyRelease(evt) {
 		case KEY_TAB:
 			break;
 		case KEY_ENTER:
+			holdEnter = false;
 			break;
 		case KEY_SHIFT:
 			holdShift = false;

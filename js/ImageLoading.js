@@ -60,6 +60,10 @@ const countdownSpriteSheetPic = document.createElement("img");
 const goPic = document.createElement("img");
 const timeBonusPic = document.createElement("img");
 const needlePic = document.createElement("img");
+const mainMenuButtons = document.createElement("img");
+const mainMenuLogo = document.createElement("img");
+const mainMenuSelector = document.createElement("img");
+const mainMenuSlider = document.createElement("img");
 // billboards
 const billboardLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
@@ -209,6 +213,10 @@ function loadImages() {
 	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
 	imageList.push({ imgName: timeBonusPic, theFile: "timeBonus.png" });
 	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
+	imageList.push({ imgName: mainMenuButtons, theFile: "UI-Buttons.png" });
+	imageList.push({ imgName: mainMenuLogo, theFile: "UI-Logo.png" });
+	imageList.push({ imgName: mainMenuSelector, theFile: "UI-Selector.png" });
+	imageList.push({ imgName: mainMenuSlider, theFile: "UI-Slider.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });

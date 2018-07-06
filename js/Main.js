@@ -218,7 +218,9 @@ function drawAll() {
 };
 
 function editingDrawAll() {
+	if (scene) {
 	scene.draw();
+	}
 };
 
 function moveAll() {

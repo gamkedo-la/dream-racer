@@ -68,99 +68,7 @@ function windowOnBlur() {
 
 function mainMenuStates() {
 	if(windowState.mainMenu) {
-		let TitleImageX = canvas.width/2 - 150;
-		let TitleImageY = canvas.height/2 - 380; 
-		opacity = 1;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		if (framesFromGameStart % 3 == 0) {
-			currentAnimationFrameIndex++;
-			if (currentAnimationFrameIndex > animationFrames - 1) {
-				currentAnimationFrameIndex = 0;
-			}
-		}
-		if (framesFromGameStart % 3 == 0) {
-			currentSelectorAnimationFrameIndex++;
-			if (currentSelectorAnimationFrameIndex > animationFrames - 1) {
-				currentSelectorAnimationFrameIndex = 0;
-			}
-		}
-		//canvasContext.drawImage(image,
-		//						source x, source y, source width, source height,
-		//						destination x, destination y, destination width, destination height);
-		canvasContext.imageSmoothingEnabled = false;
-		canvasContext.drawImage(mainMenuSelector, 
-								currentSelectorAnimationFrameIndex * mainMenuSelector.width/animationFrames, 0,
-								mainMenuSelector.width/animationFrames, mainMenuSelector.height,
-								canvas.width/2 - 117, canvas.height/2 - 100,
-								mainMenuSelector.width/animationFrames, mainMenuSelector.height);
-		canvasContext.drawImage(mainMenuLogo, 
-								currentAnimationFrameIndex * mainMenuLogo.width/animationFrames, 0,
-								mainMenuLogo.width/animationFrames, mainMenuLogo.height,
-								TitleImageX, TitleImageY,
-								mainMenuLogo.width/animationFrames, mainMenuLogo.height);
-		let buttonSpacing = 0;
-		canvasContext.drawImage(mainMenuButtons,
-								0, 0 * mainMenuButtons.height/5,
-								mainMenuButtons.width, mainMenuButtons.height/5,
-								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
-								mainMenuButtons.width, mainMenuButtons.height/5);
-		buttonSpacing += 50;
-		canvasContext.drawImage(mainMenuButtons,
-								0, 1 * mainMenuButtons.height/5,
-								mainMenuButtons.width, mainMenuButtons.height/5,
-								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
-								mainMenuButtons.width, mainMenuButtons.height/5);
-		buttonSpacing += 50;
-		canvasContext.drawImage(mainMenuButtons,
-								0, 2 * mainMenuButtons.height/5,
-								mainMenuButtons.width, mainMenuButtons.height/5,
-								canvas.width/2 - 72, canvas.height/2 - 100 + buttonSpacing,
-								mainMenuButtons.width, mainMenuButtons.height/5);
-		buttonSpacing += 50;
-		canvasContext.drawImage(mainMenuButtons,
-								0, 3 * mainMenuButtons.height/5,
-								mainMenuButtons.width, mainMenuButtons.height/5,
-								canvas.width/2 - 172, canvas.height/2 - 100 + buttonSpacing,
-								mainMenuButtons.width, mainMenuButtons.height/5);
-		buttonSpacing += 50;
-		let musicGetVolume = (10 - (Math.floor(MusicVolumeManager.getVolume() * 10)));
-		let sfxGetVolume = (10 - (Math.floor(SFXVolumeManager.getVolume() * 10)));
-		if (musicGetVolume > 10) {
-			musicGetVolume = 10;
-		} else if (musicGetVolume < 0) {
-			musicGetVolume = 0;
-		}
-		if (sfxGetVolume > 10) {
-			sfxGetVolume = 10;
-		} else if (sfxGetVolume < 0) {
-			sfxGetVolume = 0;
-		}
-		canvasContext.save();
-		canvasContext.translate(canvas.width/2 - 172, Math.ceil(canvas.height/2 - 100 + buttonSpacing))
-		canvasContext.rotate(90*DEGREES_TO_RADIANS);
-		canvasContext.drawImage(mainMenuSlider,
-								musicGetVolume * mainMenuSlider.width/11, 0,
-								mainMenuSlider.width/11, mainMenuSlider.height,
-								0, -mainMenuSlider.height,
-								mainMenuSlider.width/11, mainMenuSlider.height);
-		canvasContext.restore();
-		buttonSpacing += 20;
-		canvasContext.drawImage(mainMenuButtons,
-								0, 4 * mainMenuButtons.height/5,
-								mainMenuButtons.width, mainMenuButtons.height/5,
-								canvas.width/2 - 172, canvas.height/2 - 100 + buttonSpacing,
-								mainMenuButtons.width, mainMenuButtons.height/5);
-		buttonSpacing += 50;
-		canvasContext.save();
-		canvasContext.translate(canvas.width/2 - 172, Math.ceil(canvas.height/2 - 100 + buttonSpacing))
-		canvasContext.rotate(90*DEGREES_TO_RADIANS);
-		canvasContext.drawImage(mainMenuSlider,
-								sfxGetVolume * mainMenuSlider.width/11, 0,
-								mainMenuSlider.width/11, mainMenuSlider.height,
-								0, -mainMenuSlider.height,
-								mainMenuSlider.width/11, mainMenuSlider.height);
-		canvasContext.restore();
-		
+		drawMainMenu(); // AnimatedSprites.js near bottom
 		/*colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
 		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
 
@@ -318,6 +226,7 @@ function backToMainMenu() {
     windowState.gameOver = false;
 	windowState.credits = false;
 	windowState.mainMenu = true;
+	scene = undefined;
 }
 
 function togglePause() {
