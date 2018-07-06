@@ -32,12 +32,19 @@ var engine_5500 = new sfxClipLoop("temp_engine_5500", 2.6);
 var engine_6000 = new sfxClipLoop("temp_engine_6000", 2.35);
 var engine_master = new sfxContainer([engine_idle,engine_0500,engine_1000,engine_1500,engine_2000,engine_2500,engine_3000,
 								  engine_3500,engine_4000,engine_4500,engine_5000,engine_5500,engine_6000]);
+
 var brake_off = new sfxClipLoop("temp_placeholder", 2);
 var brake_low = new sfxClipLoop("brake_low", 4);
 var brake_mid = new sfxClipLoop("brake_mid", 2.5);
 var brake_high = new sfxClipLoop("brake_high", 2);
 var brake_master = new sfxContainer([brake_off,brake_low,brake_mid,brake_high])
+
 var offroadSound = new sfxClipLoop("temp_offroad", 10);
+
+var bumpSFX1 = new sfxClipSingle("sfx_bump_01");
+var bumpSFX2 = new sfxClipSingle("sfx_bump_02");
+var bumpSFX3 = new sfxClipSingle("sfx_bump_03");
+var bumpMasterSFX = new sfxContainerRandom([bumpSFX1,bumpSFX4,bumpSFX3]);
 
 function setFormat() {
 	var audio = new Audio();
