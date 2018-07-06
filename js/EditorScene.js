@@ -6,8 +6,8 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-		JSON.parse(straightAndLevel)
-//		JSON.parse(sampleLighting),
+	//	JSON.parse(straightAndLevel)
+		JSON.parse(sampleLighting)
 		/*		JSON.parse(skylineTrack),		
 				JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -80,6 +80,10 @@ function EditorScene(data) {
 
 			new DecorationUIElement(tree6Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(billboardLightPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(tree1Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(tree2Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(nextExitSignPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(waterTowerPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 			
 			
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),

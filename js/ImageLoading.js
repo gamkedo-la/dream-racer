@@ -31,7 +31,8 @@ const rightTurnSignPic = document.createElement("img");
 const roadNarrowSignPic = document.createElement("img");
 const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
-// trees/poles
+const nextExitSignPic = document.createElement("img");
+// trees/poles/obstacles
 const palmTreePic = document.createElement("img");
 const tree1Pic = document.createElement("img");
 const tree2Pic = document.createElement("img");
@@ -47,6 +48,7 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+const waterTowerPic = document.createElement("img");
 // barriers
 const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
@@ -191,7 +193,9 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png" });
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
-	// trees/poles
+	imageList.push({ imgName: nextExitSignPic, theFile: "NextExitSign.png" });
+	
+	// trees/poles/obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });
 	imageList.push({ imgName: tree2Pic, theFile: "Tree2.png" });
@@ -205,7 +209,8 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPolePic, theFile: "straightPowerPole.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });	
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: waterTowerPic, theFile: "WaterTower.png" });	
 	// hud/gui
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
 	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });

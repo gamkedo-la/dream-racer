@@ -32,6 +32,8 @@ const DecorationType = {
 	LeftTurnSign:"LeftTurnSign",
 	OtherDriversSign:"OtherDriversSign",
 	PalmTree:"palmTree",
+	Tree1:"Tree1",
+	Tree2:"Tree2",
 	Tree3:"Tree3",
 	Tree4:"Tree4",
 	Tree6:"Tree6",
@@ -42,6 +44,8 @@ const DecorationType = {
 	RoadNarrowSign:"RoadNarrowSign",
 	Speed50Sign:"Speed50Sign",
 	Speed100Sign:"Speed100Sign",
+	NextExitSign:"NextExitSign",
+	WaterTower:"WaterTower",
 	StraightPowerPole:"straightPowerPole",
 	StraightPowerPoleCrossBeams:"straightPowerPoleCrossBeams",
 	StraightPowerPoleCrossBeamsSlantLeft:"straightPowerPoleCrossBeamsSlantLeft",
@@ -256,6 +260,10 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.OtherDriversSign;
 			case "palmTree.png":
 				return DecorationType.PalmTree;
+			case "Tree1.png":
+				return DecorationType.Tree1;
+			case "Tree2.png":
+				return DecorationType.Tree2;
 			case "Tree3.png":
 				return DecorationType.Tree3;
 			case "Tree4.png":
@@ -268,6 +276,10 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.RightStreetLight_NoLight;
 			case "RightStreetLight.png":
 				return DecorationType.RightStreetLight;
+			case "WaterTower.png":
+				return DecorationType.WaterTower;
+			case "NextExitSign.png":
+				return DecorationType.NextExitSign;
 			case "RightTurnSign.png":
 				return DecorationType.RightTurnSign;
 			case "RoadNarrowSign.png":
@@ -325,6 +337,7 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 116, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.RightStreetLight:
 			case DecorationType.RightStreetLight_NoLight:
+			case DecorationType.NextExitSign:
 				return {xOffset: 356, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.LeftStreetLight:
 			case DecorationType.LeftStreetLight_NoLight:
@@ -332,6 +345,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.ObeyBillboard:
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BlankBillboard:
+			case DecorationType.WaterTower:
 			case DecorationType.BurgerBillboard:
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
@@ -352,6 +366,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 80, yOffset: 240, zOffset: -5, width: 25, height: 15, depth: 10};
 			case DecorationType.PalmTree:
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
+			case DecorationType.Tree1:
+			case DecorationType.Tree2:
 			case DecorationType.Tree3:
 				return {xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree4:
@@ -395,6 +411,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BurgerBillboard:
 				return 3;
+			case DecorationType.WaterTower:
+				return 20;
 			default:
 				return 4;
 		}

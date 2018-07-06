@@ -3,6 +3,7 @@ let mainMenuButtonsSprite;
 let mainMenuLogoSprite;
 let mainMenuSelectorSprite;
 let mainMenuSliderSprite;
+let checkeredFlagSprite;
 
 let selectorPositionsIndex = 0;
 
@@ -35,6 +36,13 @@ function makeAnimatedSprites() {
 			framesMoveSideways: true,
 			loops: false,
 	});
+	checkeredFlagSprite = new AnimatedSpriteClass({
+			spriteSheet: tempCheckeredFlagPic,
+			animationFrames: 5,
+			framesUntilNext: 14,
+			framesMoveSideways: true,
+			loops: true,
+	});
 };
 
 // Animated Sprite Class
@@ -61,8 +69,12 @@ function AnimatedSpriteClass(data) {
 	//							source x, source y, source width, source height,
 	//							destination x, destination y, destination width/ strech/squish, destination height/ strech/squish);
 
-	this.draw = function (x,y) {
+	this.draw = function (x,y, opacity = 1, streched = false, strechX = 1, strechY = 1) {
+		let additionalWidth;
+		let additionalHeight;
+		canvasContext.save();
 		canvasContext.imageSmoothingEnabled = false;
+		canvasContext.globalAlpha = opacity;
 		if (this.loops) {
 			if (framesFromGameStart % this.framesUntilNext == 0) {
 				this.currentFrameIndex++;
@@ -70,30 +82,41 @@ function AnimatedSpriteClass(data) {
 					this.currentFrameIndex = 0;
 				}
 			}
-		} 
+		}
+		if (streched) {
+			additionalWidth = this.spriteSheet.width;
+			additionalHeight = this.spriteSheet.height;
+		} else {
+			additionalWidth = 0;
+			additionalHeight = 0;
+		}
 		if (this.framesMoveSideways) {
 			//The frames in the source image are arranged left to right, all using the same height
 			canvasContext.drawImage(this.spriteSheet, 
 									this.currentFrameIndex * this.spriteSheet.width/this.animationFrames, 0,
 									this.spriteSheet.width/this.animationFrames, this.spriteSheet.height,
 									x, y,
-									this.spriteSheet.width/this.animationFrames, this.spriteSheet.height);
+									this.spriteSheet.width/this.animationFrames + (additionalWidth * strechX), 
+									this.spriteSheet.height * strechY);
 		} else {
 			//The frames in the source image are arranged top to bottom, all using the same width
 			canvasContext.drawImage(this.spriteSheet,
 									0, this.currentFrameIndex * this.spriteSheet.height/this.animationFrames,
 									this.spriteSheet.width, this.spriteSheet.height/this.animationFrames,
 									x, y,
-									this.spriteSheet.width, this.spriteSheet.height/this.animationFrames);
+									this.spriteSheet.width * strechX, 
+									this.spriteSheet.height/this.animationFrames + (additionalHeight * strechY));
 		}
+		canvasContext.restore();
 	}
 
 	this.drawRotated = function(atX,atY,
 								offsetInRelationToRotationX,offsetInRelationToRotationY, 
-								rotationInDegrees) {
+								rotationInDegrees, opacity = 1) {
 		canvasContext.imageSmoothingEnabled = false;
 		canvasContext.save();
 		canvasContext.translate(atX, atY);
+		canvasContext.globalAlpha = opacity;
 		canvasContext.rotate(rotationInDegrees*DEGREES_TO_RADIANS);
 		if (this.framesMoveSideways) {
 			canvasContext.drawImage(this.spriteSheet,
@@ -113,6 +136,14 @@ function AnimatedSpriteClass(data) {
 }; //end of Animated Sprite Class
 
 const drawMainMenu = function() {
+	let flag = {
+		x: -45,
+		y: 0,
+		opacity: 0.5,
+		streched: true,
+		strechX: 1.63,
+		strechY: 10
+	}
 	let titleImageX = canvas.width/2 - 150;
 	let titleImageY = canvas.height/2 - 380;
 	let buttonsX = canvas.width/2 - 72;
@@ -124,6 +155,9 @@ const drawMainMenu = function() {
 	let sliderRotation = 90; 
 	opacity = 1;
 	drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+	checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
+							flag.opacity,flag.streched,
+							flag.strechX, flag.strechY);
 	let selectorPositions = [mainMenuY,
 							mainMenuY+selectorYOffset,
 							mainMenuY+(selectorYOffset*2)];

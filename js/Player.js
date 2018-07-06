@@ -291,26 +291,35 @@ function Player() {
 		}
 	}
 
+	const checkNumberRange = function(lowerNumber,numberToCheckIfInRange,higherNumber) {
+		return lowerNumber <= numberToCheckIfInRange && numberToCheckIfInRange <= higherNumber;
+	}
+
 	this.drawCrashAnimation = function (crashCount) {
 		canvasContext.save();
-		const frameModulous = 20;
 		const deltaY = this.deltaYForCrashCount(crashCount);
+		const valueToPlaySound = 6; //console.log({deltaY}) to see why 6 was choosen
+		if (deltaY <= valueToPlaySound) {
+			crashMasterSFX.play();
+		}
 		canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
 		canvasContext.rotate(rotation);
 		canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
-		if (0 <= crashCount % frameModulous && crashCount % frameModulous <= 4) {
+		const frameModulous = 20;
+		let crashCountFrameCount = crashCount % frameModulous;
+		if (checkNumberRange(0,crashCountFrameCount,4)) {
 			let frameNum = 27;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (5 <= crashCount % frameModulous && crashCount % frameModulous <= 9) {
+		if (checkNumberRange(5,crashCountFrameCount,9)) {
 			let frameNum = 28;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (10 <= crashCount % frameModulous && crashCount % frameModulous <= 14) {
+		if (checkNumberRange(10,crashCountFrameCount,14)) {
 			let frameNum = 29;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (15 <= crashCount % frameModulous && crashCount % frameModulous <= 19) {
+		if (checkNumberRange(15,crashCountFrameCount,19)) {
 			let frameNum = 30;
 			this.drawPlayerCarSprite(frameNum);
 		}
