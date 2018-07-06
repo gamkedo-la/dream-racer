@@ -46,6 +46,11 @@ var bumpSFX2 = new sfxClipSingle("sfx_bump_02");
 var bumpSFX3 = new sfxClipSingle("sfx_bump_03");
 var bumpMasterSFX = new sfxContainerRandom([bumpSFX1,bumpSFX2,bumpSFX3]);
 
+var crashSFX1 = new sfxClipSingle("sfx_crash_01");
+var crashSFX2 = new sfxClipSingle("sfx_crash_02");
+var crashSFX3 = new sfxClipSingle("sfx_crash_03");
+var crashMasterSFX = new sfxContainerRandom([crashSFX1,crashSFX2,crashSFX3]);
+
 function setFormat() {
 	var audio = new Audio();
 	if (audio.canPlayType("audio/ogg")) {
