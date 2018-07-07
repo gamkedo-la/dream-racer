@@ -457,25 +457,31 @@ function PauseScreen () {
         pauseAudio();
         pauseSound.play();
         clearInterval(gameUpdate);
+        gameUpdate = null;
         scene.timeSinceLastFrame = null;
         scene.currentFrameTimestamp = null;
         scene.previousFrameTimestamp = null;
     };
     this.transitionOut = function pauseScreenTransitionOut(){
-        if(gameUpdate === null){
-            gameUpdate = setInterval(update, 1000/30);
+        console.log(gameUpdate);
+        if(!gameUpdate === null) {
+            clearInterval(gameUpdate);
+            gameUpdate = null;
         }
+        gameUpdate = setInterval(update, 1000/30);
         resumeSound.play();
         if (currentBackgroundMusic.getTime() > 0) {
             currentBackgroundMusic.resume();
         }
 	};
     this.run = function pauseScreenRun(){
+        canvasContext.save();
         canvasContext.fillStyle = textColor.Black;
         canvasContext.globalAlpha = 0.75;
         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
         canvasContext.globalAlpha = 1.0;
         colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
+        canvasContext.restore();
     };
     this.control = function pauseScreenControl(keyCode, pressed){
         if(pressed){
