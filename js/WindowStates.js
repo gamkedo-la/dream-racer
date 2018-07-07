@@ -126,11 +126,11 @@ function LevelSelectScreen() {
     };
     this.transitionOut = function(){};
     this.run = function levelSelectScreenRun(){
-        let titleImageX = canvas.width/2 - 150;
-        let titleImageY = canvas.height/2 - 380;
         let previewOffsetY =280;
         opacity = 1;
         drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        let titleImageX = canvas.width/2 - 150;
+        let titleImageY = canvas.height/2 - 380;
         mainMenuLogoSprite.draw(titleImageX,titleImageY);
         let animationSpeedBackground = clamp((framesFromGameStart-this.selectLevelAnimationStartFrame)*this.initialAnimationSpeed, 0, canvas.width/2);
         let animationSpeedForeground = animationSpeedBackground;
@@ -259,6 +259,9 @@ function GamePlayScreen (){
         opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
         scene.draw();
+        if(scene.gameIsOver){
+            ScreenStates.setState(GAMEPLAY_FINISH_SCREEN, { stats: scene.getStats() });
+        }
 	};
 	this.control = function gamePlayScreenControl(keyCode, pressed){
         switch(keyCode) {
@@ -448,17 +451,22 @@ function GamePlayFinishScreen() {
 	this.transitionOut = function(){};
 	this.run = function gamePlayFinishedScreenRun(){
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-        colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-        gameOver.drawButtons(opacity);
+        let titleImageX = canvas.width/2 - 150;
+        let titleImageY = canvas.height/2 - 380;
+        mainMenuLogoSprite.draw(titleImageX,titleImageY);
 	}
 	this.control = function gamePlayFinishedScreenControl(keyCode, pressed){
         switch (keyCode){
             case KEY_MOUSE_LEFT:
-            	if(!pressed) {
-                    gameOver.checkButtons();
-                }
+                // if(!pressed) {
+                //     gameOver.checkButtons();
+                // }
                 return true;
+            case KEY_ENTER:
+            case KEY_BACKSPACE:
+                if(!pressed){
+                    ScreenStates.setState(MENU_SCREEN);
+                }
         }
         return false;
     };
@@ -631,6 +639,7 @@ let ScreenStates = {
         this.screens[this.state].transitionOut();
         this.stateLog.push(this.state);
 		this.state = newState;
+		this.screens[this.state].properties = properties;
 		this.screens[this.state].transitionIn();
 		return this;
 	},
