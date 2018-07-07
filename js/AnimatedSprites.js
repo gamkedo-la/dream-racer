@@ -19,6 +19,7 @@ function makeAnimatedSprites() {
 			framesUntilNext: 3,
 			framesMoveSideways: true,
 			loops: true,
+			framesBetweenLoops: 250,
 	});
 	mainMenuSelectorSprite = new AnimatedSpriteClass({
 			spriteSheet: mainMenuSelector,
@@ -54,6 +55,8 @@ function AnimatedSpriteClass(data) {
 	this.framesUntilNext = data.framesUntilNext;
 	this.framesMoveSideways = data.framesMoveSideways;
 	this.loops = data.loops;
+	this.framesBetweenLoops = data.framesBetweenLoops || 0;
+	this.currentPauseFramesLeft = 0;
 
 	this.setFrame = function(frame) {
 		this.currentFrameIndex = frame;
@@ -74,11 +77,16 @@ function AnimatedSpriteClass(data) {
         canvasContext.globalAlpha = opacity;
 		canvasContext.imageSmoothingEnabled = false;
 		if (this.loops) {
-			if (framesFromGameStart % this.framesUntilNext == 0) {
-				this.currentFrameIndex++;
-				if (this.currentFrameIndex > this.numberOfFrameIndexes) {
-					this.currentFrameIndex = 0;
-				}
+			if(this.currentPauseFramesLeft <= 0) {
+                if (framesFromGameStart % this.framesUntilNext == 0) {
+                    this.currentFrameIndex++;
+                    if (this.currentFrameIndex > this.numberOfFrameIndexes) {
+                        this.currentFrameIndex = 0;
+                        this.currentPauseFramesLeft = this.framesBetweenLoops;
+                    }
+                }
+            } else{
+				this.currentPauseFramesLeft--;
 			}
 		}
 		if (streched) {
