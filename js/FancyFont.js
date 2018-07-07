@@ -74,7 +74,12 @@ const nonAlpha = {
     "]": null,
     ":": null,
     "!": null,
-    "'": null
+    "'": null,
+    "-": null,
+    ".": null,
+    ",": null,
+    "(": null,
+    ")": null
 }
 
 function printWord(word, x, y, scale = 1){
