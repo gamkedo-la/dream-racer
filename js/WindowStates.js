@@ -2,6 +2,7 @@ const MENU_SCREEN = 'menu';
 function MenuScreen(){
     this.selectorPositionsIndex = 0;
 	this.transitionOut = function menuScreenTransitionOut(){
+        uiSelect.play();
 	};
 	this.transitionIn = function menuScreenTransitionIn() {
 	    this.selectorPositionsIndex = 0;
@@ -66,6 +67,7 @@ function MenuScreen(){
                 if(pressed === true){
                     return false;
                 }
+
                 ScreenStates.setState(this.selections[this.selectorPositionsIndex].screen);
                 return true;
             case KEY_H:
@@ -95,7 +97,9 @@ function MenuScreen(){
 const OPTIONS_SCREEN = 'options';
 function OptionsScreen(){
     this.transitionIn = function (){};
-    this.transitionOut = function(){};
+    this.transitionOut = function(){
+        uiSelect.play();
+    };
     this.run = function(){};
     this.control = function(keyCode, pressed){
         switch(keyCode){
@@ -124,7 +128,9 @@ function LevelSelectScreen() {
 	this.transitionIn = function(){
 	    this.selectLevelAnimationStartFrame = framesFromGameStart;
     };
-    this.transitionOut = function(){};
+    this.transitionOut = function(){
+        uiSelect.play();
+    };
     this.run = function levelSelectScreenRun(){
         let previewOffsetY =280;
         opacity = 1;
@@ -174,7 +180,9 @@ function LevelSelectScreen() {
 const CREDITS_SCREEN = 'credits';
 function CreditsScreen() {
 	this.transitionIn = function(){};
-	this.transitionOut = function(){};
+	this.transitionOut = function(){
+        uiSelect.play();
+    };
 	this.run = function creditsScreenRun() {
         opacity = 1;
         drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
@@ -216,7 +224,9 @@ function CreditsScreen() {
 const HELP_SCREEN = 'help';
 function HelpScreen() {
 	this.transitionIn = function(){};
-	this.transitionOut = function(){};
+	this.transitionOut = function(){
+        uiSelect.play();
+    };
 	this.run = function helpScreenRun(){
         opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
@@ -253,7 +263,9 @@ function GamePlayScreen (){
             scene = new GameScene(getLevel(currentLevelIndex));
 		}
 	};
-	this.transitionOut = function gamePlayScreenTransitionOut(){};
+	this.transitionOut = function gamePlayScreenTransitionOut(){
+
+    };
 	this.run = function gamePlayScreenRun(){
         scene.move();
         opacity = 1;
@@ -447,8 +459,14 @@ function PauseOptionsScreen(){
 
 const GAMEPLAY_FINISH_SCREEN = 'gp_finish';
 function GamePlayFinishScreen() {
-	this.transitionIn = function(){};
-	this.transitionOut = function(){};
+	this.transitionIn = function(){
+	    currentBackgroundMusic.stop();
+        engine_master.stop();
+        brake_master.stop();
+    };
+	this.transitionOut = function(){
+        uiSelect.play();
+    };
 	this.run = function gamePlayFinishedScreenRun(){
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
         let titleImageX = canvas.width/2 - 150;
@@ -525,6 +543,19 @@ function EditorScreen() {
                 return true;
             case KEY_MOUSE_LEFT:
                 mouseButtonHeld = pressed;
+                return true;
+            case KEY_UP:
+                holdUp = pressed;
+                return true;
+            case KEY_DOWN:
+                holdDown = pressed;
+                return true;
+            case KEY_LEFT:
+                holdLeft = pressed;
+                return true;
+            case KEY_RIGHT:
+                holdRight = pressed;
+                return true;
         }
         return false;
 	}
