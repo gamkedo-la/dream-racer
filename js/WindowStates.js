@@ -16,7 +16,7 @@ function MenuScreen(){
             streched: true,
             strechX: 1.63,
             strechY: 10
-        }
+        };
         let titleImageX = canvas.width/2 - 150;
         let titleImageY = canvas.height/2 - 380;
         let buttonsX = canvas.width/2 - 72;
@@ -96,18 +96,80 @@ function MenuScreen(){
 
 const OPTIONS_SCREEN = 'options';
 function OptionsScreen(){
-    this.transitionIn = function (){};
+    this.transitionIn = function (){
+        this.sliders = [
+            { title: "MUSIC", manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
+            { title: "SFX", manager: SFXVolumeManager, storageKey: localStorageKey.SFXVolume, variable: sfxVolume },
+        ];
+    };
     this.transitionOut = function(){
         uiSelect.play();
     };
-    this.run = function(){};
+    this.selectedSlider = 0;
+    this.sliders = [
+    ];
+    this.run = function(){
+        let titleImageX = canvas.width/2 - 150;
+        let titleImageY = canvas.height/2 - 380;
+        let mainMenuY = canvas.height/2 - 100;
+        let buttonsX = canvas.width/2 - 72;
+        let buttonsXOffset = titleImageX + 80;
+        let selectorYOffset = 50;
+        let selectorXOffset = 40;
+
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        mainMenuLogoSprite.draw(titleImageX,titleImageY);
+        for (let i = 0; i < this.sliders.length;i++){
+            printWord(this.sliders[i].title, buttonsXOffset, mainMenuY + selectorYOffset*2*i);
+            let volume = Math.floor(this.sliders[i].manager.getVolume() * 10);
+            mainMenuSliderSprite.currentFrameIndex = 10 - volume;
+            mainMenuSliderSprite.drawRotated(
+                buttonsX,
+                Math.ceil(mainMenuY + selectorYOffset*2*i+selectorYOffset),
+                0,
+                -mainMenuSlider.height,
+                90);
+        }
+        printWord("BACK TO MENU", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
+
+        mainMenuSelectorSprite.draw(buttonsX - selectorXOffset, mainMenuY + selectorYOffset*2*this.selectedSlider);
+
+    };
+    this.updateSliderValue = function(delta){
+        if(this.selectedSlider !== this.sliders.length) {
+            let slider = this.sliders[this.selectedSlider];
+            let volume = slider.manager.getVolume();
+            slider.variable = clamp(Math.round((volume + delta)*10)/10, 0,  1);
+            slider.manager.setVolume(slider.variable);
+            localStorageHelper.setItem(slider.storageKey, slider.variable);
+        }
+    };
     this.control = function(keyCode, pressed){
+        if(pressed) {
+            return false;
+        }
         switch(keyCode){
             case KEY_BACKSPACE:
-                if(!pressed){
+                ScreenStates.setState(MENU_SCREEN);
+                return true;
+            case KEY_UP:
+                this.selectedSlider = clamp(this.selectedSlider - 1, 0, this.sliders.length);
+                return true;
+            case KEY_DOWN:
+                this.selectedSlider = clamp(this.selectedSlider + 1, 0, this.sliders.length);
+                return true;
+            case KEY_ENTER:
+                if(this.selectedSlider === this.sliders.length){
                     ScreenStates.setState(MENU_SCREEN);
-                    return true;
                 }
+                return true;
+            case KEY_LEFT:
+                this.updateSliderValue(-0.1);
+                return true;
+            case KEY_RIGHT:
+                this.updateSliderValue(0.1);
+                return true;
+
         }
         return false;
     };
