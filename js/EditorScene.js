@@ -84,7 +84,20 @@ function EditorScene(data) {
 			new DecorationUIElement(tree2Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(nextExitSignPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(waterTowerPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
+
+			new DecorationUIElement(nextExitSignLeftSidePic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(nextExitSignLeftSideLightPic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(yoloSign_LeftSidePic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(yoloSign_LeftSideLightPic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(startFreewaySign_LeftSidePic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 			
+			new DecorationUIElement(endFreewaySign_RightSidePic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(endFreewaySign_RightSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+/*			new DecorationUIElement(yoloSign_LeftSidePic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(yoloSign_LeftSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(startFreewaySign_LeftSidePic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
 			
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIColor('#BBBBBB', { x: UI_SIZE.width + 10, y: canvas.height - 3 * UI_SIZE.height }),

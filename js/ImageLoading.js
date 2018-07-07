@@ -32,6 +32,14 @@ const roadNarrowSignPic = document.createElement("img");
 const speedLimitSlowSignPic = document.createElement("img");
 const speedLimitFastSignPic = document.createElement("img");
 const nextExitSignPic = document.createElement("img");
+const nextExitSignLeftSidePic = document.createElement("img");
+const nextExitSignLeftSideLightPic = document.createElement("img");
+const yoloSign_LeftSidePic = document.createElement("img");
+const yoloSign_LeftSideLightPic = document.createElement("img");
+const startFreewaySign_LeftSidePic = document.createElement("img");
+const startFreewaySign_LeftSideLightPic = document.createElement("img");
+const endFreewaySign_RightSidePic = document.createElement("img");
+const endFreewaySign_RightSideLightPic = document.createElement("img");
 // trees/poles/obstacles
 const palmTreePic = document.createElement("img");
 const tree1Pic = document.createElement("img");
@@ -144,6 +152,15 @@ var allDecorations = [
 	notABillboard,
 	attractionsBillboard,
 	billboardLightPic,
+	nextExitSignPic,
+	nextExitSignLeftSidePic,
+	nextExitSignLeftSideLightPic,
+	yoloSign_LeftSidePic,
+	yoloSign_LeftSideLightPic,
+	startFreewaySign_LeftSidePic,
+	startFreewaySign_LeftSideLightPic,
+	endFreewaySign_RightSidePic,
+	endFreewaySign_RightSideLightPic,
 	coffeeBillboard];
 
 function randomDecoration() {
@@ -197,7 +214,14 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
 	imageList.push({ imgName: nextExitSignPic, theFile: "NextExitSign.png" });
-	
+	imageList.push({ imgName: nextExitSignLeftSidePic, theFile: "NextExitSign_LeftSide.png" });
+	imageList.push({ imgName: nextExitSignLeftSideLightPic, theFile: "NextExitSign_LeftSideLight.png" });
+	imageList.push({ imgName: yoloSign_LeftSidePic, theFile: "YOLOSign_LeftSide.png" });
+	imageList.push({ imgName: yoloSign_LeftSideLightPic, theFile: "YOLOSign_LeftSideLight.png" });
+	imageList.push({ imgName: startFreewaySign_LeftSidePic, theFile: "StartFreewaySign_LeftSide.png" });
+	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_LeftSideLight.png" });
+	imageList.push({ imgName: endFreewaySign_RightSidePic, theFile: "EndFreewaySign_RightSide.png" });
+	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });	
 	// trees/poles/obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });

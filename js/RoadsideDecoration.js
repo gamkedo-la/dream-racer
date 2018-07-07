@@ -45,6 +45,14 @@ const DecorationType = {
 	Speed50Sign:"Speed50Sign",
 	Speed100Sign:"Speed100Sign",
 	NextExitSign:"NextExitSign",
+	NextExitSignLeftSide:"NextExitSignLeftSide",
+	NextExitSignLeftSideLight:"NextExitSignLeftSideLight",
+	YoloSign_LeftSide:"YoloSign_LeftSide",
+	YoloSign_LeftSideLight:"YoloSign_LeftSideLight",
+	StartFreewaySign_LeftSide:"StartFreewaySign_LeftSide",
+	StartFreewaySign_LeftSideLight:"StartFreewaySign_LeftSideLight",
+	EndFreewaySign_RightSide:"EndFreewaySign_RightSide",
+	EndFreewaySign_RightSideLight:"EndFreewaySign_RightSideLight",
 	WaterTower:"WaterTower",
 	StraightPowerPole:"straightPowerPole",
 	StraightPowerPoleCrossBeams:"straightPowerPoleCrossBeams",
@@ -280,6 +288,22 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.WaterTower;
 			case "NextExitSign.png":
 				return DecorationType.NextExitSign;
+			case "NextExitSign_LeftSide.png":
+				return DecorationType.NextExitSignLeftSide;
+			case "NextExitSign_LeftSideLight.png":
+				return DecorationType.NextExitSignLeftSideLight;
+			case "YOLOSign_LeftSide.png":
+				return DecorationType.YoloSign_LeftSide;
+			case "YOLOSign_LeftSideLight.png":
+				return DecorationType.YoloSign_LeftSideLight;
+			case "StartFreewaySign_LeftSide.png":
+				return DecorationType.StartFreewaySign_LeftSide;
+			case "StartFreewaySign_LeftSideLight.png":
+				return DecorationType.StartFreewaySign_LeftSideLight;
+			case "EndFreewaySign_RightSide.png":
+				return DecorationType.EndFreewaySign_RightSide;
+			case "EndFreewaySign_RightSideLight.png":
+				return DecorationType.EndFreewaySign_RightSideLight;
 			case "RightTurnSign.png":
 				return DecorationType.RightTurnSign;
 			case "RoadNarrowSign.png":
@@ -328,6 +352,8 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
 			case DecorationType.HardRightTurnSign:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
+			case DecorationType.WaterTower:
+				return {xOffset: 180, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.StraightPowerPole:
 				return {xOffset: 0, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.StraightPowerPoleCrossBeams:
@@ -338,14 +364,22 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.RightStreetLight:
 			case DecorationType.RightStreetLight_NoLight:
 			case DecorationType.NextExitSign:
+			case DecorationType.EndFreewaySign_RightSide:
+			case DecorationType.EndFreewaySign_RightSideLight:
 				return {xOffset: 356, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
+			case DecorationType.NextExitSignLeftSide:
+			case DecorationType.NextExitSignLeftSideLight:
+			case DecorationType.YoloSign_LeftSide:
+			case DecorationType.YoloSign_LeftSideLight:
+			case DecorationType.StartFreewaySign_LeftSide:
+			case DecorationType.StartFreewaySign_LeftSideLight:				
+				return {xOffset: 0, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.LeftStreetLight:
 			case DecorationType.LeftStreetLight_NoLight:
 				return {xOffset: 0, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.ObeyBillboard:
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BlankBillboard:
-			case DecorationType.WaterTower:
 			case DecorationType.BurgerBillboard:
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
