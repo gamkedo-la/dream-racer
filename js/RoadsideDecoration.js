@@ -367,7 +367,9 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.PalmTree:
 				return {xOffset: 275, yOffset: 300, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree1:
+				return {xOffset: 185, yOffset: 310, zOffset: -5, width: 15, height: 122, depth: 10};
 			case DecorationType.Tree2:
+				return {xOffset: 130, yOffset: 220, zOffset: -5, width: 15, height: 100, depth: 10};
 			case DecorationType.Tree3:
 				return {xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10};
 			case DecorationType.Tree4:
