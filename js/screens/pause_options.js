@@ -1,0 +1,73 @@
+function PauseOptionsScreen(){
+    this.selectedSlider = 0;
+    this.sliders = [
+    ];
+    this.transitionIn = function (){
+        this.sliders = [
+            { title: "MUSIC", manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
+            { title: "SFX", manager: SFXVolumeManager, storageKey: localStorageKey.SFXVolume, variable: sfxVolume },
+        ];
+    };
+    this.transitionOut = function pauseOptionsScreenTransitionOut(){
+    };
+    this.run = function pauseOptionsScreenRun(){
+        let titleImageX = canvas.width/2 - 150;
+        let mainMenuY = canvas.height/2 - 100;
+        let buttonsX = canvas.width/2 - 72;
+        let buttonsXOffset = titleImageX + 80;
+        let selectorYOffset = 50;
+        let selectorXOffset = 40;
+        scene.draw();
+        semiTransparentBack();
+        drawLogo();
+        for (let i = 0; i < this.sliders.length;i++){
+            printWord(this.sliders[i].title, buttonsXOffset, mainMenuY + selectorYOffset*2*i);
+            let volume = Math.floor(this.sliders[i].manager.getVolume() * 10);
+            mainMenuSliderSprite.currentFrameIndex = 10 - volume;
+            mainMenuSliderSprite.drawRotated(
+                buttonsX,
+                Math.ceil(mainMenuY + selectorYOffset*2*i+selectorYOffset),
+                0,
+                -mainMenuSlider.height,
+                90);
+        }
+        printWord("BACK", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
+        mainMenuSelectorSprite.draw(buttonsX - selectorXOffset, mainMenuY + selectorYOffset*2*this.selectedSlider);
+    };
+    this.updateSliderValue = function(delta){
+        if(this.selectedSlider !== this.sliders.length) {
+            let slider = this.sliders[this.selectedSlider];
+            let volume = slider.manager.getVolume();
+            slider.variable = clamp(Math.round((volume + delta)*10)/10, 0,  1);
+            slider.manager.setVolume(slider.variable);
+            localStorageHelper.setItem(slider.storageKey, slider.variable);
+        }
+    };
+    this.control = function pauseOptionsScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_BACKSPACE:
+                ScreenStates.setState(PAUSE_SCREEN);
+                return true;
+            case KEY_UP:
+                this.selectedSlider = clamp(this.selectedSlider - 1, 0, this.sliders.length);
+                return true;
+            case KEY_DOWN:
+                this.selectedSlider = clamp(this.selectedSlider + 1, 0, this.sliders.length);
+                return true;
+            case KEY_ENTER:
+                if(this.selectedSlider === this.sliders.length){
+                    ScreenStates.setState(PAUSE_SCREEN);
+                }
+                return true;
+            case KEY_LEFT:
+                this.updateSliderValue(-0.1);
+                return true;
+            case KEY_RIGHT:
+                this.updateSliderValue(0.1);
+                return true;
+        }
+    }
+}
