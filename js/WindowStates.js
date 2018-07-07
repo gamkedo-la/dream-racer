@@ -97,7 +97,16 @@ function OptionsScreen(){
     this.transitionIn = function (){};
     this.transitionOut = function(){};
     this.run = function(){};
-    this.control = function(){};
+    this.control = function(keyCode, pressed){
+        switch(keyCode){
+            case KEY_BACKSPACE:
+                if(!pressed){
+                    ScreenStates.setState(MENU_SCREEN);
+                    return true;
+                }
+        }
+        return false;
+    };
 }
 
 const LOADING_SCREEN = 'loading';
@@ -111,26 +120,31 @@ function LoadingScreen() {
 const LEVEL_SELECT_SCREEN = 'level';
 function LevelSelectScreen() {
     this.selectLevelAnimationStartFrame;
-	this.transitionIn = function(){};
+    this.initialAnimationSpeed = 53;
+	this.transitionIn = function(){
+	    this.selectLevelAnimationStartFrame = framesFromGameStart;
+    };
     this.transitionOut = function(){};
     this.run = function levelSelectScreenRun(){
+        let titleImageX = canvas.width/2 - 150;
+        let titleImageY = canvas.height/2 - 380;
+        let previewOffsetY =280;
         opacity = 1;
         drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        let animationSpeedBackground = clamp((framesFromGameStart-this.selectLevelAnimationStartFrame)*53, 0, canvas.width/2); //@FIXME: magical LevelSelect AnimationSpeed
+        mainMenuLogoSprite.draw(titleImageX,titleImageY);
+        let animationSpeedBackground = clamp((framesFromGameStart-this.selectLevelAnimationStartFrame)*this.initialAnimationSpeed, 0, canvas.width/2);
         let animationSpeedForeground = animationSpeedBackground;
 
         if(animationSpeedBackground > canvas.width/2 - 10) {
             animationSpeedBackground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/14;
             animationSpeedForeground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/10;
         }
-        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y:200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: previewOffsetY, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y: previewOffsetY, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y: previewOffsetY, scale: undefined });
 
-        colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-        colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
-        colorText((currentLevelIndex+1) + '/' + Levels.length, TitleTextX,canvas.height/2+160,textColor.White,fonts.Subtitle,textAlignment.Center );
-        colorText(Levels[currentLevelIndex].name, TitleTextX,canvas.height/2+120,textColor.White,fonts.Subtitle,textAlignment.Center );
+        printWord('Please select level', 100, canvas.height/2+180, 0.6);
+        printWord(Levels[currentLevelIndex].name, 100, canvas.height/2 + 240);
 	};
     this.control = function levelSelectControl(keyCode, pressed){
         if(pressed){
@@ -646,7 +660,7 @@ function windowOnFocus() {
 }
 
 function windowOnBlur() {
-    if(ScreenStates.state === GAMEPLAY_SCREEN) {
+    if(ScreenStates.state == GAMEPLAY_SCREEN) {
         ScreenStates.setState(PAUSE_SCREEN);
     }
 }

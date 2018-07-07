@@ -151,6 +151,7 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	canvasContext.restore();
 }
 
+//@FIXME: not accounting for x width, cannot draw scale 0.5 in half a screen
 function wrapAndtransformDraw(whichImg, pixelOffset) {
     let wrappedOffset = {
         x: pixelOffset.x % whichImg.width,

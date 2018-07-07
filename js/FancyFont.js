@@ -58,7 +58,7 @@ const lettersOffset = [
 ];
 const letterSpacing = 4;
 
-function printWord(word, x, y){
+function printWord(word, x, y, scale = 1){
     let height = fancyFont.height;
     let leftOffset = 0;
     word = word.toUpperCase();
@@ -72,7 +72,7 @@ function printWord(word, x, y){
         let letterOffset = calculateLetterOffset(letterIndex, sizes, lettersOffset);
         canvasContext.drawImage(fancyFont,
             letterOffset, 0, sizes[letterIndex], height,
-            x + leftOffset, y , sizes[letterIndex], height);
+            x + scale * leftOffset, y , scale * sizes[letterIndex], scale * height);
         leftOffset += sizes[letterIndex] + letterSpacing;
     }
 }
