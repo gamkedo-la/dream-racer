@@ -28,6 +28,9 @@ function MenuScreen(){
     ];
 	this.transitionIn = function menuScreenTransitionIn() {
 	    this.selectorPositionsIndex = 0;
+	    if(scene !== null) {
+	        scene = null;
+        }
 	};
     this.transitionOut = function menuScreenTransitionOut(){
         uiSelect.play();
