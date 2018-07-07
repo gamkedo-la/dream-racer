@@ -25,7 +25,7 @@ const sizes = [
     24, //x
     24, //y
     24, //z
-    24, //space
+    12, //space
 ];
 const lettersOffset = [
     4, //a
