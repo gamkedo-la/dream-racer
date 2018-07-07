@@ -15,11 +15,6 @@ function GamePlayFinishScreen() {
     }
     this.control = function gamePlayFinishedScreenControl(keyCode, pressed){
         switch (keyCode){
-            case KEY_MOUSE_LEFT:
-                // if(!pressed) {
-                //     gameOver.checkButtons();
-                // }
-                return true;
             case KEY_ENTER:
             case KEY_BACKSPACE:
                 if(!pressed){

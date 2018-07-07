@@ -108,6 +108,9 @@ function force_pixel_art() {
 	// FIXME: the above seems to get reset at a later time! does canvas get init twice? 
 	// current fix: we set it in RoadideDecoration.js line 22 which feels like a hack
 }
+const clamp = function(n, min, max) {
+    return Math.min(Math.max(n, min), max);
+};
 
 window.onload = function () {
 	window.addEventListener("focus", windowOnFocus);
