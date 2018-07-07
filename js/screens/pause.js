@@ -1,11 +1,11 @@
 function PauseScreen () {
     this.selectedItem = 0;
     this.menuItems = [
-        { title: "Back", screen: GAMEPLAY_SCREEN },
-        { title: "Restart", screen: GAMEPLAY_SCREEN, options: "restart" },
-        { title: "Options", screen: PAUSE_OPTIONS_SCREEN },
-        { title: "Level Select", screen: LEVEL_SELECT_SCREEN },
-        { title: "Exit", screen: MENU_SCREEN },
+        { title: textStrings.Back, screen: GAMEPLAY_SCREEN },
+        { title: textStrings.Restart, screen: GAMEPLAY_SCREEN, options: "restart" },
+        { title: textStrings.Options, screen: PAUSE_OPTIONS_SCREEN },
+        { title: textStrings.LevelSelect, screen: LEVEL_SELECT_SCREEN },
+        { title: textStrings.Main, screen: MENU_SCREEN },
     ];
     this.transitionIn = function pauseScreenTransitionIn(){
         pauseAudio();
@@ -44,13 +44,10 @@ function PauseScreen () {
                 return true;
             case KEY_P:
             case KEY_BACKSPACE:
-                console.log('Back to Game');
                 ScreenStates.setState(ScreenStates.getPreviousState());
                 return true;
-            default:
-                console.log('Pause default');
-                return false;
         }
         return false;
     }
+    return this;
 }

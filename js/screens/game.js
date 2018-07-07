@@ -12,7 +12,7 @@ function GamePlayScreen (){
     };
     this.run = function gamePlayScreenRun(){
         scene.move();
-        drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
+        drawRect(0,0, canvas.width, canvas.height, textColor.Green);//Need to wipe the canvas clean each frame - eventually use a background image/video
         scene.draw();
         if(scene.gameIsOver){
             ScreenStates.setState(GAMEPLAY_FINISH_SCREEN, { stats: scene.getStats() });

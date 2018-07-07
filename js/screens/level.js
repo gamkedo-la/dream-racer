@@ -20,7 +20,7 @@ function LevelSelectScreen() {
         wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y: previewOffsetY, scale: undefined });
         wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y: previewOffsetY, scale: undefined });
 
-        printWord('Please select level', 100, canvas.height/2+180, 0.6);
+        printWord(textStrings.LevelSelect, 100, canvas.height/2+180, 0.6);
         printWord(Levels[currentLevelIndex].name, 100, canvas.height/2 + 240);
     };
     this.control = function levelSelectControl(keyCode, pressed){

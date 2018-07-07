@@ -3,4 +3,5 @@ function EndingScreen(){
     this.transitionOut = function(){};
     this.run = function(){};
     this.control = function(){};
+    return this;
 }

@@ -1,10 +1,10 @@
 function MenuScreen(){
     this.selectorPositionsIndex = 0;
     this.selections = [
-        { screen: LEVEL_SELECT_SCREEN, title: "PLAY" },
-        { screen: HELP_SCREEN, title: "HELP" },
-        { screen: OPTIONS_SCREEN, title: "OPTIONS" },
-        { screen: CREDITS_SCREEN, title: "CREDITS" },
+        { screen: LEVEL_SELECT_SCREEN, title: textStrings.Play },
+        { screen: HELP_SCREEN, title: textStrings.Help },
+        { screen: OPTIONS_SCREEN, title: textStrings.Options },
+        { screen: CREDITS_SCREEN, title: textStrings.Credits },
     ];
     this.transitionIn = function menuScreenTransitionIn() {
         this.selectorPositionsIndex = 0;

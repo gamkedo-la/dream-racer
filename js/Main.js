@@ -2,12 +2,9 @@
 let canvas;
 let canvasContext;
 
-const DEBUG = false;
-const GAME_HEIGHT = 600;
-const framesPerSecond = 30;
+
 
 let framesFromGameStart = 0;
-let selectLevelAnimationStartFrame = 0;
 
 let bulletPointIcon = '\u2022'
 let leftArrowIcon = '\u2190';
@@ -17,86 +14,6 @@ let downArrowIcon = '\u2193';
 
 let scene;
 
-
-const CAMERA_INITIAL_Z = -85;
-
-const localStorageKey = {
-	MusicVolume: "musicVolume",
-	SFXVolume: "effectsVolume",
-	IsLocalStorageInitialized: "isLocalStorageInitialized",
-	ShowedHelp: "showedHelp",
-}
-
-const assetPath = {
-	Audio: "./audio/",
-	Image: "images/"
-}
-
-const canvasClearColor = "black";
-
-const loadingText = "LOADING...";
-const pausedText = "PAUSE";
-
-const gameTitle = {
-	Main: "Dream Racer",
-	Subtitle: "Speed is Everything"
-};
-
-const buttonTitle = {
-	Help: "[H] for Help",
-	Credits: "[C] for Credits",
-	Editor: "[E] to Edit",
-	Enter: "[Enter] to Play",
-	MainMenu: "[Escape] to Main Menu"
-};
-
-const sliderTitle = {
-	MusicVolume: "Music Volume",
-	SFXVolume: "SFX Volume"
-};
-
-const textColor = {
-	Red: "red",
-	Blue: "blue",
-	Green: "green",
-	White: "white",
-	Black: "black",
-	Yellow: "yellow",
-	Purple: "purple",
-	Aqua: "aqua",
-	Fuchaia: "fuchaia"
-};
-
-const textAlignment = {
-	Left: "left",
-	Right: "right",
-	Center: "center"
-};
-
-const fonts = {
-	MainTitle: "40px Tahoma",
-	Subtitle: "30px Tahoma",
-	ButtonTitle: "20px Tahoma",
-	CreditsText: "16px Tahoma"
-};
-
-const editAction = {
-	AddSegment: "addSegment",
-	AddStraightSegment: "addStraightSegment",
-	RemoveSegment: "removeSegment",
-	MoveLeft: "moveLeft",
-	MoveRight: "moveRight",
-	MoveUp: "moveUp",
-	MoveDown: "moveDown",
-	RaiseElevation: "raiseElevation",
-	LowerElevation: "lowerElevation",
-	SelectSegment: "selectSegment",
-	AddToSelection: "addToSelection",
-	RemoveFromSelection: "removeFromSelection",
-	AddDecoration: "addDecoration",
-	RemoveDecoration: "removeDecoration",
-	MoveDecoration: "moveDecoration"
-};
 
 // without this, zoomed in road signs are blurry
 function force_pixel_art() {

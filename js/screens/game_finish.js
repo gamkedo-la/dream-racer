@@ -8,10 +8,7 @@ function GamePlayFinishScreen() {
         uiSelect.play();
     };
     this.run = function gamePlayFinishedScreenRun(){
-        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        let titleImageX = canvas.width/2 - 150;
-        let titleImageY = canvas.height/2 - 380;
-        mainMenuLogoSprite.draw(titleImageX,titleImageY);
+        drawLogo();
     }
     this.control = function gamePlayFinishedScreenControl(keyCode, pressed){
         switch (keyCode){

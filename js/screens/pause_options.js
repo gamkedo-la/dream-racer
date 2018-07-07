@@ -4,8 +4,8 @@ function PauseOptionsScreen(){
     ];
     this.transitionIn = function (){
         this.sliders = [
-            { title: "MUSIC", manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
-            { title: "SFX", manager: SFXVolumeManager, storageKey: localStorageKey.SFXVolume, variable: sfxVolume },
+            { title: textStrings.Music, manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
+            { title: textStrings.SoundFX, manager: SFXVolumeManager, storageKey: localStorageKey.SFXVolume, variable: sfxVolume },
         ];
     };
     this.transitionOut = function pauseOptionsScreenTransitionOut(){
@@ -31,7 +31,7 @@ function PauseOptionsScreen(){
                 -mainMenuSlider.height,
                 90);
         }
-        printWord("BACK", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
+        printWord(textStrings.Back, buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
         mainMenuSelectorSprite.draw(buttonsX - selectorXOffset, mainMenuY + selectorYOffset*2*this.selectedSlider);
     };
     this.updateSliderValue = function(delta){
