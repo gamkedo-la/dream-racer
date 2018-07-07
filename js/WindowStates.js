@@ -556,6 +556,18 @@ function EditorScreen() {
             case KEY_RIGHT:
                 holdRight = pressed;
                 return true;
+            case KEY_BACKSPACE:
+                holdBackSpace = pressed;
+                return true;
+            case KEY_ESCAPE:
+                holdEscape = pressed;
+                return true;
+            case KEY_S:
+                holdS = pressed;
+                return true;
+            case KEY_B:
+                ScreenStates.setState(MENU_SCREEN);
+                return true;
         }
         return false;
 	}
@@ -588,9 +600,12 @@ function EditorHelpScreen() {
         }
         switch (keyCode){
             case KEY_PLUS:
-                if(!pressed){
-                    ScreenStates.setState(EDITOR_HELP2_SCREEN);
-                }
+            case KEY_H:
+                ScreenStates.setState(EDITOR_HELP2_SCREEN);
+                return true;
+            case KEY_BACKSPACE:
+            case KEY_ENTER:
+                ScreenStates.setState(EDITOR_SCREEN);
                 return true;
         }
         return false;
@@ -621,9 +636,12 @@ function EditorHelp2Screen() {
         }
         switch (keyCode){
             case KEY_MINUS:
-                if(!pressed){
-                    ScreenStates.setState(EDITOR_HELP_SCREEN);
-                }
+            case KEY_H:
+                ScreenStates.setState(EDITOR_HELP_SCREEN);
+                return true;
+            case KEY_ENTER:
+            case KEY_BACKSPACE:
+                ScreenStates.setState(EDITOR_SCREEN);
                 return true;
         }
         return false;

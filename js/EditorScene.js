@@ -143,8 +143,6 @@ function EditorScene(data) {
 			if (this.road.hasSelectedDecoration()) {
 				this.road.deleteDecoration();
 				holdBackSpace = false;
-			} else {
-				backToMainMenu();
 			}
 		}
 
