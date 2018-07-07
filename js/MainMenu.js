@@ -18,17 +18,17 @@ mainMenu = {
 		// Buttons are also given a "bounds" property further down
 		this.buttons = [
 			{txt: buttonTitle.Help,
-			 	onClick: openHelp
+			 	onClick: function(){}
 			},
 			
 			{txt: buttonTitle.Credits,
-				onClick: openCredits
+				onClick: function(){}
 			},
 			{txt: buttonTitle.Editor,
-				onClick: startEditing
+				onClick: function(){}
 			},
 			{txt: buttonTitle.Enter,
-				onClick: startGame
+				onClick: function(){}
 			}
 		];
 		

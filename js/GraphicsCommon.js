@@ -150,3 +150,42 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
 	canvasContext.restore();
 }
+
+function wrapAndtransformDraw(whichImg, pixelOffset) {
+    let wrappedOffset = {
+        x: pixelOffset.x % whichImg.width,
+        y: pixelOffset.y % whichImg.height
+    };
+    let scale = 1;
+    if(pixelOffset.scale !== undefined) {
+        scale = pixelOffset.scale;
+    }
+
+    if (wrappedOffset.x < 0) {
+        wrappedOffset.x = whichImg.width + wrappedOffset.x;
+    }
+    if (wrappedOffset.y < 0) {
+        wrappedOffset.y = whichImg.height + wrappedOffset.y
+    }
+
+    canvasContext.drawImage(whichImg,
+        //srcX, srcY, srcW, srcH
+        0, 0, whichImg.width, whichImg.height,
+        //dstX, dstY, dstW, dstH
+        (1 - scale)/2 * canvas.width + wrappedOffset.x -1, // -1 fixes float point tearing when drawing two images;
+        (1 - scale) * whichImg.height + wrappedOffset.y,
+        scale * ( whichImg.width ),
+        scale * (whichImg.height));
+
+    let drawSize = (whichImg.width - wrappedOffset.x);
+    if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
+        canvasContext.drawImage(whichImg,
+            drawSize, 0, wrappedOffset.x, whichImg.height,
+            (1 - scale)/2 * canvas.width,
+            (1 - scale) * whichImg.height + wrappedOffset.y,
+            scale * wrappedOffset.x,
+            scale * whichImg.height
+        );
+    }
+}
+

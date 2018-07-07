@@ -2,14 +2,21 @@
 let canvas;
 let canvasContext;
 
-const DEBUG = true;
+const DEBUG = false;
 const GAME_HEIGHT = 600;
 const framesPerSecond = 30;
 
 let framesFromGameStart = 0;
+let selectLevelAnimationStartFrame = 0;
+
+let bulletPointIcon = '\u2022'
+let leftArrowIcon = '\u2190';
+let upArrowIcon = '\u2191';
+let rightArrowIcon = '\u2192';
+let downArrowIcon = '\u2193';
 
 let scene;
-let isLocalStorageInitialized = false;
+
 
 const CAMERA_INITIAL_Z = -85;
 
@@ -124,147 +131,23 @@ window.onload = function () {
     setupLocalStorage();
 	initializeInput();
 	loadImages();
-	makeAnimatedSprites();
-	mainMenu.initialize();
+    makeAnimatedSprites();
+	if(DEBUG){
+        ScreenStates.setState(GAMEPLAY_SCREEN);
+	}
+	else {
+        ScreenStates.setState(MENU_SCREEN);
+	}
 };
 
-function setupLocalStorage() {
-    isLocalStorageInitialized = localStorageHelper.getFlag(localStorageKey.IsLocalStorageInitialized);
-    if (!isLocalStorageInitialized) {
-        isLocalStorageInitialized = true;
-        musicVolume = DEFAULT_MUSIC_VOLUME;
-        sfxVolume = DEFAULT_SFX_VOLUME;
-        showedHelp = false;
 
-        localStorageHelper.setFlag(localStorageKey.IsLocalStorageInitialized, isLocalStorageInitialized);
-        localStorageHelper.setFlag(localStorageKey.ShowedHelp, showedHelp);
-        localStorageHelper.setItem(localStorageKey.MusicVolume, musicVolume);
-        localStorageHelper.setItem(localStorageKey.SFXVolume, sfxVolume);
-    }
-    else {
-        showedHelp = localStorageHelper.getFlag(localStorageKey.ShowedHelp);
-        musicVolume = localStorageHelper.getItem(localStorageKey.MusicVolume);
-        sfxVolume = localStorageHelper.getItem(localStorageKey.SFXVolume);
-	}
-}
 
 function loadingDoneSoStartGame() {
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
-
-	if (DEBUG) {
-		startGame();
-	}
 };
 
 function update() {
-	mainMenuStates();
 	AudioEventManager.updateEvents();
-	framesFromGameStart++; //@FIXME: Is there a global frameCounter that i missed?
+	ScreenStates.run();
+	framesFromGameStart++;
 };
-
-function startGame() {
-	if (!showedHelp) {
-		openHelp();
-		showedHelp = true;
-		localStorageHelper.setFlag(localStorageKey.ShowedHelp, true);
-		return;
-	}
-
-	windowState.help = false;
-	windowState.mainMenu = false;
-	windowState.levelSelect = false;
-	windowState.playing = true;
-	if(scene == undefined || scene == null) {
-		scene = new GameScene(getLevel(currentLevelIndex));
-	}
-
-};
-
-function levelSelectScreen() {
-	if(isPaused) return;
-
-    windowState.help = false;
-    windowState.mainMenu = false;
-    windowState.editorHelp = false;
-    windowState.playing = false;
-    windowState.editing = false;
-    windowState.gameOver = false;
-    windowState.levelSelect = true;
-
-    selectLevelAnimationStartFrame = framesFromGameStart;
-}
-
-function startEditing() {
-	windowState.help = false;
-	windowState.mainMenu = false;
-	windowState.editorHelp = false;
-	windowState.playing = false;
-	windowState.editing = true;
-	windowState.levelSelect = false;
-
-	scene = new EditorScene(getLevel(currentLevelIndex));
-};
-
-function continueEditing() {
-	windowState.help = false;
-	windowState.mainMenu = false;
-	windowState.editorHelp = false;
-	windowState.editing = true;
-    windowState.levelSelect = false;
-};
-
-function drawAll() {
-	scene.draw();
-};
-
-function editingDrawAll() {
-	if (scene) {
-	scene.draw();
-	}
-};
-
-function moveAll() {
-    scene.move();
-};
-
-function editingMoveAll() {
-	scene.move();
-};
-
-function wrapAndtransformDraw(whichImg, pixelOffset) {
-	let wrappedOffset = {
-		x: pixelOffset.x % whichImg.width,
-	 	y: pixelOffset.y % whichImg.height
-	};
-	let scale = 1;
-	if(pixelOffset.scale !== undefined) {
-        scale = pixelOffset.scale;
-    }
-
-	if (wrappedOffset.x < 0) {
-		wrappedOffset.x = whichImg.width + wrappedOffset.x;
-	}
-	if (wrappedOffset.y < 0) {
-		wrappedOffset.y = whichImg.height + wrappedOffset.y
-	}
-
-	canvasContext.drawImage(whichImg,
-		//srcX, srcY, srcW, srcH
-		0, 0, whichImg.width, whichImg.height,
-		//dstX, dstY, dstW, dstH
-		(1 - scale)/2 * canvas.width + wrappedOffset.x -1, // -1 fixes float point tearing when drawing two images;
-		(1 - scale) * whichImg.height + wrappedOffset.y,
-		scale * ( whichImg.width ),
-		scale * (whichImg.height));
-
-	let drawSize = (whichImg.width - wrappedOffset.x);
-	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
-		canvasContext.drawImage(whichImg,
-			drawSize, 0, wrappedOffset.x, whichImg.height,
-            (1 - scale)/2 * canvas.width,
-			(1 - scale) * whichImg.height + wrappedOffset.y,
-			scale * wrappedOffset.x,
-			scale * whichImg.height
-		);
-	}
-}

@@ -5,8 +5,6 @@ let mainMenuSelectorSprite;
 let mainMenuSliderSprite;
 let checkeredFlagSprite;
 
-let selectorPositionsIndex = 0;
-
 function makeAnimatedSprites() {
 	mainMenuButtonsSprite = new AnimatedSpriteClass({
 			spriteSheet: mainMenuButtons,
@@ -73,8 +71,8 @@ function AnimatedSpriteClass(data) {
 		let additionalWidth;
 		let additionalHeight;
 		canvasContext.save();
+        canvasContext.globalAlpha = opacity;
 		canvasContext.imageSmoothingEnabled = false;
-		canvasContext.globalAlpha = opacity;
 		if (this.loops) {
 			if (framesFromGameStart % this.framesUntilNext == 0) {
 				this.currentFrameIndex++;
@@ -96,7 +94,7 @@ function AnimatedSpriteClass(data) {
 									this.currentFrameIndex * this.spriteSheet.width/this.animationFrames, 0,
 									this.spriteSheet.width/this.animationFrames, this.spriteSheet.height,
 									x, y,
-									this.spriteSheet.width/this.animationFrames + (additionalWidth * strechX), 
+									this.spriteSheet.width/this.animationFrames + (additionalWidth * strechX),
 									this.spriteSheet.height * strechY);
 		} else {
 			//The frames in the source image are arranged top to bottom, all using the same width
@@ -104,7 +102,7 @@ function AnimatedSpriteClass(data) {
 									0, this.currentFrameIndex * this.spriteSheet.height/this.animationFrames,
 									this.spriteSheet.width, this.spriteSheet.height/this.animationFrames,
 									x, y,
-									this.spriteSheet.width * strechX, 
+									this.spriteSheet.width * strechX,
 									this.spriteSheet.height/this.animationFrames + (additionalHeight * strechY));
 		}
 		canvasContext.restore();
@@ -134,76 +132,3 @@ function AnimatedSpriteClass(data) {
 		canvasContext.restore();
 	}
 }; //end of Animated Sprite Class
-
-const drawMainMenu = function() {
-	let flag = {
-		x: -45,
-		y: 0,
-		opacity: 0.5,
-		streched: true,
-		strechX: 1.63,
-		strechY: 10
-	}
-	let titleImageX = canvas.width/2 - 150;
-	let titleImageY = canvas.height/2 - 380;
-	let buttonsX = canvas.width/2 - 72;
-	let selectorXOffset = 40;
-	let mainMenuY = canvas.height/2 - 100;
-	let selectorYOffset = 50;
-	let buttonsXOffset = 100;
-	let buttonSpacing = 0;
-	let sliderRotation = 90; 
-	opacity = 1;
-	drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-	checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
-							flag.opacity,flag.streched,
-							flag.strechX, flag.strechY);
-	let selectorPositions = [mainMenuY,
-							mainMenuY+selectorYOffset,
-							mainMenuY+(selectorYOffset*2)];
-	if (holdUp) {
-		selectorPositionsIndex--;
-		if (selectorPositionsIndex < 0) {
-			selectorPositionsIndex = selectorPositions.length - 1;
-		}
-		holdUp = false;
-	} else if (holdDown) {
-		selectorPositionsIndex++;
-		if (selectorPositionsIndex > selectorPositions.length - 1) {
-			selectorPositionsIndex = 0;
-		}
-		holdDown = false;
-	}
-	mainMenuSelectorSprite.draw(buttonsX - selectorXOffset,selectorPositions[selectorPositionsIndex]);
-	mainMenuLogoSprite.draw(titleImageX,titleImageY);
-	for (i = 0; i < mainMenuButtonsSprite.animationFrames; i++) {
-		mainMenuButtonsSprite.currentFrameIndex = i;
-		mainMenuButtonsSprite.draw(buttonsX, mainMenuY + buttonSpacing);
-		buttonSpacing += 50;
-		if (i == 3) {
-			let musicGetVolume = (10 - (Math.floor(MusicVolumeManager.getVolume() * 10)));
-			if (musicGetVolume > 10) {
-				musicGetVolume = 10;
-			} else if (musicGetVolume < 0) {
-				musicGetVolume = 0;
-			}
-			mainMenuSliderSprite.currentFrameIndex = musicGetVolume;
-			mainMenuSliderSprite.drawRotated(buttonsX - buttonsXOffset, Math.ceil(mainMenuY + buttonSpacing),
-											0, -mainMenuSlider.height, 
-											sliderRotation);
-			buttonSpacing += 20;
-		} else if (i == 4) {
-			let sfxGetVolume = (10 - (Math.floor(SFXVolumeManager.getVolume() * 10)));
-			if (sfxGetVolume > 10) {
-				sfxGetVolume = 10;
-			} else if (sfxGetVolume < 0) {
-				sfxGetVolume = 0;
-			}
-			mainMenuSliderSprite.currentFrameIndex = sfxGetVolume;
-			mainMenuSliderSprite.drawRotated(buttonsX - buttonsXOffset, Math.ceil(mainMenuY + buttonSpacing), 
-											0, -mainMenuSlider.height,
-											sliderRotation);
-			buttonSpacing += 20;
-		}
-	}
-};

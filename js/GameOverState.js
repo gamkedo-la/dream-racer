@@ -5,6 +5,7 @@ gameOver = {
 	//Must initialize these after the canvas has been set up
 	buttonProperties: {},
 	buttons: [],
+	stats: {},
 
 	initialize: function() {
 		this.buttonProperties = {

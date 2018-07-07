@@ -32,24 +32,6 @@ function GameScene(data) {
 
 	let roadReferences = data.roadReferences;
 
-	/*[
-		JSON.parse(testTrack),
-		//		JSON.parse(straight_Level_wLights),
-		//		JSON.parse(straightAndLevel),
-		//		JSON.parse(normalHillCrest),
-		//		JSON.parse(sCurveLeftFirst),
-		//		JSON.parse(doubleBump),
-		//		JSON.parse(multiCurveRightFirst),
-		//		JSON.parse(normalHillValley),
-		//		JSON.parse(slightDownhill),
-		//		JSON.parse(largeSharpLeft_Level),
-		//		JSON.parse(sharpRight_Level),
-		//		JSON.parse(finish),
-		JSON.parse(straightAndLevel),
-		JSON.parse(straightAndLevel),
-		JSON.parse(straightAndLevel),
-		JSON.parse(normalHillCrest)
-	];*/
 
 	// create the road
 	if (USE_RANDOM_TRACK_GENERATOR) {
@@ -212,6 +194,14 @@ function GameScene(data) {
 			this.countdownTimeLeft = 0; // no negative numbers allowed
 		}
 		this.previousFrameTimestamp = this.currentFrameTimestamp;
+	}
+
+	this.getStats = function () {
+		return {
+			time: "1203123",
+			hits: "1921212",
+			dollars: "2329389",
+		}
 	}
 
 	this.move = function () {

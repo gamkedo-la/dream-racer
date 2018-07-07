@@ -58,6 +58,9 @@ const KEY_CMD = KEY_LEFT_WINDOW = 91;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
 const KEY_TILDE = 192;
+const KEY_MOUSE_LEFT = 256;
+const KEY_MOUSE_MIDDLE = 257;
+const KEY_MOUSE_RIGHT = 258;
 
 let holdLeft, holdRight, holdUp, holdDown = false;
 let holdEscape, holdPlus, holdMinus = false;
@@ -81,8 +84,6 @@ const MOUSE_SELECT_BUTTON = 0;
 function initializeInput() {
 	document.addEventListener("keydown",keyPress);
 	document.addEventListener("keyup",keyRelease);
-	document.addEventListener("mousedown", mouseButtonPressed);
-	document.addEventListener("mouseup", mouseButtonReleased);
 
 	switch(controlScheme) {
 		case CONTROL_SCHEME_KEYS_STATIONARY:
@@ -100,375 +101,17 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
-	// console.log(evt.keyCode);
-	let keyUsedByGame = false;
-	switch (evt.keyCode) {
-		case KEY_BACKSPACE:
-			if((windowState.help) || (windowState.credits) || (windowState.playing)) {
-				console.log("In Input");
-				backToMainMenu();
-			}
-			keyUsedByGame = true;
-			holdBackSpace = true;
-			break;
-		case KEY_TAB:
-			break;
-		case KEY_ENTER:
-			keyUsedByGame = true;
-			holdEnter = true;
-			//@FIXME: Editor resume weird behaviour, level select screen is shown, but returns to same level,
-			//@FIXME: cannot play after entering editing mode
-			if (windowState.mainMenu) {
-				switch (selectorPositionsIndex) {
-					case 0:
-						holdEnter = false;
-						startGame();
-						break;
-					case 1:
-						holdEnter = false;
-						openHelp();
-						break;
-					case 2:
-						holdEnter = false;
-						openCredits();
-						break;
-				}
-				return;
-			}
-
-			if ((windowState.help) || (windowState.gameOver)) {
-				if (scene === undefined || scene == null) {
-					levelSelectScreen();
-				}
-				else {
-					startGame();
-				}
-			} else if((windowState.editorHelp) || (windowState.moreEditorHelp)) {
-				continueEditing();
-			} else if((windowState.levelSelect)) {
-				console.log('GAME STARTS');
-				startGame();
-			}
-			break;
-		case KEY_SHIFT:
-			keyUsedByGame = true;
-			holdShift = true;
-			break;
-		case KEY_CNTRL:
-			keyUsedByGame = true;
-			holdCmd_Cntrl = true;
-			break;
-		case KEY_ESCAPE:
-			keyUsedByGame = true;
-			holdEscape = true;
-      		if (windowState.gameOver) {
-        		backToMainMenu();
-      		}
-			break;
-		case KEY_SPACE:
-			keyUsedByGame = true;
-			holdSpace = true;
-			break;
-		case KEY_LEFT:
-			keyUsedByGame = true;
-			holdLeft = true;
-			break;
-		case KEY_UP:
-			keyUsedByGame = true;
-			holdUp = true;
-			break;
-		case KEY_RIGHT:
-			keyUsedByGame = true;
-			holdRight = true;
-			break;
-		case KEY_DOWN:
-			keyUsedByGame = true;
-			holdDown = true;
-			break;
-		case KEY_A:
-			keyUsedByGame = true;
-			holdA = true;
-			break;
-		case KEY_B:
-			break;
-      	case KEY_C:
-			keyUsedByGame = true;
-			if((windowState.mainMenu) || (windowState.gameOver)) {
-				openCredits();
-			}
-			break;
-		case KEY_D:
-			keyUsedByGame = true;
-			holdD = true;
-			break;
-		case KEY_E:
-			keyUsedByGame = true;
-			if((windowState.mainMenu) || (windowState.gameOver)) {
-				startEditing();
-			}
-			break;
-		case KEY_F:
-			break;
-		case KEY_G:
-			break;
-		case KEY_H:
-			keyUsedByGame = true;
-
-			if((windowState.mainMenu) || (windowState.gameOver)) {
-				openHelp();
-			} else if(windowState.editing) {
-				showEditorHelp();
-			}
-			break;
-		case KEY_I:
-			break;
-		case KEY_J:
-			break;
-        case KEY_K:
-            break;
-        case KEY_L:
-            break;
-		case KEY_M:
-			break;
-		case KEY_N:
-			keyUsedByGame = true;
-			holdN = true;
-			break;
-		case KEY_O:
-			break;
-		case KEY_P:
-			keyUsedByGame = true;
-			if (!windowState.mainMenu) {
-			togglePause();
-			}
-			break;
-		case KEY_Q:
-			break;
-		case KEY_R:
-			break;
-		case KEY_S:
-			keyUsedByGame = true;
-			holdS = true;
-			break;
-		case KEY_T:
-			break;
-		case KEY_U:
-			break;
-		case KEY_V:
-			break;
-		case KEY_W:
-			holdW = true;
-			break;
-		case KEY_X:
-			holdX = true;
-			break;
-		case KEY_Y:
-			break;
-		case KEY_Z:
-			break;
-		case DIGIT_0:
-			keyUsedByGame = true;
-			holdZero = true;
-			break;
-		case DIGIT_1:
-			break;
-		case DIGIT_2:
-			break;
-		case DIGIT_3:
-			break;
-		case DIGIT_4:
-			break;
-		case DIGIT_5:
-			break;
-		case DIGIT_6:
-			break;
-		case DIGIT_7:
-			break;
-		case DIGIT_8:
-			break;
-		case DIGIT_9:
-			keyUsedByGame = true;
-			toggleMute();
-			break;
-		case KEY_CMD:
-			keyUsedByGame = true;
-			holdCmd_Cntrl = true;
-			break;
-		case KEY_PLUS:
-			keyUsedByGame = true;
-			if(windowState.editing) {
-				holdPlus = true;
-			} else if(windowState.editorHelp) {
-				holdPlus = true;
-				showMoreEditorHelp();
-			} else {
-				turnVolumeUp();
-			}
-			break;
-		case KEY_MINUS:
-			keyUsedByGame = true;
-			if(windowState.editing) {
-				holdMinus = true;
-			} else if(windowState.moreEditorHelp) {
-				showEditorHelp();
-			} else {
-				turnVolumeDown();
-			}
-			break;
-		case KEY_TILDE:
-			break;
-		default:
-			keyUsedByGame = false;
-			break;
-	}
-
-	if (keyUsedByGame) {
-		evt.preventDefault();
-	}
+	if(ScreenStates.control(evt.keyCode, true)){
+        evt.preventDefault();
+	};
+	return;
 }
 
 function keyRelease(evt) {
-	switch(evt.keyCode) {
-		case KEY_BACKSPACE:
-			holdBackSpace = false;
-			break;
-		case KEY_TAB:
-			break;
-		case KEY_ENTER:
-			holdEnter = false;
-			break;
-		case KEY_SHIFT:
-			holdShift = false;
-			break;
-		case KEY_CNTRL:
-			holdCmd_Cntrl = false;
-			break;
-		case KEY_ESCAPE:
-			holdEscape = false;
-			break;
-		case KEY_SPACE:
-			holdSpace = false;
-			break;
-		case KEY_LEFT:
-			holdLeft = false;
-            if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = framesFromGameStart;
-                prevLevel();
-            }
-			break;
-		case KEY_UP:
-			holdUp = false;
-			break;
-		case KEY_RIGHT:
-			holdRight = false;
-            if(windowState.levelSelect) {
-                selectLevelAnimationStartFrame = framesFromGameStart;
-                nextLevel();
-            }
-			break;
-		case KEY_DOWN:
-			holdDown = false;
-			break;
-		case KEY_A:
-			holdA = false;
-			break;
-		case KEY_B:
-			break;
-      	case KEY_C:
-			break;
-		case KEY_D:
-			holdD = false;
-			break;
-		case KEY_F:
-			break;
-		case KEY_G:
-			break;
-		case KEY_H:
-			break;
-		case KEY_I:
-			break;
-		case KEY_J:
-			break;
-        case KEY_K:
-            break;
-		case KEY_M:
-			break;
-		case KEY_N:
-			holdN = false;
-			break;
-		case KEY_O:
-			break;
-		case KEY_P:
-			break;
-		case KEY_Q:
-			break;
-		case KEY_R:
-			break;
-		case KEY_S:
-			holdS = false;
-			break;
-		case KEY_T:
-			break;
-		case KEY_U:
-			break;
-		case KEY_V:
-			break;
-		case KEY_W:
-			holdW = false;
-			break;
-		case KEY_X:
-			holdX = false;
-			break;
-		case KEY_Y:
-			break;
-		case KEY_Z:
-			break;
-		case DIGIT_0:
-			holdZero = false;
-			break;
-		case DIGIT_1:
-			break;
-		case DIGIT_2:
-			break;
-		case DIGIT_3:
-			break;
-		case DIGIT_4:
-			break;
-		case DIGIT_5:
-			break;
-		case DIGIT_6:
-			break;
-		case DIGIT_7:
-			break;
-		case DIGIT_8:
-			break;
-		case DIGIT_9:
-			break;
-		case KEY_CMD:
-			holdCmd_Cntrl = false;
-			break;
-		case KEY_PLUS:
-			holdPlus = false;
-			break;
-		case KEY_MINUS:
-			holdMinus = false;
-			break;
-		case KEY_TILDE:
-			break;
-		case KEY_GREATER_THAN:
-			//switch to next track
-			currentBackgroundMusic.nextTrack();
-			break;
-		case KEY_LESS_THAN:
-			//switch to prev track
-			currentBackgroundMusic.prevTrack();
-			break;
-		case KEY_L:
-			//pause music
-			currentBackgroundMusic.getPaused() ? currentBackgroundMusic.resume() : currentBackgroundMusic.pause();
-		default:
-			break;
+    if (ScreenStates.control(evt.keyCode, false)){
+        evt.preventDefault();
 	}
+    return;
 }
 
 function calculateMousePos(evt) {
@@ -483,40 +126,11 @@ function onMouseDown(evt) {
 	if (evt.type == "mouseenter" && !mouseButtonHeld) {
 		return;
 	}
-	switch (evt.button) { //switch in case more mouse buttons are added
-		case MOUSE_SELECT_BUTTON:
-			if(windowState.mainMenu) {
-				mainMenu.checkButtons();
-			} else if (windowState.help) {
-				startGame();
-//				resetGame();
-			} else if(windowState.gameOver) {
-				gameOver.checkButtons();
-			}
-			break;
-	}
+	ScreenStates.control(KEY_MOUSE_LEFT + evt.button, true);
 }
 
 function onMouseUp(evt) {
-	switch (evt.button) {
-		case MOUSE_SELECT_BUTTON:
-			if(windowState.mainMenu) {
-				mainMenu.releaseSliders();
-			}
-			break;
-	}
-}
-
-function mouseButtonPressed(evt) {
-	if (evt.button == MOUSE_SELECT_BUTTON) {
-		mouseButtonHeld = true;
-	}
-}
-
-function mouseButtonReleased(evt) {
-	if (evt.button == MOUSE_SELECT_BUTTON) {
-		mouseButtonHeld = false;
-	}
+    ScreenStates.control(KEY_MOUSE_LEFT + evt.button, false);
 }
 
 function mouseInside(x, y, width, height) {

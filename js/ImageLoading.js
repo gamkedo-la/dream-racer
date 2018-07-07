@@ -85,6 +85,9 @@ const coffeeBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
+//ETC
+const fancyFont = document.createElement("img");
+
 const imageList = [];
 const billboardSprites = [];
 
@@ -259,6 +262,8 @@ function loadImages() {
 	billboardSprites.push(coffeeBillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
+	// ETC
+	imageList.push({ imgName: fancyFont, theFile: "font.png"});
 
 	picsToLoad = imageList.length;
 

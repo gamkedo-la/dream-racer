@@ -1,80 +1,167 @@
-//WindowStates
-let showedHelp = false;
-let isPaused = false;
-let windowState = {
-	inFocus : true,
-	mainMenu : true,
-	levelSelect : false,
-	credits : false,
-	help : false,
-	playing : false,
-	editing : false,
-	editorHelp: false,
-	moreEditorHelp: false,
-	gameOver: false,
-	endingScreen: false//displayed when the game is beat
-};
+const MENU_SCREEN = 'menu';
+function MenuScreen(){
+    this.selectorPositionsIndex = 0;
+	this.transitionOut = function menuScreenTransitionOut(){
+	};
+	this.transitionIn = function menuScreenTransitionIn() {
+	    this.selectorPositionsIndex = 0;
+        this.opacity = 1;
+	};
+	this.run = function menuScreenRun() {
+        let flag = {
+            x: -45,
+            y: 0,
+            opacity: 0.5,
+            streched: true,
+            strechX: 1.63,
+            strechY: 10
+        }
+        let titleImageX = canvas.width/2 - 150;
+        let titleImageY = canvas.height/2 - 380;
+        let buttonsX = canvas.width/2 - 72;
+        let selectorXOffset = 40;
+        let mainMenuY = canvas.height/2 - 100;
+        let selectorYOffset = 50;
+        let buttonsXOffset = titleImageX + 80;
+        let buttonSpacing = 0;
+        let sliderRotation = 90;
 
-let selectLevelAnimationStartFrame = 0;
-let currentlyTinted = false; 
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
+            flag.opacity,flag.streched,
+            flag.strechX, flag.strechY);
+        mainMenuLogoSprite.draw(titleImageX,titleImageY);
 
-let animationFrames = 6;
-let currentAnimationFrameIndex = 0;
-let currentSelectorAnimationFrameIndex = 0;
+        for (let i = 0; i < this.selections.length;i++){
+            printWord(this.selections[i].title, buttonsXOffset, mainMenuY + selectorYOffset*i);
+        }
+        mainMenuSelectorSprite.draw(buttonsX - selectorXOffset,mainMenuY + selectorYOffset*this.selectorPositionsIndex);
+	};
+	this.selections = [
+        { screen: LEVEL_SELECT_SCREEN, title: "PLAY" },
+        { screen: HELP_SCREEN, title: "HELP" },
+        { screen: OPTIONS_SCREEN, title: "OPTIONS" },
+        { screen: CREDITS_SCREEN, title: "CREDITS" },
+    ]
 
-let bulletPointIcon = '\u2022'
-let leftArrowIcon = '\u2190';
-let upArrowIcon = '\u2191';
-let rightArrowIcon = '\u2192';
-let downArrowIcon = '\u2193';
+	this.control = function menuScreenControl(keyCode, pressed){
+        switch (keyCode){
+            case KEY_UP:
+                if (pressed) {
+                    this.selectorPositionsIndex--;
+                    if (this.selectorPositionsIndex < 0) {
+                        this.selectorPositionsIndex += this.selections.length;
+                    }
+                }
+                return true;
+            case KEY_DOWN:
+                if(pressed){
+                    this.selectorPositionsIndex = (this.selectorPositionsIndex + 1) % this.selections.length;
+                    if (this.selectorPositionsIndex > this.selections.length - 1) {
+                        this.selectorPositionsIndex = 0;
+                    }
+                }
+                return true;
+            case KEY_ENTER:
+                if(pressed === true){
+                    return false;
+                }
+                ScreenStates.setState(this.selections[this.selectorPositionsIndex].screen);
+                return true;
+            case KEY_H:
+                if(pressed === true){
+                    return false;
+                }
+                ScreenStates.setState(HELP_SCREEN);
+                return true;
+            case KEY_C:
+                if(pressed === true){
+                    return false;
+                }
+                ScreenStates.setState(CREDITS_SCREEN);
+                return true;
+            case KEY_E:
+                if(pressed === true){
+                    return false;
+                }
+                ScreenStates.setState(EDITOR_SCREEN);
+                return true;
+        }
+        return false;
+    };
+	return this;
+}
 
-function tintScreen() {
-	if (currentlyTinted) {
-		return;
-	} else {
-		currentlyTinted = true;
-	    canvasContext.fillStyle = textColor.Black;
-	    canvasContext.globalAlpha = 0.75;
-	    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-		canvasContext.globalAlpha = 1.0;
+const OPTIONS_SCREEN = 'options';
+function OptionsScreen(){
+    this.transitionIn = function (){};
+    this.transitionOut = function(){};
+    this.run = function(){};
+    this.control = function(){};
+}
+
+const LOADING_SCREEN = 'loading';
+function LoadingScreen() {
+	this.transitionIn = function (){};
+	this.transitionOut = function(){};
+	this.run = function(){};
+	this.control = function(){};
+}
+
+const LEVEL_SELECT_SCREEN = 'level';
+function LevelSelectScreen() {
+    this.selectLevelAnimationStartFrame;
+	this.transitionIn = function(){};
+    this.transitionOut = function(){};
+    this.run = function levelSelectScreenRun(){
+        opacity = 1;
+        drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        let animationSpeedBackground = clamp((framesFromGameStart-this.selectLevelAnimationStartFrame)*53, 0, canvas.width/2); //@FIXME: magical LevelSelect AnimationSpeed
+        let animationSpeedForeground = animationSpeedBackground;
+
+        if(animationSpeedBackground > canvas.width/2 - 10) {
+            animationSpeedBackground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/14;
+            animationSpeedForeground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/10;
+        }
+        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y:200, scale: undefined });
+        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y:200, scale: undefined });
+
+        colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+        colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
+        colorText((currentLevelIndex+1) + '/' + Levels.length, TitleTextX,canvas.height/2+160,textColor.White,fonts.Subtitle,textAlignment.Center );
+        colorText(Levels[currentLevelIndex].name, TitleTextX,canvas.height/2+120,textColor.White,fonts.Subtitle,textAlignment.Center );
+	};
+    this.control = function levelSelectControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_LEFT:
+                this.selectLevelAnimationStartFrame = framesFromGameStart;
+                prevLevel();
+                return true;
+            case KEY_RIGHT:
+                this.selectLevelAnimationStartFrame = framesFromGameStart;
+                nextLevel();
+                return true;
+            case KEY_ENTER:
+                scene = null;
+                ScreenStates.setState(GAMEPLAY_SCREEN);
+                return true;
+            case KEY_BACKSPACE:
+                ScreenStates.setState(MENU_SCREEN);
+                return true;
+        }
+        return false;
 	}
 }
 
-function showPausedScreen() {
-    tintScreen();
-    colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
-}
-
-function windowOnFocus() {
-	if(!windowState.inFocus && !isPaused) {
-		windowState.inFocus = true;
-		currentlyTinted = false;
-		gameUpdate = setInterval(update, 1000/30);
-		resumeSound.play();
-		resumeAudio();
-	}
-}
-
-function windowOnBlur() {
-    tintScreen();
-	pauseAudio();
-	if (!isPaused && !windowState.help) {
-		windowState.inFocus = false;
-		clearInterval(gameUpdate);
-		pauseSound.play();
-		showPausedScreen();
-	}
-}
-
-function mainMenuStates() {
-	if(windowState.mainMenu) {
-		drawMainMenu(); // AnimatedSprites.js near bottom
-		/*colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-
-		mainMenu.handleSliders();
-		mainMenu.drawButtons(opacity);*/
-	} else if(windowState.credits) {
+const CREDITS_SCREEN = 'credits';
+function CreditsScreen() {
+	this.transitionIn = function(){};
+	this.transitionOut = function(){};
+	this.run = function creditsScreenRun() {
         opacity = 1;
         drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
         colorText('Credits will go here', canvas.width / 2, 100, textColor.White, gameTitle.Subtitle, textAlignment.Center, opacity);
@@ -97,156 +184,469 @@ function mainMenuStates() {
         colorText('Name: Roles', textX, textY, textColor.White, creditsFont, textAlignment.Left, opacity);
         textY += textSkip;
         colorText('Press [Backspace] to go Back to Menu', canvas.width / 2, 500, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
-    } else if(windowState.levelSelect) {
+	};
+	this.control = function creditsScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_ENTER:
+            case KEY_BACKSPACE:
+                ScreenStates.setState(MENU_SCREEN);
+                return true;
+        }
+        return true;
+	}
+}
+
+const HELP_SCREEN = 'help';
+function HelpScreen() {
+	this.transitionIn = function(){};
+	this.transitionOut = function(){};
+	this.run = function helpScreenRun(){
         opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-
-        let animationSpeedBackground = clamp((framesFromGameStart-selectLevelAnimationStartFrame)*53, 0, canvas.width/2); //@FIXME: magical LevelSelect AnimationSpeed
-        let animationSpeedForeground = animationSpeedBackground;
-
-        if(animationSpeedBackground > canvas.width/2 - 10) {
-            animationSpeedBackground -= (framesFromGameStart-selectLevelAnimationStartFrame)/14;
-            animationSpeedForeground -= (framesFromGameStart-selectLevelAnimationStartFrame)/10;
+        colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        colorText(bulletPointIcon + '  [W] or [' + upArrowIcon + '] to accellerate',200,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText(bulletPointIcon + '  [X] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText(bulletPointIcon + '  [Spacebar] to change gears',200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText(bulletPointIcon + '  [N] to use Nitro',200,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText(bulletPointIcon + '  [P] to pause and resume game',200,300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText('Press [Backspace] to Return to the Main Menu at anytime',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        colorText('Press [Enter] to Start game',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+	};
+	this.control = function helpScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
         }
-        wrapAndtransformDraw(Levels[currentLevelIndex].skyPic, {x: 0, y: 200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].backgroundPic, {x: -animationSpeedBackground, y:200, scale: undefined });
-        wrapAndtransformDraw(Levels[currentLevelIndex].middleGroundPic, {x: -animationSpeedForeground, y:200, scale: undefined });
-
-        colorText(gameTitle.Main,TitleTextX, canvas.height/2-280,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-        colorText('Please select level',subTitleTextX , canvas.height/2-240,textColor.White,fonts.Subtitle,textAlignment.Center);
-        colorText((currentLevelIndex+1) + '/' + Levels.length, TitleTextX,canvas.height/2+160,textColor.White,fonts.Subtitle,textAlignment.Center );
-        colorText(Levels[currentLevelIndex].name, TitleTextX,canvas.height/2+120,textColor.White,fonts.Subtitle,textAlignment.Center );
-	} else if(windowState.help) {
-		opacity = 1;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText(bulletPointIcon + '  [W] or [' + upArrowIcon + '] to accellerate',200,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [X] or [' + downArrowIcon + '] to brake',200,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [Spacebar] to change gears',200,240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [N] to use Nitro',200,270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText(bulletPointIcon + '  [P] to pause and resume game',200,300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText('Press [Backspace] to Return to the Main Menu at anytime',canvas.width/2 , 460,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText('Press [Enter] to Start game',canvas.width/2 , 500,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-	} else if(windowState.playing) {
-		opacity = 1;
-		drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
-		moveAll();
-		drawAll();
-        if(scene.gameIsOver) {
-            //change window state to game over
-            windowState.playing = false;
-//            windowState.gameOver = true;
-			windowState.levelSelect = true;
-
-            gameOver.initialize();
-            scene = null;
+        switch (keyCode){
+            case KEY_BACKSPACE:
+                ScreenStates.setState(ScreenStates.getPreviousState());
+                return true;
+            case KEY_MOUSE_LEFT:
+                ScreenStates.setState(MENU_SCREEN);
+                return true;
         }
-
-	} else if(windowState.editing) {
-		drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
-		editingMoveAll();
-		editingDrawAll();
-	} else if(windowState.editorHelp) {
-		opacity = 1;
-		const leftEdge = 125;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText('How To Edit',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText('1) Press [+]/[-] to add/remove segments to the road.', leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("2) Click on each segment to select (or [CMD+A]/[CNTRL+A] to select all).", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("3) With >1 segment selected, press left/right arrows to curve the road.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("4) With >1 segment selected, press [+]/[-] to make hills/valleys.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("5) Press escape to deselect everything or click to de-select at selection ends.", leftEdge, 270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("6) Press up/down arrow keys to move camera forward/backward along road.", leftEdge, 300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("7) With no segments selected, press left/right arrow keys to move left/right.", leftEdge, 330 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("8) Hold shift and press [+]/[-] to raise/lower entire road (allows a downhill", leftEdge, 360 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("    portion to take you below initial the starting height).", leftEdge, 390 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText('Press [Enter] to continue editing', canvas.width/2, 475,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText('Press [+] to see more help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
-	} else if(windowState.moreEditorHelp) {
-		opacity = 1;
-		const leftEdge = 125;
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText('How To Edit (continued)',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
-		colorText("9) Click decoration UI (upper right) to select and prepare to place.", leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("10) With decoration UI selected click on road or ground to place.", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("11) Click on decoration to select.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("12) Press arrow keys to move selected decoration.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("13) Press CMD+S/CNTRL+S to log level data to console.", leftEdge, 270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText("14) Copy level data from console and paste into 'Example.js'.", leftEdge, 300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
-		colorText('Press [Enter] to continue editing', canvas.width/2, 475, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
-		colorText('Press [-] to see previous help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
-	} else if(windowState.gameOver) {
-		//Need lose conditions that drive us here, then need to impliment
-		drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-		colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
-		colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
-
-//		gameOver.handleSliders();
-		gameOver.drawButtons(opacity);
-	} else if(windowState.endingScreen) {
-		//Need win conditions that drive us here, then need to impliment
-	}
+        return false;
+	};
 }
 
-function openHelp() {
-	if(isPaused) {return;}
-
-	windowState.mainMenu = false;
-	windowState.help = true;
+const GAMEPLAY_SCREEN = 'game';
+function GamePlayScreen (){
+	this.transitionIn = function gamePlayScreenTransitionIn(){
+		if(scene === null || scene === undefined){
+            scene = new GameScene(getLevel(currentLevelIndex));
+		}
+	};
+	this.transitionOut = function gamePlayScreenTransitionOut(){};
+	this.run = function gamePlayScreenRun(){
+        scene.move();
+        opacity = 1;
+        drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
+        scene.draw();
+	};
+	this.control = function gamePlayScreenControl(keyCode, pressed){
+        switch(keyCode) {
+            case KEY_SPACE:
+                holdSpace = pressed;
+                return true;
+            case KEY_UP:
+                holdUp = pressed;
+                return true;
+            case KEY_W:
+                holdW = pressed;
+                return true;
+            case KEY_DOWN:
+                holdDown = pressed;
+                return true;
+            case KEY_S:
+                holdS = pressed;
+                return true;
+            case KEY_LEFT:
+                holdLeft = pressed;
+                return true;
+            case KEY_A:
+                holdA = pressed;
+                return true;
+            case KEY_RIGHT:
+                holdRight = pressed;
+                return true;
+            case KEY_D:
+                holdD = pressed;
+                return true;
+            case KEY_N:
+                holdN = pressed;
+                return true;
+            case KEY_X:
+                holdX = pressed;
+                return true;
+            case KEY_PLUS:
+                if(!pressed){
+                    turnVolumeUp();
+                }
+                return true;
+            case KEY_MINUS:
+                if(!pressed){
+                    turnVolumeDown();
+                }
+                return true;
+            case KEY_P:
+                if(!pressed){
+                    ScreenStates.setState(PAUSE_SCREEN);
+                }
+                return true;
+            case KEY_GREATER_THAN:
+                if(!pressed){
+                    currentBackgroundMusic.nextTrack();
+                }
+                return true;
+            case KEY_LESS_THAN:
+                if(!pressed){
+                    currentBackgroundMusic.prevTrack();
+                }
+                return true;
+            case KEY_L:
+                if(!pressed){
+                    if(currentBackgroundMusic.paused){
+                        currentBackgroundMusic.resume();
+                    } else {
+                        currentBackgroundMusic.pause();
+                    }
+                }
+                return true;
+            case KEY_BACKSPACE:
+                if(!pressed){
+                    ScreenStates.setState(PAUSE_SCREEN);
+                }
+                return true;
+            default:
+                return false;
+        }
+	};
 }
 
-function showEditorHelp() {
-	if(isPaused) {return;}
-
-	windowState.editing = false;
-	windowState.editorHelp = true;
-}
-
-function showMoreEditorHelp() {
-	if(isPaused) {return;}
-
-	windowState.editorHelp = false;
-	windowState.moreEditorHelp = true;
-}
-
-function openCredits() {
-	if(isPaused) {
-		return;
-	}
-	windowState.mainMenu = false;
-	windowState.credits = true;
-}
-
-function backToMainMenu() {
-	if(isPaused) {
-		return;
-	}
-	windowState.playing = false;
-    windowState.gameOver = false;
-	windowState.credits = false;
-	windowState.mainMenu = true;
-	scene = undefined;
-}
-
-function togglePause() {
-	isPaused = !isPaused;
-    if(isPaused) {
-    	pauseAudio();
-    	drawRect(0,0, canvas.width, canvas.height, canvasClearColor);
-    	scene.draw(); 
-        showPausedScreen();
+const PAUSE_SCREEN = 'pause';
+function PauseScreen () {
+    this.transitionIn = function pauseScreenTransitionIn(){
+        pauseAudio();
         pauseSound.play();
         clearInterval(gameUpdate);
         scene.timeSinceLastFrame = null;
-		scene.currentFrameTimestamp = null;
-		scene.previousFrameTimestamp = null;
-    } else {
-		gameUpdate = setInterval(update, 1000/30);
+        scene.currentFrameTimestamp = null;
+        scene.previousFrameTimestamp = null;
+    };
+    this.transitionOut = function pauseScreenTransitionOut(){
+        if(gameUpdate === null){
+            gameUpdate = setInterval(update, 1000/30);
+        }
         resumeSound.play();
         if (currentBackgroundMusic.getTime() > 0) {
+            currentBackgroundMusic.resume();
+        }
+	};
+    this.run = function pauseScreenRun(){
+        canvasContext.fillStyle = textColor.Black;
+        canvasContext.globalAlpha = 0.75;
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.globalAlpha = 1.0;
+        colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
+    };
+    this.control = function pauseScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_UP:
+                console.log('Menu item Up');
+                return true;
+            case KEY_DOWN:
+                console.log('Menu item Down');
+                return true;
+            case KEY_ENTER:
+                console.log('Menu item selected');
+                return true;
+            case KEY_P:
+            case KEY_BACKSPACE:
+                console.log('Back to Game');
+                ScreenStates.setState(ScreenStates.getPreviousState());
+                return true;
+            default:
+                console.log('Pause default');
+                return false;
+        }
+        return false;
+	}
+}
+
+const PAUSE_OPTIONS_SCREEN = 'pause_options';
+function PauseOptionsScreen(){
+	this.transitionIn = function pauseOptionsScreenTransitionIn(){
+		pauseAudio();
+		pauseSound.play();
+		clearInterval(gameUpdate);
+		scene.timeSinceLastFrame = null;
+		scene.currentFrameTimestamp = null;
+		scene.previousFrameTimestamp = null;
+	};
+	this.transitionOut = function pauseOptionsScreenTransitionOut(){
+		gameUpdate = setInterval(update, 1000/30);
+		resumeSound.play();
+		if (currentBackgroundMusic.getTime() > 0) {
 			currentBackgroundMusic.resume();
 		}
-		currentlyTinted = false;
+	};
+	this.run = function pauseOptionsScreenRun(){
+		canvasContext.fillStyle = textColor.Black;
+		canvasContext.globalAlpha = 0.75;
+		canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+		canvasContext.globalAlpha = 1.0;
+		colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
+	};
+	this.control = function pauseOptionsScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_UP:
+                console.log('Menu item Up');
+                return true;
+            case KEY_DOWN:
+                console.log('Menu item Down');
+                return true;
+            case KEY_ENTER:
+                console.log('Menu item selected');
+                return true;
+            case KEY_BACKSPACE:
+                console.log('Back to Game');
+                ScreenStates.setState(PAUSE_SCREEN);
+                return true;
+            default:
+                console.log('Pause default');
+                return false;
+        }
+	}
+}
+
+const GAMEPLAY_FINISH_SCREEN = 'gp_finish';
+function GamePlayFinishScreen() {
+	this.transitionIn = function(){};
+	this.transitionOut = function(){};
+	this.run = function gamePlayFinishedScreenRun(){
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText(gameTitle.Main,TitleTextX,canvas.height/2-40,textColor.White,fonts.MainTitle,textAlignment.Center);//'-40' raises Main Title above center of canvas
+        colorText(gameTitle.Subtitle,subTitleTextX ,canvas.height/2,textColor.White,fonts.Subtitle,textAlignment.Center);
+        gameOver.drawButtons(opacity);
+	}
+	this.control = function gamePlayFinishedScreenControl(keyCode, pressed){
+        switch (keyCode){
+            case KEY_MOUSE_LEFT:
+            	if(!pressed) {
+                    gameOver.checkButtons();
+                }
+                return true;
+        }
+        return false;
+    };
+}
+
+const ENDING_SCREEN = 'campaign_finished';
+function EndingScreen(){
+	this.transitionIn = function(){};
+    this.transitionOut = function(){};
+    this.run = function(){};
+    this.control = function(){};
+}
+
+//editing
+
+const EDITOR_SCREEN = 'editor_screen';
+function EditorScreen() {
+	this.transitionIn = function editorScreenTransitionIn(){
+		if(scene == null || scene == undefined){
+            scene = new EditorScene(getLevel(currentLevelIndex));
+		}
+	};
+	this.transitionOut = function(){};
+	this.run = function editorScreenRun() {
+        drawRect(0,0, canvas.width, canvas.height, "blue");//Need to wipe the canvas clean each frame - eventually use a background image/video
+        scene.move();
+        scene.draw();
+	}
+	this.control = function editorScreenControl(keyCode, pressed){
+        switch (keyCode){
+            case KEY_SHIFT:
+                holdShift = pressed;
+                return true;
+            case KEY_CNTRL:
+                holdCmd_Cntrl = pressed;
+                return true;
+            case KEY_ESCAPE:
+                holdEscape = pressed;
+                return true;
+            case KEY_H:
+                if(!pressed){
+                    ScreenStates.setState(EDITOR_HELP_SCREEN);
+                }
+                return true;
+            case KEY_PLUS:
+                holdPlus = pressed;
+                return true;
+            case KEY_MINUS:
+                holdMinus = pressed;
+                return true;
+            case KEY_CMD:
+                holdCmd_Cntrl = pressed;
+                return true;
+            case DIGIT_0:
+                holdZero = pressed;
+                return true;
+            case KEY_MOUSE_LEFT:
+                mouseButtonHeld = pressed;
+        }
+        return false;
+	}
+}
+
+const EDITOR_HELP_SCREEN = 'editor_help';
+function EditorHelpScreen() {
+    this.transitionIn = function(){};
+    this.transitionOut = this.transitionIn;
+	this.run = function editorHelpScreenRun(){
+        opacity = 1;
+        const leftEdge = 125;
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText('How To Edit',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        colorText('1) Press [+]/[-] to add/remove segments to the road.', leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("2) Click on each segment to select (or [CMD+A]/[CNTRL+A] to select all).", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("3) With >1 segment selected, press left/right arrows to curve the road.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("4) With >1 segment selected, press [+]/[-] to make hills/valleys.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("5) Press escape to deselect everything or click to de-select at selection ends.", leftEdge, 270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("6) Press up/down arrow keys to move camera forward/backward along road.", leftEdge, 300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("7) With no segments selected, press left/right arrow keys to move left/right.", leftEdge, 330 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("8) Hold shift and press [+]/[-] to raise/lower entire road (allows a downhill", leftEdge, 360 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("    portion to take you below initial the starting height).", leftEdge, 390 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText('Press [Enter] to continue editing', canvas.width/2, 475,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        colorText('Press [+] to see more help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
+	}
+	this.control = function editorHelpScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_PLUS:
+                if(!pressed){
+                    ScreenStates.setState(EDITOR_HELP2_SCREEN);
+                }
+                return true;
+        }
+        return false;
+	}
+}
+
+const EDITOR_HELP2_SCREEN = 'editor_help2';
+function EditorHelp2Screen() {
+    this.transitionIn = function(){};
+    this.transitionOut = function(){};
+    this.run = function editorHelp2ScreenRun(){
+        opacity = 1;
+        const leftEdge = 125;
+        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+        colorText('How To Edit (continued)',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
+        colorText("9) Click decoration UI (upper right) to select and prepare to place.", leftEdge, 150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("10) With decoration UI selected click on road or ground to place.", leftEdge,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("11) Click on decoration to select.", leftEdge,210 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("12) Press arrow keys to move selected decoration.", leftEdge, 240 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("13) Press CMD+S/CNTRL+S to log level data to console.", leftEdge, 270 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText("14) Copy level data from console and paste into 'Example.js'.", leftEdge, 300 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
+        colorText('Press [Enter] to continue editing', canvas.width/2, 475, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
+        colorText('Press [-] to see previous help', canvas.width/2, 525, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
+	};
+    this.control = function editorHelp2ScreenControl(keyCode, pressed){
+        if(pressed){
+            return false;
+        }
+        switch (keyCode){
+            case KEY_MINUS:
+                if(!pressed){
+                    ScreenStates.setState(EDITOR_HELP_SCREEN);
+                }
+                return true;
+        }
+        return false;
+	}
+}
+
+const ENTRY_SCREEN = LOADING_SCREEN;
+
+function defaultControl(keyCode, pressed){
+    switch (keyCode){
+        case DIGIT_9:
+            if(!pressed){
+                toggleMute();
+            }
+            return true;
+    }
+    return false;
+}
+
+let ScreenStates = {
+	stateLog : [],
+	state: ENTRY_SCREEN,
+	screens: {
+		[LOADING_SCREEN]: new LoadingScreen(),
+		[MENU_SCREEN]: new MenuScreen(),
+        [OPTIONS_SCREEN]: new OptionsScreen(),
+		[LEVEL_SELECT_SCREEN]: new LevelSelectScreen(),
+		[CREDITS_SCREEN]: new CreditsScreen(),
+		[HELP_SCREEN]: new HelpScreen(),
+		[GAMEPLAY_SCREEN]: new GamePlayScreen(),
+		[PAUSE_SCREEN]: new PauseScreen(),
+		[PAUSE_OPTIONS_SCREEN]: new PauseOptionsScreen(),
+		[GAMEPLAY_FINISH_SCREEN]: new GamePlayFinishScreen(),
+		[ENDING_SCREEN]: new EndingScreen(),
+		//editor screens
+		[EDITOR_SCREEN]: new EditorScreen(),
+		[EDITOR_HELP_SCREEN]: new EditorHelpScreen(),
+		[EDITOR_HELP2_SCREEN]: new EditorHelp2Screen()
+	},
+	setState: function(newState, properties) {
+		if(newState === this.state) {
+			return;
+        }
+        this.screens[this.state].transitionOut();
+        this.stateLog.push(this.state);
+		this.state = newState;
+		this.screens[this.state].transitionIn();
+		return this;
+	},
+	getPreviousState: function() {
+		return this.stateLog[this.stateLog.length-1];
+	},
+	run: function() {
+		this.screens[this.state].run();
+	},
+	control: function(keyCode, pressed){
+		let currentState = this.screens[this.state];
+        let handled = currentState.control(keyCode, pressed);
+        if(!handled){
+        	handled = defaultControl(keyCode, pressed);
+		}
+		return handled;
+    }
+
+};
+
+
+function windowOnFocus() {
+	if(ScreenStates.state == PAUSE_SCREEN || ScreenStates.state == PAUSE_OPTIONS_SCREEN) {
+        var state = ScreenStates.getPreviousState();
+        ScreenStates.setState(state);
+    }
+}
+
+function windowOnBlur() {
+    if(ScreenStates.state === GAMEPLAY_SCREEN) {
+        ScreenStates.setState(PAUSE_SCREEN);
     }
 }
