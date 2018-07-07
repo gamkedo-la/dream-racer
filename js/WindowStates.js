@@ -399,7 +399,7 @@ function GamePlayScreen (){
                 return true;
             case KEY_L:
                 if(!pressed){
-                    if(currentBackgroundMusic.paused){
+                    if(currentBackgroundMusic.getPaused()){
                         currentBackgroundMusic.resume();
                     } else {
                         currentBackgroundMusic.pause();
