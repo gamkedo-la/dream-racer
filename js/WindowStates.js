@@ -1,13 +1,37 @@
+
+
+function printMenu(menuItems, selected){
+    let titleImageX = canvas.width/2 - 150;
+    let buttonsX = canvas.width/2 - 72;
+    let selectorXOffset = 40;
+    let mainMenuY = canvas.height/2 - 100;
+    let selectorYOffset = 50;
+    let buttonsXOffset = titleImageX + 80;
+    for (let i = 0; i < menuItems.length;i++){
+        printWord(menuItems[i].title, buttonsXOffset, mainMenuY + selectorYOffset*i);
+    }
+    mainMenuSelectorSprite.draw(buttonsX - selectorXOffset,mainMenuY + selectorYOffset*selected);
+}
+
+function clear(){
+    drawRect(0,0, canvas.width, canvas.height, canvasClearColor);
+}
+
 const MENU_SCREEN = 'menu';
 function MenuScreen(){
     this.selectorPositionsIndex = 0;
-	this.transitionOut = function menuScreenTransitionOut(){
-        uiSelect.play();
-	};
+    this.selections = [
+        { screen: LEVEL_SELECT_SCREEN, title: "PLAY" },
+        { screen: HELP_SCREEN, title: "HELP" },
+        { screen: OPTIONS_SCREEN, title: "OPTIONS" },
+        { screen: CREDITS_SCREEN, title: "CREDITS" },
+    ];
 	this.transitionIn = function menuScreenTransitionIn() {
 	    this.selectorPositionsIndex = 0;
-        this.opacity = 1;
 	};
+    this.transitionOut = function menuScreenTransitionOut(){
+        uiSelect.play();
+    };
 	this.run = function menuScreenRun() {
         let flag = {
             x: -45,
@@ -17,74 +41,39 @@ function MenuScreen(){
             strechX: 1.63,
             strechY: 10
         };
-        let titleImageX = canvas.width/2 - 150;
-        let titleImageY = canvas.height/2 - 380;
-        let buttonsX = canvas.width/2 - 72;
-        let selectorXOffset = 40;
-        let mainMenuY = canvas.height/2 - 100;
-        let selectorYOffset = 50;
-        let buttonsXOffset = titleImageX + 80;
-        let buttonSpacing = 0;
-        let sliderRotation = 90;
-
-        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
         checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
             flag.opacity,flag.streched,
             flag.strechX, flag.strechY);
         drawLogo();
-        for (let i = 0; i < this.selections.length;i++){
-            printWord(this.selections[i].title, buttonsXOffset, mainMenuY + selectorYOffset*i);
-        }
-        mainMenuSelectorSprite.draw(buttonsX - selectorXOffset,mainMenuY + selectorYOffset*this.selectorPositionsIndex);
+        printMenu(this.selections, this.selectorPositionsIndex);
 	};
-	this.selections = [
-        { screen: LEVEL_SELECT_SCREEN, title: "PLAY" },
-        { screen: HELP_SCREEN, title: "HELP" },
-        { screen: OPTIONS_SCREEN, title: "OPTIONS" },
-        { screen: CREDITS_SCREEN, title: "CREDITS" },
-    ]
-
 	this.control = function menuScreenControl(keyCode, pressed){
+	    if(pressed){
+	        return false;
+        }
         switch (keyCode){
             case KEY_UP:
-                if (pressed) {
-                    this.selectorPositionsIndex--;
-                    if (this.selectorPositionsIndex < 0) {
-                        this.selectorPositionsIndex += this.selections.length;
-                    }
+                this.selectorPositionsIndex--;
+                if (this.selectorPositionsIndex < 0) {
+                    this.selectorPositionsIndex += this.selections.length;
                 }
                 return true;
             case KEY_DOWN:
-                if(pressed){
-                    this.selectorPositionsIndex = (this.selectorPositionsIndex + 1) % this.selections.length;
-                    if (this.selectorPositionsIndex > this.selections.length - 1) {
-                        this.selectorPositionsIndex = 0;
-                    }
+                this.selectorPositionsIndex = (this.selectorPositionsIndex + 1) % this.selections.length;
+                if (this.selectorPositionsIndex > this.selections.length - 1) {
+                    this.selectorPositionsIndex = 0;
                 }
                 return true;
             case KEY_ENTER:
-                if(pressed === true){
-                    return false;
-                }
-
                 ScreenStates.setState(this.selections[this.selectorPositionsIndex].screen);
                 return true;
             case KEY_H:
-                if(pressed === true){
-                    return false;
-                }
                 ScreenStates.setState(HELP_SCREEN);
                 return true;
             case KEY_C:
-                if(pressed === true){
-                    return false;
-                }
                 ScreenStates.setState(CREDITS_SCREEN);
                 return true;
             case KEY_E:
-                if(pressed === true){
-                    return false;
-                }
                 ScreenStates.setState(EDITOR_SCREEN);
                 return true;
         }
@@ -95,6 +84,9 @@ function MenuScreen(){
 
 const OPTIONS_SCREEN = 'options';
 function OptionsScreen(){
+    this.selectedSlider = 0;
+    this.sliders = [
+    ];
     this.transitionIn = function (){
         this.sliders = [
             { title: "MUSIC", manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
@@ -104,20 +96,14 @@ function OptionsScreen(){
     this.transitionOut = function(){
         uiSelect.play();
     };
-    this.selectedSlider = 0;
-    this.sliders = [
-    ];
     this.run = function(){
         let titleImageX = canvas.width/2 - 150;
-        let titleImageY = canvas.height/2 - 380;
         let mainMenuY = canvas.height/2 - 100;
         let buttonsX = canvas.width/2 - 72;
         let buttonsXOffset = titleImageX + 80;
         let selectorYOffset = 50;
         let selectorXOffset = 40;
-
-        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        mainMenuLogoSprite.draw(titleImageX,titleImageY);
+        drawLogo();
         for (let i = 0; i < this.sliders.length;i++){
             printWord(this.sliders[i].title, buttonsXOffset, mainMenuY + selectorYOffset*2*i);
             let volume = Math.floor(this.sliders[i].manager.getVolume() * 10);
@@ -129,8 +115,7 @@ function OptionsScreen(){
                 -mainMenuSlider.height,
                 90);
         }
-        printWord("BACK TO MENU", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
-
+        printWord("BACK", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
         mainMenuSelectorSprite.draw(buttonsX - selectorXOffset, mainMenuY + selectorYOffset*2*this.selectedSlider);
 
     };
@@ -172,6 +157,7 @@ function OptionsScreen(){
         }
         return false;
     };
+    return this;
 }
 
 const LOADING_SCREEN = 'loading';
@@ -180,6 +166,7 @@ function LoadingScreen() {
 	this.transitionOut = function(){};
 	this.run = function(){};
 	this.control = function(){};
+	return this;
 }
 
 const LEVEL_SELECT_SCREEN = 'level';
@@ -194,14 +181,9 @@ function LevelSelectScreen() {
     };
     this.run = function levelSelectScreenRun(){
         let previewOffsetY =280;
-        opacity = 1;
-        drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
-        let titleImageX = canvas.width/2 - 150;
-        let titleImageY = canvas.height/2 - 380;
-        mainMenuLogoSprite.draw(titleImageX,titleImageY);
         let animationSpeedBackground = clamp((framesFromGameStart-this.selectLevelAnimationStartFrame)*this.initialAnimationSpeed, 0, canvas.width/2);
         let animationSpeedForeground = animationSpeedBackground;
-
+        drawLogo();
         if(animationSpeedBackground > canvas.width/2 - 10) {
             animationSpeedBackground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/14;
             animationSpeedForeground -= (framesFromGameStart-this.selectLevelAnimationStartFrame)/10;
@@ -236,24 +218,17 @@ function LevelSelectScreen() {
         }
         return false;
 	}
+	return this;
 }
 
 const CREDITS_SCREEN = 'credits';
 function CreditsScreen() {
-	this.transitionIn = function(){
-	    this.startY = canvas.height - 300;
-	    this.currentY = this.startY;
-	    this.startFrame = framesFromGameStart;
-    };
-	this.transitionOut = function(){
-        uiSelect.play();
-    };
-	this.startY = 0;
+    this.startY = 0;
     this.scrollLimit = -1400;
-	this.currentY = 0;
-	this.scrollSpeed = 1;
-	this.startFrame = 0;
-	this.contributors = [
+    this.currentY = 0;
+    this.scrollSpeed = 1;
+    this.startFrame = 0;
+    this.contributors = [
         {name:"H TRAYFORD",   works: ['Game Lead', 'Prototype', 'Level Editor'] },
         {name:"CUSTOM NAME1", works: ['test work','test work','test work','test work','test work']},
         {name:"CUSTOM NAME2", works: ['test work','test work','test work','test work']},
@@ -265,6 +240,14 @@ function CreditsScreen() {
         {name:"CUSTOM NAME8", works: ['test work']},
         {name:"CUSTOM NAME9", works: ['test work']},
     ];
+	this.transitionIn = function(){
+	    this.startY = canvas.height - 300;
+	    this.currentY = this.startY;
+	    this.startFrame = framesFromGameStart;
+    };
+	this.transitionOut = function(){
+        uiSelect.play();
+    };
 	this.drawContributors = function(){
         let nameX = canvas.width/2;
         let textSkip = 20;
@@ -282,7 +265,6 @@ function CreditsScreen() {
             textY += textSkip;
         }
     };
-
 	this.run = function creditsScreenRun() {
         let buttonsX = canvas.width/2 - 72;
         let selectorXOffset = 40;
@@ -291,7 +273,6 @@ function CreditsScreen() {
         if(this.currentY < this.scrollLimit) {
            ScreenStates.setState(MENU_SCREEN);
         }
-        drawRect(0, 0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
         this.drawContributors();
         drawRect(0, 0, canvas.width, 200, canvasClearColor);
         printWord('Credits', canvas.width/2-72, 100);
@@ -323,8 +304,7 @@ function HelpScreen() {
         uiSelect.play();
     };
 	this.run = function helpScreenRun(){
-        opacity = 1;
-        drawRect(0,0, canvas.width, canvas.height, canvasClearColor);//Need to wipe the canvas clean each frame - eventually use a background image/video
+	    opacity = 1;
         colorText('How To Play',canvas.width/2 ,100,textColor.White,fonts.Subtitle,textAlignment.Center,opacity);
         colorText(bulletPointIcon + '  [W] or [' + upArrowIcon + '] to accellerate',200,150 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
         colorText(bulletPointIcon + '  [A]/[D] or [' + leftArrowIcon + ']/[' + rightArrowIcon + '] to turn left or right',200,180 ,textColor.White,fonts.ButtonTitle,textAlignment.Left,opacity);
@@ -349,11 +329,15 @@ function HelpScreen() {
         }
         return false;
 	};
+	return this;
 }
 
 const GAMEPLAY_SCREEN = 'game';
 function GamePlayScreen (){
 	this.transitionIn = function gamePlayScreenTransitionIn(){
+	    if(this.properties === "restart") {
+	        scene = null;
+        }
 		if(scene === null || scene === undefined){
             scene = new GameScene(getLevel(currentLevelIndex));
 		}
@@ -447,16 +431,26 @@ function GamePlayScreen (){
                 return false;
         }
 	};
+	return this;
 }
 
 const PAUSE_SCREEN = 'pause';
 function PauseScreen () {
+    this.selectedItem = 0;
+    this.menuItems = [
+        { title: "Back", screen: GAMEPLAY_SCREEN },
+        { title: "Restart", screen: GAMEPLAY_SCREEN, options: "restart" },
+        { title: "Options", screen: PAUSE_OPTIONS_SCREEN },
+        { title: "Level Select", screen: LEVEL_SELECT_SCREEN },
+        { title: "Exit", screen: MENU_SCREEN },
+    ];
     this.transitionIn = function pauseScreenTransitionIn(){
         pauseAudio();
         pauseSound.play();
         scene.timeSinceLastFrame = null;
         scene.currentFrameTimestamp = null;
         scene.previousFrameTimestamp = null;
+        this.selectedItem = 0;
     };
     this.transitionOut = function pauseScreenTransitionOut(){
         resumeSound.play();
@@ -465,13 +459,10 @@ function PauseScreen () {
         }
 	};
     this.run = function pauseScreenRun(){
-        drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
         scene.draw();
         semiTransparentBack();
         drawLogo();
-        printWord(pausedText, canvas.width/2 - 80, canvas.height/2 - 100);
-
-        canvasContext.restore();
+        printMenu(this.menuItems, this.selectedItem);
     };
     this.control = function pauseScreenControl(keyCode, pressed){
         if(pressed){
@@ -479,13 +470,14 @@ function PauseScreen () {
         }
         switch (keyCode){
             case KEY_UP:
-                console.log('Menu item Up');
+                this.selectedItem = (this.selectedItem-1 + this.menuItems.length) % this.menuItems.length;
                 return true;
             case KEY_DOWN:
-                console.log('Menu item Down');
+                this.selectedItem = (this.selectedItem+1) % this.menuItems.length;
                 return true;
             case KEY_ENTER:
-                console.log('Menu item selected');
+                let selectedItem = this.menuItems[this.selectedItem];
+                ScreenStates.setState(selectedItem.screen, selectedItem.options);
                 return true;
             case KEY_P:
             case KEY_BACKSPACE:
@@ -502,49 +494,75 @@ function PauseScreen () {
 
 const PAUSE_OPTIONS_SCREEN = 'pause_options';
 function PauseOptionsScreen(){
-	this.transitionIn = function pauseOptionsScreenTransitionIn(){
-		pauseAudio();
-		pauseSound.play();
-		clearInterval(gameUpdate);
-		scene.timeSinceLastFrame = null;
-		scene.currentFrameTimestamp = null;
-		scene.previousFrameTimestamp = null;
-	};
+    this.selectedSlider = 0;
+    this.sliders = [
+    ];
+    this.transitionIn = function (){
+        this.sliders = [
+            { title: "MUSIC", manager: MusicVolumeManager, storageKey: localStorageKey.MusicVolume, variable: musicVolume },
+            { title: "SFX", manager: SFXVolumeManager, storageKey: localStorageKey.SFXVolume, variable: sfxVolume },
+        ];
+    };
 	this.transitionOut = function pauseOptionsScreenTransitionOut(){
-		gameUpdate = setInterval(update, 1000/30);
-		resumeSound.play();
-		if (currentBackgroundMusic.getTime() > 0) {
-			currentBackgroundMusic.resume();
-		}
 	};
 	this.run = function pauseOptionsScreenRun(){
-		canvasContext.fillStyle = textColor.Black;
-		canvasContext.globalAlpha = 0.75;
-		canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-		canvasContext.globalAlpha = 1.0;
-		colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
+        let titleImageX = canvas.width/2 - 150;
+        let mainMenuY = canvas.height/2 - 100;
+        let buttonsX = canvas.width/2 - 72;
+        let buttonsXOffset = titleImageX + 80;
+        let selectorYOffset = 50;
+        let selectorXOffset = 40;
+        scene.draw();
+        semiTransparentBack();
+        drawLogo();
+        for (let i = 0; i < this.sliders.length;i++){
+            printWord(this.sliders[i].title, buttonsXOffset, mainMenuY + selectorYOffset*2*i);
+            let volume = Math.floor(this.sliders[i].manager.getVolume() * 10);
+            mainMenuSliderSprite.currentFrameIndex = 10 - volume;
+            mainMenuSliderSprite.drawRotated(
+                buttonsX,
+                Math.ceil(mainMenuY + selectorYOffset*2*i+selectorYOffset),
+                0,
+                -mainMenuSlider.height,
+                90);
+        }
+        printWord("BACK", buttonsX, mainMenuY + selectorYOffset*2*this.sliders.length);
+        mainMenuSelectorSprite.draw(buttonsX - selectorXOffset, mainMenuY + selectorYOffset*2*this.selectedSlider);
 	};
+    this.updateSliderValue = function(delta){
+        if(this.selectedSlider !== this.sliders.length) {
+            let slider = this.sliders[this.selectedSlider];
+            let volume = slider.manager.getVolume();
+            slider.variable = clamp(Math.round((volume + delta)*10)/10, 0,  1);
+            slider.manager.setVolume(slider.variable);
+            localStorageHelper.setItem(slider.storageKey, slider.variable);
+        }
+    };
 	this.control = function pauseOptionsScreenControl(keyCode, pressed){
         if(pressed){
             return false;
         }
         switch (keyCode){
-            case KEY_UP:
-                console.log('Menu item Up');
-                return true;
-            case KEY_DOWN:
-                console.log('Menu item Down');
-                return true;
-            case KEY_ENTER:
-                console.log('Menu item selected');
-                return true;
             case KEY_BACKSPACE:
-                console.log('Back to Game');
                 ScreenStates.setState(PAUSE_SCREEN);
                 return true;
-            default:
-                console.log('Pause default');
-                return false;
+            case KEY_UP:
+                this.selectedSlider = clamp(this.selectedSlider - 1, 0, this.sliders.length);
+                return true;
+            case KEY_DOWN:
+                this.selectedSlider = clamp(this.selectedSlider + 1, 0, this.sliders.length);
+                return true;
+            case KEY_ENTER:
+                if(this.selectedSlider === this.sliders.length){
+                    ScreenStates.setState(PAUSE_SCREEN);
+                }
+                return true;
+            case KEY_LEFT:
+                this.updateSliderValue(-0.1);
+                return true;
+            case KEY_RIGHT:
+                this.updateSliderValue(0.1);
+                return true;
         }
 	}
 }
@@ -788,6 +806,7 @@ let ScreenStates = {
 		return this.stateLog[this.stateLog.length-1];
 	},
 	run: function() {
+        clear();
 		this.screens[this.state].run();
 	},
 	control: function(keyCode, pressed){
