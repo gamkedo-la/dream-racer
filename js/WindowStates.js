@@ -31,8 +31,7 @@ function MenuScreen(){
         checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
             flag.opacity,flag.streched,
             flag.strechX, flag.strechY);
-        mainMenuLogoSprite.draw(titleImageX,titleImageY);
-
+        drawLogo();
         for (let i = 0; i < this.selections.length;i++){
             printWord(this.selections[i].title, buttonsXOffset, mainMenuY + selectorYOffset*i);
         }
@@ -364,7 +363,6 @@ function GamePlayScreen (){
     };
 	this.run = function gamePlayScreenRun(){
         scene.move();
-        opacity = 1;
         drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
         scene.draw();
         if(scene.gameIsOver){
@@ -456,31 +454,23 @@ function PauseScreen () {
     this.transitionIn = function pauseScreenTransitionIn(){
         pauseAudio();
         pauseSound.play();
-        clearInterval(gameUpdate);
-        gameUpdate = null;
         scene.timeSinceLastFrame = null;
         scene.currentFrameTimestamp = null;
         scene.previousFrameTimestamp = null;
     };
     this.transitionOut = function pauseScreenTransitionOut(){
-        console.log(gameUpdate);
-        if(!gameUpdate === null) {
-            clearInterval(gameUpdate);
-            gameUpdate = null;
-        }
-        gameUpdate = setInterval(update, 1000/30);
         resumeSound.play();
         if (currentBackgroundMusic.getTime() > 0) {
             currentBackgroundMusic.resume();
         }
 	};
     this.run = function pauseScreenRun(){
-        canvasContext.save();
-        canvasContext.fillStyle = textColor.Black;
-        canvasContext.globalAlpha = 0.75;
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.globalAlpha = 1.0;
-        colorText(pausedText, canvas.width/2, canvas.height/2, textColor.White, fonts.MainTitle, textAlignment.Center);
+        drawRect(0,0, canvas.width, canvas.height, "green");//Need to wipe the canvas clean each frame - eventually use a background image/video
+        scene.draw();
+        semiTransparentBack();
+        drawLogo();
+        printWord(pausedText, canvas.width/2 - 80, canvas.height/2 - 100);
+
         canvasContext.restore();
     };
     this.control = function pauseScreenControl(keyCode, pressed){
@@ -811,6 +801,19 @@ let ScreenStates = {
 
 };
 
+function semiTransparentBack(alpha = 0.5, color = textColor.Black) {
+    canvasContext.save();
+    canvasContext.fillStyle = color;
+    canvasContext.globalAlpha = alpha;
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+    canvasContext.globalAlpha = 1.0;
+}
+
+function drawLogo(){
+    let titleImageX = canvas.width/2 - 150;
+    let titleImageY = canvas.height/2 - 380;
+    mainMenuLogoSprite.draw(titleImageX,titleImageY);
+}
 
 function windowOnFocus() {
 	if(ScreenStates.state == PAUSE_SCREEN || ScreenStates.state == PAUSE_OPTIONS_SCREEN) {

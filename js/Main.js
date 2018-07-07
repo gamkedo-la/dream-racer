@@ -35,7 +35,7 @@ const assetPath = {
 const canvasClearColor = "black";
 
 const loadingText = "LOADING...";
-const pausedText = "- P A U S E D -";
+const pausedText = "PAUSE";
 
 const gameTitle = {
 	Main: "Dream Racer",
