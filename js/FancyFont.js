@@ -57,15 +57,42 @@ const lettersOffset = [
     4, //space
 ];
 const letterSpacing = 4;
+const nonAlpha = {
+    "1": null,
+    "2": null,
+    "3": null,
+    "4": null,
+    "5": null,
+    "6": null,
+    "7": null,
+    "8": null,
+    "9": null,
+    "0": null,
+    ">": null,
+    "<": null,
+    "[": null,
+    "]": null,
+    ":": null,
+    "!": null,
+    "'": null
+}
 
 function printWord(word, x, y, scale = 1){
     let height = fancyFont.height;
     let leftOffset = 0;
+    let fallbackScale = 48;
+    let fontRatio = 4/5;
     word = word.toUpperCase();
 
     for(let i = 0; i < word.length; i++){
         if(word.charAt(i) === " "){
             leftOffset += sizes[26];
+            continue;
+        }
+        if(word.charAt(i) in nonAlpha) {
+            let width = scale * fallbackScale;
+            colorText(word.charAt(i), x + scale * leftOffset, y + scale * fontRatio * fallbackScale, 'orange', width + "px Tahoma", 'left', 1);
+            leftOffset += width + letterSpacing;
             continue;
         }
         let letterIndex = word.charCodeAt(i) - "A".charCodeAt(0);
