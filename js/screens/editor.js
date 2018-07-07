@@ -62,6 +62,12 @@ function EditorScreen() {
             case KEY_S:
                 holdS = pressed;
                 return true;
+            case KEY_A:
+                holdA = pressed;
+                return true;
+            case KEY_D:
+                holdD = pressed;
+                return true;
             case KEY_B:
                 ScreenStates.setState(MENU_SCREEN);
                 return true;
