@@ -57,6 +57,7 @@ function AnimatedSpriteClass(data) {
 	this.loops = data.loops;
 	this.framesBetweenLoops = data.framesBetweenLoops || 0;
 	this.currentPauseFramesLeft = 0;
+	this.reversing = false;
 
 	this.setFrame = function(frame) {
 		this.currentFrameIndex = frame;
@@ -70,7 +71,7 @@ function AnimatedSpriteClass(data) {
 	//							source x, source y, source width, source height,
 	//							destination x, destination y, destination width/ strech/squish, destination height/ strech/squish);
 
-	this.draw = function (x,y, opacity = 1, streched = false, strechX = 1, strechY = 1) {
+	this.draw = function (x,y, opacity = 1, streched = false, strechX = 1, strechY = 1, loopsToEndAndBack = false) {
 		let additionalWidth;
 		let additionalHeight;
 		canvasContext.save();
@@ -79,10 +80,24 @@ function AnimatedSpriteClass(data) {
 		if (this.loops) {
 			if(this.currentPauseFramesLeft <= 0) {
                 if (framesFromGameStart % this.framesUntilNext == 0) {
-                    this.currentFrameIndex++;
-                    if (this.currentFrameIndex > this.numberOfFrameIndexes) {
-                        this.currentFrameIndex = 0;
-                        this.currentPauseFramesLeft = this.framesBetweenLoops;
+                	if (loopsToEndAndBack) {
+                    	if (!this.reversing) {
+                    		this.currentFrameIndex++;
+                    		if (this.currentFrameIndex == this.numberOfFrameIndexes) {
+                    			this.reversing = true;
+                    		}
+                    	} else if (this.reversing) {
+                    		this.currentFrameIndex--;
+                    		if (this.currentFrameIndex == 0) {
+                    			this.reversing = false;
+                    		}
+                    	}		
+                    } else {
+	                    this.currentFrameIndex++;
+	                    if (this.currentFrameIndex > this.numberOfFrameIndexes) {
+	                        this.currentFrameIndex = 0;
+	                        this.currentPauseFramesLeft = this.framesBetweenLoops;
+	                    }
                     }
                 }
             } else{

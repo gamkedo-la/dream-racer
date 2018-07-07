@@ -22,11 +22,13 @@ function MenuScreen(){
             opacity: 0.5,
             streched: true,
             strechX: 1.63,
-            strechY: 10
+            strechY: 10,
+            reverses: true
         };
         checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
             flag.opacity,flag.streched,
-            flag.strechX, flag.strechY);
+            flag.strechX, flag.strechY,
+            flag.reverses);
         drawLogo();
         printMenu(this.selections, this.selectorPositionsIndex);
     };
