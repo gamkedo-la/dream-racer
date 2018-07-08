@@ -74,12 +74,14 @@ function GameScene(data) {
 
 	this.currentZIndex = 0;
 	this.player = new Player();
+
+    currentBackgroundMusic.setCurrentTrack(data.musicTrackIndex);
+    currentBackgroundMusic.play();
 	this.stats = {
 		time: 0,
 		speed: 0,
-		carHits: 0,
-		crashes: 0,
 	};
+
 
 	this.draw = function () {
 		drawBackground(data.skyPic, data.skyTransformFunc(this.camera.position), data.backgroundPic, data.backgroundTransformFunc(this.camera.position), data.middleGroundPic, data.middlegroundTransformFunc(this.camera.position));
@@ -130,8 +132,7 @@ function GameScene(data) {
 		if (countdownDisplayCounter >= framesPerSecond * 4) {
 			countdownDisplayCounter = 0;
 			countdownfinished = true;
-			currentBackgroundMusic.setCurrentTrack(scene.data.musicTrackIndex);
-			currentBackgroundMusic.play();
+
 			return;
 		}
 		if (countdownDisplayCounter < framesPerSecond) {

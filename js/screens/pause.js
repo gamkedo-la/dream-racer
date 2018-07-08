@@ -8,7 +8,6 @@ function PauseScreen () {
         { title: textStrings.Main, screen: MENU_SCREEN },
     ];
     this.transitionIn = function pauseScreenTransitionIn(){
-        pauseAudio();
         pauseSound.play();
         scene.timeSinceLastFrame = null;
         scene.currentFrameTimestamp = null;
@@ -17,9 +16,6 @@ function PauseScreen () {
     };
     this.transitionOut = function pauseScreenTransitionOut(){
         resumeSound.play();
-        if (currentBackgroundMusic.getTime() > 0) {
-            currentBackgroundMusic.resume();
-        }
     };
     this.run = function pauseScreenRun(){
         scene.draw();

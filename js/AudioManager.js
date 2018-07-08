@@ -379,10 +379,6 @@ function brakeAudio(speed) {
 	else if (brake_high.getPaused()) {brake_high.resume()}
 }
 
-function loadAudio() {
-	currentBackgroundMusic.play();
-}
-
 function turnVolumeUp() {
 	MusicVolumeManager.setVolume(musicVolume + VOLUME_INCREMENT);
 	SFXVolumeManager.setVolume(sfxVolume + VOLUME_INCREMENT);

@@ -352,7 +352,6 @@ function Player() {
 				winCounter++;
 			}
 			if (winCounter > framesPerSecond * 3) { //Other conditions?
-				currentBackgroundMusic.stop();
 				scene.gameIsOver = true;
 				winCounter = 0;
 				victoryAnimation = false;
