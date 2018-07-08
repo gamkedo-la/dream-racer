@@ -1,8 +1,7 @@
 function GamePlayFinishScreen() {
     this.transitionIn = function(){
         currentBackgroundMusic.stop();
-        engine_master.stop();
-        brake_master.stop();
+        allSFX.stop();
     };
     this.transitionOut = function(){
         uiSelect.play();

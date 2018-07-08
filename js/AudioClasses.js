@@ -431,6 +431,7 @@ function sfxContainer(clipList) {//Basic Container
 
 function sfxContainerRandom(clipList) {//Plays a random list-item on playback
 	var soundFile = [];
+	var trackList = clipList;
 	currentClip = 0;
 
 	for (var i in clipList) {

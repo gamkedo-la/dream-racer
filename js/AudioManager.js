@@ -53,6 +53,16 @@ var crashSFX2 = new sfxClipSingle("sfx_crash_02");
 var crashSFX3 = new sfxClipSingle("sfx_crash_03");
 var crashMasterSFX = new sfxContainerRandom([crashSFX1,crashSFX2,crashSFX3]);
 
+
+var allSFX = {
+	sfxList : [crashMasterSFX,bumpMasterSFX,offroadSound,brake_master,engine_master,countDown,pauseSound,resumeSound,uiSelect],
+	stop: function(){
+		for(var i=0; i < this.sfxList.length; i++){
+			this.sfxList[i].stop();
+		}
+	}
+}
+
 function setFormat() {
 	var audio = new Audio();
 	if (audio.canPlayType("audio/ogg")) {
