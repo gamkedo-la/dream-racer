@@ -17,6 +17,14 @@ const assetPath = {
     Image: "images/"
 }
 
+const statsType = {
+    Time : "time",
+    Money: "money",
+    Points: "points",
+    Count: "count",
+    Text: "text"
+}
+
 const canvasClearColor = "black";
 
 const loadingText = "LOADING...";
@@ -41,6 +49,7 @@ const textAlignment = {
 const textStrings = {
     Play: "Play",
     Back: "Back",
+    Continue: "Continue",
     Help: "Help",
     Restart: "Restart",
     Options: "Options",
@@ -60,7 +69,11 @@ const textStrings = {
         {name:"CUSTOM NAME7", works: ['test work']},
         {name:"CUSTOM NAME8", works: ['test work']},
         {name:"CUSTOM NAME9", works: ['test work']},
-    ]
+    ],
+    Stats: {
+        Ms: "ms",
+        Points: "pts",
+    }
 };
 
 const fonts = {

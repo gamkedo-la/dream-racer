@@ -8,11 +8,11 @@ function defaultControl(keyCode, pressed){
     }
     return false;
 }
-function printMenu(menuItems, selected){
+function printMenu(menuItems, selected, yOffset = null){
     let titleImageX = canvas.width/2 - 150;
     let buttonsX = canvas.width/2 - 72;
     let selectorXOffset = 40;
-    let mainMenuY = canvas.height/2 - 100;
+    let mainMenuY = yOffset == null ? canvas.height/2 - 100 : yOffset;
     let selectorYOffset = 50;
     let buttonsXOffset = titleImageX + 80;
     for (let i = 0; i < menuItems.length;i++){

@@ -100,7 +100,7 @@ const printWord = (function(){
                 letterOffsets[i] = sizes[26];
             }
             else if(word.charAt(i) in nonAlpha){
-                letterOffsets[i] = (fallbackScale + letterSpacing);
+                letterOffsets[i] = (fallbackScale/2 + letterSpacing);
             }
             else {
                 let letterIndex = word.charCodeAt(i) - "A".charCodeAt(0);

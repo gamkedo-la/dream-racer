@@ -28,7 +28,44 @@ function force_pixel_art() {
 const clamp = function(n, min, max) {
     return Math.min(Math.max(n, min), max);
 };
+function millisecondsToString(time){
+    let miliseconds = time % 1000;
+    time = time / 1000;
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+    var out = "";
 
+    if(minutes < 10) {
+        out += "0";
+    }
+    out += minutes;
+    out += ":";
+    if(seconds < 10) {
+        out += "0";
+    }
+    out += seconds;
+    out += ".";
+    if(miliseconds < 100) {
+        out += "0";
+    }
+    if(miliseconds < 10) {
+        out += "0";
+    }
+    out += miliseconds;
+    return out;
+}
+function formatStats(stat){
+    var output = "";
+    switch(stat.type) {
+        case statsType.Time:
+            output += millisecondsToString(stat.value) + " " + textStrings.Stats.Ms;
+            break;
+        default:
+            output += stat.value;
+            break;
+    }
+    return output;
+};
 window.onload = function () {
 	window.addEventListener("focus", windowOnFocus);
 	window.addEventListener("blur", windowOnBlur);
@@ -52,12 +89,7 @@ window.onload = function () {
 	initializeInput();
 	loadImages();
     makeAnimatedSprites();
-	if(DEBUG){
-        ScreenStates.setState(GAMEPLAY_SCREEN);
-	}
-	else {
-        ScreenStates.setState(MENU_SCREEN);
-	}
+	ScreenStates.setState(MENU_SCREEN);
 };
 
 

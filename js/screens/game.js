@@ -8,7 +8,8 @@ function GamePlayScreen (){
         }
     };
     this.transitionOut = function gamePlayScreenTransitionOut(){
-
+        currentBackgroundMusic.stop();
+        allSFX.stop();
     };
     this.run = function gamePlayScreenRun(){
         scene.move();

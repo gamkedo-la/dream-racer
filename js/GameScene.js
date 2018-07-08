@@ -15,12 +15,13 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 200000; /// 1000 per second
+	const CHECKPOINT_TIME_LIMIT_MS = 200 * 1000; /// 1000 per second
 	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
 	this.previousFrameTimestamp = null;
 	this.gameIsOver = false;
+	this.totalTime = this.countdownTimeLeft;
 
 	let canTurn = true;
 	let canAccelerate = true;
@@ -73,6 +74,11 @@ function GameScene(data) {
 
 	this.currentZIndex = 0;
 	this.player = new Player();
+	this.stats = {
+		time: 0,
+		carHits: 0,
+		crashes: 0,
+	};
 
 	this.draw = function () {
 		drawBackground(data.skyPic, data.skyTransformFunc(this.camera.position), data.backgroundPic, data.backgroundTransformFunc(this.camera.position), data.middleGroundPic, data.middlegroundTransformFunc(this.camera.position));
@@ -89,17 +95,9 @@ function GameScene(data) {
 	}
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
-		if (skyImage != undefined) {
-			wrapAndtransformDraw(skyImage, skyOffset);
-		}
-
-		if (backgroundImage != undefined) {
-			wrapAndtransformDraw(backgroundImage, backgroundOffset);
-		}
-
-		if (middleGroundImage != undefined) {
-			wrapAndtransformDraw(middleGroundImage, middleGroundOffset);
-		}
+		wrapAndtransformDraw(skyImage, skyOffset);
+		wrapAndtransformDraw(backgroundImage, backgroundOffset);
+		wrapAndtransformDraw(middleGroundImage, middleGroundOffset);
 	}
 
 	const drawTimeExtend = function (timeBonus) {
@@ -113,8 +111,8 @@ function GameScene(data) {
 				if (timeBonus == 0) {
 					return;
 				} else {
-					const timeAdded = timeBonus / 1000
-					canvasContext.drawImage(timeBonusPic, canvas.width / 2 - 100, 150);
+					const timeAdded = timeBonus / 1000;
+					printWord("+ " + timeAdded + " !!", canvas.width / 2 - 100, 150);
 					timeExtendCounter++;
 				}
 			}
@@ -122,61 +120,62 @@ function GameScene(data) {
 	}
 
 	const drawCountdownTimerAndGO = function () {
-		if (!countdownfinished) {
-			if (countDown.getPaused()) {
-				countDown.resume();
-			}
-			if (countdownDisplayCounter >= framesPerSecond * 4) {
-				countdownDisplayCounter = 0;
-				countdownfinished = true;
-				currentBackgroundMusic.setCurrentTrack(scene.data.musicTrackIndex);
-				currentBackgroundMusic.play();
-				return;
-			}
-			if (countdownDisplayCounter < framesPerSecond) {
-				let frameIndex = 0;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
-					canvas.width / 2 - 25, 150,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
-				canTurn = false;
-				canAccelerate = false;
-				canBoost = false;
-			}
-			if (framesPerSecond <= countdownDisplayCounter &&
-				countdownDisplayCounter < framesPerSecond * 2) {
-				let frameIndex = 1;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
-					canvas.width / 2 - 25, 150,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
-				canTurn = false;
-				canAccelerate = false;
-				canBoost = false;
-			}
-			if (framesPerSecond * 2 <= countdownDisplayCounter &&
-				countdownDisplayCounter < framesPerSecond * 3) {
-				let frameIndex = 2;
-				canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
-					canvas.width / 2 - 25, 150,
-					countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
-				canTurn = false;
-				canAccelerate = false;
-				canBoost = false;
-			}
-			if (framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
-				countdownDisplayCounter < framesPerSecond * 4.5) {
-				canvasContext.drawImage(goPic, 0, 0,
-					goPic.width, goPic.height,
-					canvas.width / 2 - 75, 150,
-					goPic.width, goPic.height);
-				canTurn = true;
-				canAccelerate = true;
-				canBoost = true;
-			}
-			countdownDisplayCounter++;
+		if (countdownfinished) {
+            return;
+        }
+		if (countDown.getPaused()) {
+			countDown.resume();
 		}
+		if (countdownDisplayCounter >= framesPerSecond * 4) {
+			countdownDisplayCounter = 0;
+			countdownfinished = true;
+			currentBackgroundMusic.setCurrentTrack(scene.data.musicTrackIndex);
+			currentBackgroundMusic.play();
+			return;
+		}
+		if (countdownDisplayCounter < framesPerSecond) {
+			let frameIndex = 0;
+			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+				canvas.width / 2 - 25, 150,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
+			canTurn = false;
+			canAccelerate = false;
+			canBoost = false;
+		}
+		if (framesPerSecond <= countdownDisplayCounter &&
+			countdownDisplayCounter < framesPerSecond * 2) {
+			let frameIndex = 1;
+			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+				canvas.width / 2 - 25, 150,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
+			canTurn = false;
+			canAccelerate = false;
+			canBoost = false;
+		}
+		if (framesPerSecond * 2 <= countdownDisplayCounter &&
+			countdownDisplayCounter < framesPerSecond * 3) {
+			let frameIndex = 2;
+			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height,
+				canvas.width / 2 - 25, 150,
+				countdownSpriteSheetPic.width / 3, countdownSpriteSheetPic.height);
+			canTurn = false;
+			canAccelerate = false;
+			canBoost = false;
+		}
+		if (framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
+			countdownDisplayCounter < framesPerSecond * 4.5) {
+			canvasContext.drawImage(goPic, 0, 0,
+				goPic.width, goPic.height,
+				canvas.width / 2 - 75, 150,
+				goPic.width, goPic.height);
+			canTurn = true;
+			canAccelerate = true;
+			canBoost = true;
+		}
+		countdownDisplayCounter++;
 	}
 
 	this.updateTimer = function () {
@@ -197,11 +196,9 @@ function GameScene(data) {
 	}
 
 	this.getStats = function () {
-		return {
-			time: "1203123",
-			hits: "1921212",
-			dollars: "2329389",
-		}
+		return [
+			{name: "time", type: statsType.Time, value: this.stats.time}
+		]
 	}
 
 	this.move = function () {
@@ -293,9 +290,11 @@ function GameScene(data) {
 						canTurn = false;
 						canBoost = false;
 						this.raceWon = true;
+						this.stats.time = this.totalTime - this.countdownTimeLeft;
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
 						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
+						this.totalTime += thisDecoration.trigger.timeBonus;
 						thisDecoration.trigger.hasInteracted = true;
 						passedACheckPoint = true;
 						newTimeBonus = thisDecoration.trigger.timeBonus;
