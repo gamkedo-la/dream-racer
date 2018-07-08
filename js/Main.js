@@ -55,10 +55,13 @@ function millisecondsToString(time){
     return out;
 }
 function formatStats(stat){
-    var output = "";
+    let output = "";
     switch(stat.type) {
         case statsType.Time:
             output += millisecondsToString(stat.value) + " " + textStrings.Stats.Ms;
+            break;
+		case statsType.Speed:
+            output += Math.floor(stat.value * 10) + " " + textStrings.Stats.Mph;
             break;
         default:
             output += stat.value;

@@ -22,7 +22,8 @@ const statsType = {
     Money: "money",
     Points: "points",
     Count: "count",
-    Text: "text"
+    Text: "text",
+    Speed: "speed"
 }
 
 const canvasClearColor = "black";
@@ -73,6 +74,7 @@ const textStrings = {
     Stats: {
         Ms: "ms",
         Points: "pts",
+        Mph: "mph",
     }
 };
 

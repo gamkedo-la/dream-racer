@@ -76,6 +76,7 @@ function GameScene(data) {
 	this.player = new Player();
 	this.stats = {
 		time: 0,
+		speed: 0,
 		carHits: 0,
 		crashes: 0,
 	};
@@ -197,7 +198,8 @@ function GameScene(data) {
 
 	this.getStats = function () {
 		return [
-			{name: "time", type: statsType.Time, value: this.stats.time}
+			{name: "time", type: statsType.Time, value: this.stats.time},
+			{name: "speed", type: statsType.Speed, value: this.stats.speed}
 		]
 	}
 
@@ -259,7 +261,7 @@ function GameScene(data) {
 		if (this.countdownTimeLeft <= 0) {
 			canAccelerate = false;
 		}
-
+		this.stats.speed = Math.max(this.player.speed, this.stats.speed);
 		if (this.raceWon) {
 			return;
 		} else {
