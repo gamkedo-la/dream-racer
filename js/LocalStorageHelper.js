@@ -40,6 +40,7 @@ function setupLocalStorage() {
         isLocalStorageInitialized = true;
         musicVolume = DEFAULT_MUSIC_VOLUME;
         sfxVolume = DEFAULT_SFX_VOLUME;
+
         showedHelp = false;
 
         localStorageHelper.setFlag(localStorageKey.IsLocalStorageInitialized, isLocalStorageInitialized);
@@ -52,4 +53,6 @@ function setupLocalStorage() {
         musicVolume = parseFloat(localStorageHelper.getItem(localStorageKey.MusicVolume));
         sfxVolume = parseFloat(localStorageHelper.getItem(localStorageKey.SFXVolume));
     }
+    MusicVolumeManager.updateVolume();
+    SFXVolumeManager.updateVolume();
 }
