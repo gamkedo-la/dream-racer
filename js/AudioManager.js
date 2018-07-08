@@ -8,7 +8,7 @@ const DEFAULT_SFX_VOLUME = 0.6;
 var nightMusic = new musicTrackLoop("dreamracerNight", 208.976, {author: "Vignesh", album: "DreamRacer OST", year: "2018", title: "dreamracerNight"});  //By Vignesh
 var dreamPunk = new musicTrackLoop("dreamPunk", 167.335, {author: "Stebs", album: "DreamRacer OST", year: "2018", title: "dreamPunk" });  //By Stebs
 var forestRock = new musicTrackLoop("forestRock", 124.21011, {author: "Stebs", album: "DreamRacer OST", year: "2018", title: "forestRock"});
-var drjuno = new musicTrackLoop("DR Juno", 148.4016, {author: "Joe Spedale", album: "DreamRacer OST", year: "2018", title: "forestRock"});
+var drjuno = new musicTrackLoop("DR Juno", 148.4016, {author: "Joe Spedale", album: "DreamRacer OST", year: "2018", title: "DR Juno"});
 var retroDream = new musicTrackLoop("RetroSynthDream", 131.889978, {author: "Vignesh", album: "DreamRacer OST", year: "2018", title: "Retro Dream" });
 
 var currentBackgroundMusic = new musicContainer([retroDream, dreamPunk, nightMusic, forestRock, drjuno]);
