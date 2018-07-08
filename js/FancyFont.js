@@ -88,7 +88,11 @@ function printWord(word, x, y, scale = 1){
     let fallbackScale = 48;
     let fontRatio = 4/5;
     word = word.toUpperCase();
-
+    canvasContext.save();
+    canvasContext.shadowOffsetX = 1;
+    canvasContext.shadowOffsetY = 1;
+    canvasContext.shadowColor = 'black';
+    canvasContext.shadowBlur = 0;
     for(let i = 0; i < word.length; i++){
         if(word.charAt(i) === " "){
             leftOffset += sizes[26];
@@ -102,11 +106,13 @@ function printWord(word, x, y, scale = 1){
         }
         let letterIndex = word.charCodeAt(i) - "A".charCodeAt(0);
         let letterOffset = calculateLetterOffset(letterIndex, sizes, lettersOffset);
+
         canvasContext.drawImage(fancyFont,
             letterOffset, 0, sizes[letterIndex], height,
             x + scale * leftOffset, y , scale * sizes[letterIndex], scale * height);
         leftOffset += sizes[letterIndex] + letterSpacing;
     }
+    canvasContext.restore();
 }
 
 function calculateLetterOffset(idx, letterSizes, gapsSizes){
