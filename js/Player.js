@@ -299,9 +299,12 @@ function Player() {
 		canvasContext.save();
 		const deltaY = this.deltaYForCrashCount(crashCount);
 		const valueToPlaySound = 6; //console.log({deltaY}) to see why 6 was choosen
+		previousSfxVolume = sfxVolume;
+		sfxVolume = 1; // max
 		if (deltaY <= valueToPlaySound) {
 			crashMasterSFX.play();
 		}
+		sfxVolume = previousSfxVolume;
 		canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
 		canvasContext.rotate(rotation);
 		canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));

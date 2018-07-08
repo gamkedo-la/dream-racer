@@ -218,6 +218,7 @@ function GameScene(data) {
 		}
 
 		if (this.player.isCrashing) {
+			offroadSound.pause();
 			currentCrashCount++;
 			this.player.speedChangeForCrashing();
 			this.camera.showCrashAnimation();
