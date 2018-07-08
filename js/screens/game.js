@@ -6,9 +6,16 @@ function GamePlayScreen (){
         if(scene === null || scene === undefined){
             scene = new GameScene(getLevel(currentLevelIndex));
         }
+        if(currentBackgroundMusic.getTime() > 0){
+            currentBackgroundMusic.resume();    
+        }
+        else {
+            currentBackgroundMusic.play();
+        }
+
     };
     this.transitionOut = function gamePlayScreenTransitionOut(){
-        currentBackgroundMusic.stop();
+        currentBackgroundMusic.pause();
         allSFX.stop();
     };
     this.run = function gamePlayScreenRun(){
