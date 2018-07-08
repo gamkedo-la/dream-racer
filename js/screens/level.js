@@ -3,6 +3,9 @@ function LevelSelectScreen() {
     this.initialAnimationSpeed = 53;
     this.transitionIn = function(){
         this.selectLevelAnimationStartFrame = framesFromGameStart;
+        if(this.properties !== undefined && this.properties == "next") {
+            nextLevel();
+        }
     };
     this.transitionOut = function(){
         uiSelect.play();

@@ -352,7 +352,6 @@ function Player() {
 				currentBackgroundMusic.stop();
 				scene.gameIsOver = true;
 				winCounter = 0;
-				scene.raceWon = false;
 				victoryAnimation = false;
 			}
 		}

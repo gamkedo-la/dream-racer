@@ -110,7 +110,7 @@ const printWord = (function(){
         }
         return [width, letterOffsets];
     };
-    return function (word, x, y, scale = 1, align = "left"){
+    return function (word, x, y, scale = 1, align = textAlignment.Left){
         word = word.toUpperCase();
         canvasContext.save();
         canvasContext.shadowOffsetX = 1;
@@ -123,7 +123,6 @@ const printWord = (function(){
         var totalWidth;
         [totalWidth, offsets] = calculateWidth(word);
         switch (align){
-            default:
             case textAlignment.Left:
                 break;
             case textAlignment.Center:

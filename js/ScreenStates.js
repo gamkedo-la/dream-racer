@@ -11,10 +11,10 @@ function defaultControl(keyCode, pressed){
 function printMenu(menuItems, selected, yOffset = null){
     let titleImageX = canvas.width/2 - 150;
     let buttonsX = canvas.width/2 - 72;
-    let selectorXOffset = 40;
+    let selectorXOffset = 60;
     let mainMenuY = yOffset == null ? canvas.height/2 - 100 : yOffset;
     let selectorYOffset = 50;
-    let buttonsXOffset = titleImageX + 80;
+    let buttonsXOffset = titleImageX + 70;
     for (let i = 0; i < menuItems.length;i++){
         printWord(menuItems[i].title, buttonsXOffset, mainMenuY + selectorYOffset*i);
     }

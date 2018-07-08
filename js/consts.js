@@ -59,6 +59,7 @@ const textStrings = {
     Credits: "Credits",
     Main: "Main Menu",
     LevelSelect: 'Select level',
+    GameOver: "Game Over",
     Contributors: [
         {name:"H TRAYFORD",   works: ['Game Lead', 'Prototype', 'Level Editor'] },
         {name:"CUSTOM NAME1", works: ['test work','test work','test work','test work','test work']},
@@ -71,6 +72,7 @@ const textStrings = {
         {name:"CUSTOM NAME8", works: ['test work']},
         {name:"CUSTOM NAME9", works: ['test work']},
     ],
+    StatsText: "Stats",
     Stats: {
         Ms: "ms",
         Points: "pts",
