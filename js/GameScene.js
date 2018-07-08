@@ -199,7 +199,8 @@ function GameScene(data) {
 	this.getStats = function () {
 		return [
 			{name: "time", type: statsType.Time, value: this.stats.time},
-			{name: "speed", type: statsType.Speed, value: this.stats.speed}
+			{name: "speed", type: statsType.Speed, value: this.stats.speed},
+            {name: "points", type: statsType.Points, value: this.player.score},
 		]
 	}
 

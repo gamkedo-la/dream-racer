@@ -63,6 +63,9 @@ function formatStats(stat){
 		case statsType.Speed:
             output += Math.floor(stat.value * 10) + " " + textStrings.Stats.Mph;
             break;
+		case statsType.Points:
+			output += Math.floor(stat.value) + " " + textStrings.Stats.Points;
+			break;
         default:
             output += stat.value;
             break;
