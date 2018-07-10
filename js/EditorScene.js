@@ -7,9 +7,9 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 	//	JSON.parse(straightAndLevel)
-		JSON.parse(sampleLighting)
-		/*		JSON.parse(skylineTrack),		
-				JSON.parse(normalHillCrest),
+	//	JSON.parse(sampleLighting)
+				JSON.parse(skylineTrack)	
+		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
 				JSON.parse(doubleBump),
 				JSON.parse(multiCurveRightFirst),
