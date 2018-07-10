@@ -5,11 +5,12 @@ function Player() {
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;
-	const ACCELERATION = 0.35;
+	this.ACCELERATIONS = [0.55, 0.4, 0.35];
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
 	const TURN_RATE_DECAY = .8;
+	this.isAuto = true;
 
 	this.MAX_CRASH_COUNT = 75;
 	this.TURN_RATE_PER_FRAME = 4;
@@ -182,7 +183,7 @@ function Player() {
 		}
 
 		if ((canAccelerate) && ((holdUp) || (holdW))) {
-			this.speed += ACCELERATION / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
+			this.speed += this.ACCELERATIONS[this.currentGear-1] / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
 			//acceleratingSound.play(); -> placeholder until engine sounds are added
 		} else {
 			//acceleratingSound.pause(); -> placeholder until engine sounds are added
@@ -229,9 +230,22 @@ function Player() {
 			this.fx.boosterFX(this);
 		}
 
-		if (holdSpace && holdUp && (((this.speed * 100) / this.currentGearMaxSpeed) > 80) && this.currentGear != 3) {
-			this.currentGear += 1;
-		}
+		if(this.isAuto){
+            if(this.currentGear < 3 && this.speed / this.currentGearMaxSpeed * 100 >= 80){
+            	this.currentGear++;
+                this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+			}
+            if(this.currentGear > 1 && this.speed / this.currentGearMaxSpeed * 100 <= 20){
+                this.currentGear--;
+                this.speed += Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 20) / 5;
+            }
+		}else {
+            if (holdSpace && holdUp && this.currentGear !== 3) {
+                this.currentGear += 1;
+                this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+                holdSpace = false;
+            }
+        }
 
 
 		switch (this.currentGear) {
