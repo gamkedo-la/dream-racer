@@ -442,8 +442,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.CoffeeBillboard:
 			case DecorationType.CheckeredFlag:
 				return 2;
-			case DecorationType.Tree6:
-				return 0.5;
+			//case DecorationType.Tree6:
+				//return 0.5;
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BurgerBillboard:
 				return 3;
