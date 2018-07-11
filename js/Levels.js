@@ -125,8 +125,8 @@ var Levels = [
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },
-        groundColor: "#ffffff",
-        secondaryGroundColor: "#f4f4f4",
+        groundColor: "#d5d8fb",
+        secondaryGroundColor: "#d6d9f6",
         skyPic: snowySkyPic,
         backgroundPic: snowyMountainPic,
         middleGroundPic: snowyMountainPic,
