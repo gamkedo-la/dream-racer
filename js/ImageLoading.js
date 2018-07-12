@@ -8,6 +8,8 @@ const nightSkyBackgroundPic = document.createElement("img");
 const nightSkyPic = document.createElement("img");
 const snowySkyPic = document.createElement("img");
 const snowyMountainPic = document.createElement("img");
+const snowyMountainLevelPic = document.createElement("img");
+const snowySkyLevelPic = document.createElement("img");
 // player/AI cars
 const tempPlayerCarPic = document.createElement("img");
 const pickupAIPic = document.createElement("img");
@@ -203,6 +205,8 @@ function loadImages() {
 	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
 	imageList.push({ imgName: snowyMountainPic, theFile: "SnowyMountainBackground.png" });
 	imageList.push({ imgName: snowySkyPic, theFile: "SnowyMountainSky.png" });
+	imageList.push({ imgName: snowyMountainLevelPic, theFile: "SnowyMountainLevelBackground.png" });
+	imageList.push({ imgName: snowySkyLevelPic, theFile: "SnowyMountainLevelSky.png" });
 	//	player/AI car
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
 	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
