@@ -11,7 +11,7 @@ function Road(frustum) {
 
 	let groundColor = "";
 
-	const MAX_SEGMENT_DRAW_COUNT = 75;
+	const MAX_SEGMENT_DRAW_COUNT = 500;
 	const magicNumber = 50;
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
@@ -522,10 +522,14 @@ function Road(frustum) {
 		}
 	}
 
-	this.moveSelectionLeft = function () {
+	this.moveSelectionLeft = function (rate) {
+		moveRate = rate
+		if(moveRate == null) {
+			moveRate = 1;
+		}
 		let dx = 0;
 		for (let i = 0; i < selectedSegments.length; i++) {
-			dx += i;
+			dx += i * moveRate;
 			let previousSegment;
 			const thisSegment = selectedSegments[i];
 			if (thisSegment.index > 0) {
@@ -774,6 +778,7 @@ function Road(frustum) {
 
 	this.addDecorationToGround = function (decoration, segment) {
 		segment.decorations.push(decoration);
+//		console.log("Index: " + segment.index + ", Decorations: " + segment.decorations);
 	}
 
 	this.depthOfGround = function (ground) {

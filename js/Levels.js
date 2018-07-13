@@ -12,9 +12,10 @@ var Levels = [
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel),
         JSON.parse(straightAndLevel)],*/
-        roadReferences:[JSON.parse(sampleLighting),
-        JSON.parse(straightAndLevel),
-        JSON.parse(finish)],
+        roadReferences:[JSON.parse(skylineTest),
+//        JSON.parse(straightAndLevel),
+        JSON.parse(finish)
+		],
         near: 90,//arbitrary
         far: 500,//arbitrary
         cameraPos: { x: 0, y: -GAME_HEIGHT / 2, z: -85 },

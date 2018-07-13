@@ -1,15 +1,15 @@
 //Player Class
 function Player() {
-	const MAX_SPEED = 25;
+	const MAX_SPEED = 45;
 	const HILL_DELTA_SPEED = 0.1;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;
-	this.ACCELERATIONS = [0.55, 0.4, 0.35];
+	this.ACCELERATIONS = [0.55, 0.4, 0.35, 0.30, 0.25];
 	const BRAKING = 0.3;
 	const BOOSTER = 55;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
-	const TURN_RATE_DECAY = .8;
+	const TURN_RATE_DECAY = .98;
 	this.isAuto = true;
 
 	this.MAX_CRASH_COUNT = 75;
@@ -93,7 +93,7 @@ function Player() {
 			// when you let go of controls, gradually turn back to zero degrees
 			if (frameNum > 0) frameNum--; // 4,3,2,1,0
 			if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
-
+			
 			// this is a heinous hack, but the car never really turns at all - the world does
 			//Christer, not sure what the hack is.  Can you explain it?
 			if ((canTurn) && ((holdRight) || (holdD))) {
@@ -184,11 +184,8 @@ function Player() {
 
 		if ((canAccelerate) && ((holdUp) || (holdW))) {
 			this.speed += this.ACCELERATIONS[this.currentGear-1] / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
-			//acceleratingSound.play(); -> placeholder until engine sounds are added
-		} else {
-			//acceleratingSound.pause(); -> placeholder until engine sounds are added
-		}
-
+		} 
+		
 		if ((holdDown) || (holdX)) {
 			this.speed -= BRAKING;
 			brakeAudio(this.speed);
@@ -231,7 +228,7 @@ function Player() {
 		}
 
 		if(this.isAuto){
-            if(this.currentGear < 3 && this.speed / this.currentGearMaxSpeed * 100 >= 80){
+            if(this.currentGear < this.ACCELERATIONS.length && this.speed / this.currentGearMaxSpeed * 100 >= 80){
             	this.currentGear++;
                 this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
 			}
@@ -239,23 +236,28 @@ function Player() {
                 this.currentGear--;
                 this.speed += Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 20) / 5;
             }
-		}else {
-            if (holdSpace && holdUp && this.currentGear !== 3) {
+		} else {
+            if (holdSpace && holdUp && this.currentGear !== this.ACCELERATIONS.length) {
                 this.currentGear += 1;
                 this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
                 holdSpace = false;
             }
         }
 
-
 		switch (this.currentGear) {
 			case 1:
-				this.currentGearMaxSpeed = MAX_SPEED - 8;
+				this.currentGearMaxSpeed = MAX_SPEED - 28;
 				break;
 			case 2:
-				this.currentGearMaxSpeed = MAX_SPEED - 4;
+				this.currentGearMaxSpeed = MAX_SPEED - 22;
 				break;
 			case 3:
+				this.currentGearMaxSpeed = MAX_SPEED - 16;
+				break;
+			case 4:
+				this.currentGearMaxSpeed = MAX_SPEED - 10;
+				break;
+			case 5:
 				this.currentGearMaxSpeed = MAX_SPEED;
 				break;
 		}
