@@ -6,6 +6,10 @@ const tempSkyPic = document.createElement("img");
 const nightSkyMiddlegroundPic = document.createElement("img");
 const nightSkyBackgroundPic = document.createElement("img");
 const nightSkyPic = document.createElement("img");
+const snowySkyPic = document.createElement("img");
+const snowyMountainPic = document.createElement("img");
+const snowyMountainLevelPic = document.createElement("img");
+const snowySkyLevelPic = document.createElement("img");
 // player/AI cars
 const tempPlayerCarPic = document.createElement("img");
 const pickupAIPic = document.createElement("img");
@@ -57,6 +61,8 @@ const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
 const waterTowerPic = document.createElement("img");
+const smallTireStackPic = document.createElement("img");
+const largeTireStackPic = document.createElement("img");
 // barriers
 const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
@@ -86,10 +92,14 @@ const mageHookBillboard = document.createElement("img");
 const tinyRoboRacersBillboard = document.createElement("img");
 const chrisForPresidentBillboard = document.createElement("img");
 const burgerBillboard = document.createElement("img");
+const burgerBillboardSnow = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
 const notABillboard = document.createElement("img");
 const attractionsBillboard = document.createElement("img");
 const coffeeBillboard = document.createElement("img");
+const coffeeBillboardSnow = document.createElement("img");
+const sandwhichBillboard = document.createElement("img");
+const sandwhichBillboardSnow = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -161,7 +171,13 @@ var allDecorations = [
 	startFreewaySign_LeftSideLightPic,
 	endFreewaySign_RightSidePic,
 	endFreewaySign_RightSideLightPic,
-	coffeeBillboard];
+	smallTireStackPic,
+	largeTireStackPic,
+	coffeeBillboard,
+	coffeeBillboardSnow,
+	burgerBillboardSnow,
+	sandwhichBillboard,
+	sandwhichBillboardSnow];
 
 function randomDecoration() {
 	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
@@ -187,6 +203,10 @@ function loadImages() {
 	imageList.push({ imgName: nightSkyMiddlegroundPic, theFile: "nightSkyMiddleground.png" });
 	imageList.push({ imgName: nightSkyBackgroundPic, theFile: "nightSkyBackground.png" });
 	imageList.push({ imgName: nightSkyPic, theFile: "nightSky.png" });
+	imageList.push({ imgName: snowyMountainPic, theFile: "SnowyMountainBackground.png" });
+	imageList.push({ imgName: snowySkyPic, theFile: "SnowyMountainSky.png" });
+	imageList.push({ imgName: snowyMountainLevelPic, theFile: "SnowyMountainLevelBackground.png" });
+	imageList.push({ imgName: snowySkyLevelPic, theFile: "SnowyMountainLevelSky.png" });
 	//	player/AI car
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
 	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
@@ -237,7 +257,9 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
-	imageList.push({ imgName: waterTowerPic, theFile: "WaterTower.png" });	
+	imageList.push({ imgName: waterTowerPic, theFile: "WaterTower.png" });
+	imageList.push({ imgName: smallTireStackPic, theFile: "Tires1.png" });
+	imageList.push({ imgName: largeTireStackPic, theFile: "Tires2.png" });
 	// hud/gui
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
 	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
@@ -276,6 +298,8 @@ function loadImages() {
 	billboardSprites.push(chrisForPresidentBillboard);
 	imageList.push({ imgName: burgerBillboard, theFile: "BurgerBillboard.png" });
 	billboardSprites.push(burgerBillboard);
+	imageList.push({ imgName: burgerBillboardSnow, theFile: "BurgerBillboardSnow.png" });
+	billboardSprites.push(burgerBillboardSnow);
 	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
 	billboardSprites.push(clashTracksBillboard);
 	imageList.push({ imgName: notABillboard, theFile: "NotABillboard.png" });
@@ -284,6 +308,12 @@ function loadImages() {
 	billboardSprites.push(attractionsBillboard);
 	imageList.push({ imgName: coffeeBillboard, theFile: "CoffeeBillboard.png" });
 	billboardSprites.push(coffeeBillboard);
+	imageList.push({ imgName: coffeeBillboardSnow, theFile: "CoffeeBillboardSnow.png" });
+	billboardSprites.push(coffeeBillboardSnow);
+	imageList.push({ imgName: sandwhichBillboard, theFile: "SandwhichBillboard.png" }); ////
+	billboardSprites.push(sandwhichBillboard);
+	imageList.push({ imgName: sandwhichBillboardSnow, theFile: "SandwhichBillboardSnow.png" }); ////
+	billboardSprites.push(sandwhichBillboardSnow);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC

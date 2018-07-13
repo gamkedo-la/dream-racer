@@ -60,6 +60,12 @@ const DecorationType = {
 	StraightPowerPoleCrossBeamsSlantRight:"straightPowerPoleCrossBeamsSlantRight",
 	WarningSign:"WarningSign",
 	Car:"car",
+	SmallTireStack:"Tires1",
+	LargeTireStack:"Tires2",
+	CoffeeBillboardSnow:"CoffeeBillboardSnow",
+	BurgerBillboardSnow:"BurgerBillboardSnow",
+	SandwhichBillboard:"SandwhichBillboard",
+	SandwhichBillboardSnow:"SandwhichBillboardSnow"
 }
 function RoadsideDecoration(image, pos) {
 	let sprite = image;
@@ -324,6 +330,18 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.WarningSign;
 			case "AICar.png":
 				return DecorationType.Car;
+			case "Tires1.png":
+				return DecorationType.SmallTireStack;
+			case "Tires2.png":
+				return DecorationType.LargeTireStack;
+			case "CoffeeBillboardSnow.png":
+				return DecorationType.CoffeeBillboardSnow;
+			case "BurgerBillboardSnow.png":
+				return DecorationType.BurgerBillboardSnow;
+			case "SandwhichBillboard.png":
+				return DecorationType.SandwhichBillboard;
+			case "SandwhichBillboardSnow.png":
+				return DecorationType.SandwhichBillboardSnow;
 			default:
 				return DecorationType.Sign;
 		}
@@ -381,6 +399,11 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.NiceCityBillboard:
 			case DecorationType.BlankBillboard:
 			case DecorationType.BurgerBillboard:
+			case DecorationType.BurgerBillboardSnow:
+			case DecorationType.CoffeeBillboard:
+			case DecorationType.CoffeeBillboardSnow:
+			case DecorationType.SandwhichBillboard:
+			case DecorationType.SandwhichBillboardSnow:
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.MageHookBillboard:
@@ -439,13 +462,17 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree4:
 			case DecorationType.AttractionsBillboard:
 			case DecorationType.BillboardLight:
+			case DecorationType.BurgerBillboard:
+			case DecorationType.BurgerBillboardSnow:
 			case DecorationType.CoffeeBillboard:
+			case DecorationType.CoffeeBillboardSnow:
+			case DecorationType.SandwhichBillboard:
+			case DecorationType.SandwhichBillboardSnow:
 			case DecorationType.CheckeredFlag:
 				return 2;
-			case DecorationType.Tree6:
-				return 0.5;
+			//case DecorationType.Tree6:
+				//return 0.5;
 			case DecorationType.NiceCityBillboard:
-			case DecorationType.BurgerBillboard:
 				return 3;
 			case DecorationType.WaterTower:
 				return 20;
