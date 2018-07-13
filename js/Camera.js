@@ -2,7 +2,7 @@ const CAMERA_Y_OFFSET = 0;//220; //used in GameScene.js (around line 80) to init
 
 //CameraClass
 function Camera(initialPosition) {
-	const PAN_SPEED = 20;
+	const PAN_SPEED = 50;
 	const OFFROAD_DIST = 200;
 
 	this.position = { x: 0, y: 0, z: 0 };	

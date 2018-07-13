@@ -407,12 +407,11 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.MageHookBillboard:
-			case DecorationType.CoffeeBillboard:
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
-//				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
-				return {xOffset: 0, yOffset: 75, zOffset: -5, width: 400, height: 180, depth: 10};
+				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
+//				return {xOffset: 0, yOffset: 75, zOffset: -5, width: 400, height: 180, depth: 10};
 			case DecorationType.ChrisForPresident:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
 			case DecorationType.NotABillboard:
