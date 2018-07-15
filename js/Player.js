@@ -18,8 +18,8 @@ function Player() {
 
 	this.sprite = tempPlayerCarPic;
 	this.currentSpriteFrame = 0; // current car sprite index referred to by particle fx
-	this.width = 140; //Can someone put a comment in here to describe why 140 is the magic number?
-	this.height = 140; //Can someone put a comment in here to describe why 140 is the magic number?
+	this.width = 140; // used to center the sprite: 140px = approx width of car sprite when facing straight
+	this.height = 140;
 	this.depth = 60;//swag
 
 	this.position = {
@@ -93,7 +93,7 @@ function Player() {
 			// when you let go of controls, gradually turn back to zero degrees
 			if (frameNum > 0) frameNum--; // 4,3,2,1,0
 			if (frameNum == 4) frameNum = 0; // 8,7,6,5,0
-			
+
 			// this is a heinous hack, but the car never really turns at all - the world does
 			//Christer, not sure what the hack is.  Can you explain it?
 			if ((canTurn) && ((holdRight) || (holdD))) {
@@ -183,9 +183,9 @@ function Player() {
 		}
 
 		if ((canAccelerate) && ((holdUp) || (holdW))) {
-			this.speed += this.ACCELERATIONS[this.currentGear-1] / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
-		} 
-		
+			this.speed += this.ACCELERATIONS[this.currentGear - 1] / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
+		}
+
 		if ((holdDown) || (holdX)) {
 			this.speed -= BRAKING;
 			brakeAudio(this.speed);
@@ -227,22 +227,22 @@ function Player() {
 			this.fx.boosterFX(this);
 		}
 
-		if(this.isAuto){
-            if(this.currentGear < this.ACCELERATIONS.length && this.speed / this.currentGearMaxSpeed * 100 >= 80){
-            	this.currentGear++;
-                this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+		if (this.isAuto) {
+			if (this.currentGear < this.ACCELERATIONS.length && this.speed / this.currentGearMaxSpeed * 100 >= 80) {
+				this.currentGear++;
+				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
 			}
-            if(this.currentGear > 1 && this.speed / this.currentGearMaxSpeed * 100 <= 20){
-                this.currentGear--;
-                this.speed += Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 20) / 5;
-            }
+			if (this.currentGear > 1 && this.speed / this.currentGearMaxSpeed * 100 <= 20) {
+				this.currentGear--;
+				this.speed += Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 20) / 5;
+			}
 		} else {
-            if (holdSpace && holdUp && this.currentGear !== this.ACCELERATIONS.length) {
-                this.currentGear += 1;
-                this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
-                holdSpace = false;
-            }
-        }
+			if (holdSpace && holdUp && this.currentGear !== this.ACCELERATIONS.length) {
+				this.currentGear += 1;
+				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+				holdSpace = false;
+			}
+		}
 
 		switch (this.currentGear) {
 			case 1:
@@ -307,7 +307,7 @@ function Player() {
 		}
 	}
 
-	const checkNumberRange = function(lowerNumber,numberToCheckIfInRange,higherNumber) {
+	const checkNumberRange = function (lowerNumber, numberToCheckIfInRange, higherNumber) {
 		return lowerNumber <= numberToCheckIfInRange && numberToCheckIfInRange <= higherNumber;
 	}
 
@@ -326,19 +326,19 @@ function Player() {
 		canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
 		const frameModulous = 20;
 		let crashCountFrameCount = crashCount % frameModulous;
-		if (checkNumberRange(0,crashCountFrameCount,4)) {
+		if (checkNumberRange(0, crashCountFrameCount, 4)) {
 			let frameNum = 27;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (checkNumberRange(5,crashCountFrameCount,9)) {
+		if (checkNumberRange(5, crashCountFrameCount, 9)) {
 			let frameNum = 28;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (checkNumberRange(10,crashCountFrameCount,14)) {
+		if (checkNumberRange(10, crashCountFrameCount, 14)) {
 			let frameNum = 29;
 			this.drawPlayerCarSprite(frameNum);
 		}
-		if (checkNumberRange(15,crashCountFrameCount,19)) {
+		if (checkNumberRange(15, crashCountFrameCount, 19)) {
 			let frameNum = 30;
 			this.drawPlayerCarSprite(frameNum);
 		}
