@@ -79,19 +79,7 @@ function Road(frustum) {
 				continue;
 			}
 
-			if (thisSegment.nearPos.world.z <= cameraPos.z) {//don't draw anything behind us
-/*				for (let k = activeCars.length - 1; k >= 0; k--) {
-					if (activeCars[k].position.z < cameraPos.z) { continue; }
-					const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
-					const carRect = activeCars[k].getRect(frustum);
-					const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
-					if (thisSegment.index == carSegment.index - carSpan) {
-						activeCars[k].draw(frustum);
-					}
-				}*/
-
-				continue;
-			}
+			if (thisSegment.nearPos.world.z <= cameraPos.z) {continue;}
 
 			thisSegment.nearPos.screen = frustum.screenPosForWorldPos(thisSegment.nearPos.world);
 			thisSegment.nearWidth = frustum.screenSizeForWorldSizeAndPos({ width: canvas.width, height: segmentLength }, thisSegment.nearPos.world).width;
@@ -130,11 +118,10 @@ function Road(frustum) {
 				{ x: thisSegment.path[2].x - 0.015 * thisSegment.nearWidth, y: thisSegment.path[2].y },
 			];
 
-//			getColorForLevel(scene.data.name, thisSegment);
 			groundColor = scene.data.groundColor;
 			if (thisSegment.index % 2 == 0) {
-					groundColor = scene.data.secondaryGroundColor;
-				}
+				groundColor = scene.data.secondaryGroundColor;
+			}
 
 			fillPath(thisSegment.groundPath, groundColor);
 			fillPath(thisSegment.path, thisSegment.color);
@@ -350,7 +337,8 @@ function Road(frustum) {
 						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 						thisDecoration.animated = true;
 					}
-					if (thisDecoration.getType() == DecorationType.AttractionsBillboard) {
+					if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
+						(thisDecoration.getType() == DecorationType.RadioTowerNight)) {
 						thisDecoration.animated = true;
 					}
 					thisDecoration.typeForFileName();

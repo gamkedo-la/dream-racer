@@ -60,6 +60,7 @@ const straightPowerPolePic = document.createElement("img");
 const straightPowerPoleCrossBeamsPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantLeftPic = document.createElement("img");
 const straightPowerPoleCrossBeamsSlantRightPic = document.createElement("img");
+const radioTowerNightPic = document.createElement("img");
 const waterTowerPic = document.createElement("img");
 const smallTireStackPic = document.createElement("img");
 const largeTireStackPic = document.createElement("img");
@@ -171,6 +172,8 @@ var allDecorations = [
 	startFreewaySign_LeftSideLightPic,
 	endFreewaySign_RightSidePic,
 	endFreewaySign_RightSideLightPic,
+	radioTowerNightPic,
+	waterTowerPic,
 	smallTireStackPic,
 	largeTireStackPic,
 	coffeeBillboard,
@@ -257,6 +260,7 @@ function loadImages() {
 	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
 	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: radioTowerNightPic, theFile: "RadioTower.png" });
 	imageList.push({ imgName: waterTowerPic, theFile: "WaterTower.png" });
 	imageList.push({ imgName: smallTireStackPic, theFile: "Tires1.png" });
 	imageList.push({ imgName: largeTireStackPic, theFile: "Tires2.png" });

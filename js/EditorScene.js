@@ -345,9 +345,9 @@ function EditorScene(data) {
 			new DecorationUIElement(endFreewaySign_RightSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(smallTireStackPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIElement(largeTireStackPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(radioTowerNightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			
-/*			new DecorationUIElement(startFreewaySign_LeftSidePic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
+/*			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
 			
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIColor('#BBBBBB', { x: UI_SIZE.width + 10, y: canvas.height - 3 * UI_SIZE.height }),

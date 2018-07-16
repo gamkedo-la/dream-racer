@@ -53,6 +53,7 @@ const DecorationType = {
 	StartFreewaySign_LeftSideLight:"StartFreewaySign_LeftSideLight",
 	EndFreewaySign_RightSide:"EndFreewaySign_RightSide",
 	EndFreewaySign_RightSideLight:"EndFreewaySign_RightSideLight",
+	RadioTowerNight:"RadioTower",
 	WaterTower:"WaterTower",
 	StraightPowerPole:"straightPowerPole",
 	StraightPowerPoleCrossBeams:"straightPowerPoleCrossBeams",
@@ -290,6 +291,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.RightStreetLight_NoLight;
 			case "RightStreetLight.png":
 				return DecorationType.RightStreetLight;
+			case "RadioTower.png":
+				return DecorationType.RadioTowerNight;
 			case "WaterTower.png":
 				return DecorationType.WaterTower;
 			case "NextExitSign.png":
@@ -352,6 +355,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.AttractionsBillboard:
 				return 2;
 			case DecorationType.CheckeredFlag:
+			case DecorationType.RadioTowerNight:
 				return 5;
 			default:
 				return 1;
@@ -370,6 +374,7 @@ function RoadsideDecoration(image, pos) {
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
 			case DecorationType.HardRightTurnSign:
 				return {xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10};
+			case DecorationType.RadioTowerNight:
 			case DecorationType.WaterTower:
 				return {xOffset: 180, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10};
 			case DecorationType.StraightPowerPole:
