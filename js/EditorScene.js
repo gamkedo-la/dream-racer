@@ -52,8 +52,6 @@ function EditorScene(data) {
 		InOut:"inOut",
 	}
 	
-	
-	
 	this.buildNightSkylineTrack = function() {
 		const HorizData = [
 			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
@@ -185,9 +183,9 @@ function EditorScene(data) {
 						} else if(VertData[0].direction == Direction.Down) {
 							vert += (j - VertData[0].startIndex) * (VertData[0].rate);
 						} else if(VertData[0].direction == Direction.SteadyUp) {
-							//don't need to adjust vert here
+							vert += (j - VertData[0].startIndex);
 						} else if(VertData[0].direction == Direction.SteadyDown) {
-							//don't need to adjust vert here
+							vert -= (j - VertData[0].startIndex);
 						}
 					} else if(VertData[0].easing == Easing.Out) {
 						if(VertData[0].direction == Direction.Up) {
@@ -195,9 +193,9 @@ function EditorScene(data) {
 						} else if(VertData[0].direction == Direction.Down) {
 							vert += (VertData[0].endIndex - j) * (VertData[0].rate);
 						} else if(VertData[0].direction == Direction.SteadyUp) {
-							//don't need to adjust vert here
+							vert -= (VertData[0].endIndex - j);
 						} else if(VertData[0].direction == Direction.SteadyDown) {
-							//don't need to adjust vert here
+							vert += (VertData[0].endIndex - j);
 						}						
 					} else if(VertData[0].easing == Easing.InOut) {
 						if(j < (VertData[0].startIndex + ((VertData[0].endIndex - VertData[0].startIndex)/2))) {
@@ -206,9 +204,9 @@ function EditorScene(data) {
 							} else if(VertData[0].direction == Direction.Down) {
 								vert += (j - VertData[0].startIndex) * (VertData[0].rate);
 							} else if(VertData[0].direction == Direction.SteadyUp) {
-								//don't need to adjust vert here
+								vert -= (j - VertData[0].startIndex);
 							} else if(VertData[0].direction == Direction.SteadyDown) {
-								//don't need to adjust vert here
+								vert += (j - VertData[0].startIndex);
 							}
 						} else {
 							if(VertData[0].direction == Direction.Up) {
@@ -216,9 +214,221 @@ function EditorScene(data) {
 							} else if(VertData[0].direction == Direction.Down) {
 								vert += (VertData[0].endIndex - j) * (VertData[0].rate);
 							} else if(VertData[0].direction == Direction.SteadyUp) {
-								//don't need to adjust vert here
+								vert -= (VertData[0].endIndex - j);
 							} else if(VertData[0].direction == Direction.SteadyDown) {
-								//don't need to adjust vert here
+								vert += (VertData[0].endIndex - j);
+							}						
+						}
+					}
+				} else if(j > VertData[0].endIndex) {
+					VertData.splice(0, 1);
+				}
+			}
+			
+			thisSeg.farPos.world.y += vert;
+			
+			if(indexModulus == 5) {
+				const lightPos = {x:0, y:0};
+				let lightSprite;
+				if(thisSeg.index % 2 == 0) {//left side
+					lightSprite = leftStreetLightPic;
+					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + 2.75 * lightSprite.width;
+				} else {//rightSide
+					lightSprite = rightStreetLightPic;
+					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - 2.75 * lightSprite.width;
+				}
+				
+				lightPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+				
+				const finalWorldPos = { x: lightPos.x, y: lightPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+				const aDecoration = new RoadsideDecoration(lightSprite, finalWorldPos);
+				aDecoration.typeForFileName();
+				
+				this.road.addDecorationToGround(aDecoration, thisSeg);
+			}
+			
+			if((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
+//				console.log("Checkpoint added");
+				const checkPointPos = {x:0, y:0};
+				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
+				
+				checkPointPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+				
+				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+				const aDecoration = new RoadsideDecoration(checkpointFlagPic, worldPos);
+				aDecoration.typeForFileName();
+				
+				this.road.addDecorationToGround(aDecoration, thisSeg);
+//				console.log(thisSeg.decorations.length);
+			}
+		}
+	}
+
+	this.buildSummitTrack = function() {
+		const HorizData = [
+			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:150, endIndex:240, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:250, endIndex:330, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:430, endIndex:480, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:480, endIndex:500, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:500, endIndex:520, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:570, endIndex:630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:630, endIndex:690, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:790, endIndex:850, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:900, endIndex:1050, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1100, endIndex:1150, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1250, endIndex:1280, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1300, endIndex:1350, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1425, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1425, endIndex:1450, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1450, endIndex:1475, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1575, endIndex:1700, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1750, endIndex:1800, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1900, endIndex:1980, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2000, endIndex:2075, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2100, endIndex:2175, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2220, endIndex:2285, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2305, endIndex:2365, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2400, endIndex:2475, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2575, endIndex:2675, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2775, endIndex:2875, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2900, endIndex:2950, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut}
+		];
+		
+		const VertData = [
+			{startIndex:100, endIndex:200, rate:Rate.Double, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{startIndex:300, endIndex:400, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:450, endIndex:500, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:500, endIndex:550, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:550, endIndex:625, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:625, endIndex:700, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:825, endIndex:850, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:900, endIndex:925, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1025, endIndex:1080, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1210, endIndex:1240, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1345, endIndex:1400, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1425, endIndex:1450, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1625, endIndex:1700, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1830, endIndex:1850, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1850, endIndex:1870, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2005, endIndex:2045, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2150, endIndex:2220, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2275, endIndex:2375, rate:Rate.Half, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2405, endIndex:2430, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2435, endIndex:2465, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2615, endIndex:2660, rate:Rate.Full, direction:Direction.SteadyDown, easing:Easing.InOut},
+			{startIndex:2735, endIndex:2800, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+		];
+		
+		for(let i = 0; i < 3000; i++) {
+			this.road.addSegment();
+		}
+		
+		const segs = this.road.getSegments();
+		let horiz = 0;
+		let vert = 0;
+		for(let j = 0; j < segs.length; j++) {
+			const thisSeg = segs[j];
+			const indexModulus = thisSeg.index % 11;
+			switch(indexModulus) {
+				case 2:
+				case 8:
+					thisSeg.color = '#444444';
+					break;
+				case 3:
+				case 7:
+					thisSeg.color = '#666666';
+					break;
+				case 4:
+				case 6:
+					thisSeg.color = '#888888';
+					break;
+				case 5:
+					thisSeg.color = '#BBBBBB';
+					break;
+				default:
+					thisSeg.color = '#222222';
+					break;
+			}
+			
+			if(HorizData.length > 0) {
+				if((j > HorizData[0].startIndex) && (j < HorizData[0].endIndex)) {
+					if(HorizData[0].easing == Easing.In) {
+						if(HorizData[0].direction == Direction.Left) {
+							horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
+						} else if(HorizData[0].direction == Direction.Right) {
+							horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
+						}					
+					} else if(HorizData[0].easing == Easing.Out) {
+						if(HorizData[0].direction == Direction.Left) {
+							horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
+						} else if(HorizData[0].direction == Direction.Right) {
+							horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
+						}	
+					} else if(HorizData[0].easing == Easing.InOut) {
+						if(j < (HorizData[0].startIndex + ((HorizData[0].endIndex - HorizData[0].startIndex)/2))) {
+							if(HorizData[0].direction == Direction.Left) {
+								horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
+							} else if(HorizData[0].direction == Direction.Right) {
+								horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
+							}
+						} else {
+							if(HorizData[0].direction == Direction.Left) {
+								horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
+							} else if(HorizData[0].direction == Direction.Right) {
+								horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
+							}
+						}
+					}
+				} else if(j > HorizData[0].endIndex) {
+					HorizData.splice(0, 1);
+				}
+			}
+			
+			thisSeg.farPos.world.x += horiz;
+			
+			if(VertData.length > 0) {
+				if((j > VertData[0].startIndex) && (j < VertData[0].endIndex)) {
+					if(VertData[0].easing == Easing.In) {
+						if(VertData[0].direction == Direction.Up) {
+							vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.Down) {
+							vert += (j - VertData[0].startIndex) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.SteadyUp) {
+							vert += (j - VertData[0].startIndex);
+						} else if(VertData[0].direction == Direction.SteadyDown) {
+							vert -= (j - VertData[0].startIndex);
+						}
+					} else if(VertData[0].easing == Easing.Out) {
+						if(VertData[0].direction == Direction.Up) {
+							vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.Down) {
+							vert += (VertData[0].endIndex - j) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.SteadyUp) {
+							vert -= (VertData[0].endIndex - j);
+						} else if(VertData[0].direction == Direction.SteadyDown) {
+							vert += (VertData[0].endIndex - j);
+						}						
+					} else if(VertData[0].easing == Easing.InOut) {
+						if(j < (VertData[0].startIndex + ((VertData[0].endIndex - VertData[0].startIndex)/2))) {
+							if(VertData[0].direction == Direction.Up) {
+								vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.Down) {
+								vert += (j - VertData[0].startIndex) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.SteadyUp) {
+								vert -= (j - VertData[0].startIndex);
+							} else if(VertData[0].direction == Direction.SteadyDown) {
+								vert += (j - VertData[0].startIndex);
+							}
+						} else {
+							if(VertData[0].direction == Direction.Up) {
+								vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.Down) {
+								vert += (VertData[0].endIndex - j) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.SteadyUp) {
+								vert -= (VertData[0].endIndex - j);
+							} else if(VertData[0].direction == Direction.SteadyDown) {
+								vert += (VertData[0].endIndex - j);
 							}						
 						}
 					}
@@ -266,16 +476,14 @@ function EditorScene(data) {
 		}
 	}
 	
-	
-	
-	
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
 		for (let i = 1; i < roadReferences.length; i++) {
 			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
 		}
 	} else {
-		this.buildNightSkylineTrack();
+		this.buildSummitTrack();
+		//this.buildNightSkylineTrack();
 //		this.road.addSegment();
 	}
 	this.currentZIndex = 0;

@@ -2,8 +2,6 @@
 let canvas;
 let canvasContext;
 
-
-
 let framesFromGameStart = 0;
 
 let bulletPointIcon = '\u2022'
