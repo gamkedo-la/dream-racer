@@ -8,7 +8,7 @@ function EditorScene(data) {
 	const roadReferences = [
 	//	JSON.parse(straightAndLevel)
 	//	JSON.parse(sampleLighting)
-				JSON.parse(skylineTest)	
+		//		JSON.parse(skylineTest)	
 //				JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -52,7 +52,7 @@ function EditorScene(data) {
 		InOut:"inOut",
 	}
 	
-	this.buildNightSkylineTrack = function() {
+	/*this.buildNightSkylineTrack = function() {
 		const HorizData = [
 			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:150, endIndex:240, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
@@ -263,61 +263,26 @@ function EditorScene(data) {
 			}
 		}
 	}
-
+*/
 	this.buildSummitTrack = function() {
 		const HorizData = [
-			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:150, endIndex:240, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:250, endIndex:330, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:430, endIndex:480, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:480, endIndex:500, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:500, endIndex:520, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:570, endIndex:630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:630, endIndex:690, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:790, endIndex:850, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:900, endIndex:1050, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1100, endIndex:1150, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1250, endIndex:1280, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1300, endIndex:1350, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1400, endIndex:1425, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1425, endIndex:1450, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1450, endIndex:1475, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1575, endIndex:1700, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1750, endIndex:1800, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1900, endIndex:1980, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2000, endIndex:2075, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2100, endIndex:2175, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2220, endIndex:2285, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2305, endIndex:2365, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2400, endIndex:2475, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2575, endIndex:2675, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2775, endIndex:2875, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2900, endIndex:2950, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut}
+			{startIndex:25, endIndex:65, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:85, endIndex:145, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:245, endIndex:385, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:395, endIndex:445, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:530, endIndex:565, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:570, endIndex:605, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:640, endIndex:740, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:770, endIndex:810, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:850, endIndex:890, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:930, endIndex:970, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1000, endIndex:1040, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1100, endIndex:1140, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1155, endIndex:1225, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
 		];
 		
 		const VertData = [
-			{startIndex:100, endIndex:200, rate:Rate.Double, direction:Direction.SteadyUp, easing:Easing.InOut},
-			{startIndex:300, endIndex:400, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:450, endIndex:500, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:500, endIndex:550, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:550, endIndex:625, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:625, endIndex:700, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:825, endIndex:850, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:900, endIndex:925, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1025, endIndex:1080, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1210, endIndex:1240, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1345, endIndex:1400, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1425, endIndex:1450, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1625, endIndex:1700, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1830, endIndex:1850, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1850, endIndex:1870, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2005, endIndex:2045, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2150, endIndex:2220, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2275, endIndex:2375, rate:Rate.Half, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2405, endIndex:2430, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2435, endIndex:2465, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2615, endIndex:2660, rate:Rate.Full, direction:Direction.SteadyDown, easing:Easing.InOut},
-			{startIndex:2735, endIndex:2800, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1100, endIndex:1250, rate:Rate.Double, direction:Direction.SteadyUp, easing:Easing.InOut},
 		];
 		
 		for(let i = 0; i < 3000; i++) {
@@ -331,7 +296,7 @@ function EditorScene(data) {
 			const thisSeg = segs[j];
 			const indexModulus = thisSeg.index % 11;
 			switch(indexModulus) {
-				case 2:
+/*				case 2:
 				case 8:
 					thisSeg.color = '#444444';
 					break;
@@ -345,9 +310,9 @@ function EditorScene(data) {
 					break;
 				case 5:
 					thisSeg.color = '#BBBBBB';
-					break;
+					break;*/
 				default:
-					thisSeg.color = '#222222';
+					thisSeg.color = '#444444';
 					break;
 			}
 			
@@ -439,7 +404,7 @@ function EditorScene(data) {
 			
 			thisSeg.farPos.world.y += vert;
 			
-			if(indexModulus == 5) {
+			/*if(indexModulus == 5) {
 				const lightPos = {x:0, y:0};
 				let lightSprite;
 				if(thisSeg.index % 2 == 0) {//left side
@@ -457,7 +422,7 @@ function EditorScene(data) {
 				aDecoration.typeForFileName();
 				
 				this.road.addDecorationToGround(aDecoration, thisSeg);
-			}
+			}*/
 			
 			if((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
 //				console.log("Checkpoint added");
