@@ -1,18 +1,27 @@
 //RoadsideDecoration
 const DecorationType = {
+	AetherBillboard:"AetherBillboard",
+	ArcaNinjaDroidBillboard:"ArcaNinjaDroidBillboard",
+	AttractionsBillboard:"roadsideAttractions",
 	BlankBillboard:"BlankBillboard",
 	BurgerBillboard:"BurgerBillboard",
+	BurgerBillboardSnow:"BurgerBillboardSnow",
+	ChrisForPresidentBillboard:"chrisForPresident",
 	ClashTracksBillboard:"ClashTracksBillboard",
+	CoffeeBillboard:"CoffeeBillboard",
+	CoffeeBillboardSnow:"CoffeeBillboardSnow",
+	DigitalSignDontTextBack:"DigitalSignDontTextBack",
 	EastCoastBillboard:"EastCoastBillboard",
+	GlobutonBillboard:"GlobutonBillboard",
 	MageHookBillboard:"MageHookBillboard",
 	NiceCityBillboard:"NiceCityBillboard",
 	ObeyBillboard:"ObeyBillboard",
 	RomanAdventureBillboard:"RomanAdventureBillboard",
+	SandwhichBillboard:"SandwhichBillboard",
+	SandwhichBillboardSnow:"SandwhichBillboardSnow",
 	TinyRoboRacersBillboard:"TinyRoboRacersBillboard",
-	ChrisForPresidentBillboard:"chrisForPresident",
 	NotABillboard:"NotABillboard",
-	AttractionsBillboard:"roadsideAttractions",
-	CoffeeBillboard:"CoffeeBillboard",
+	WeMustPrepareBillboard:"WeMustPrepareBillboard",
 	BillboardLight:"BillboardLight",
 	CheckeredFlag:"CheckeredFlag",
 	CheckPoint:"CheckPoint",
@@ -27,6 +36,7 @@ const DecorationType = {
 	HillUpSignV2:"HillUpSignV2",
 	IceSignV0:"IceSignV0",
 	IceSignV1:"IceSignV1",
+	KangarooSign:"kangaroo_sign",
 	LeftStreetLight_NoLight:"LeftStreetLight_NoLight",
 	LeftStreetLight:"LeftStreetLight",
 	LeftTurnSign:"LeftTurnSign",
@@ -211,24 +221,36 @@ function RoadsideDecoration(image, pos) {
 	
 	this.typeForFileName = function(name) {
 		switch(name) {
+			case "AetherBillboard.png":
+				return DecorationType.AetherBillboard;
+			case "ArcaninjadroidBillboard.png":
+				return DecorationType.ArcaNinjaDroidBillboard;
 			case "BlankBillboard.png":
 				return DecorationType.BlankBillboard;
 			case "BurgerBillboard.png":
 				return DecorationType.BurgerBillboard;
+			case "BurgerBillboardSnow.png":
+				return DecorationType.BurgerBillboardSnow;
 			case "ClashTracksBillboard.png":
 				return DecorationType.ClashTracksBillboard;
+			case "DigitalSignDontTextBack.png":
+				return DecorationType.DigitalSignDontTextBack;
 			case "EastCoastBillboard.png":
 				return DecorationType.EastCoastBillboard;
 			case "MageHookBillboard.png":
 				return DecorationType.MageHookBillboard;
 			case "NiceCityBillboard.png":
 				return DecorationType.NiceCityBillboard;
+			case "GlobutonBillboard.png":
+				return DecorationType.GlobutonBillboard;
 			case "ObeyBillboard.png":
 				return DecorationType.ObeyBillboard;
 			case "RomanAdventureBillboard.png":
 				return DecorationType.RomanAdventureBillboard;
 			case "TinyRoboRacersBillboard.png":
 				return DecorationType.TinyRoboRacersBillboard;
+			case "WeMustPrepareBillboard.png":
+				return DecorationType.WeMustPrepareBillboard;
 			case "chrisForPresident.png":
 				return DecorationType.ChrisForPresident;
 			case "NotABillboard.png":
@@ -237,6 +259,12 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.AttractionsBillboard;
 			case "CoffeeBillboard.png":
 				return DecorationType.CoffeeBillboard;
+			case "CoffeeBillboardSnow.png":
+				return DecorationType.CoffeeBillboardSnow;
+			case "SandwichBillboard.png":
+				return DecorationType.SandwhichBillboard;
+			case "SandwichBillboardSnow.png":
+				return DecorationType.SandwhichBillboardSnow;
 			case "BillboardLight.png":
 				return DecorationType.BillboardLight;
 			case "CheckeredFlag.png":
@@ -245,6 +273,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.CheckPoint;
 			case "CurvyRoadSign.png":
 				return DecorationType.CurvyRoadSign;
+			case "kangaroo_sign.png":
+				return DecorationType.KangarooSign;
 			case "HardLeftTurnSign.png":
 				return DecorationType.HardLeftTurnSign;
 			case "HardRightTurnSign.png":
@@ -409,6 +439,9 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.CoffeeBillboardSnow:
 			case DecorationType.SandwhichBillboard:
 			case DecorationType.SandwhichBillboardSnow:
+			case DecorationType.WeMustPrepareBillboard:
+			case DecorationType.ArcaNinjaDroidBillboard:
+			case DecorationType.GlobutonBillboard:
 				return {xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10};
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.MageHookBillboard:
@@ -416,7 +449,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
 				return {xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10};
-//				return {xOffset: 0, yOffset: 75, zOffset: -5, width: 400, height: 180, depth: 10};
+			case DecorationType.AetherBillboard:
+				return {xOffset: 0, yOffset: 400, zOffset: -5, width: 1675, height: 460, depth: 10};
 			case DecorationType.ChrisForPresident:
 				return {xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10};
 			case DecorationType.NotABillboard:
@@ -453,6 +487,8 @@ function RoadsideDecoration(image, pos) {
 	
 	const baseSizeMultiplierForType = function(type) {
 		switch(type) {
+			case DecorationType.AetherBillboard:
+				return 0.75;
 			case DecorationType.ObeyBillboard:
 			case DecorationType.BlankBillboard:
 			case DecorationType.ClashTracksBillboard:
