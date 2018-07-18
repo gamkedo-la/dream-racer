@@ -13,7 +13,16 @@ const snowySkyLevelPic = document.createElement("img");
 // player/AI cars
 const tempPlayerCarPic = document.createElement("img");
 const pickupBlueAIPic = document.createElement("img");
+const pickupBlackAIPic = document.createElement("img");
+const pickupBrownAIPic = document.createElement("img");
+const pickupGreenAIPic = document.createElement("img");
+const pickupRedAIPic = document.createElement("img");
+const pickupPinkAIPic = document.createElement("img");
 const semiAIPic = document.createElement("img");
+const semiBlackAIPic = document.createElement("img");
+const semiBlueAIPic = document.createElement("img");
+const semiGreenAIPic = document.createElement("img");
+const schoolBusAIPic = document.createElement("img");
 // signs/flags
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
@@ -106,6 +115,7 @@ const sandwhichBillboardSnow = document.createElement("img");
 const aetherBillboard = document.createElement("img");
 const arcaNinjaDroidBillboard = document.createElement("img");
 const globutonBillboard = document.createElement("img");
+const weMustPrepareBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -169,6 +179,7 @@ var allDecorations = [
 	clashTracksBillboard,
 	notABillboard,
 	attractionsBillboard,
+	weMustPrepareBillboard,
 	billboardLightPic,
 	aetherBillboard,
 	arcaNinjaDroidBillboard,
@@ -223,7 +234,16 @@ function loadImages() {
 	//	player/AI car
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
 	imageList.push({ imgName: pickupBlueAIPic, theFile: "pickup-truck-spritesheet-small.png" });
+	imageList.push({ imgName: pickupBlackAIPic, theFile: "pickup-truck-black.png" });
+	imageList.push({ imgName: pickupBrownAIPic, theFile: "pickup-truck-brown.png" });
+	imageList.push({ imgName: pickupGreenAIPic, theFile: "pickup-truck-green.png" });
+	imageList.push({ imgName: pickupPinkAIPic, theFile: "pickup-truck-pink.png" });
+	imageList.push({ imgName: pickupRedAIPic, theFile: "pickup-truck-red.png" });
 	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet-small.png" });
+	imageList.push({ imgName: semiBlackAIPic, theFile: "semi-truck-black.png" });
+	imageList.push({ imgName: semiBlueAIPic, theFile: "semi-truck-blue.png" });
+	imageList.push({ imgName: semiGreenAIPic, theFile: "semi-truck-green.png" });
+	imageList.push({ imgName: schoolBusAIPic, theFile: "school-bus_spritesheet.png" });
 	// signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
@@ -336,6 +356,8 @@ function loadImages() {
 	billboardSprites.push(arcaNinjaDroidBillboard);
 	imageList.push({ imgName: globutonBillboard, theFile: "GlobutonBillboard.png" }); ////
 	billboardSprites.push(globutonBillboard);
+	imageList.push({ imgName: weMustPrepareBillboard, theFile: "WeMustPrepareBillboard.png" }); ////
+	billboardSprites.push(weMustPrepareBillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC
