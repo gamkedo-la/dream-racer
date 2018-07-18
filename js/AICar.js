@@ -66,7 +66,7 @@ function AICar(aType, start, aPath) {
 	const spriteForType = function(type) {
 		switch(type) {
 			case AIType.Pickup:
-				return pickupAIPic;
+				return pickupBlueAIPic;
 			case AIType.Semi:
 				return semiAIPic;//Need to change this once the semi exists in game
 		}

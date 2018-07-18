@@ -12,7 +12,7 @@ const snowyMountainLevelPic = document.createElement("img");
 const snowySkyLevelPic = document.createElement("img");
 // player/AI cars
 const tempPlayerCarPic = document.createElement("img");
-const pickupAIPic = document.createElement("img");
+const pickupBlueAIPic = document.createElement("img");
 const semiAIPic = document.createElement("img");
 // signs/flags
 const tempCheckeredFlagPic = document.createElement("img");
@@ -44,6 +44,7 @@ const startFreewaySign_LeftSidePic = document.createElement("img");
 const startFreewaySign_LeftSideLightPic = document.createElement("img");
 const endFreewaySign_RightSidePic = document.createElement("img");
 const endFreewaySign_RightSideLightPic = document.createElement("img");
+const digitalSignDontTextBack = document.createElement("img");
 // trees/poles/obstacles
 const palmTreePic = document.createElement("img");
 const tree1Pic = document.createElement("img");
@@ -52,6 +53,7 @@ const tree3Pic = document.createElement("img");
 const tree4Pic = document.createElement("img");
 const tree6Pic = document.createElement("img");
 const warningSignPic = document.createElement("img");
+const kangarooSignPic = document.createElement("img");
 const rightStreetLightPic = document.createElement("img");
 const leftStreetLightPic = document.createElement("img");
 const rightStreetLightNoLightPic = document.createElement("img");
@@ -101,6 +103,9 @@ const coffeeBillboard = document.createElement("img");
 const coffeeBillboardSnow = document.createElement("img");
 const sandwhichBillboard = document.createElement("img");
 const sandwhichBillboardSnow = document.createElement("img");
+const aetherBillboard = document.createElement("img");
+const arcaNinjaDroidBillboard = document.createElement("img");
+const globutonBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -134,11 +139,13 @@ var allDecorations = [
 	roadNarrowSignPic,
 	speedLimitSlowSignPic,
 	speedLimitFastSignPic,
+	digitalSignDontTextBack,
 	palmTreePic,
 	tree3Pic,
 	tree4Pic,
 	tree6Pic,
 	warningSignPic,
+	kangarooSignPic,
 	sideBarrierEndPic,
 	sideBarrierStartPic,
 	sideBarrierMidPic,
@@ -163,6 +170,9 @@ var allDecorations = [
 	notABillboard,
 	attractionsBillboard,
 	billboardLightPic,
+	aetherBillboard,
+	arcaNinjaDroidBillboard,
+	globutonBillboard,
 	nextExitSignPic,
 	nextExitSignLeftSidePic,
 	nextExitSignLeftSideLightPic,
@@ -212,7 +222,7 @@ function loadImages() {
 	imageList.push({ imgName: snowySkyLevelPic, theFile: "SnowyMountainLevelSky.png" });
 	//	player/AI car
 	imageList.push({ imgName: tempPlayerCarPic, theFile: "car-spritesheet-x3.png" });
-	imageList.push({ imgName: pickupAIPic, theFile: "pickup-truck-spritesheet-small.png" });
+	imageList.push({ imgName: pickupBlueAIPic, theFile: "pickup-truck-spritesheet-small.png" });
 	imageList.push({ imgName: semiAIPic, theFile: "semi-truck-spritesheet-small.png" });
 	// signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
@@ -236,6 +246,7 @@ function loadImages() {
 	imageList.push({ imgName: speedLimitSlowSignPic, theFile: "Speed50Sign.png" });
 	imageList.push({ imgName: speedLimitFastSignPic, theFile: "Speed100Sign.png" });
 	imageList.push({ imgName: warningSignPic, theFile: "WarningSign.png" });
+	imageList.push({ imgName: kangarooSignPic, theFile: "kangaroo_sign.png" });
 	imageList.push({ imgName: nextExitSignPic, theFile: "NextExitSign.png" });
 	imageList.push({ imgName: nextExitSignLeftSidePic, theFile: "NextExitSign_LeftSide.png" });
 	imageList.push({ imgName: nextExitSignLeftSideLightPic, theFile: "NextExitSign_LeftSideLight.png" });
@@ -245,6 +256,7 @@ function loadImages() {
 	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_LeftSideLight.png" });
 	imageList.push({ imgName: endFreewaySign_RightSidePic, theFile: "EndFreewaySign_RightSide.png" });
 	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });	
+	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });	
 	// trees/poles/obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });
@@ -318,6 +330,12 @@ function loadImages() {
 	billboardSprites.push(sandwhichBillboard);
 	imageList.push({ imgName: sandwhichBillboardSnow, theFile: "SandwhichBillboardSnow.png" }); ////
 	billboardSprites.push(sandwhichBillboardSnow);
+	imageList.push({ imgName: aetherBillboard, theFile: "AetherBillboard.png" }); ////
+	billboardSprites.push(aetherBillboard);
+	imageList.push({ imgName: arcaNinjaDroidBillboard, theFile: "ArcaninjadroidBillboard.png" }); ////
+	billboardSprites.push(arcaNinjaDroidBillboard);
+	imageList.push({ imgName: globutonBillboard, theFile: "GlobutonBillboard.png" }); ////
+	billboardSprites.push(globutonBillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC
