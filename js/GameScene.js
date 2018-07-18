@@ -52,25 +52,31 @@ function GameScene(data) {
 	}
 
 	//temporary A.I. car for testing
+	this.aiCars = [];
 	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
-	const aiStartPos = new aiStart(AISegment, Lane.Left, 10, 0.25, 0);
+	const aiStartPos = new aiStart(5, Lane.Left, 10, 0.25, 0);
 	let laneChange = [];
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(6 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(15 * this.road.getSegmentLength()), Lane.Center, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(20 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(30 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(this.road.getSegmentAtZPos(40 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
-	this.aiCars = [new AICar(AIType.Semi, aiStartPos, laneChange)];
+	laneChange.push(new aiPathPoint(6, Lane.Left, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(15, Lane.Center, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(20, Lane.Right, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(30, Lane.Left, 10, 0.5, 20));
+	laneChange.push(new aiPathPoint(40, Lane.Right, 10, 0.5, 20));
+
+	const car1 = new AICar(AIType.Semi, aiStartPos, laneChange);
+	car1.initializePositionAndCollider(this.road.getSegmentAtZPos(aiStartPos.startIndex * this.road.getSegmentLength()));
+	this.aiCars.push(car1);
 
 	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
-	const aiStartPos2 = new aiStart(AISegment2, Lane.Right, 10, 0.25, 0);
+	const aiStartPos2 = new aiStart(15, Lane.Right, 10, 0.25, 0);
 	let laneChange2 = [];
-	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(16 * this.road.getSegmentLength()), Lane.Right, 10, 0.5, 20));
-	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(45 * this.road.getSegmentLength()), Lane.Center, 10, 0.5, 20));
-	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(50 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
-	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(60 * this.road.getSegmentLength()), Lane.Right, 5, 0.5, 20));
-	laneChange2.push(new aiPathPoint(this.road.getSegmentAtZPos(70 * this.road.getSegmentLength()), Lane.Left, 10, 0.5, 20));
-	this.aiCars.push(new AICar(AIType.Pickup, aiStartPos2, laneChange2));
+	laneChange2.push(new aiPathPoint(16, Lane.Right, 10, 0.5, 20));
+	laneChange2.push(new aiPathPoint(45, Lane.Center, 10, 0.5, 20));
+	laneChange2.push(new aiPathPoint(50, Lane.Right, 5, 0.5, 20));
+	laneChange2.push(new aiPathPoint(60, Lane.Right, 5, 0.5, 20));
+	laneChange2.push(new aiPathPoint(70, Lane.Left, 10, 0.5, 20));
+	const car2 = new AICar(AIType.Pickup, aiStartPos2, laneChange2);
+	car2.initializePositionAndCollider(this.road.getSegmentAtZPos(aiStartPos2.startIndex * this.road.getSegmentLength()));
+	this.aiCars.push(car2);
 
 	this.currentZIndex = 0;
 	this.player = new Player();

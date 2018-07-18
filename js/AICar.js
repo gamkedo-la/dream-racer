@@ -35,18 +35,18 @@ const AIFrames = {
 	DownLeft40:"downLeft40",
 }
 
-function aiPathPoint(segment, lane, desiredSpeed, acceleration, laneSpeed) {
-	this.segment = segment;
-	this.index = segment.index;
+function aiPathPoint(segmentIndex, lane, desiredSpeed, acceleration, laneSpeed) {
+	this.index = segmentIndex;
 	this.lane = lane;
 	this.desiredSpeed = desiredSpeed;
 	this.acceleration = acceleration;
 	this.laneSpeed = laneSpeed;
 }
 
-function aiStart(startSegment, startLane, speed, acceleration, playerIndexToStart) {
-	this.segment = startSegment;
-	this.startIndex = startSegment.index;
+//function aiStart(startSegment, startLane, speed, acceleration, playerIndexToStart) {
+function aiStart(startInd, startLane, speed, acceleration, playerIndexToStart) {
+//	this.segment = startSegment;
+	this.startIndex = startInd;
 	this.startLane = startLane;
 	this.speed = speed;
 	this.playerIndexToStart = playerIndexToStart;
@@ -88,7 +88,8 @@ function AICar(aType, start, aPath) {
 	const size = sizeForType(aType);
 	this.width = size.width;
 	this.height = size.height;
-	this.position = {x:start.segment.farPos.world.x, y:start.segment.farPos.world.y - this.height, z:start.segment.farPos.world.z};
+	
+	this.position = {x:0, y:0, z:0};//just creating the object
 	
 	const colliderDimsForType = function(type) {
 		switch(type) {
@@ -99,7 +100,6 @@ function AICar(aType, start, aPath) {
 		}
 	}
 
-	
 	this.depth = 60;//swag
 	let currentSegment = null;
 	
@@ -109,24 +109,30 @@ function AICar(aType, start, aPath) {
 	
 	let framePos = {x:4, y:1};
 	let previousDeltaX = 0;
-	
-	if(start.startLane == Lane.Left) {
-		desiredLanePos = -(start.segment.width / 3);
-		lanePos = -(start.segment.width / 3);
-	} else if(start.startLane == Lane.Right) {
-		desiredLanePos = (start.segment.width / 3);
-		lanePos = (start.segment.width / 3);
-	}
-	this.position.x = lanePos + start.segment.nearPos.world.x;//assumes start.segment is not a turning segment (or that the difference doesn't matter)
-	
-	const colliderDims = colliderDimsForType(this.type);
-	this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
-									colliderDims.xOffset, colliderDims.yOffset, colliderDims.zOffset, //x, y and z offsets for the collider
-									colliderDims.width, colliderDims.height, this.depth);
-	this.collider.isDynamic = true;//A.I. car can move (unlike road signs for example)
-	
+		
 	let currentRoadY = 0;
 	let nextRoadY = null;
+	
+	this.initializePositionAndCollider = function(startSegment) {
+		this.position.x = startSegment.farPos.world.x; 
+		this.position.y = startSegment.farPos.world.y - this.height;
+		this.position.z = startSegment.farPos.world.z;
+		
+		if(start.startLane == Lane.Left) {
+			desiredLanePos = -(startSegment.width / 3);
+			lanePos = -(startSegment.width / 3);
+		} else if(start.startLane == Lane.Right) {
+			desiredLanePos = (startSegment.width / 3);
+			lanePos = (startSegment.width / 3);
+		}
+		this.position.x = lanePos + startSegment.nearPos.world.x;//assumes start.segment is not a turning segment (or that the difference doesn't matter)
+		
+		const colliderDims = colliderDimsForType(this.type);
+		this.collider = new boxCollider(this.position.x, this.position.y, this.position.z - CAMERA_INITIAL_Z,
+										colliderDims.xOffset, colliderDims.yOffset, colliderDims.zOffset, //x, y and z offsets for the collider
+										colliderDims.width, colliderDims.height, this.depth);
+		this.collider.isDynamic = true;//A.I. car can move (unlike road signs for example)
+	}
 		
 	const framePosFor = function(name) {
 		switch(name) {
@@ -289,7 +295,7 @@ function AICar(aType, start, aPath) {
 			this.acceleration = this.path[0].acceleration;
 			laneSpeed = this.path[0].laneSpeed;
 			
-			const segmentWidth = this.path[0].segment.width;
+			const segmentWidth = currentSegment.width;
 			if(this.path[0].lane == Lane.Left) {
 				desiredLanePos = -(segmentWidth / 3);
 			} else if(this.path[0].lane == Lane.Right) {
