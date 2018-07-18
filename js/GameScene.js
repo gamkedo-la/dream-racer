@@ -257,7 +257,7 @@ function GameScene(data) {
 
 		if (countdownfinished) {
 			for (let i = 0; i < this.aiCars.length; i++) {
-				this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z));
+				this.aiCars[i].move(this.road.getSegmentAtZPos(this.aiCars[i].position.z), baseSegment);
 			}
 		}
 

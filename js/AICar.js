@@ -264,9 +264,13 @@ function AICar(aType, start, aPath) {
 		return {x: screenPos.x, y: screenPos.y, width:screenSize.width, height:screenSize.height};
 	}
 	
-	this.move = function(nextSegment) {
+	this.move = function(nextSegment, playerSegment) {
 		if(currentSegment == null) {
 			currentSegment = nextSegment;
+		}
+		
+		if(playerSegment.index < start.playerIndexToStart) {
+			return;
 		}
 				
 		if(this.position.z > currentSegment.farPos.world.z) {
