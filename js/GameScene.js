@@ -273,6 +273,7 @@ function GameScene(data) {
 						canTurn = false;
 						canBoost = false;
 						this.raceWon = true;
+						cheerSound.resume();
 						this.stats.time = this.totalTime - this.countdownTimeLeft;
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
