@@ -76,11 +76,7 @@ const DecorationType = {
 	CoffeeBillboardSnow: "CoffeeBillboardSnow",
 	BurgerBillboardSnow: "BurgerBillboardSnow",
 	SandwhichBillboard: "SandwhichBillboard",
-	SandwhichBillboardSnow: "SandwhichBillboardSnow",
-	skyscraper1_right: "skyscraper1_right",
-	skyscraper1_left: "skyscraper1_left",
-	skyscraper2_right: "skyscraper2_right",
-	skyscraper2_left: "skyscraper2_left"
+	SandwhichBillboardSnow: "SandwhichBillboardSnow"
 
 }
 function RoadsideDecoration(image, pos) {
@@ -380,14 +376,7 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.SandwhichBillboard;
 			case "SandwhichBillboardSnow.png":
 				return DecorationType.SandwhichBillboardSnow;
-			case "skyscraper1_left.png":
-				return DecorationType.skyscraper1_left;
-			case "skyscraper1_right.png":
-				return DecorationType.skyscraper1_right;
-			case "skyscraper2_left.png":
-				return DecorationType.skyscraper2_left;
-			case "skyscraper2_right.png":
-				return DecorationType.skyscraper2_right;
+
 			default:
 				return DecorationType.Sign;
 		}
@@ -484,14 +473,6 @@ function RoadsideDecoration(image, pos) {
 				return { xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10 };
 			case DecorationType.Tree6:
 				return { xOffset: 235, yOffset: 1125, zOffset: -5, width: 150, height: 400, depth: 10 };
-			case DecorationType.skyscraper1_left:
-				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 10, height: 200, depth: 10 };
-			case DecorationType.skyscraper1_rigt:
-				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 10, height: 200, depth: 10 };
-			case DecorationType.skyscraper2_left:
-				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 10, height: 200, depth: 10 };
-			case DecorationType.skyscraper2_rigt:
-				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 10, height: 200, depth: 10 };
 
 			default:
 				return { xOffset: 28, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10 };
@@ -538,11 +519,6 @@ function RoadsideDecoration(image, pos) {
 				return 3;
 			case DecorationType.WaterTower:
 				return 20;
-			case DecorationType.skyscraper1_left:
-			case DecorationType.skyscraper1_right:
-			case DecorationType.skyscraper2_left:
-			case DecorationType.skyscraper2_right:
-				return 2;
 			default:
 				return 4;
 		}

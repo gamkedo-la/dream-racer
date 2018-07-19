@@ -1,4 +1,4 @@
-function MenuScreen(){
+function MenuScreen() {
     this.selectorPositionsIndex = 0;
     this.selections = [
         { screen: LEVEL_SELECT_SCREEN, title: textStrings.Play },
@@ -8,13 +8,50 @@ function MenuScreen(){
     ];
     this.transitionIn = function menuScreenTransitionIn() {
         this.selectorPositionsIndex = 0;
-        if(scene !== null) {
+        if (scene !== null) {
             scene = null;
         }
     };
-    this.transitionOut = function menuScreenTransitionOut(){
+    this.transitionOut = function menuScreenTransitionOut() {
         uiSelect.play();
     };
+
+    this.drawBG = function menuScreenDrawBG() {
+
+        var delta = performance.now() / 8;
+        var bgpos = delta / 6;
+        var farpos = delta / 2;
+        var midpos = delta / 1;
+        var fgpos = delta / 0.5;
+        var farY = 0;
+        var fgY = 56; //canvas.height - snowySkyLevelPic.height; // bottom of screen
+        var midY = 20;
+
+        // fill
+        drawRect(0, 0, canvas.width, canvas.height, "#d3d6fb");
+
+        // clouds
+        canvasContext.drawImage(snowySkyLevelPic, -(bgpos % snowySkyLevelPic.width), 0);
+        canvasContext.drawImage(snowySkyLevelPic, -(bgpos % snowySkyLevelPic.width) + snowySkyLevelPic.width, 0);
+
+        // fake midground mountains
+        canvasContext.globalAlpha = 0.1;
+        canvasContext.drawImage(snowyMountainLevelPic, -(farpos % snowyMountainLevelPic.width), farY);
+        canvasContext.drawImage(snowyMountainLevelPic, -(farpos % snowyMountainLevelPic.width) + snowyMountainLevelPic.width, farY);
+        canvasContext.globalAlpha = 0.25;
+        canvasContext.drawImage(snowyMountainLevelPic, -(midpos % snowyMountainLevelPic.width), midY);
+        canvasContext.drawImage(snowyMountainLevelPic, -(midpos % snowyMountainLevelPic.width) + snowyMountainLevelPic.width, midY);
+        canvasContext.globalAlpha = 1.0;
+
+        //mountains
+        canvasContext.drawImage(snowyMountainLevelPic, -(fgpos % snowyMountainLevelPic.width), fgY);
+        canvasContext.drawImage(snowyMountainLevelPic, -(fgpos % snowyMountainLevelPic.width) + snowyMountainLevelPic.width, fgY);
+
+        // render the checkered flag foreground
+        checkeredFlagSprite.draw(232, 290, 0.25, true, 0.5, 4, true);
+
+    }
+
     this.run = function menuScreenRun() {
         let flag = {
             x: -45,
@@ -25,18 +62,22 @@ function MenuScreen(){
             strechY: 10,
             reverses: true
         };
-        checkeredFlagSprite.draw(flag.x * flag.strechX,flag.y * flag.strechY,
-            flag.opacity,flag.streched,
-            flag.strechX, flag.strechY,
-            flag.reverses);
+
+        // render the menu background
+        this.drawBG();
+
+        // render the logo overlay
         drawLogo();
+
+        // render menu
         printMenu(this.selections, this.selectorPositionsIndex);
     };
-    this.control = function menuScreenControl(keyCode, pressed){
-        if(pressed){
+
+    this.control = function menuScreenControl(keyCode, pressed) {
+        if (pressed) {
             return false;
         }
-        switch (keyCode){
+        switch (keyCode) {
             case KEY_UP:
                 this.selectorPositionsIndex--;
                 if (this.selectorPositionsIndex < 0) {

@@ -3,7 +3,7 @@ function GameScene(data) {
 	let currentCrashCount = 0;
 	const CRASH_DELTA_SPEED = 4;
 	const BUMPED_CAR_SPEED_REDUCTION = 10;
-	const BUMPED_FROM_BEHIND_SPEED_UP =10;
+	const BUMPED_FROM_BEHIND_SPEED_UP = 10;
 
 	let passedACheckPoint = false;
 	let timeExtendCounter = 0;
@@ -33,27 +33,16 @@ function GameScene(data) {
 
 	let roadReferences = data.roadReferences;
 
-
-	// create the road
-	if (USE_RANDOM_TRACK_GENERATOR) {
-		this.road.generateRandomRoad();
-		//this.road.addRoadSectionWithJSONArray(roadReferences[roadReferences.length - 1]); // add one final prefab
-		this.road.addRoadSectionWithJSONArray(JSON.parse(finish)); // hardcoded finish line prefab
-		console.log("Random track created successfully.");
-	}
-	else // normal track using JSON data above
-	{
-		this.road.newRoadWithJSONArray(roadReferences[0]);
-		if (roadReferences.length > 1) {
-			for (let i = 1; i < roadReferences.length; i++) {
-				this.road.addRoadSectionWithJSONArray(roadReferences[i]);
-			}
+	this.road.newRoadWithJSONArray(roadReferences[0]);
+	if (roadReferences.length > 1) {
+		for (let i = 1; i < roadReferences.length; i++) {
+			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
 		}
 	}
 
 	this.aiCars = data.getAICars();
 	const roadSegments = this.road.getSegments();
-	for(let i = 0; i < this.aiCars.length; i++) {
+	for (let i = 0; i < this.aiCars.length; i++) {
 		const thisCar = this.aiCars[i];
 		thisCar.initializePositionAndCollider(roadSegments[thisCar.startIndex]);
 	}
@@ -61,8 +50,8 @@ function GameScene(data) {
 	this.currentZIndex = 0;
 	this.player = new Player();
 
-    currentBackgroundMusic.setCurrentTrack(data.musicTrackIndex);
-    currentBackgroundMusic.play();
+	currentBackgroundMusic.setCurrentTrack(data.musicTrackIndex);
+	currentBackgroundMusic.play();
 	this.stats = {
 		time: 0,
 		speed: 0,
@@ -80,7 +69,7 @@ function GameScene(data) {
 			deltaY = 0;
 		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
-		
+
 		//(isCrashing, isBoosting, isSkyline, isMountain)
 		hud.draw(this.player.isCrashing, this.player.boosting, data.name == "Night City Skyline", data.name == "Summit Descent");
 	}
@@ -113,8 +102,8 @@ function GameScene(data) {
 
 	const drawCountdownTimerAndGO = function () {
 		if (countdownfinished) {
-            return;
-        }
+			return;
+		}
 		if (countDown.getPaused()) {
 			countDown.resume();
 		}
@@ -188,9 +177,9 @@ function GameScene(data) {
 
 	this.getStats = function () {
 		return [
-			{name: "time", type: statsType.Time, value: this.stats.time},
-			{name: "speed", type: statsType.Speed, value: this.stats.speed},
-            {name: "points", type: statsType.Points, value: this.player.score},
+			{ name: "time", type: statsType.Time, value: this.stats.time },
+			{ name: "speed", type: statsType.Speed, value: this.stats.speed },
+			{ name: "points", type: statsType.Points, value: this.player.score },
 		]
 	}
 
@@ -332,8 +321,8 @@ function GameScene(data) {
 							this.player.speed = 9;
 
 							if (this.player.boosting) {
-						
-									this.setPlayerCrashingState(true);
+
+								this.setPlayerCrashingState(true);
 							}
 						}
 
@@ -341,7 +330,7 @@ function GameScene(data) {
 						const playerSpeed = this.player.speed;
 						this.player.speed = this.aiCars[i].speed - CRASH_DELTA_SPEED;
 						this.aiCars[i].speed = playerSpeed + CRASH_DELTA_SPEED;
-						
+
 						bumpMasterSFX.play();
 					}
 				}
