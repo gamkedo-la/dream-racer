@@ -126,11 +126,6 @@ const globutonBillboard = document.createElement("img");
 const weMustPrepareBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
-// city buildings
-const skyscraper1_right = document.createElement("img");
-const skyscraper1_left = document.createElement("img");
-const skyscraper2_right = document.createElement("img");
-const skyscraper2_left = document.createElement("img");
 
 //ETC
 const fancyFont = document.createElement("img");
@@ -214,11 +209,7 @@ var allDecorations = [
 	coffeeBillboardSnow,
 	burgerBillboardSnow,
 	sandwhichBillboard,
-	sandwhichBillboardSnow,
-	skyscraper1_right,
-	skyscraper1_left,
-	skyscraper2_right,
-	skyscraper2_left
+	sandwhichBillboardSnow
 ];
 
 function randomDecoration() {
@@ -387,12 +378,6 @@ function loadImages() {
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC
 	imageList.push({ imgName: fancyFont, theFile: "font.png" });
-	// city buildings
-	imageList.push({ imgName: skyscraper1_right, theFile: "skyscraper1_right.png" });
-	imageList.push({ imgName: skyscraper1_left, theFile: "skyscraper1_left.png" });
-	imageList.push({ imgName: skyscraper2_right, theFile: "skyscraper2_right.png" });
-	imageList.push({ imgName: skyscraper2_left, theFile: "skyscraper2_left.png" });
-
 
 	picsToLoad = imageList.length;
 

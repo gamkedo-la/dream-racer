@@ -8,7 +8,6 @@ var Levels = [
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
         roadReferences: [
-            JSON.parse(skyscrapersTest),
             JSON.parse(skylineTest),
             JSON.parse(finish)
         ],
