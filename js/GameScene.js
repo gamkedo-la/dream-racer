@@ -282,8 +282,7 @@ function GameScene(data) {
 						this.totalTime += thisDecoration.trigger.timeBonus;
 						thisDecoration.trigger.hasInteracted = true;
 						passedACheckPoint = true;
-//						newTimeBonus = thisDecoration.trigger.timeBonus;
-						newTimeBonus = 45000;
+						newTimeBonus = thisDecoration.trigger.timeBonus;
 					}
 				}
 			}
