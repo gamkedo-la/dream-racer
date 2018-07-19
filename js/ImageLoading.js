@@ -80,23 +80,31 @@ const sideBarrierEndPic = document.createElement("img");
 const sideBarrierStartPic = document.createElement("img");
 const sideBarrierMidPic = document.createElement("img");
 
-const testRoadTexturePic = document.createElement("img");
-
 // gui and hud
 const hudPic = document.createElement("img");
 const countdownSpriteSheetPic = document.createElement("img");
 const goPic = document.createElement("img");
 const timeBonusPic = document.createElement("img");
-const needlePic = document.createElement("img");
 const mainMenuButtons = document.createElement("img");
 const mainMenuLogo = document.createElement("img");
 const mainMenuSelector = document.createElement("img");
 const mainMenuSlider = document.createElement("img");
+// dashboard
+const dashboardPic = document.createElement("img");
+const needlePic = document.createElement("img");
+const checkEngineDarkPic = document.createElement("img");
+const engineTempDarkPic = document.createElement("img");
+const headlightDarkPic = document.createElement("img");
+const slipperyRoadDarkPic = document.createElement("img");
+const checkEngineLitPic = document.createElement("img");
+const engineTempLitPic = document.createElement("img");
+const headlightLitPic = document.createElement("img");
+const slipperyRoadLitPic = document.createElement("img");
+
 // billboards
 const billboardLightPic = document.createElement("img");
 const blankBillboard = document.createElement("img");
 const obeyBillboard = document.createElement("img");
-const dashboardPic = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
 const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
@@ -308,8 +316,6 @@ function loadImages() {
 	imageList.push({ imgName: largeTireStackPic, theFile: "Tires2.png" });
 	// hud/gui
 	imageList.push({ imgName: hudPic, theFile: "HUD.png" });
-	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
-	imageList.push({ imgName: needlePic, theFile: "needle.png" });
 	imageList.push({ imgName: goPic, theFile: "GO!!.png" });
 	imageList.push({ imgName: timeBonusPic, theFile: "timeBonus.png" });
 	imageList.push({ imgName: countdownSpriteSheetPic, theFile: "countdownSpriteSheet.png" });
@@ -317,12 +323,21 @@ function loadImages() {
 	imageList.push({ imgName: mainMenuLogo, theFile: "UI-Logo.png" });
 	imageList.push({ imgName: mainMenuSelector, theFile: "UI-Selector.png" });
 	imageList.push({ imgName: mainMenuSlider, theFile: "UI-Slider.png" });
+	// dashboard
+	imageList.push({ imgName: dashboardPic, theFile: "DashboardBaseUI.png" });
+	imageList.push({ imgName: needlePic, theFile: "needle.png" });
+	imageList.push({ imgName: checkEngineDarkPic, theFile: "CheckEngineDark.png" });
+	imageList.push({ imgName: engineTempDarkPic, theFile: "EngineTempDark.png" });
+	imageList.push({ imgName: headlightDarkPic, theFile: "HeadlightDark.png" });
+	imageList.push({ imgName: slipperyRoadDarkPic, theFile: "SlipperyRoadDark.png" });
+	imageList.push({ imgName: checkEngineLitPic, theFile: "CheckEngineLit.png" });
+	imageList.push({ imgName: engineTempLitPic, theFile: "EngineTempLit.png" });
+	imageList.push({ imgName: headlightLitPic, theFile: "HeadlightLit.png" });
+	imageList.push({ imgName: slipperyRoadLitPic, theFile: "SlipperyRoadLit.png" });
 	// barriers
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
 	imageList.push({ imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png" });
-
-	imageList.push({ imgName: testRoadTexturePic, theFile: "DreamRacerTestRoadTexture.png" });
 
 	// billboard and images
 	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });

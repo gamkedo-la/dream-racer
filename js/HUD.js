@@ -73,7 +73,7 @@ var hud = {
         colorText("" + currentSymbol, panelLeftTopCorner.x+160, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
     },
 
-    draw: function () {
+    draw: function (isCrashing, isBoosting, isSkyline, isMountain) {
 
         // dashboard
         canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
@@ -102,7 +102,6 @@ var hud = {
         var max = scene.player.currentGearMaxSpeed;
         var gear = scene.player.currentGear;
 
-        //console.log("spd:" + spd + " max:" + max + " gear:" + gear);
         this.rpmNeedleAngle = (spd / max * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
 
         // this stops the RPM needle from going over 180 degrees (helps especially when boosting)
@@ -115,7 +114,32 @@ var hud = {
             -90 * DEGREES_TO_RADIANS + this.rpmNeedleAngle
         );
 
-
+		// Dashboard Lights
+//		canvasContext.drawImage(infoLightPic, 0, 243);
+		if(isCrashing) {
+			canvasContext.drawImage(checkEngineLitPic, 40, 755);
+		} else {
+			canvasContext.drawImage(checkEngineDarkPic, 40, 755);
+		} 
+		
+		if(isMountain) {
+			canvasContext.drawImage(slipperyRoadLitPic, 113, 750);
+		} else {
+			canvasContext.drawImage(slipperyRoadDarkPic, 113, 750);
+		}
+		
+		if(isBoosting) {
+			canvasContext.drawImage(engineTempLitPic, 170, 745);
+		} else {
+			canvasContext.drawImage(engineTempDarkPic, 170, 745);
+		}
+		
+		if(isSkyline) {
+			canvasContext.drawImage(headlightLitPic, 90, 800);
+		} else {
+			canvasContext.drawImage(headlightDarkPic, 90, 800);
+		}
+		
         // TIME
         canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
         //this.drawNumPadded(Math.floor(scene.player.laptime), 49, 11);

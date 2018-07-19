@@ -7,7 +7,7 @@ function Player() {
 	const CRASH_DECELERATION_PERCENT = 0.15;
 	this.ACCELERATIONS = [0.55, 0.4, 0.35, 0.30, 0.25];
 	const BRAKING = 0.3;
-	const BOOSTER = 55;
+	const BOOSTER = 75;
 	const MAX_CRASH_HEIGHT = 2 * GAME_HEIGHT / 3;
 	const TURN_RATE_DECAY = .98;
 	this.isAuto = true;
@@ -199,35 +199,8 @@ function Player() {
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
 		}
-
-		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
-		// this.speed > 3 allows the player to not get stuck after crashing while on a hill
-		if (deltaY < 0 && this.speed > 3) {//going uphill (Y gets bigger as you go down)
-			this.speed -= HILL_DELTA_SPEED;
-		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
-			this.speed += HILL_DELTA_SPEED;
-		}
-
-		if (holdN && canBoost && (boosterCount > 0)) {
-			boosterCount--;
-			this.boosting = true;
-			this.speed = BOOSTER;
-			holdN = false;
-		}
-
-		if (this.boosting) {
-			this.speed -= 2 * FRICTION;
-			if (this.speed <= MAX_SPEED) {
-				this.boosting = false;
-			}
-		}
-
-		// booster particles
-		if (this.boosting) {
-			this.fx.boosterFX(this);
-		}
-
-		if (this.isAuto) {
+		
+		if ((this.isAuto) && (!this.boosting)){
 			if (this.currentGear < this.ACCELERATIONS.length && this.speed / this.currentGearMaxSpeed * 100 >= 80) {
 				this.currentGear++;
 				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
@@ -242,6 +215,33 @@ function Player() {
 				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
 				holdSpace = false;
 			}
+		}
+
+		//After final clamp to allow roads to cause the player to coast above MAX_SPEED or go in reverse back down a hill
+		// this.speed > 3 allows the player to not get stuck after crashing while on a hill
+		if (deltaY < 0 && this.speed > 3) {//going uphill (Y gets bigger as you go down)
+			this.speed -= HILL_DELTA_SPEED;
+		} else if (deltaY > 0) {//going downhill (Y gets bigger as you go down)
+			this.speed += HILL_DELTA_SPEED;
+		}
+
+		if (this.boosting) {
+			this.speed -= 2 * FRICTION;
+			if (this.speed <= MAX_SPEED) {
+				this.boosting = false;
+			}
+		}
+		
+		if (holdN && canBoost && (boosterCount > 0)) {
+			boosterCount--;
+			this.boosting = true;
+			this.speed = BOOSTER;
+			holdN = false;
+		}
+
+		// booster particles
+		if (this.boosting) {
+			this.fx.boosterFX(this);
 		}
 
 		switch (this.currentGear) {

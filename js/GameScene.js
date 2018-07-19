@@ -58,33 +58,6 @@ function GameScene(data) {
 		thisCar.initializePositionAndCollider(roadSegments[thisCar.startIndex]);
 	}
 
-	//temporary A.I. car for testing
-/*	this.aiCars = [];
-	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
-	const aiStartPos = new aiStart(5, Lane.Left, 10, 0.25, 0);
-	let laneChange = [];
-	laneChange.push(new aiPathPoint(6, Lane.Left, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(15, Lane.Center, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(20, Lane.Right, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(30, Lane.Left, 10, 0.5, 20));
-	laneChange.push(new aiPathPoint(40, Lane.Right, 10, 0.5, 20));
-
-	const car1 = new AICar(AIType.Semi, aiStartPos, laneChange);
-	car1.initializePositionAndCollider(this.road.getSegmentAtZPos(aiStartPos.startIndex * this.road.getSegmentLength()));
-	this.aiCars.push(car1);
-
-	const AISegment2 = this.road.getSegmentAtZPos(15 * this.road.getSegmentLength());
-	const aiStartPos2 = new aiStart(15, Lane.Right, 10, 0.25, 0);
-	let laneChange2 = [];
-	laneChange2.push(new aiPathPoint(16, Lane.Right, 10, 0.5, 20));
-	laneChange2.push(new aiPathPoint(45, Lane.Center, 10, 0.5, 20));
-	laneChange2.push(new aiPathPoint(50, Lane.Right, 5, 0.5, 20));
-	laneChange2.push(new aiPathPoint(60, Lane.Right, 5, 0.5, 20));
-	laneChange2.push(new aiPathPoint(70, Lane.Left, 10, 0.5, 20));
-	const car2 = new AICar(AIType.Pickup, aiStartPos2, laneChange2);
-	car2.initializePositionAndCollider(this.road.getSegmentAtZPos(aiStartPos2.startIndex * this.road.getSegmentLength()));
-	this.aiCars.push(car2);*/
-
 	this.currentZIndex = 0;
 	this.player = new Player();
 
@@ -107,7 +80,9 @@ function GameScene(data) {
 			deltaY = 0;
 		}
 		this.player.draw(currentCrashCount, deltaY, canTurn);
-		hud.draw();
+		
+		//(isCrashing, isBoosting, isSkyline, isMountain)
+		hud.draw(this.player.isCrashing, this.player.boosting, data.name == "Night City Skyline", data.name == "Summit Descent");
 	}
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {
