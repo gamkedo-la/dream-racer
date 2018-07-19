@@ -11,8 +11,9 @@ var forestRock = new musicTrackLoop("forestRock", 124.21011, {author: "Stebs", a
 var drjuno = new musicTrackLoop("DR Juno", 148.4016, {author: "Joe Spedale", album: "DreamRacer OST", year: "2018", title: "DR Juno"});
 var retroDream = new musicTrackLoop("RetroSynthDream", 131.889978, {author: "Vignesh", album: "DreamRacer OST", year: "2018", title: "Retro Dream" });
 var menuMusic = new musicTrackLoop("MainMenu_LetsGo", 74.083, {auther: "Chris Markle", album: "DreamRacer OST", year: "2018", title: "Main Menu - Let's Go"});
+var gameOver = new musicTrackLoop("GameOver_TooSlow", 12.069, {auther: "Chris Markle", album: "DreamRacer OST", year: "2018", title: "Game Over - Too Slow"});
 
-var currentBackgroundMusic = new musicContainer([menuMusic, retroDream, dreamPunk, nightMusic, forestRock, drjuno]);
+var currentBackgroundMusic = new musicContainer([menuMusic, retroDream, dreamPunk, nightMusic, forestRock, drjuno, gameOver]);
 
 var pauseSound = new sfxClipSingle("PauseSound");
 var resumeSound = new sfxClipSingle("ResumeSound");

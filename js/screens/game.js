@@ -25,6 +25,7 @@ function GamePlayScreen (){
         printWord("GEAR: " + scene.player.currentGear, 10, canvas.height/2);
         printWord("ACC: " + scene.player.ACCELERATIONS[scene.player.currentGear-1], 10, canvas.height/2 + 48);
         if(scene.gameIsOver){
+	        currentBackgroundMusic.setCurrentTrack(6);
             ScreenStates.setState(GAMEPLAY_FINISH_SCREEN, { stats: scene.getStats(), raceWon: scene.raceWon });
         }
     };

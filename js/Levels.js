@@ -20,7 +20,7 @@ var Levels = [
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline",
-        initialTime: 45 * 1000, // 30 seconds
+        initialTime: 5 * 1000, // 30 seconds
         musicTrackIndex: 2,
         skyTransformFunc: function () {
             return { x: 0, y: 0, z: undefined };

@@ -22,9 +22,17 @@ function GamePlayFinishScreen() {
         if(!this.isVictory){
             this.menuItems.shift();
         }
+        
+        if(currentBackgroundMusic.getTime() > 0){
+            currentBackgroundMusic.resume();    
+        }
+        else {
+            currentBackgroundMusic.play();
+        }
     };
     this.transitionOut = function(){
         uiSelect.play();
+        currentBackgroundMusic.pause();
     };
     this.run = function gamePlayFinishedScreenRun(){
         drawLogo();
