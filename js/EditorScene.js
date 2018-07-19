@@ -8,7 +8,7 @@ function EditorScene(data) {
 	const roadReferences = [
 	//	JSON.parse(straightAndLevel)
 	//	JSON.parse(sampleLighting)
-				JSON.parse(skylineTest)	
+		//		JSON.parse(skylineTest)	
 //				JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -279,10 +279,36 @@ function EditorScene(data) {
 			{startIndex:1000, endIndex:1040, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:1100, endIndex:1140, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:1155, endIndex:1225, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1250, endIndex:1295, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1330, endIndex:1365, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1430, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1480, endIndex:1550, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1570, endIndex:1630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1645, endIndex:1730, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1780, endIndex:1820, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1835, endIndex:1890, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1940, endIndex:2005, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2210, endIndex:2280, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2320, endIndex:2375, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2415, endIndex:2455, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2480, endIndex:2530, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2585, endIndex:2670, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2700, endIndex:2760, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2795, endIndex:2875, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2900, endIndex:2940, rate:3 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2955, endIndex:2995, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
 		];
 		
 		const VertData = [
-			{startIndex:1100, endIndex:1250, rate:Rate.Double, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{startIndex:1145, endIndex:1390, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{startIndex:1470, endIndex:1730, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{startIndex:1775, endIndex:1930, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{startIndex:2010, endIndex:2160, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
+			{startIndex:2180, endIndex:2310, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
+			{startIndex:2400, endIndex:2500, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
+			{startIndex:2550, endIndex:2690, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
+			{startIndex:2890, endIndex:3000, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
+
 		];
 		
 		for(let i = 0; i < 3000; i++) {
