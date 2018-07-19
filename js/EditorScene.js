@@ -6,10 +6,10 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-	//	JSON.parse(straightAndLevel)
-	//	JSON.parse(sampleLighting)
+		//	JSON.parse(straightAndLevel)
+		//	JSON.parse(sampleLighting)
 		//		JSON.parse(skylineTest)	
-//				JSON.parse(mountainTrack)	
+		//				JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
 				JSON.parse(doubleBump),
@@ -22,36 +22,36 @@ function EditorScene(data) {
 		//		JSON.parse(straightAndLevel),
 		//		JSON.parse(normalHillCrest)
 	];
-	
-	
+
+
 	const Rate = {
-		Half:0.5,
-		Full:1.0,
-		Double:2.0, 
-		Triple:3.0, //don't use Triple for downhill, rapidly causes clipping
-		Quad:4.0,
-		Quint:5.0,
-		Hex:6.0,
-		Sept:7.0,
-		Oct:8.0
+		Half: 0.5,
+		Full: 1.0,
+		Double: 2.0,
+		Triple: 3.0, //don't use Triple for downhill, rapidly causes clipping
+		Quad: 4.0,
+		Quint: 5.0,
+		Hex: 6.0,
+		Sept: 7.0,
+		Oct: 8.0
 	}
-	
+
 	const Direction = {
-		Left:"left",
-		Right:"right",
-		Up:"up",
-		Down:"down",
-		SteadyUp:"steadyUp",
-		SteadyDown:"steadyDown",
-		None:"none"
+		Left: "left",
+		Right: "right",
+		Up: "up",
+		Down: "down",
+		SteadyUp: "steadyUp",
+		SteadyDown: "steadyDown",
+		None: "none"
 	}
-	
+
 	const Easing = {
-		In:"in",
-		Out:"out",
-		InOut:"inOut",
+		In: "in",
+		Out: "out",
+		InOut: "inOut",
 	}
-	
+
 	/*this.buildNightSkylineTrack = function() {
 		const HorizData = [
 			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
@@ -264,172 +264,172 @@ function EditorScene(data) {
 		}
 	}
 */
-	this.buildSummitTrack = function() {
+	this.buildSummitTrack = function () {
 		const HorizData = [
-			{startIndex:25, endIndex:65, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:85, endIndex:145, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:245, endIndex:385, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:395, endIndex:445, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:530, endIndex:565, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:570, endIndex:605, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:640, endIndex:740, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:770, endIndex:810, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:850, endIndex:890, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:930, endIndex:970, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1000, endIndex:1040, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1100, endIndex:1140, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1155, endIndex:1225, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1250, endIndex:1295, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1330, endIndex:1365, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1400, endIndex:1430, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1480, endIndex:1550, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1570, endIndex:1630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1645, endIndex:1730, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1780, endIndex:1820, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1835, endIndex:1890, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1940, endIndex:2005, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2210, endIndex:2280, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2320, endIndex:2375, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2415, endIndex:2455, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2480, endIndex:2530, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2585, endIndex:2670, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2700, endIndex:2760, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:2795, endIndex:2875, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2900, endIndex:2940, rate:3 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:2955, endIndex:2995, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{ startIndex: 25, endIndex: 65, rate: 3 * Rate.Full, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 85, endIndex: 145, rate: 3 * Rate.Full, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 245, endIndex: 385, rate: 3 * Rate.Half, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 395, endIndex: 445, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 530, endIndex: 565, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 570, endIndex: 605, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 640, endIndex: 740, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 770, endIndex: 810, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 850, endIndex: 890, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 930, endIndex: 970, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1000, endIndex: 1040, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 1100, endIndex: 1140, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1155, endIndex: 1225, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1250, endIndex: 1295, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1330, endIndex: 1365, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 1400, endIndex: 1430, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1480, endIndex: 1550, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 1570, endIndex: 1630, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1645, endIndex: 1730, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 1780, endIndex: 1820, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 1835, endIndex: 1890, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 1940, endIndex: 2005, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 2210, endIndex: 2280, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 2320, endIndex: 2375, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 2415, endIndex: 2455, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 2480, endIndex: 2530, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 2585, endIndex: 2670, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 2700, endIndex: 2760, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
+			{ startIndex: 2795, endIndex: 2875, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 2900, endIndex: 2940, rate: 3 * Rate.Triple, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 2955, endIndex: 2995, rate: 3 * Rate.Full, direction: Direction.Right, easing: Easing.InOut },
 		];
-		
+
 		const VertData = [
-			{startIndex:1145, endIndex:1390, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
-			{startIndex:1470, endIndex:1730, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
-			{startIndex:1775, endIndex:1930, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
-			{startIndex:2010, endIndex:2160, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
-			{startIndex:2180, endIndex:2310, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
-			{startIndex:2400, endIndex:2500, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
-			{startIndex:2550, endIndex:2690, rate:Rate.Half, direction:Direction.SteadyDown, easing:Easing.InOut},
-			{startIndex:2890, endIndex:3000, rate:Rate.Half, direction:Direction.SteadyUp, easing:Easing.InOut},
+			{ startIndex: 1145, endIndex: 1390, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 1470, endIndex: 1730, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 1775, endIndex: 1930, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 2010, endIndex: 2160, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
+			{ startIndex: 2180, endIndex: 2310, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
+			{ startIndex: 2400, endIndex: 2500, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
+			{ startIndex: 2550, endIndex: 2690, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
+			{ startIndex: 2890, endIndex: 3000, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
 
 		];
-		
-		for(let i = 0; i < 3000; i++) {
+
+		for (let i = 0; i < 3000; i++) {
 			this.road.addSegment();
 		}
-		
+
 		const segs = this.road.getSegments();
 		let horiz = 0;
 		let vert = 0;
-		for(let j = 0; j < segs.length; j++) {
+		for (let j = 0; j < segs.length; j++) {
 			const thisSeg = segs[j];
 			const indexModulus = thisSeg.index % 11;
-			switch(indexModulus) {
-/*				case 2:
-				case 8:
-					thisSeg.color = '#444444';
-					break;
-				case 3:
-				case 7:
-					thisSeg.color = '#666666';
-					break;
-				case 4:
-				case 6:
-					thisSeg.color = '#888888';
-					break;
-				case 5:
-					thisSeg.color = '#BBBBBB';
-					break;*/
+			switch (indexModulus) {
+				/*				case 2:
+								case 8:
+									thisSeg.color = '#444444';
+									break;
+								case 3:
+								case 7:
+									thisSeg.color = '#666666';
+									break;
+								case 4:
+								case 6:
+									thisSeg.color = '#888888';
+									break;
+								case 5:
+									thisSeg.color = '#BBBBBB';
+									break;*/
 				default:
 					thisSeg.color = '#444444';
 					break;
 			}
-			
-			if(HorizData.length > 0) {
-				if((j > HorizData[0].startIndex) && (j < HorizData[0].endIndex)) {
-					if(HorizData[0].easing == Easing.In) {
-						if(HorizData[0].direction == Direction.Left) {
+
+			if (HorizData.length > 0) {
+				if ((j > HorizData[0].startIndex) && (j < HorizData[0].endIndex)) {
+					if (HorizData[0].easing == Easing.In) {
+						if (HorizData[0].direction == Direction.Left) {
 							horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
-						} else if(HorizData[0].direction == Direction.Right) {
+						} else if (HorizData[0].direction == Direction.Right) {
 							horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
-						}					
-					} else if(HorizData[0].easing == Easing.Out) {
-						if(HorizData[0].direction == Direction.Left) {
+						}
+					} else if (HorizData[0].easing == Easing.Out) {
+						if (HorizData[0].direction == Direction.Left) {
 							horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
-						} else if(HorizData[0].direction == Direction.Right) {
+						} else if (HorizData[0].direction == Direction.Right) {
 							horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
-						}	
-					} else if(HorizData[0].easing == Easing.InOut) {
-						if(j < (HorizData[0].startIndex + ((HorizData[0].endIndex - HorizData[0].startIndex)/2))) {
-							if(HorizData[0].direction == Direction.Left) {
+						}
+					} else if (HorizData[0].easing == Easing.InOut) {
+						if (j < (HorizData[0].startIndex + ((HorizData[0].endIndex - HorizData[0].startIndex) / 2))) {
+							if (HorizData[0].direction == Direction.Left) {
 								horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
-							} else if(HorizData[0].direction == Direction.Right) {
+							} else if (HorizData[0].direction == Direction.Right) {
 								horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
 							}
 						} else {
-							if(HorizData[0].direction == Direction.Left) {
+							if (HorizData[0].direction == Direction.Left) {
 								horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
-							} else if(HorizData[0].direction == Direction.Right) {
+							} else if (HorizData[0].direction == Direction.Right) {
 								horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
 							}
 						}
 					}
-				} else if(j > HorizData[0].endIndex) {
+				} else if (j > HorizData[0].endIndex) {
 					HorizData.splice(0, 1);
 				}
 			}
-			
+
 			thisSeg.farPos.world.x += horiz;
-			
-			if(VertData.length > 0) {
-				if((j > VertData[0].startIndex) && (j < VertData[0].endIndex)) {
-					if(VertData[0].easing == Easing.In) {
-						if(VertData[0].direction == Direction.Up) {
+
+			if (VertData.length > 0) {
+				if ((j > VertData[0].startIndex) && (j < VertData[0].endIndex)) {
+					if (VertData[0].easing == Easing.In) {
+						if (VertData[0].direction == Direction.Up) {
 							vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
-						} else if(VertData[0].direction == Direction.Down) {
+						} else if (VertData[0].direction == Direction.Down) {
 							vert += (j - VertData[0].startIndex) * (VertData[0].rate);
-						} else if(VertData[0].direction == Direction.SteadyUp) {
+						} else if (VertData[0].direction == Direction.SteadyUp) {
 							vert += (j - VertData[0].startIndex);
-						} else if(VertData[0].direction == Direction.SteadyDown) {
+						} else if (VertData[0].direction == Direction.SteadyDown) {
 							vert -= (j - VertData[0].startIndex);
 						}
-					} else if(VertData[0].easing == Easing.Out) {
-						if(VertData[0].direction == Direction.Up) {
+					} else if (VertData[0].easing == Easing.Out) {
+						if (VertData[0].direction == Direction.Up) {
 							vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
-						} else if(VertData[0].direction == Direction.Down) {
+						} else if (VertData[0].direction == Direction.Down) {
 							vert += (VertData[0].endIndex - j) * (VertData[0].rate);
-						} else if(VertData[0].direction == Direction.SteadyUp) {
+						} else if (VertData[0].direction == Direction.SteadyUp) {
 							vert -= (VertData[0].endIndex - j);
-						} else if(VertData[0].direction == Direction.SteadyDown) {
+						} else if (VertData[0].direction == Direction.SteadyDown) {
 							vert += (VertData[0].endIndex - j);
-						}						
-					} else if(VertData[0].easing == Easing.InOut) {
-						if(j < (VertData[0].startIndex + ((VertData[0].endIndex - VertData[0].startIndex)/2))) {
-							if(VertData[0].direction == Direction.Up) {
+						}
+					} else if (VertData[0].easing == Easing.InOut) {
+						if (j < (VertData[0].startIndex + ((VertData[0].endIndex - VertData[0].startIndex) / 2))) {
+							if (VertData[0].direction == Direction.Up) {
 								vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
-							} else if(VertData[0].direction == Direction.Down) {
+							} else if (VertData[0].direction == Direction.Down) {
 								vert += (j - VertData[0].startIndex) * (VertData[0].rate);
-							} else if(VertData[0].direction == Direction.SteadyUp) {
+							} else if (VertData[0].direction == Direction.SteadyUp) {
 								vert -= (j - VertData[0].startIndex);
-							} else if(VertData[0].direction == Direction.SteadyDown) {
+							} else if (VertData[0].direction == Direction.SteadyDown) {
 								vert += (j - VertData[0].startIndex);
 							}
 						} else {
-							if(VertData[0].direction == Direction.Up) {
+							if (VertData[0].direction == Direction.Up) {
 								vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
-							} else if(VertData[0].direction == Direction.Down) {
+							} else if (VertData[0].direction == Direction.Down) {
 								vert += (VertData[0].endIndex - j) * (VertData[0].rate);
-							} else if(VertData[0].direction == Direction.SteadyUp) {
+							} else if (VertData[0].direction == Direction.SteadyUp) {
 								vert -= (VertData[0].endIndex - j);
-							} else if(VertData[0].direction == Direction.SteadyDown) {
+							} else if (VertData[0].direction == Direction.SteadyDown) {
 								vert += (VertData[0].endIndex - j);
-							}						
+							}
 						}
 					}
-				} else if(j > VertData[0].endIndex) {
+				} else if (j > VertData[0].endIndex) {
 					VertData.splice(0, 1);
 				}
 			}
-			
+
 			thisSeg.farPos.world.y += vert;
-			
+
 			/*if(indexModulus == 5) {
 				const lightPos = {x:0, y:0};
 				let lightSprite;
@@ -449,24 +449,24 @@ function EditorScene(data) {
 				
 				this.road.addDecorationToGround(aDecoration, thisSeg);
 			}*/
-			
-			if((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
-//				console.log("Checkpoint added");
-				const checkPointPos = {x:0, y:0};
+
+			if ((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
+				//				console.log("Checkpoint added");
+				const checkPointPos = { x: 0, y: 0 };
 				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
-				
+
 				checkPointPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
-				
-				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+
+				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2) };
 				const aDecoration = new RoadsideDecoration(checkpointFlagPic, worldPos);
 				aDecoration.typeForFileName();
-				
+
 				this.road.addDecorationToGround(aDecoration, thisSeg);
-//				console.log(thisSeg.decorations.length);
+				//				console.log(thisSeg.decorations.length);
 			}
 		}
 	}
-	
+
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
 		for (let i = 1; i < roadReferences.length; i++) {
@@ -475,7 +475,7 @@ function EditorScene(data) {
 	} else {
 		this.buildSummitTrack();
 		//this.buildNightSkylineTrack();
-//		this.road.addSegment();
+		//		this.road.addSegment();
 	}
 	this.currentZIndex = 0;
 	this.aiCars = [];
@@ -518,7 +518,7 @@ function EditorScene(data) {
 			new DecorationUIElement(leftStreetLightNoLightPic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(blankBillboard, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPolePic, { x: canvas.width - (5 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
-			
+
 			new DecorationUIElement(straightPowerPoleCrossBeamsPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantLeftPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(straightPowerPoleCrossBeamsSlantRightPic, { x: canvas.width - (6 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
@@ -539,7 +539,7 @@ function EditorScene(data) {
 			new DecorationUIElement(yoloSign_LeftSideLightPic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(startFreewaySign_LeftSidePic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (8 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
-			
+
 			new DecorationUIElement(endFreewaySign_RightSidePic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIElement(endFreewaySign_RightSideLightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIElement(smallTireStackPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
@@ -547,23 +547,29 @@ function EditorScene(data) {
 			new DecorationUIElement(radioTowerNightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(kangarooSignPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
-/*			new DecorationUIElement(endFreewaySign_RightSidePic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(endFreewaySign_RightSideLightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-			new DecorationUIElement(smallTireStackPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(largeTireStackPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(radioTowerNightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
+			// city buildings
+			new DecorationUIElement(skyscraper1_left, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(skyscraper1_right, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(skyscraper2_left, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(skyscraper2_right, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 
-			
+			/*			new DecorationUIElement(endFreewaySign_RightSidePic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+						new DecorationUIElement(endFreewaySign_RightSideLightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+						new DecorationUIElement(smallTireStackPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+						new DecorationUIElement(largeTireStackPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+						new DecorationUIElement(radioTowerNightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+						new DecorationUIElement(startFreewaySign_LeftSideLightPic, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
+
+
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIColor('#BBBBBB', { x: UI_SIZE.width + 10, y: canvas.height - 3 * UI_SIZE.height }),
 			new DecorationUIColor('#888888', { x: UI_SIZE.width + 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIColor('#666666', { x: UI_SIZE.width + 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIColor('#444444', { x: UI_SIZE.width + 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIColor('#222222', { x: UI_SIZE.width + 10, y: canvas.height - 7 * UI_SIZE.height }),
-/*			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(pickupAIPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(tree3Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height })*/
+			/*			new DecorationUIElement(checkpointFlagPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+						new DecorationUIElement(pickupAIPic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+						new DecorationUIElement(tree3Pic, { x: canvas.width - (7 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height })*/
 		];
 		return array;
 	}
@@ -600,7 +606,7 @@ function EditorScene(data) {
 			decorationUIElements[i].draw();
 		}
 	}
-	
+
 	this.move = function () {
 		const baseSegment = this.road.getSegmentAtZPos(this.camera.position.z - CAMERA_INITIAL_Z);
 		if (baseSegment != null) {
@@ -669,7 +675,7 @@ function EditorScene(data) {
 
 		if (holdLeft) {
 			if (this.road.hasSelectedDecoration()) {
-				if(holdShift) {
+				if (holdShift) {
 					this.road.moveDecorationLeft(10);
 				} else {
 					this.road.moveDecorationLeft(1);
@@ -681,7 +687,7 @@ function EditorScene(data) {
 
 		if (holdRight) {
 			if (this.road.hasSelectedDecoration()) {
-				if(holdShift) {
+				if (holdShift) {
 					this.road.moveDecorationRight(10);
 				} else {
 					this.road.moveDecorationRight(1);
@@ -759,12 +765,12 @@ function EditorScene(data) {
 				this.clearDecorationUISelection();
 				mouseButtonHeld = false;
 			} else if (selectedSegment != null) {
-				if(selectedDecorationUIElementIndex >= 0) {
-					if(decorationUIElements[selectedDecorationUIElementIndex].type == "color") {
+				if (selectedDecorationUIElementIndex >= 0) {
+					if (decorationUIElements[selectedDecorationUIElementIndex].type == "color") {
 						selectedSegment.color = decorationUIElements[selectedDecorationUIElementIndex].color;
 					}
 				}
-				
+
 				mouseButtonHeld = false;
 				this.clearDecorationUISelection();
 				this.road.clearDecorationSelection();

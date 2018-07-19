@@ -118,6 +118,11 @@ const globutonBillboard = document.createElement("img");
 const weMustPrepareBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
+// city buildings
+const skyscraper1_right = document.createElement("img");
+const skyscraper1_left = document.createElement("img");
+const skyscraper2_right = document.createElement("img");
+const skyscraper2_left = document.createElement("img");
 
 //ETC
 const fancyFont = document.createElement("img");
@@ -201,7 +206,12 @@ var allDecorations = [
 	coffeeBillboardSnow,
 	burgerBillboardSnow,
 	sandwhichBillboard,
-	sandwhichBillboardSnow];
+	sandwhichBillboardSnow,
+	skyscraper1_right,
+	skyscraper1_left,
+	skyscraper2_right,
+	skyscraper2_left
+];
 
 function randomDecoration() {
 	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
@@ -275,8 +285,8 @@ function loadImages() {
 	imageList.push({ imgName: startFreewaySign_LeftSidePic, theFile: "StartFreewaySign_LeftSide.png" });
 	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_LeftSideLight.png" });
 	imageList.push({ imgName: endFreewaySign_RightSidePic, theFile: "EndFreewaySign_RightSide.png" });
-	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });	
-	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });	
+	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });
+	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });
 	// trees/poles/obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });
@@ -311,9 +321,9 @@ function loadImages() {
 	imageList.push({ imgName: sideBarrierEndPic, theFile: "SideBarrierEnd.png" });
 	imageList.push({ imgName: sideBarrierStartPic, theFile: "SideBarrierStart.png" });
 	imageList.push({ imgName: sideBarrierMidPic, theFile: "SideBarrierMid.png" });
-	
+
 	imageList.push({ imgName: testRoadTexturePic, theFile: "DreamRacerTestRoadTexture.png" });
-	
+
 	// billboard and images
 	imageList.push({ imgName: billboardLightPic, theFile: "BillboardLight.png" });
 	imageList.push({ imgName: blankBillboard, theFile: "BlankBillboard.png" });
@@ -361,7 +371,13 @@ function loadImages() {
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC
-	imageList.push({ imgName: fancyFont, theFile: "font.png"});
+	imageList.push({ imgName: fancyFont, theFile: "font.png" });
+	// city buildings
+	imageList.push({ imgName: skyscraper1_right, theFile: "skyscraper1_right.png" });
+	imageList.push({ imgName: skyscraper1_left, theFile: "skyscraper1_left.png" });
+	imageList.push({ imgName: skyscraper2_right, theFile: "skyscraper2_right.png" });
+	imageList.push({ imgName: skyscraper2_left, theFile: "skyscraper2_left.png" });
+
 
 	picsToLoad = imageList.length;
 
