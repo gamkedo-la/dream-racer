@@ -54,21 +54,49 @@ function aiStart(startInd, startLane, speed, acceleration, playerIndexToStart) {
 }
 
 const AIType = {
-	Pickup:"pickup",
-	Semi:"semi"
+	PickupBlue:"pickupBlue",
+	PickupBlack:"pickupBlack",
+	PickupBrown:"pickupBrown",
+	PickupGreen:"pickupGreen",
+	PickupPink:"pickupPink",
+	PickupRed:"pickupRed",
+	Semi:"semi",
+	SemiBlack:"semiBlack",
+	SemiBlue:"semiBlue",
+	SemiGreen:"semiGreen",
+	SchoolBus:"schoolBus"
 }
 
 //A.I. Car
 function AICar(aType, start, aPath) {
+	this.startIndex = start.startIndex;
 	this.path = aPath;
 	const ACCELERATION = start.acceleration;
 	this.type = aType;
 	const spriteForType = function(type) {
 		switch(type) {
-			case AIType.Pickup:
+			case AIType.PickupBlue:
 				return pickupBlueAIPic;
+			case AIType.PickupBlack:
+				return pickupBlackAIPic;
+			case AIType.PickupBrown:
+				return pickupBrownAIPic;
+			case AIType.PickupGreen:
+				return pickupGreenAIPic;
+			case AIType.PickupPink:
+				return pickupPinkAIPic;
+			case AIType.PickupRed:
+				return pickupRedAIPic;
 			case AIType.Semi:
-				return semiAIPic;//Need to change this once the semi exists in game
+				return semiAIPic;
+			case AIType.SemiBlack:
+				return semiBlackAIPic;
+			case AIType.SemiBlue:
+				return semiBlueAIPic;
+			case AIType.SemiGreen:
+				return semiGreenAIPic;
+			case AIType.SchoolBus:
+				return schoolBusAIPic;
 		}
 	}
 	this.sprite = spriteForType(aType);
@@ -79,10 +107,20 @@ function AICar(aType, start, aPath) {
 	
 	const sizeForType = function(type) {
 		switch(type) {
-			case AIType.Pickup:
+			case AIType.PickupBlue:
+			case AIType.PickupBlack:
+			case AIType.PickupBrown:
+			case AIType.PickupGreen:
+			case AIType.PickupPink:
+			case AIType.PickupRed:
 				return {width:103, height:75};
 			case AIType.Semi:
-				return {width:200, height:150};//Need to change this once the semi exists in game
+			case AIType.SemiBlack:
+			case AIType.SemiBlue:
+			case AIType.SemiGreen:
+				return {width:200, height:150};
+			case AIType.SchoolBus:
+				return {width:200, height:150};//Need to adjust this to make it right
 		}
 	}
 	const size = sizeForType(aType);
@@ -93,10 +131,18 @@ function AICar(aType, start, aPath) {
 	
 	const colliderDimsForType = function(type) {
 		switch(type) {
-			case AIType.Pickup:
-				return {xOffset: 20, yOffset: 20, zOffset: 0, width: 65, height: 50};
-			case AIType.Semi:
-				return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
+		case AIType.PickupBlue:
+		case AIType.PickupBlack:
+		case AIType.PickupBrown:
+		case AIType.PickupGreen:
+		case AIType.PickupPink:
+		case AIType.PickupRed:
+			return {xOffset: 20, yOffset: 20, zOffset: 0, width: 65, height: 50};
+		case AIType.Semi:
+		case AIType.SemiBlack:
+		case AIType.SemiBlue:
+		case AIType.SemiGreen:
+			return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
 		}
 	}
 

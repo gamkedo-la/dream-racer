@@ -51,8 +51,15 @@ function GameScene(data) {
 		}
 	}
 
+	this.aiCars = data.getAICars();
+	const roadSegments = this.road.getSegments();
+	for(let i = 0; i < this.aiCars.length; i++) {
+		const thisCar = this.aiCars[i];
+		thisCar.initializePositionAndCollider(roadSegments[thisCar.startIndex]);
+	}
+
 	//temporary A.I. car for testing
-	this.aiCars = [];
+/*	this.aiCars = [];
 	const AISegment = this.road.getSegmentAtZPos(5 * this.road.getSegmentLength());
 	const aiStartPos = new aiStart(5, Lane.Left, 10, 0.25, 0);
 	let laneChange = [];
@@ -76,7 +83,7 @@ function GameScene(data) {
 	laneChange2.push(new aiPathPoint(70, Lane.Left, 10, 0.5, 20));
 	const car2 = new AICar(AIType.Pickup, aiStartPos2, laneChange2);
 	car2.initializePositionAndCollider(this.road.getSegmentAtZPos(aiStartPos2.startIndex * this.road.getSegmentLength()));
-	this.aiCars.push(car2);
+	this.aiCars.push(car2);*/
 
 	this.currentZIndex = 0;
 	this.player = new Player();
