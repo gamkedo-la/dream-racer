@@ -8,7 +8,7 @@ var Levels = [
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
         roadReferences: [
-            JSON.parse(skyscrapersTest),
+//            JSON.parse(skyscrapersTest),
             JSON.parse(skylineTest),
             JSON.parse(finish)
         ],
@@ -21,6 +21,7 @@ var Levels = [
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline",
+        initialTime: 45 * 1000, // 30 seconds
         musicTrackIndex: 1,
         skyTransformFunc: function () {
             return { x: 0, y: 0, z: undefined };
@@ -85,6 +86,7 @@ var Levels = [
         backgroundPic: tempBackgroundPic,
         middleGroundPic: tempMiddlegroundPic,
         name: "Forest Cruise",
+        initialTime: 30 * 1000, // 30 seconds
         musicTrackIndex: 2,
         skyTransformFunc: function () {
             return { x: 0, y: 0, scale: undefined };
@@ -123,6 +125,7 @@ var Levels = [
         backgroundPic: nightSkyBackgroundPic,
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Frankenstein",
+        initialTime: 30 * 1000, // 30 seconds
         musicTrackIndex: 0,
         skyTransformFunc: function () {
             return { x: framesFromGameStart / 2, y: 0, scale: undefined };
@@ -183,6 +186,7 @@ var Levels = [
         backgroundPic: snowyMountainLevelPic,
         middleGroundPic: snowyMountainLevelPic,
         name: "Summit Descent",
+        initialTime: 30 * 1000, // 30 seconds
         musicTrackIndex: 0,
         skyTransformFunc: function (position) {
             return { x: Math.floor(position.x / 170), y: 0, scale: undefined };

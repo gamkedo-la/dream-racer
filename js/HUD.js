@@ -6,6 +6,10 @@ const SMOOTHING_DELTA = 0.01; // for the spedometer needle
 var hud = {
     desiredNeedleAngle: 0,
     currentNeedleAngle: 0,
+    timeRemainingIsLow: false,
+    flashCounter: 0,
+    timerIsRed: false,
+    timerScale: 1,
     drawTimerString: function (num, x, y) {
         var secs = Math.floor(num / 1000);
         var ms = Math.floor((num - secs * 1000) / 10); // two digits not three please
@@ -18,13 +22,22 @@ var hud = {
         str += ms;
         for (var n = 0; n < str.length; n++) {
             if (str[n] == ":") {
-                canvasContext.drawImage(hudPic, 0, 9, 8, 9, x + (8 * n) + 2, y + 1, 8, 9); // 0
+                canvasContext.drawImage(hudPic, 0, 9, 8, 9, x + (8 * n * this.timerScale) + 2, y + 1, this.timerScale * 8, this.timerScale * 9); // 0
             }
             else {
                 var sprnum = parseInt(str[n]);
-                canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (8 * n), y, 8, 9); // 0
+                canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (8 * n * this.timerScale), y, this.timerScale * 8, this.timerScale * 9); // 0
             }
         }
+        
+ 	    if(secs < 10) {
+		    this.timeRemainingIsLow = true;
+		    this.flashCounter++;
+	    } else {
+		    this.timeRemainingIsLow = false;
+		    this.flashCounter = 0;
+		    this.timerScale = 1;
+	    }
     },
     drawNumPadded: function (num, x, y) {
         var str = ("00000" + num).slice(-5); // pad with zeroes
@@ -45,7 +58,7 @@ var hud = {
         let seconds = Math.floor(timeInSeconds % 60);
         if(seconds < 10) {
             seconds = "0" + seconds;
-        }
+        } 
         if(minutes < 10) {
             minutes = "0" + minutes;
         }
@@ -141,9 +154,24 @@ var hud = {
 		}
 		
         // TIME
-        canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
+        if(this.timeRemainingIsLow) {
+	        this.timerIsRed = !this.timerIsRed;
+	        const modulatedCounter = this.flashCounter % 10;
+	        if(modulatedCounter % 2 == 0) {
+		        this.timerScale = 1 + (modulatedCounter / 10);
+		    }
+		    
+		    if(this.timerIsRed) {
+		        canvasContext.drawImage(hudPic, 705, 0, 38, 16, 8, 8, this.timerScale * 38, this.timerScale * 16);
+	        } else {
+		        canvasContext.drawImage(hudPic, 665, 0, 38, 16, 8, 8, this.timerScale * 38, this.timerScale * 16);
+	        }
+        } else {
+	        canvasContext.drawImage(hudPic, 86, 0, 38, 16, 8, 8, 38, 16);
+        }
+        
         //this.drawNumPadded(Math.floor(scene.player.laptime), 49, 11);
-        this.drawTimerString(Math.floor(scene.countdownTimeLeft), 49, 11);
+        this.drawTimerString(Math.floor(scene.countdownTimeLeft), 11 + this.timerScale * 38, 11);
 
         // SCORE
         canvasContext.drawImage(hudPic, 165, 0, 46, 16, Math.floor(canvas.width / 2 - 40), 8, 46, 16);

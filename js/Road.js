@@ -329,8 +329,7 @@ function Road(frustum) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
 					if (thisDecoration.getType() == DecorationType.CheckPoint) {
-						let timeExtend = 30000;
-						thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
+						thisDecoration.addTrigger(roadArray[i].decorations[j].trigger.timeBonus, checkpointFlagPic);
 					}
 					if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
 						let timeExtend = 0;

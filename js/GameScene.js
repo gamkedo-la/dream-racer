@@ -15,8 +15,8 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-	const CHECKPOINT_TIME_LIMIT_MS = 200 * 1000; /// 1000 per second
-	this.countdownTimeLeft = CHECKPOINT_TIME_LIMIT_MS;
+//	const CHECKPOINT_TIME_LIMIT_MS = 20 * 1000; /// 1000 per second
+	this.countdownTimeLeft = data.initialTime; //CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
 	this.previousFrameTimestamp = null;
@@ -103,7 +103,8 @@ function GameScene(data) {
 					return;
 				} else {
 					const timeAdded = timeBonus / 1000;
-					printWord("+ " + timeAdded + " !!", canvas.width / 2 - 100, 150);
+					canvasContext.drawImage(timeBonusPic, canvas.width / 2 - 100, 150);
+//					printWord(timeAdded + " !!", canvas.width / 2 - 100, 150);
 					timeExtendCounter++;
 				}
 			}
@@ -286,11 +287,13 @@ function GameScene(data) {
 						this.stats.time = this.totalTime - this.countdownTimeLeft;
 					}
 					if (thisDecoration.trigger.sprite == checkpointFlagPic) {
+						console.log("Time Bonus: " + thisDecoration.trigger.timeBonus);
 						this.countdownTimeLeft += thisDecoration.trigger.timeBonus;
 						this.totalTime += thisDecoration.trigger.timeBonus;
 						thisDecoration.trigger.hasInteracted = true;
 						passedACheckPoint = true;
-						newTimeBonus = thisDecoration.trigger.timeBonus;
+//						newTimeBonus = thisDecoration.trigger.timeBonus;
+						newTimeBonus = 45000;
 					}
 				}
 			}
