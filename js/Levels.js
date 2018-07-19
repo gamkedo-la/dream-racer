@@ -21,7 +21,7 @@ var Levels = [
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Night City Skyline",
         initialTime: 45 * 1000, // 30 seconds
-        musicTrackIndex: 1,
+        musicTrackIndex: 2,
         skyTransformFunc: function () {
             return { x: 0, y: 0, z: undefined };
         },
@@ -86,7 +86,7 @@ var Levels = [
         middleGroundPic: tempMiddlegroundPic,
         name: "Forest Cruise",
         initialTime: 30 * 1000, // 30 seconds
-        musicTrackIndex: 2,
+        musicTrackIndex: 4,
         skyTransformFunc: function () {
             return { x: 0, y: 0, scale: undefined };
         },
@@ -125,7 +125,7 @@ var Levels = [
         middleGroundPic: nightSkyMiddlegroundPic,
         name: "Frankenstein",
         initialTime: 30 * 1000, // 30 seconds
-        musicTrackIndex: 0,
+        musicTrackIndex: 1,
         skyTransformFunc: function () {
             return { x: framesFromGameStart / 2, y: 0, scale: undefined };
         },
@@ -186,7 +186,7 @@ var Levels = [
         middleGroundPic: snowyMountainLevelPic,
         name: "Summit Descent",
         initialTime: 30 * 1000, // 30 seconds
-        musicTrackIndex: 0,
+        musicTrackIndex: 5,
         skyTransformFunc: function (position) {
             return { x: Math.floor(position.x / 170), y: 0, scale: undefined };
         },

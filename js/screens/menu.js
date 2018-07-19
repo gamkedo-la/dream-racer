@@ -11,9 +11,17 @@ function MenuScreen() {
         if (scene !== null) {
             scene = null;
         }
+        
+        if(currentBackgroundMusic.getTime() > 0){
+            currentBackgroundMusic.resume();    
+        }
+        else {
+            currentBackgroundMusic.play();
+        }
     };
     this.transitionOut = function menuScreenTransitionOut() {
         uiSelect.play();
+        currentBackgroundMusic.pause();
     };
 
     this.drawBG = function menuScreenDrawBG() {

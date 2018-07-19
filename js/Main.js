@@ -93,6 +93,7 @@ window.onload = function () {
 	initializeInput();
 	loadImages();
     makeAnimatedSprites();
+    currentBackgroundMusic.setCurrentTrack(0);
 	ScreenStates.setState(MENU_SCREEN);
 };
 
