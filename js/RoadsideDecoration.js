@@ -92,6 +92,7 @@ const DecorationType = {
 	SmallTireStack: "Tires1",
 	LargeTireStack: "Tires2",
 }
+
 function RoadsideDecoration(image, pos) {
 	let sprite = image;
 	this.setSprite = function (newSprite) {
@@ -281,9 +282,9 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.CoffeeBillboard;
 			case "CoffeeBillboardSnow.png":
 				return DecorationType.CoffeeBillboardSnow;
-			case "SandwichBillboard.png":
+			case "SandwhichBillboard.png":
 				return DecorationType.SandwhichBillboard;
-			case "SandwichBillboardSnow.png":
+			case "SandwhichBillboardSnow.png":
 				return DecorationType.SandwhichBillboardSnow;
 			case "BillboardLight.png":
 				return DecorationType.BillboardLight;
@@ -485,12 +486,12 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.BurgerBillboardSnow:
 			case DecorationType.CoffeeBillboard:
 			case DecorationType.CoffeeBillboardSnow:
-			case DecorationType.SandwhichBillboard:
-			case DecorationType.SandwhichBillboardSnow:
 			case DecorationType.WeMustPrepareBillboard:
 			case DecorationType.ArcaNinjaDroidBillboard:
 			case DecorationType.ArcaNinjaDroidBillboardSnow:
 			case DecorationType.GlobutonBillboard:
+			case DecorationType.SandwhichBillboard:
+			case DecorationType.SandwhichBillboardSnow:
 				return { xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10 };
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.ClashTracksBillboardSnow:

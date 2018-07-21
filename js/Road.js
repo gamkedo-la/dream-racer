@@ -249,6 +249,8 @@ function Road(frustum) {
 				for (let j = 0; j < roadArray[i].decorations.length; j++) {
 					const imageName = imgNameForFileName(roadArray[i].decorations[j].fileName);
 					const thisDecoration = new RoadsideDecoration(imageName, roadArray[i].decorations[j].world);
+					thisDecoration.typeForFileName();
+
 					if (thisDecoration.getType() == DecorationType.CheckPoint) {
 						if((thisDecoration.trigger != null) && (thisDecoration.trigger != undefined)) {
 							thisDecoration.addTrigger(roadArray[i].decorations[j].trigger.timeBonus, checkpointFlagPic);
@@ -265,7 +267,7 @@ function Road(frustum) {
 							   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack)) {
 						thisDecoration.animated = true;
 					}
-					thisDecoration.typeForFileName();
+					
 					thisDecoration.addCollider();
 					newSegment.decorations.push(thisDecoration);
 				}
