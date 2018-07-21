@@ -120,7 +120,7 @@ function AICar(aType, start, aPath) {
 			case AIType.SemiGreen:
 				return {width:200, height:150};
 			case AIType.SchoolBus:
-				return {width:200, height:150};//Need to adjust this to make it right
+				return {width:201, height:136};//Need to adjust this to make it right
 		}
 	}
 	const size = sizeForType(aType);
@@ -143,6 +143,8 @@ function AICar(aType, start, aPath) {
 		case AIType.SemiBlue:
 		case AIType.SemiGreen:
 			return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
+		case AIType.SchoolBus:
+			return {xOffset: 50, yOffset: 50, zOffset: 0, width: 105, height: 80};
 		}
 	}
 
