@@ -42,69 +42,69 @@ var Levels = [
         getAICars: function () {
             const cars = [];
             
-            const aiStartPos1 = new aiStart(5, Lane.Left, 10, 0.25, 0);
+            const aiStartPos1 = new aiStart(25, Lane.Left, 10, 0.25, 0);
             let laneChange1 = [];
-            laneChange1.push(new aiPathPoint(6, Lane.Left, 10, 0.5, 20));
-            laneChange1.push(new aiPathPoint(15, Lane.Center, 10, 0.5, 20));
-            laneChange1.push(new aiPathPoint(20, Lane.Right, 10, 0.5, 20));
-            laneChange1.push(new aiPathPoint(30, Lane.Left, 10, 0.5, 20));
+            laneChange1.push(new aiPathPoint(26, Lane.Left, 10, 0.5, 20));
+            laneChange1.push(new aiPathPoint(35, Lane.Center, 10, 0.5, 20));
             laneChange1.push(new aiPathPoint(40, Lane.Right, 10, 0.5, 20));
+            laneChange1.push(new aiPathPoint(50, Lane.Left, 10, 0.5, 20));
+            laneChange1.push(new aiPathPoint(60, Lane.Right, 10, 0.5, 20));
 
             const car1 = new AICar(AIType.PickupBlue, aiStartPos1, laneChange1);
             cars.push(car1);
 
-            const aiStartPos2 = new aiStart(15, Lane.Right, 10, 0.25, 0);
+            const aiStartPos2 = new aiStart(35, Lane.Right, 10, 0.25, 0);
             let laneChange2 = [];
-            laneChange2.push(new aiPathPoint(16, Lane.Right, 10, 0.5, 20));
-            laneChange2.push(new aiPathPoint(45, Lane.Center, 10, 0.5, 20));
-            laneChange2.push(new aiPathPoint(50, Lane.Right, 5, 0.5, 20));
-            laneChange2.push(new aiPathPoint(60, Lane.Right, 5, 0.5, 20));
-            laneChange2.push(new aiPathPoint(70, Lane.Left, 10, 0.5, 20));
+            laneChange2.push(new aiPathPoint(36, Lane.Right, 10, 0.5, 20));
+            laneChange2.push(new aiPathPoint(65, Lane.Center, 10, 0.5, 20));
+            laneChange2.push(new aiPathPoint(70, Lane.Right, 5, 0.5, 20));
+            laneChange2.push(new aiPathPoint(80, Lane.Right, 5, 0.5, 20));
+            laneChange2.push(new aiPathPoint(90, Lane.Left, 10, 0.5, 20));
 
             const car2 = new AICar(AIType.PickupPink, aiStartPos2, laneChange2);
             cars.push(car2);
             
-            const aiStartPos3 = new aiStart(35, Lane.Left, 10, 0.25, 10);
+            const aiStartPos3 = new aiStart(85, Lane.Left, 10, 0.25, 60);
             let laneChange3 = [];
-            laneChange3.push(new aiPathPoint(36, Lane.Left, 10, 0.5, 20));
-            laneChange3.push(new aiPathPoint(45, Lane.Center, 10, 0.5, 20));
-            laneChange3.push(new aiPathPoint(50, Lane.Right, 10, 0.5, 20));
-            laneChange3.push(new aiPathPoint(60, Lane.Left, 10, 0.5, 20));
-            laneChange3.push(new aiPathPoint(70, Lane.Right, 10, 0.5, 20));
+            laneChange3.push(new aiPathPoint(86, Lane.Left, 10, 0.5, 20));
+            laneChange3.push(new aiPathPoint(95, Lane.Center, 10, 0.5, 20));
+            laneChange3.push(new aiPathPoint(100, Lane.Right, 10, 0.5, 20));
+            laneChange3.push(new aiPathPoint(110, Lane.Left, 10, 0.5, 20));
+            laneChange3.push(new aiPathPoint(120, Lane.Right, 10, 0.5, 20));
 
             const car3 = new AICar(AIType.SemiGreen, aiStartPos3, laneChange3);
             cars.push(car3);
 
-            const aiStartPos4 = new aiStart(45, Lane.Right, 10, 0.25, 10);
+            const aiStartPos4 = new aiStart(95, Lane.Right, 10, 0.25, 60);
             let laneChange4 = [];
-            laneChange4.push(new aiPathPoint(56, Lane.Right, 10, 0.5, 20));
-            laneChange4.push(new aiPathPoint(85, Lane.Center, 10, 0.5, 20));
-            laneChange4.push(new aiPathPoint(90, Lane.Right, 5, 0.5, 20));
-            laneChange4.push(new aiPathPoint(100, Lane.Right, 5, 0.5, 20));
-            laneChange4.push(new aiPathPoint(120, Lane.Left, 10, 0.5, 20));
+            laneChange4.push(new aiPathPoint(106, Lane.Right, 10, 0.5, 20));
+            laneChange4.push(new aiPathPoint(135, Lane.Center, 10, 0.5, 20));
+            laneChange4.push(new aiPathPoint(140, Lane.Right, 5, 0.5, 20));
+            laneChange4.push(new aiPathPoint(150, Lane.Right, 5, 0.5, 20));
+            laneChange4.push(new aiPathPoint(170, Lane.Left, 10, 0.5, 20));
 
             const car4 = new AICar(AIType.PickupRed, aiStartPos4, laneChange4);
             cars.push(car4);
 
 
-            const aiStartPos5 = new aiStart(55, Lane.Left, 10, 0.25, 20);
+            const aiStartPos5 = new aiStart(125, Lane.Left, 10, 0.25, 90);
             let laneChange5 = [];
-            laneChange5.push(new aiPathPoint(56, Lane.Left, 10, 0.5, 20));
-            laneChange5.push(new aiPathPoint(65, Lane.Center, 10, 0.5, 20));
-            laneChange5.push(new aiPathPoint(70, Lane.Right, 10, 0.5, 20));
-            laneChange5.push(new aiPathPoint(80, Lane.Left, 10, 0.5, 20));
-            laneChange5.push(new aiPathPoint(90, Lane.Right, 10, 0.5, 20));
+            laneChange5.push(new aiPathPoint(126, Lane.Left, 10, 0.5, 20));
+            laneChange5.push(new aiPathPoint(135, Lane.Center, 10, 0.5, 20));
+            laneChange5.push(new aiPathPoint(140, Lane.Right, 10, 0.5, 20));
+            laneChange5.push(new aiPathPoint(150, Lane.Left, 10, 0.5, 20));
+            laneChange5.push(new aiPathPoint(160, Lane.Right, 10, 0.5, 20));
 
             const car5 = new AICar(AIType.SemiBlue, aiStartPos5, laneChange5);
             cars.push(car5);
 
-            const aiStartPos6 = new aiStart(95, Lane.Center, 10, 0.25, 30);
+            const aiStartPos6 = new aiStart(155, Lane.Center, 10, 0.25, 30);
             let laneChange6 = [];
-            laneChange6.push(new aiPathPoint(96, Lane.Right, 10, 0.5, 20));
-            laneChange6.push(new aiPathPoint(125, Lane.Center, 10, 0.5, 20));
-            laneChange6.push(new aiPathPoint(130, Lane.Right, 5, 0.5, 20));
-            laneChange6.push(new aiPathPoint(140, Lane.Right, 5, 0.5, 20));
-            laneChange6.push(new aiPathPoint(150, Lane.Left, 10, 0.5, 20));
+            laneChange6.push(new aiPathPoint(156, Lane.Right, 10, 0.5, 20));
+            laneChange6.push(new aiPathPoint(185, Lane.Center, 10, 0.5, 20));
+            laneChange6.push(new aiPathPoint(205, Lane.Right, 5, 0.5, 20));
+            laneChange6.push(new aiPathPoint(220, Lane.Right, 5, 0.5, 20));
+            laneChange6.push(new aiPathPoint(250, Lane.Left, 10, 0.5, 20));
 
             const car6 = new AICar(AIType.PickupBlack, aiStartPos6, laneChange6);
             cars.push(car6);
