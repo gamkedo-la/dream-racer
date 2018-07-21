@@ -1,7 +1,7 @@
 // a very simple particle system that rotates scales and fades sprites
 // made by McFunkypants for Dream Racer, a gamekdo.com club project!
 
-// hardoded "back tire / bumper" offsets for car animation frames
+// hardcoded "back tire / bumper" offsets for car animation frames
 // remember, the car sprite has x3 pixel zoom
 const carParticleOffset = [
     [0, 0],  // straight
@@ -13,24 +13,24 @@ const carParticleOffset = [
     [-10, -20],
     [-15, -30],
     [-20, -40], // far right
-    [0, 0], // downhill straight
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0], // downhill left
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0], // downhill right
-    [0, 0], // uphill straight
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0], // uphill left
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0] // uphill right
+    [0, 0], // downhill
+    [40, 0],
+    [70, 0],
+    [100, 0],
+    [140, 0], // far left
+    [-5, -10],
+    [-10, -20],
+    [-15, -30],
+    [-20, -40], // far right
+    [0, 0], // uphill
+    [40, 0],
+    [70, 0],
+    [100, 0],
+    [140, 0], // far left
+    [-5, -10],
+    [-10, -20],
+    [-15, -30],
+    [-20, -40], // far right
 ];
 
 function fxSystem() { // class constructor
@@ -156,11 +156,26 @@ function fxSystem() { // class constructor
         const OFFROAD_DIRT_SIZE = 32;
         const OFFROAD_DIRT_COLOR1 = 'rgba(117,76,36,1)'; // brown
         const OFFROAD_DIRT_COLOR2 = 'rgba(20,255,20,1)'; // light green
+        const OFFROAD_DIRT_COLOR_SNOW1 = 'rgba(200,200,255,1)'; // blueish white
+        const OFFROAD_DIRT_COLOR_SNOW2 = 'rgba(255,255,255,1)'; // white
         const XMINS = -2; // speeds
         const XMAXS = 2;
         const YMINS = 0;
         const YMAXS = 6;
+        var c1, c2, c3, c4; // colours
 
+        if (currentLevelIndex == 3) // level 3 is snowy mountain - FIXME: add snowy frankenstein levels if any exist?
+        {   // white and blue snow
+            c1 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR_SNOW1 : OFFROAD_DIRT_COLOR_SNOW2);
+            c2 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR_SNOW1 : OFFROAD_DIRT_COLOR_SNOW2);
+            c3 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR_SNOW1 : OFFROAD_DIRT_COLOR_SNOW2);
+            c4 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR_SNOW1 : OFFROAD_DIRT_COLOR_SNOW2);
+        } else { // any other level: brown and green mud and grass
+            c1 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2);
+            c2 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2);
+            c3 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2);
+            c4 = (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2);
+        }
 
         if (Math.random() < OFFROAD_DIRT_CHANCE) { // so it doesn't add one every single frame
             // front left tire    
@@ -169,7 +184,7 @@ function fxSystem() { // class constructor
                 car.position.y + 16,
                 particlePic,
                 OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
-                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                c1,
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // front right tire    
@@ -178,7 +193,7 @@ function fxSystem() { // class constructor
                 car.position.y + 16,
                 particlePic,
                 OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
-                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                c2,
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // back left tire    
@@ -187,7 +202,7 @@ function fxSystem() { // class constructor
                 car.position.y + 128,
                 particlePic,
                 OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
-                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                c3,
                 XMINS, XMAXS, YMINS, YMAXS
             );
             // back right tire    
@@ -196,7 +211,7 @@ function fxSystem() { // class constructor
                 car.position.y + 128,
                 particlePic,
                 OFFROAD_DIRT_LIFESPAN, OFFROAD_DIRT_SIZE,
-                (Math.random() < 0.5 ? OFFROAD_DIRT_COLOR1 : OFFROAD_DIRT_COLOR2),
+                c4,
                 XMINS, XMAXS, YMINS, YMAXS
             );
         }
