@@ -265,12 +265,12 @@ function AICar(aType, start, aPath) {
 			if(framePos.x > 6) {
 				framePos.x = 6;
 			}
-		} else if(deltaX < 0) {
+		} else if(deltaX < -10) {
 			framePos.x++;
 			if(framePos.x > 5) {
 				framePos.x = 5;
 			}
-		} else if(deltaX == 0) {
+		} else if((deltaX >= -10) || (deltaX <= 10)) {
 			if(framePos.x > 4) {
 				framePos.x--;
 			} else if(framePos.x < 4) {
@@ -291,7 +291,7 @@ function AICar(aType, start, aPath) {
 			if(framePos.x < 2) {
 				framePos.x = 2;
 			}
-		} else if(deltaX > 0) {
+		} else if(deltaX > 10) {
 			framePos.x--;
 			if(framePos.x < 3) {
 				framePos.x = 3;
