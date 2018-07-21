@@ -27,9 +27,11 @@ const schoolBusAIPic = document.createElement("img");
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
 const curvyRoadSignPic = document.createElement("img");
+const curvyRoadSignPicSnow = document.createElement("img");
 const hardLeftTurnSignPic = document.createElement("img");
 const hardRightTurnSignPic = document.createElement("img");
 const downHillGenericSignPic = document.createElement("img");
+const downHillGenericSignPicSnow = document.createElement("img");
 const downHillAheadSignPic = document.createElement("img");
 const downHillSignPic = document.createElement("img");
 const upHillGenericSignPic = document.createElement("img");
@@ -52,6 +54,7 @@ const yoloSign_LeftSideLightPic = document.createElement("img");
 const startFreewaySign_LeftSidePic = document.createElement("img");
 const startFreewaySign_LeftSideLightPic = document.createElement("img");
 const endFreewaySign_RightSidePic = document.createElement("img");
+const endFreewaySign_RightSidePicSnow = document.createElement("img");
 const endFreewaySign_RightSideLightPic = document.createElement("img");
 const digitalSignDontTextBack = document.createElement("img");
 // trees/poles/obstacles
@@ -109,11 +112,13 @@ const eastCoastBillboard = document.createElement("img");
 const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
 const mageHookBillboard = document.createElement("img");
+const mageHookBillboardSnow = document.createElement("img");
 const tinyRoboRacersBillboard = document.createElement("img");
 const chrisForPresidentBillboard = document.createElement("img");
 const burgerBillboard = document.createElement("img");
 const burgerBillboardSnow = document.createElement("img");
 const clashTracksBillboard = document.createElement("img");
+const clashTracksBillboardSnow = document.createElement("img");
 const notABillboard = document.createElement("img");
 const attractionsBillboard = document.createElement("img");
 const coffeeBillboard = document.createElement("img");
@@ -121,7 +126,9 @@ const coffeeBillboardSnow = document.createElement("img");
 const sandwhichBillboard = document.createElement("img");
 const sandwhichBillboardSnow = document.createElement("img");
 const aetherBillboard = document.createElement("img");
+const aetherBillboardSnow = document.createElement("img");
 const arcaNinjaDroidBillboard = document.createElement("img");
+const arcaNinjaDroidBillboardSnow = document.createElement("img");
 const globutonBillboard = document.createElement("img");
 const weMustPrepareBillboard = document.createElement("img");
 // FX.js
@@ -134,87 +141,6 @@ const imageList = [];
 const billboardSprites = [];
 
 let picsToLoad = 0;
-
-// lookup table of decorations used by Road.generateRandomRoad
-var allDecorations = [
-	//tempCheckeredFlagPic,
-	//checkpointFlagPic,
-	curvyRoadSignPic,
-	hardLeftTurnSignPic,
-	hardRightTurnSignPic,
-	downHillGenericSignPic,
-	downHillAheadSignPic,
-	downHillSignPic,
-	upHillGenericSignPic,
-	upHillAheadSignPic,
-	upHillSignPic,
-	iceSignPic,
-	snowflakeSignPic,
-	leftTurnSignPic,
-	otherDriversSignPic,
-	questionSignPic,
-	rightTurnSignPic,
-	roadNarrowSignPic,
-	speedLimitSlowSignPic,
-	speedLimitFastSignPic,
-	digitalSignDontTextBack,
-	palmTreePic,
-	tree3Pic,
-	tree4Pic,
-	tree6Pic,
-	warningSignPic,
-	kangarooSignPic,
-	sideBarrierEndPic,
-	sideBarrierStartPic,
-	sideBarrierMidPic,
-	rightStreetLightPic,
-	leftStreetLightPic,
-	rightStreetLightNoLightPic,
-	leftStreetLightNoLightPic,
-	straightPowerPolePic,
-	straightPowerPoleCrossBeamsPic,
-	straightPowerPoleCrossBeamsSlantLeftPic,
-	straightPowerPoleCrossBeamsSlantRightPic,
-	blankBillboard,
-	obeyBillboard,
-	eastCoastBillboard,
-	niceCityBillboard,
-	romanAdventureBillboard,
-	mageHookBillboard,
-	tinyRoboRacersBillboard,
-	chrisForPresidentBillboard,
-	burgerBillboard,
-	clashTracksBillboard,
-	notABillboard,
-	attractionsBillboard,
-	weMustPrepareBillboard,
-	billboardLightPic,
-	aetherBillboard,
-	arcaNinjaDroidBillboard,
-	globutonBillboard,
-	nextExitSignPic,
-	nextExitSignLeftSidePic,
-	nextExitSignLeftSideLightPic,
-	yoloSign_LeftSidePic,
-	yoloSign_LeftSideLightPic,
-	startFreewaySign_LeftSidePic,
-	startFreewaySign_LeftSideLightPic,
-	endFreewaySign_RightSidePic,
-	endFreewaySign_RightSideLightPic,
-	radioTowerNightPic,
-	waterTowerPic,
-	smallTireStackPic,
-	largeTireStackPic,
-	coffeeBillboard,
-	coffeeBillboardSnow,
-	burgerBillboardSnow,
-	sandwhichBillboard,
-	sandwhichBillboardSnow
-];
-
-function randomDecoration() {
-	return allDecorations[Math.floor(Math.random() * allDecorations.length)];
-}
 
 function countLoadedImageAndLaunchIfReady() {
 	picsToLoad--;
@@ -257,9 +183,11 @@ function loadImages() {
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
 	imageList.push({ imgName: curvyRoadSignPic, theFile: "CurvyRoadSign.png" });
+	imageList.push({ imgName: curvyRoadSignPicSnow, theFile: "CurvyRoadSignSnow.png" });
 	imageList.push({ imgName: hardLeftTurnSignPic, theFile: "HardLeftTurnSign.png" });
 	imageList.push({ imgName: hardRightTurnSignPic, theFile: "HardRightTurnSign.png" });
 	imageList.push({ imgName: downHillGenericSignPic, theFile: "HillDownSignV0.png" });
+	imageList.push({ imgName: downHillGenericSignPicSnow, theFile: "HillDownSignV0Snow.png" });
 	imageList.push({ imgName: downHillAheadSignPic, theFile: "HillDownSignV1.png" });
 	imageList.push({ imgName: downHillSignPic, theFile: "HillDownSignV2.png" });
 	imageList.push({ imgName: upHillGenericSignPic, theFile: "HillUpSignV0.png" });
@@ -284,6 +212,7 @@ function loadImages() {
 	imageList.push({ imgName: startFreewaySign_LeftSidePic, theFile: "StartFreewaySign_LeftSide.png" });
 	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_LeftSideLight.png" });
 	imageList.push({ imgName: endFreewaySign_RightSidePic, theFile: "EndFreewaySign_RightSide.png" });
+	imageList.push({ imgName: endFreewaySign_RightSidePicSnow, theFile: "EndFreewaySign_RightSideSnow.png" });
 	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });
 	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });
 	// trees/poles/obstacles
@@ -344,6 +273,8 @@ function loadImages() {
 	billboardSprites.push(romanAdventureBillboard);
 	imageList.push({ imgName: mageHookBillboard, theFile: "MageHookBillboard.png" });
 	billboardSprites.push(mageHookBillboard);
+	imageList.push({ imgName: mageHookBillboardSnow, theFile: "MageHookBillboardSnow.png" });
+	billboardSprites.push(mageHookBillboardSnow);
 	imageList.push({ imgName: tinyRoboRacersBillboard, theFile: "TinyRoboRacersBillboard.png" });
 	billboardSprites.push(tinyRoboRacersBillboard);
 	imageList.push({ imgName: chrisForPresidentBillboard, theFile: "chrisForPresident.png" });
@@ -354,6 +285,8 @@ function loadImages() {
 	billboardSprites.push(burgerBillboardSnow);
 	imageList.push({ imgName: clashTracksBillboard, theFile: "ClashTracksBillboard.png" });
 	billboardSprites.push(clashTracksBillboard);
+	imageList.push({ imgName: clashTracksBillboardSnow, theFile: "ClashTracksBillboardSnow.png" });
+	billboardSprites.push(clashTracksBillboardSnow);
 	imageList.push({ imgName: notABillboard, theFile: "NotABillboard.png" });
 	billboardSprites.push(notABillboard);
 	imageList.push({ imgName: attractionsBillboard, theFile: "roadsideAttractions.png" });
@@ -370,6 +303,8 @@ function loadImages() {
 	billboardSprites.push(aetherBillboard);
 	imageList.push({ imgName: arcaNinjaDroidBillboard, theFile: "ArcaninjadroidBillboard.png" }); ////
 	billboardSprites.push(arcaNinjaDroidBillboard);
+	imageList.push({ imgName: arcaNinjaDroidBillboardSnow, theFile: "ArcaninjadroidBillboardSnow.png" }); ////
+	billboardSprites.push(arcaNinjaDroidBillboardSnow);
 	imageList.push({ imgName: globutonBillboard, theFile: "GlobutonBillboard.png" }); ////
 	billboardSprites.push(globutonBillboard);
 	imageList.push({ imgName: weMustPrepareBillboard, theFile: "WeMustPrepareBillboard.png" }); ////
