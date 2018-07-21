@@ -387,6 +387,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.AttractionsBillboard:
 				return 2;
 			case DecorationType.CheckeredFlag:
+				return 6;
 			case DecorationType.RadioTowerNight:
 				return 5;
 			default:

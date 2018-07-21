@@ -56,7 +56,7 @@ function MenuScreen() {
         canvasContext.drawImage(snowyMountainLevelPic, -(fgpos % snowyMountainLevelPic.width) + snowyMountainLevelPic.width, fgY);
 
         // render the checkered flag foreground
-        checkeredFlagSprite.draw(232, 290, 0.25, true, 0.5, 4, true);
+        checkeredFlagSprite.draw(232, 290, 0.25, true, 0.5, 4, false);
 
     }
 

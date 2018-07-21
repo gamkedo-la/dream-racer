@@ -37,8 +37,8 @@ function makeAnimatedSprites() {
 	});
 	checkeredFlagSprite = new AnimatedSpriteClass({
 			spriteSheet: tempCheckeredFlagPic,
-			animationFrames: 5,
-			framesUntilNext: 14,
+			animationFrames: 6,
+			framesUntilNext: 6,
 			framesMoveSideways: true,
 			loops: true,
 	});
