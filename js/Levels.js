@@ -96,7 +96,32 @@ var Levels = [
         middlegroundTransformFunc: function (position) {
             return { x: Math.floor(position.x / 20), y: 0, scale: undefined }
         },
+		getAICars: function () {
+            const cars = [];
+            const aiStartPos = new aiStart(5, Lane.Left, 10, 0.25, 0);
+            let laneChange = [];
+            laneChange.push(new aiPathPoint(6, Lane.Left, 10, 0.5, 20));
+            laneChange.push(new aiPathPoint(15, Lane.Center, 10, 0.5, 20));
+            laneChange.push(new aiPathPoint(20, Lane.Right, 10, 0.5, 20));
+            laneChange.push(new aiPathPoint(30, Lane.Left, 10, 0.5, 20));
+            laneChange.push(new aiPathPoint(40, Lane.Right, 10, 0.5, 20));
 
+            const car1 = new AICar(AIType.PickupGreen, aiStartPos, laneChange);
+            cars.push(car1);
+
+            const aiStartPos2 = new aiStart(15, Lane.Right, 10, 0.25, 0);
+            let laneChange2 = [];
+            laneChange2.push(new aiPathPoint(16, Lane.Right, 10, 0.5, 20));
+            laneChange2.push(new aiPathPoint(45, Lane.Center, 10, 0.5, 20));
+            laneChange2.push(new aiPathPoint(50, Lane.Right, 5, 0.5, 20));
+            laneChange2.push(new aiPathPoint(60, Lane.Right, 5, 0.5, 20));
+            laneChange2.push(new aiPathPoint(70, Lane.Left, 10, 0.5, 20));
+
+            const car2 = new AICar(AIType.PickupRed, aiStartPos2, laneChange2);
+            cars.push(car2);
+
+            return cars;
+        }
     },
     {
         totalHeight: GAME_HEIGHT,
