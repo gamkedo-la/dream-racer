@@ -325,8 +325,8 @@ var engineOverlap = 500;
 function setEngineAudioFromRPMs(RPMs) {
 	//colorText(RPMs,20,20,'black','Courier')
 	var rpms = RPMs;
-	if (rpms < 0) {
-		engine_master.pause();
+	if (rpms <= 0) {
+		AudioEventManager.addFadeEvent(engine_master.getCurrentSound(), 1.0, 0);
 		return;
 	}
 	rpms = rpms > 6000 ? 6000 : rpms;

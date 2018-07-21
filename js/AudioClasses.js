@@ -399,6 +399,10 @@ function sfxContainer(clipList) {//Basic Container
 	this.getCurrentClip = function() {
 		 return currentClip;
 	}
+	
+	this.getCurrentSound = function() {
+		return soundFile[currentClip];
+	}
 
 	this.getListLength = function() {
 		 return soundFile.length;
@@ -840,6 +844,10 @@ function musicContainer(trackList) {//Basic containers
 
 	this.getCurrentTrack = function() {
 		 return currentTrack;
+	}
+	
+	this.getCurrentMusic = function() {
+		return musicTrack[currentTrack];
 	}
 
 	this.getListLength = function() {
