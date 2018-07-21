@@ -569,9 +569,9 @@ function EditorScene(data) {
 			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
 			new DecorationUIElement(tree4LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-/*			new DecorationUIElement(iceSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-			new DecorationUIElement(snowflakeSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(warningSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(questionSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+/*			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(tree3LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
 
