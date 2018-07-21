@@ -7,7 +7,7 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
-		//	JSON.parse(sampleLighting)
+			JSON.parse(skylineTest)
 		//		JSON.parse(skylineTest)	
 		//				JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
@@ -554,26 +554,26 @@ function EditorScene(data) {
 			new DecorationUIElement(radioTowerNightPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
 			new DecorationUIElement(kangarooSignPic, { x: canvas.width - (9 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
-			new DecorationUIElement(endFreewaySign_RightSidePicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(downHillGenericSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-			new DecorationUIElement(curvyRoadSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(hardLeftTurnSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(hardRightTurnSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(downHillAheadSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
+			new DecorationUIElement(digitalSignDontTextBack, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(endFreewaySign_RightSidePicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(downHillGenericSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(curvyRoadSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(hardLeftTurnSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(hardRightTurnSignPicSnow, { x: canvas.width - (10 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
+			
+			new DecorationUIElement(downHillAheadSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(downHillSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(iceSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(snowflakeSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree3LeaflessPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
-			new DecorationUIElement(downHillSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(iceSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-			new DecorationUIElement(snowflakeSignPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(tree3LeaflessPicSnow, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (11 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
-
-			new DecorationUIElement(tree4LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
-			new DecorationUIElement(warningSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
-			new DecorationUIElement(questionSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
-/*			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
-			new DecorationUIElement(tree3LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
+			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+			new DecorationUIElement(tree4LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(warningSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(questionSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+/*			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree3LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
 
 
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),

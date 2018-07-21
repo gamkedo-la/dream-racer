@@ -256,14 +256,13 @@ function Road(frustum) {
 							let timeExtend = 30000;
 							thisDecoration.addTrigger(timeExtend, checkpointFlagPic);	
 						}
-					}
-					if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
+					} else if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
 						let timeExtend = 0;
 						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 						thisDecoration.animated = true;
-					}
-					if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
-						(thisDecoration.getType() == DecorationType.RadioTowerNight)) {
+					} else if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
+							   (thisDecoration.getType() == DecorationType.RadioTowerNight) ||
+							   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack)) {
 						thisDecoration.animated = true;
 					}
 					thisDecoration.typeForFileName();
@@ -338,13 +337,13 @@ function Road(frustum) {
 				if (thisDecoration.getType() == DecorationType.CheckPoint) {
 					let timeExtend = 30000;
 					thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
-				}
-				if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
+				} else if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
 					let timeExtend = 0;
 					thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 					thisDecoration.animated = true;
-				}
-				if (thisDecoration.getType() == DecorationType.AttractionsBillboard) {
+				} else if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
+						   (thisDecoration.getType() == DecorationType.RadioTowerNight) ||
+						   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack)) {
 					thisDecoration.animated = true;
 				}
 				thisDecoration.addCollider();

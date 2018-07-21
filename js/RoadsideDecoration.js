@@ -2,18 +2,21 @@
 const DecorationType = {
 	AetherBillboard: "AetherBillboard",
 	ArcaNinjaDroidBillboard: "ArcaNinjaDroidBillboard",
+	ArcaNinjaDroidBillboardSnow: "ArcaNinjaDroidBillboardSnow",
 	AttractionsBillboard: "roadsideAttractions",
 	BlankBillboard: "BlankBillboard",
 	BurgerBillboard: "BurgerBillboard",
 	BurgerBillboardSnow: "BurgerBillboardSnow",
 	ChrisForPresidentBillboard: "chrisForPresident",
 	ClashTracksBillboard: "ClashTracksBillboard",
+	ClashTracksBillboardSnow: "ClashTracksBillboardSnow",
 	CoffeeBillboard: "CoffeeBillboard",
 	CoffeeBillboardSnow: "CoffeeBillboardSnow",
 	DigitalSignDontTextBack: "DigitalSignDontTextBack",
 	EastCoastBillboard: "EastCoastBillboard",
 	GlobutonBillboard: "GlobutonBillboard",
 	MageHookBillboard: "MageHookBillboard",
+	MageHookBillboardSnow: "MageHookBillboardSnow",
 	NiceCityBillboard: "NiceCityBillboard",
 	ObeyBillboard: "ObeyBillboard",
 	RomanAdventureBillboard: "RomanAdventureBillboard",
@@ -26,16 +29,24 @@ const DecorationType = {
 	CheckeredFlag: "CheckeredFlag",
 	CheckPoint: "CheckPoint",
 	CurvyRoadSign: "CurvyRoadSign",
+	CurvyRoadSignSnow: "CurvyRoadSignSnow",
 	HardLeftTurnSign: "HardLeftTurnSign",
+	HardLeftTurnSignSnow: "HardLeftTurnSignSnow",
 	HardRightTurnSign: "HardRightTurnSign",
+	HardRightTurnSignSnow: "HardRightTurnSignSnow",
 	HillDownSignV0: "HillDownSignV0",
 	HillDownSignV1: "HillDownSignV1",
 	HillDownSignV2: "HillDownSignV2",
+	HillDownSignV0Snow: "HillDownSignV0Snow",
+	HillDownSignV1Snow: "HillDownSignV1Snow",
+	HillDownSignV2Snow: "HillDownSignV2Snow",
 	HillUpSignV0: "HillUpSignV0",
 	HillUpSignV1: "HillUpSignV1",
 	HillUpSignV2: "HillUpSignV2",
 	IceSignV0: "IceSignV0",
+	IceSignV0Snow: "IceSignV0Snow",
 	IceSignV1: "IceSignV1",
+	IceSignV1Snow: "IceSignV1Snow",
 	KangarooSign: "kangaroo_sign",
 	LeftStreetLight_NoLight: "LeftStreetLight_NoLight",
 	LeftStreetLight: "LeftStreetLight",
@@ -45,9 +56,14 @@ const DecorationType = {
 	Tree1: "Tree1",
 	Tree2: "Tree2",
 	Tree3: "Tree3",
+	Tree3Leafless: "Tree3Leafless",
+	Tree3LeaflessSnow: "Tree3LeaflessSnow",
 	Tree4: "Tree4",
+	Tree4Leafless: "Tree4Leafless",
+	Tree4LeaflessSnow: "Tree4LeaflessSnow",
 	Tree6: "Tree6",
 	QuestionSign: "QuestionSign",
+	QuestionSignSnow: "QuestionSignSnow",
 	RightStreetLight_NoLight: "RightStreetLight_NoLight",
 	RightStreetLight: "RightStreetLight",
 	RightTurnSign: "RightTurnSign",
@@ -62,6 +78,7 @@ const DecorationType = {
 	StartFreewaySign_LeftSide: "StartFreewaySign_LeftSide",
 	StartFreewaySign_LeftSideLight: "StartFreewaySign_LeftSideLight",
 	EndFreewaySign_RightSide: "EndFreewaySign_RightSide",
+	EndFreewaySign_RightSideSnow: "EndFreewaySign_RightSideSnow",
 	EndFreewaySign_RightSideLight: "EndFreewaySign_RightSideLight",
 	RadioTowerNight: "RadioTower",
 	WaterTower: "WaterTower",
@@ -70,14 +87,10 @@ const DecorationType = {
 	StraightPowerPoleCrossBeamsSlantLeft: "straightPowerPoleCrossBeamsSlantLeft",
 	StraightPowerPoleCrossBeamsSlantRight: "straightPowerPoleCrossBeamsSlantRight",
 	WarningSign: "WarningSign",
+	WarningSignSnow: "WarningSignSnow",
 	Car: "car",
 	SmallTireStack: "Tires1",
 	LargeTireStack: "Tires2",
-	CoffeeBillboardSnow: "CoffeeBillboardSnow",
-	BurgerBillboardSnow: "BurgerBillboardSnow",
-	SandwhichBillboard: "SandwhichBillboard",
-	SandwhichBillboardSnow: "SandwhichBillboardSnow"
-
 }
 function RoadsideDecoration(image, pos) {
 	let sprite = image;
@@ -226,6 +239,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.AetherBillboard;
 			case "ArcaninjadroidBillboard.png":
 				return DecorationType.ArcaNinjaDroidBillboard;
+			case "ArcaninjadroidBillboardSnow.png":
+				return DecorationType.ArcaNinjaDroidBillboardSnow;
 			case "BlankBillboard.png":
 				return DecorationType.BlankBillboard;
 			case "BurgerBillboard.png":
@@ -234,12 +249,16 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.BurgerBillboardSnow;
 			case "ClashTracksBillboard.png":
 				return DecorationType.ClashTracksBillboard;
+			case "ClashTracksBillboardSnow.png":
+				return DecorationType.ClashTracksBillboardSnow;
 			case "DigitalSignDontTextBack.png":
 				return DecorationType.DigitalSignDontTextBack;
 			case "EastCoastBillboard.png":
 				return DecorationType.EastCoastBillboard;
 			case "MageHookBillboard.png":
 				return DecorationType.MageHookBillboard;
+			case "MageHookBillboardSnow.png":
+				return DecorationType.MageHookBillboardSnow;
 			case "NiceCityBillboard.png":
 				return DecorationType.NiceCityBillboard;
 			case "GlobutonBillboard.png":
@@ -274,18 +293,30 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.CheckPoint;
 			case "CurvyRoadSign.png":
 				return DecorationType.CurvyRoadSign;
+			case "CurvyRoadSignSnow.png":
+				return DecorationType.CurvyRoadSignSnow;
 			case "kangaroo_sign.png":
 				return DecorationType.KangarooSign;
 			case "HardLeftTurnSign.png":
 				return DecorationType.HardLeftTurnSign;
-			case "HardRightTurnSign.png":
-				return DecorationType.HardRightTurnSign;
+			case "HardRightTurnSignSnow.png":
+				return DecorationType.HardRightTurnSignSnow;
+			case "HardLeftTurnSign.png":
+				return DecorationType.HardLeftTurnSign;
+			case "HardRightTurnSignSnow.png":
+				return DecorationType.HardRightTurnSignSnow;
 			case "HillDownSignV0.png":
 				return DecorationType.HillDownSignV0;
 			case "HillDownSignV1.png":
 				return DecorationType.HillDownSignV1;
 			case "HillDownSignV2.png":
 				return DecorationType.HillDownSignV2;
+			case "HillDownSignV0Snow.png":
+				return DecorationType.HillDownSignV0Snow;
+			case "HillDownSignV1Snow.png":
+				return DecorationType.HillDownSignV1Snow;
+			case "HillDownSignV2Snow.png":
+				return DecorationType.HillDownSignV2Snow;
 			case "HillUpSignV0.png":
 				return DecorationType.HillUpSignV0;
 			case "HillUpSignV1.png":
@@ -294,8 +325,12 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.HillUpSignV2;
 			case "IceSignV0.png":
 				return DecorationType.IceSignV0;
+			case "IceSignV0Snow.png":
+				return DecorationType.IceSignV0Snow;
 			case "IceSignV1.png":
 				return DecorationType.IceSignV1;
+			case "IceSignV1Snow.png":
+				return DecorationType.IceSignV1Snow;
 			case "LeftStreetLight_NoLight.png":
 				return DecorationType.LeftStreetLight_NoLight;
 			case "LeftStreetLight.png":
@@ -312,12 +347,22 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.Tree2;
 			case "Tree3.png":
 				return DecorationType.Tree3;
+			case "Tree3Leafless.png":
+				return DecorationType.Tree3Leafless;
+			case "Tree3LeaflessSnow.png":
+				return DecorationType.Tree3LeaflessSnow;
 			case "Tree4.png":
 				return DecorationType.Tree4;
+			case "Tree4Leafless.png":
+				return DecorationType.Tree4Leafless;
+			case "Tree4LeaflessSnow.png":
+				return DecorationType.Tree4LeaflessSnow;
 			case "Tree6.png":
 				return DecorationType.Tree6;
 			case "QuestionSign.png":
 				return DecorationType.QuestionSign;
+			case "QuestionSignSnow.png":
+				return DecorationType.QuestionSignSnow;
 			case "RightStreetLight_NoLight.png":
 				return DecorationType.RightStreetLight_NoLight;
 			case "RightStreetLight.png":
@@ -342,6 +387,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.StartFreewaySign_LeftSideLight;
 			case "EndFreewaySign_RightSide.png":
 				return DecorationType.EndFreewaySign_RightSide;
+			case "EndFreewaySign_RightSideSnow.png":
+				return DecorationType.EndFreewaySign_RightSideSnow;
 			case "EndFreewaySign_RightSideLight.png":
 				return DecorationType.EndFreewaySign_RightSideLight;
 			case "RightTurnSign.png":
@@ -362,21 +409,14 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.StraightPowerPoleCrossBeamsSlantRight;
 			case "WarningSign.png":
 				return DecorationType.WarningSign;
+			case "WarningSignSnow.png":
+				return DecorationType.WarningSignSnow;
 			case "AICar.png":
 				return DecorationType.Car;
 			case "Tires1.png":
 				return DecorationType.SmallTireStack;
 			case "Tires2.png":
 				return DecorationType.LargeTireStack;
-			case "CoffeeBillboardSnow.png":
-				return DecorationType.CoffeeBillboardSnow;
-			case "BurgerBillboardSnow.png":
-				return DecorationType.BurgerBillboardSnow;
-			case "SandwhichBillboard.png":
-				return DecorationType.SandwhichBillboard;
-			case "SandwhichBillboardSnow.png":
-				return DecorationType.SandwhichBillboardSnow;
-
 			default:
 				return DecorationType.Sign;
 		}
@@ -390,6 +430,8 @@ function RoadsideDecoration(image, pos) {
 				return 6;
 			case DecorationType.RadioTowerNight:
 				return 5;
+			case DecorationType.DigitalSignDontTextBack:
+				return 4;
 			default:
 				return 1;
 		}
@@ -400,12 +442,14 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.CheckeredFlag:
 				return { xOffset: 0, yOffset: 310, zOffset: -5, width: 35, height: 200, depth: 10 };
 			case DecorationType.CurvyRoadSign:
+			case DecorationType.CurvyRoadSignSnow:
 			case DecorationType.LeftTurnSign:
 			case DecorationType.RightTurnSign:
 				return { xOffset: 24, yOffset: 50, zOffset: -5, width: 20, height: 78, depth: 10 };
 			case DecorationType.HardLeftTurnSign:
-				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10 };
 			case DecorationType.HardRightTurnSign:
+			case DecorationType.HardLeftTurnSignSnow:
+			case DecorationType.HardRightTurnSignSnow:
 				return { xOffset: 0, yOffset: 0, zOffset: -5, width: 76, height: 88, depth: 10 };
 			case DecorationType.RadioTowerNight:
 			case DecorationType.WaterTower:
@@ -421,6 +465,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.RightStreetLight_NoLight:
 			case DecorationType.NextExitSign:
 			case DecorationType.EndFreewaySign_RightSide:
+			case DecorationType.EndFreewaySign_RightSideSnow:
 			case DecorationType.EndFreewaySign_RightSideLight:
 				return { xOffset: 356, yOffset: 300, zOffset: -5, width: 28, height: 212, depth: 10 };
 			case DecorationType.NextExitSignLeftSide:
@@ -444,16 +489,21 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.SandwhichBillboardSnow:
 			case DecorationType.WeMustPrepareBillboard:
 			case DecorationType.ArcaNinjaDroidBillboard:
+			case DecorationType.ArcaNinjaDroidBillboardSnow:
 			case DecorationType.GlobutonBillboard:
 				return { xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10 };
 			case DecorationType.ClashTracksBillboard:
+			case DecorationType.ClashTracksBillboardSnow:
 			case DecorationType.MageHookBillboard:
+			case DecorationType.MageHookBillboardSnow:
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
 				return { xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10 };
 			case DecorationType.AetherBillboard:
 				return { xOffset: 0, yOffset: 400, zOffset: -5, width: 1675, height: 460, depth: 10 };
+			case DecorationType.DigitalSignDontTextBack:
+				return { xOffset: 0, yOffset: 300, zOffset: -5, width: 1600, height: 500, depth: 10 };
 			case DecorationType.ChrisForPresident:
 				return { xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10 };
 			case DecorationType.NotABillboard:
@@ -469,8 +519,12 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree2:
 				return { xOffset: 130, yOffset: 220, zOffset: -5, width: 15, height: 100, depth: 10 };
 			case DecorationType.Tree3:
+			case DecorationType.Tree3Leafless:
+			case DecorationType.Tree3LeaflessSnow:
 				return { xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10 };
 			case DecorationType.Tree4:
+			case DecorationType.Tree4Leafless:
+			case DecorationType.Tree4LeaflessSnow:
 				return { xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10 };
 			case DecorationType.Tree6:
 				return { xOffset: 235, yOffset: 1125, zOffset: -5, width: 150, height: 400, depth: 10 };
@@ -492,18 +546,25 @@ function RoadsideDecoration(image, pos) {
 	const baseSizeMultiplierForType = function (type) {
 		switch (type) {
 			case DecorationType.AetherBillboard:
+			case DecorationType.DigitalSignDontTextBack:
 				return 0.75;
 			case DecorationType.ObeyBillboard:
 			case DecorationType.BlankBillboard:
 			case DecorationType.ClashTracksBillboard:
+			case DecorationType.ClashTracksBillboardSnow:
 			case DecorationType.MageHookBillboard:
+			case DecorationType.MageHookBillboardSnow:
 			case DecorationType.RomanAdventureBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
 			case DecorationType.ChrisForPresident:
 			case DecorationType.NotABillboard:
 			case DecorationType.Tree3:
+			case DecorationType.Tree3Leafless:
+			case DecorationType.Tree3LeaflessSnow:
 			case DecorationType.Tree4:
+			case DecorationType.Tree4Leafless:
+			case DecorationType.Tree4LeaflessSnow:
 			case DecorationType.AttractionsBillboard:
 			case DecorationType.BillboardLight:
 			case DecorationType.BurgerBillboard:
