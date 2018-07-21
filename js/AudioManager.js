@@ -20,6 +20,7 @@ var resumeSound = new sfxClipSingle("ResumeSound");
 var uiSelect = new sfxClipSingle("uiSelect");
 
 var countDown = new sfxClipSingle("countdown");
+var checkpointSFX = new sfxClipSingle("Checkpoint");
 
 var engine_idle = new sfxClipLoop("temp_engine_idle", 3.7);
 var engine_0500 = new sfxClipLoop("temp_placeholder", 3);

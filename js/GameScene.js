@@ -288,6 +288,7 @@ function GameScene(data) {
 						thisDecoration.trigger.hasInteracted = true;
 						passedACheckPoint = true;
 						newTimeBonus = thisDecoration.trigger.timeBonus;
+						checkpointSFX.resume();
 					}
 				}
 			}
