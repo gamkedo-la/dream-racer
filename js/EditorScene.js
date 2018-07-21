@@ -25,8 +25,10 @@ function EditorScene(data) {
 
 
 	const Rate = {
+		Quarter: 0.25,
 		Half: 0.5,
 		Full: 1.0,
+		Fullish: 1.5,
 		Double: 2.0,
 		Triple: 3.0, //don't use Triple for downhill, rapidly causes clipping
 		Quad: 4.0,
@@ -272,7 +274,7 @@ function EditorScene(data) {
 			{ startIndex: 395, endIndex: 445, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
 			{ startIndex: 530, endIndex: 565, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
 			{ startIndex: 570, endIndex: 605, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
-			{ startIndex: 640, endIndex: 740, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
+			{ startIndex: 640, endIndex: 740, rate: 3 * Rate.Fullish, direction: Direction.Left, easing: Easing.InOut },
 			{ startIndex: 770, endIndex: 810, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
 			{ startIndex: 850, endIndex: 890, rate: 3 * Rate.Double, direction: Direction.Right, easing: Easing.InOut },
 			{ startIndex: 930, endIndex: 970, rate: 3 * Rate.Double, direction: Direction.Left, easing: Easing.InOut },
@@ -300,8 +302,13 @@ function EditorScene(data) {
 		];
 
 		const VertData = [
+			{ startIndex: 225, endIndex: 275, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 315, endIndex: 365, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
+			{ startIndex: 625, endIndex: 690, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 700, endIndex: 760, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
 			{ startIndex: 1145, endIndex: 1390, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
-			{ startIndex: 1470, endIndex: 1730, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 1470, endIndex: 1590, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
+			{ startIndex: 1615, endIndex: 1730, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
 			{ startIndex: 1775, endIndex: 1930, rate: Rate.Half, direction: Direction.SteadyUp, easing: Easing.InOut },
 			{ startIndex: 2010, endIndex: 2160, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
 			{ startIndex: 2180, endIndex: 2310, rate: Rate.Half, direction: Direction.SteadyDown, easing: Easing.InOut },
