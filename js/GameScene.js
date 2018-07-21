@@ -104,7 +104,7 @@ function GameScene(data) {
 			return;
 		}
 		
-		if (countdownDisplayCounter >= 59) {//59 based on how many frames it takes to get to the "GO!!!" sound (on my laptop)
+		if (countdownDisplayCounter >= 78) {//59 based on how many frames it takes to get to the "GO!!!" sound (on my laptop)
 			countdownDisplayCounter = 0;
 			countdownfinished = true;
 
@@ -120,7 +120,6 @@ function GameScene(data) {
 		//3,  2,   1, GO!!!//image
 		if (countdownDisplayCounter < 17) {//17 based on how long to get from "3" to "2" on the audio for the countown
 			if (countDown.getPaused()) {
-				console.log("Just entered countdown.resume()");
 				countDown.resume();
 			}
 
@@ -132,8 +131,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else
-		if (/*framesPerSecond <= countdownDisplayCounter &&*/
+		} else if (/*framesPerSecond <= countdownDisplayCounter &&*/
 			countdownDisplayCounter < 38) {//38 based on how long to get from "2" to "1" on the audio countdown
 			let frameIndex = 1;
 			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
@@ -143,8 +141,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else 
-		if (/*framesPerSecond * 2 <= countdownDisplayCounter &&*/
+		} else if (/*framesPerSecond * 2 <= countdownDisplayCounter &&*/
 			countdownDisplayCounter < 59) {//59 based on how long to go from "1" to "GO!!!" on the audio countdown
 			let frameIndex = 2;
 			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
@@ -154,8 +151,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else
-		if (//framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
+		} else if (//framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
 			countdownDisplayCounter < 78) {//78 based on a reasonable amount of time to display "GO!!!"
 			canvasContext.drawImage(goPic, 0, 0,
 				goPic.width, goPic.height,

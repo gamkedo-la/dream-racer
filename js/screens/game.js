@@ -81,12 +81,22 @@ function GamePlayScreen (){
                 return true;
             case KEY_GREATER_THAN:
                 if(!pressed){
-                    currentBackgroundMusic.nextTrack();
+	                const currentTrack = currentBackgroundMusic.getCurrentTrack()
+	                if(currentTrack == 5) {
+		                currentBackgroundMusic.setCurrentTrack(1);
+	                } else {
+		                currentBackgroundMusic.nextTrack();
+	                }
                 }
                 return true;
             case KEY_LESS_THAN:
                 if(!pressed){
-                    currentBackgroundMusic.prevTrack();
+	                const currentTrack = currentBackgroundMusic.getCurrentTrack()
+	                if(currentTrack == 1) {
+		                currentBackgroundMusic.setCurrentTrack(5);
+	                } else {
+		                currentBackgroundMusic.prevTrack();
+	                }
                 }
                 return true;
             case KEY_L:
