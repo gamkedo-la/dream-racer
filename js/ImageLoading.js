@@ -64,6 +64,7 @@ const endFreewaySign_RightSidePic = document.createElement("img");
 const endFreewaySign_RightSidePicSnow = document.createElement("img");
 const endFreewaySign_RightSideLightPic = document.createElement("img");
 const digitalSignDontTextBack = document.createElement("img");
+const digitalSignWhatHoldsYouBack = document.createElement("img");
 // trees/poles/obstacles
 const palmTreePic = document.createElement("img");
 const tree1Pic = document.createElement("img");
@@ -235,6 +236,7 @@ function loadImages() {
 	imageList.push({ imgName: endFreewaySign_RightSidePicSnow, theFile: "EndFreewaySign_RightSideSnow.png" });
 	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });
 	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });
+	imageList.push({ imgName: digitalSignWhatHoldsYouBack, theFile: "DigitalSignWhatHoldsYouBack.png" });
 	// trees/poles/obstacles
 	imageList.push({ imgName: palmTreePic, theFile: "palmTree.png" });
 	imageList.push({ imgName: tree1Pic, theFile: "Tree1.png" });

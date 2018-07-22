@@ -13,6 +13,7 @@ const DecorationType = {
 	CoffeeBillboard: "CoffeeBillboard",
 	CoffeeBillboardSnow: "CoffeeBillboardSnow",
 	DigitalSignDontTextBack: "DigitalSignDontTextBack",
+	DigitalSignWhatHoldsYouBack: "DigitalSignWhatHoldsYouBack",
 	EastCoastBillboard: "EastCoastBillboard",
 	GlobutonBillboard: "GlobutonBillboard",
 	MageHookBillboard: "MageHookBillboard",
@@ -254,6 +255,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.ClashTracksBillboardSnow;
 			case "DigitalSignDontTextBack.png":
 				return DecorationType.DigitalSignDontTextBack;
+			case "DigitalSignWhatHoldsYouBack.png":
+				return DecorationType.DigitalSignWhatHoldsYouBack;
 			case "EastCoastBillboard.png":
 				return DecorationType.EastCoastBillboard;
 			case "MageHookBillboard.png":
@@ -432,6 +435,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.RadioTowerNight:
 				return 5;
 			case DecorationType.DigitalSignDontTextBack:
+			case DecorationType.DigitalSignWhatHoldsYouBack:
 				return 4;
 			default:
 				return 1;
@@ -504,6 +508,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.AetherBillboard:
 				return { xOffset: 0, yOffset: 400, zOffset: -5, width: 1675, height: 460, depth: 10 };
 			case DecorationType.DigitalSignDontTextBack:
+			case DecorationType.DigitalSignWhatHoldsYouBack:
 				return { xOffset: 0, yOffset: 300, zOffset: -5, width: 1600, height: 500, depth: 10 };
 			case DecorationType.ChrisForPresident:
 				return { xOffset: 16, yOffset: 115, zOffset: -5, width: 862, height: 278, depth: 10 };
@@ -548,6 +553,7 @@ function RoadsideDecoration(image, pos) {
 		switch (type) {
 			case DecorationType.AetherBillboard:
 			case DecorationType.DigitalSignDontTextBack:
+			case DecorationType.DigitalSignWhatHoldsYouBack:
 				return 0.75;
 			case DecorationType.ObeyBillboard:
 			case DecorationType.BlankBillboard:

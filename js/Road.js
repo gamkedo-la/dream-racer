@@ -264,7 +264,8 @@ function Road(frustum) {
 						thisDecoration.animated = true;
 					} else if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
 							   (thisDecoration.getType() == DecorationType.RadioTowerNight) ||
-							   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack)) {
+							   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack) ||
+							   (thisDecoration.getType() == DecorationType.DigitalSignWhatHoldsYouBack)) {
 						thisDecoration.animated = true;
 					}
 					
@@ -345,6 +346,7 @@ function Road(frustum) {
 					thisDecoration.animated = true;
 				} else if ((thisDecoration.getType() == DecorationType.AttractionsBillboard) ||
 						   (thisDecoration.getType() == DecorationType.RadioTowerNight) ||
+						   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack) ||
 						   (thisDecoration.getType() == DecorationType.DigitalSignDontTextBack)) {
 					thisDecoration.animated = true;
 				}
