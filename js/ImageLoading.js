@@ -124,6 +124,7 @@ const obeyBillboard = document.createElement("img");
 const eastCoastBillboard = document.createElement("img");
 const niceCityBillboard = document.createElement("img");
 const romanAdventureBillboard = document.createElement("img");
+const spellSpielBillboard = document.createElement("img");
 const mageHookBillboard = document.createElement("img");
 const mageHookBillboardSnow = document.createElement("img");
 const tinyRoboRacersBillboard = document.createElement("img");
@@ -297,6 +298,8 @@ function loadImages() {
 	billboardSprites.push(niceCityBillboard);
 	imageList.push({ imgName: romanAdventureBillboard, theFile: "RomanAdventureBillboard.png" });
 	billboardSprites.push(romanAdventureBillboard);
+	imageList.push({ imgName: spellSpielBillboard, theFile: "SpellSpielBillboard.png" });
+	billboardSprites.push(spellSpielBillboard);
 	imageList.push({ imgName: mageHookBillboard, theFile: "MageHookBillboard.png" });
 	billboardSprites.push(mageHookBillboard);
 	imageList.push({ imgName: mageHookBillboardSnow, theFile: "MageHookBillboardSnow.png" });

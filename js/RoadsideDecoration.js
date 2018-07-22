@@ -21,6 +21,7 @@ const DecorationType = {
 	NiceCityBillboard: "NiceCityBillboard",
 	ObeyBillboard: "ObeyBillboard",
 	RomanAdventureBillboard: "RomanAdventureBillboard",
+	SpellSpielBillboard: "SpellSpielBillboard",
 	SandwhichBillboard: "SandwhichBillboard",
 	SandwhichBillboardSnow: "SandwhichBillboardSnow",
 	TinyRoboRacersBillboard: "TinyRoboRacersBillboard",
@@ -271,6 +272,8 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.ObeyBillboard;
 			case "RomanAdventureBillboard.png":
 				return DecorationType.RomanAdventureBillboard;
+			case "SpellSpielBillboard.png":
+				return DecorationType.SpellSpielBillboard;
 			case "TinyRoboRacersBillboard.png":
 				return DecorationType.TinyRoboRacersBillboard;
 			case "WeMustPrepareBillboard.png":
@@ -502,6 +505,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.MageHookBillboard:
 			case DecorationType.MageHookBillboardSnow:
 			case DecorationType.RomanAdventureBillboard:
+			case DecorationType.SpellSpielBillboard:
 			case DecorationType.TinyRoboRacersBillboard:
 			case DecorationType.EastCoastBillboard:
 				return { xOffset: 25, yOffset: 115, zOffset: -5, width: 735, height: 285, depth: 10 };
