@@ -9,23 +9,29 @@ function Camera(initialPosition) {
 	this.isCrashing = false;
 	this.isCrashingLeft = false;
 	this.isResetting = false;
+	this.bounce = 0;
 	
 	if((initialPosition != undefined) && (initialPosition != null)) {
 		this.position = initialPosition;
 	}
 	
-	this.move = function(forward, turnRate, segment) {
+	this.move = function(forward, turnRate, bounce, segment) {
+		this.position.z += forward;
+		
 		if(this.isCrashing || this.isResetting) {
 			return;
 		}
-				
-		this.position.z += forward;
+		
+		this.bounce += bounce;
+		this.bounce *= 0.75;
+		this.position.x += this.bounce;
 		
 		if((holdRight) || (holdD)) {
 			this.position.x -= turnRate;//moving the world, so backwards			
 		} else if((holdLeft) || (holdA)) {
 			this.position.x += turnRate;
 		}
+//		this.position.x += turnRate;
 		
 		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - segment.nearPos.world.z) / (segment.farPos.world.z - segment.nearPos.world.z);
 		const currentCenter = segment.nearPos.world.x + interpolation * (segment.farPos.world.x - segment.nearPos.world.x);
@@ -57,7 +63,9 @@ function Camera(initialPosition) {
 		}
 	}
 	
-	this.showCrashAnimation = function() {
+	this.showCrashAnimation = function(forward) {
+		this.position.z += forward;
+		
 		if(this.isCrashingLeft) {
 			this.position.x -= PAN_SPEED / 2;
 		} else {

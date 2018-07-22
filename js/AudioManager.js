@@ -131,7 +131,6 @@ function audioEventManager() {
 		var check = checkListFor(FADE, track);
 		var endTime = duration * 1000 + now;
 		var startVolume = track.getVolume();
-		console.log("Adding Fade Event");
 
 		if (check == "none") {
 			eventList.push([FADE, track, now, endTime, startVolume, endVol, false]);
@@ -144,7 +143,6 @@ function audioEventManager() {
 		var check = checkListFor(FADE, track);
 		var endTime = duration * 1000 + now;
 		var startVolume = track.getVolume();
-		//console.log("Adding Fade Event for " + track.getTrackName());
 
 		if (check == "none") {
 			eventList.push([FADE, track, now, endTime, startVolume, endVol, true]);
@@ -327,8 +325,10 @@ function setEngineAudioFromRPMs(RPMs) {
 	var rpms = RPMs;
 	if (rpms <= 0) {
 		AudioEventManager.addFadeEvent(engine_master.getCurrentSound(), 1.0, 0);
+		console.log("RPMs: " + rpms);
 		return;
 	}
+	
 	rpms = rpms > 6000 ? 6000 : rpms;
 	if (rpms <= engineOverlap) {
 		engineIndex[0].setVolume(Math.pow(1 - rpms/engineOverlap, 0.5));

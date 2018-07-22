@@ -1,9 +1,9 @@
 //GameScene
 function GameScene(data) {
 	let currentCrashCount = 0;
-	const CRASH_DELTA_SPEED = 4;
-	const BUMPED_CAR_SPEED_REDUCTION = 10;
-	const BUMPED_FROM_BEHIND_SPEED_UP = 10;
+	const CRASH_DELTA_SPEED = 10;
+	let framesSinceAICollision = 10;//point is that it's greater than 5
+	const SIDE_BUMP_BOUNCE = 200;
 
 	let passedACheckPoint = false;
 	let timeExtendCounter = 0;
@@ -188,6 +188,23 @@ function GameScene(data) {
 			{ name: "points", type: statsType.Points, value: this.player.score },
 		]
 	}
+	
+	this.setCameraYPosition = function(baseSegment, bounceRate) {
+		let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
+		if (this.raceWon) {
+			deltaY = 0;
+		}
+		this.player.move(deltaY, canAccelerate, canBoost);
+
+		if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
+			this.camera.move(this.player.speed, this.player.turnRate, bounceRate, baseSegment);
+
+			if (baseSegment != null) {
+				const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
+				this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (GAME_HEIGHT / 2);
+			}
+		}
+	}
 
 	this.move = function () {
 		this.updateTimer();
@@ -205,8 +222,9 @@ function GameScene(data) {
 		if (this.player.isCrashing) {
 			offroadSound.pause();
 			currentCrashCount++;
-			this.player.speedChangeForCrashing();
-			this.camera.showCrashAnimation();
+			this.player.speedChangeForCrashing(currentCrashCount);
+			this.camera.showCrashAnimation(this.player.speed);
+			this.setCameraYPosition(baseSegment, 0);
 			if (currentCrashCount > (0.75 * this.player.MAX_CRASH_COUNT)) {
 				this.player.isCrashing = false;
 				this.player.isResetting = true;
@@ -221,22 +239,9 @@ function GameScene(data) {
 				currentCrashCount = 0;
 			}
 		} else {
-			this.checkForCollisions(baseSegment);
+			const bounceRate = this.checkForCollisions(baseSegment);
 
-			let deltaY = baseSegment.farPos.world.y - baseSegment.nearPos.world.y;
-			if (this.raceWon) {
-				deltaY = 0;
-			}
-			this.player.move(deltaY, canAccelerate, canBoost);
-
-			if (baseSegment.index < (this.road.indexOfFinishLine + 2)) {
-				this.camera.move(this.player.speed, this.player.turnRate, baseSegment);
-
-				if (baseSegment != null) {
-					const interpolation = ((this.camera.position.z - CAMERA_INITIAL_Z) - baseSegment.nearPos.world.z) / (baseSegment.farPos.world.z - baseSegment.nearPos.world.z);
-					this.camera.position.y = baseSegment.nearPos.world.y + interpolation * (baseSegment.farPos.world.y - baseSegment.nearPos.world.y) - (GAME_HEIGHT / 2);
-				}
-			}
+			this.setCameraYPosition(baseSegment, bounceRate);
 		}
 
 		if (countdownfinished) {
@@ -266,7 +271,7 @@ function GameScene(data) {
 	}
 
 	this.checkForCollisions = function (baseSegment) {
-		this.checkForAICarCollisions();
+		let bounceRate = this.checkForAICarCollisions();
 
 		for (let i = 0; i < baseSegment.decorations.length; i++) {
 			const thisDecoration = baseSegment.decorations[i];
@@ -290,17 +295,22 @@ function GameScene(data) {
 						passedACheckPoint = true;
 						newTimeBonus = thisDecoration.trigger.timeBonus;
 						checkpointSFX.resume();
+						AudioEventManager.addFadeEvent(currentBackgroundMusic.getCurrentMusic(), 0.5, 1.0);
 					}
 				}
 			}
+			
 			if (collisionData.isColliding) {
 				if (thisDecoration.collider.x < baseSegment.nearPos.screen.x) {
 					this.setPlayerCrashingState(true);//true = didCrashLeft
+					bounceRate = 0;
 				} else {
 					this.setPlayerCrashingState(false);//false = did NOT crash left
 				}
 			}
 		}
+		
+		return bounceRate;
 	}
 
 	this.setPlayerCrashingState = function (didCrashLeft) {
@@ -312,37 +322,46 @@ function GameScene(data) {
 	}
 
 	this.checkForAICarCollisions = function () {
+		let bounceRate = 0;
+		
+		if(framesSinceAICollision <= 5) {
+			framesSinceAICollision++;
+			return bounceRate;
+		}
 		for (let i = 0; i < this.aiCars.length; i++) {
 			const deltaZ = Math.abs(this.aiCars[i].position.z + CAMERA_INITIAL_Z - this.camera.position.z);
 			if (deltaZ <= 60) {
 				const collisionData = this.player.collider.isCollidingWith(this.aiCars[i].collider);
-				if (collisionData.isColliding) {
-					if (Math.abs(this.player.speed - this.aiCars[i].speed) > CRASH_DELTA_SPEED) {
-
-						this.player.speed -= BUMPED_CAR_SPEED_REDUCTION;
-
-						bumpMasterSFX.play();
-
-						if (Math.abs(this.aiCars[i].speed - this.player.speed) > CRASH_DELTA_SPEED) {
-							console.log('hit from behind')
-							this.player.speed = 9;
-
-							if (this.player.boosting) {
-
-								this.setPlayerCrashingState(true);
-							}
-						}
-
-					} else {
+				if((collisionData.isColliding) && (deltaZ <= 40)) {//colliding on the side
+					if(collisionData.direction.x < 0) {
+						bounceRate = SIDE_BUMP_BOUNCE;
+					} else if(collisionData.direction.x > 0) {
+						bounceRate = -SIDE_BUMP_BOUNCE;
+					}
+					bumpMasterSFX.play();
+				} else if (collisionData.isColliding) {
+					if (this.player.boosting) {//hitting an aiCar while boosting results in a crash
+						this.setPlayerCrashingState(true);
+					} else if(this.player.speed > this.aiCars[i].speed) {//player travelling faster => hit aiCar
 						const playerSpeed = this.player.speed;
 						this.player.speed = this.aiCars[i].speed - CRASH_DELTA_SPEED;
 						this.aiCars[i].speed = playerSpeed + CRASH_DELTA_SPEED;
+						framesSinceAICollision = 0;
 
+						bumpMasterSFX.play();
+					} else if(this.aiCars[i].speed > this.player.speed) {//aiCar travelling faster => aiCar hit us
+						const playerSpeed = this.player.speed;
+						this.player.speed = this.aiCars[i].speed + CRASH_DELTA_SPEED;
+						this.aiCars[i].speed = playerSpeed - CRASH_DELTA_SPEED;
+						framesSinceAICollision = 0;
+						
 						bumpMasterSFX.play();
 					}
 				}
 			}
 		}
+		
+		return bounceRate;
 	}
 }
 

@@ -298,8 +298,8 @@ function Player() {
 
 	}
 
-	this.speedChangeForCrashing = function () {
-		this.speed -= this.speed * CRASH_DECELERATION_PERCENT;
+	this.speedChangeForCrashing = function (currentCrashCount) {
+		this.speed *= (1 - ((0.15 * currentCrashCount) / this.MAX_CRASH_COUNT));
 		this.turnRate *= TURN_RATE_DECAY;
 		this.currentGear = 1;
 		if (this.speed <= 0) {
