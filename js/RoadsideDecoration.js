@@ -1,6 +1,8 @@
 //RoadsideDecoration
 const DecorationType = {
 	AetherBillboard: "AetherBillboard",
+	AntventureBillboard:"AntventureBillboard",
+	Arcade88Billboard:"Arcade88Billboard",
 	ArcaNinjaDroidBillboard: "ArcaNinjaDroidBillboard",
 	ArcaNinjaDroidBillboardSnow: "ArcaNinjaDroidBillboardSnow",
 	AttractionsBillboard: "roadsideAttractions",
@@ -15,18 +17,26 @@ const DecorationType = {
 	DigitalSignDontTextBack: "DigitalSignDontTextBack",
 	DigitalSignWhatHoldsYouBack: "DigitalSignWhatHoldsYouBack",
 	EastCoastBillboard: "EastCoastBillboard",
+	ExcaliburBillboard:"ExcaliburBillboard",
+	GalaxyBreacher:"GalaxyBreacher",
 	GlobutonBillboard: "GlobutonBillboard",
 	MageHookBillboard: "MageHookBillboard",
 	MageHookBillboardSnow: "MageHookBillboardSnow",
 	NiceCityBillboard: "NiceCityBillboard",
 	ObeyBillboard: "ObeyBillboard",
+	OptiverseOrigins:"OptiverseOrigins",
+	PlaygroundLegends:"PlaygroundLegends",
 	RomanAdventureBillboard: "RomanAdventureBillboard",
-	SpellSpielBillboard: "SpellSpielBillboard",
 	SandwhichBillboard: "SandwhichBillboard",
 	SandwhichBillboardSnow: "SandwhichBillboardSnow",
+	ScrapMetalElites:"ScrapMetalElites",
+	SlickPunchBillboard:"SlickPunch",
+	SpellSpielBillboard: "SpellSpielBillboard",
 	TinyRoboRacersBillboard: "TinyRoboRacersBillboard",
 	NotABillboard: "NotABillboard",
 	WeMustPrepareBillboard: "WeMustPrepareBillboard",
+	WeTookTheirCheese:"WeTookTheirCheese",
+	WreckingCloudBillboard:"WreckingCloud",
 	BillboardLight: "BillboardLight",
 	CheckeredFlag: "CheckeredFlag",
 	CheckPoint: "CheckPoint",
@@ -240,6 +250,10 @@ function RoadsideDecoration(image, pos) {
 		switch (name) {
 			case "AetherBillboard.png":
 				return DecorationType.AetherBillboard;
+			case "AntVentureBillboard.png":
+				return DecorationType.AntventureBillboard;
+			case "Arcade88Billboard.png":
+				return DecorationType.Arcade88Billboard;
 			case "ArcaninjadroidBillboard.png":
 				return DecorationType.ArcaNinjaDroidBillboard;
 			case "ArcaninjadroidBillboardSnow.png":
@@ -250,50 +264,66 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.BurgerBillboard;
 			case "BurgerBillboardSnow.png":
 				return DecorationType.BurgerBillboardSnow;
+			case "chrisForPresident.png":
+				return DecorationType.ChrisForPresident;
 			case "ClashTracksBillboard.png":
 				return DecorationType.ClashTracksBillboard;
 			case "ClashTracksBillboardSnow.png":
 				return DecorationType.ClashTracksBillboardSnow;
-			case "DigitalSignDontTextBack.png":
-				return DecorationType.DigitalSignDontTextBack;
-			case "DigitalSignWhatHoldsYouBack.png":
-				return DecorationType.DigitalSignWhatHoldsYouBack;
+			case "CoffeeBillboard.png":
+				return DecorationType.CoffeeBillboard;
+			case "CoffeeBillboardSnow.png":
+				return DecorationType.CoffeeBillboardSnow;
 			case "EastCoastBillboard.png":
 				return DecorationType.EastCoastBillboard;
+			case "ExcaliburBillboard.png":
+				return DecorationType.ExcaliburBillboard;
+			case "GalaxyBreacherBillboard.png":
+				return DecorationType.GalaxyBreacher;
+			case "GlobutonBillboard.png":
+				return DecorationType.GlobutonBillboard;
 			case "MageHookBillboard.png":
 				return DecorationType.MageHookBillboard;
 			case "MageHookBillboardSnow.png":
 				return DecorationType.MageHookBillboardSnow;
 			case "NiceCityBillboard.png":
 				return DecorationType.NiceCityBillboard;
-			case "GlobutonBillboard.png":
-				return DecorationType.GlobutonBillboard;
+			case "NotABillboard.png":
+				return DecorationType.NotABillboard;
 			case "ObeyBillboard.png":
 				return DecorationType.ObeyBillboard;
+			case "OptiverseOriginsBillboard.png":
+				return DecorationType.OptiverseOrigins;
+			case "PlaygroundLegendsBillboard.png":
+				return DecorationType.PlaygroundLegends;
+			case "roadsideAttractions.png":
+				return DecorationType.AttractionsBillboard;
 			case "RomanAdventureBillboard.png":
 				return DecorationType.RomanAdventureBillboard;
+			case "SandwhichBillboard.png":
+				return DecorationType.SandwhichBillboard;
+			case "SandwhichBillboardSnow.png":
+				return DecorationType.SandwhichBillboardSnow;
+			case "ScrapMetalElitesBillboard.png":
+				return DecorationType.ScrapMetalElites;
+			case "SlickPunch.png":
+				return DecorationType.SlickPunchBillboard;
 			case "SpellSpielBillboard.png":
 				return DecorationType.SpellSpielBillboard;
 			case "TinyRoboRacersBillboard.png":
 				return DecorationType.TinyRoboRacersBillboard;
 			case "WeMustPrepareBillboard.png":
 				return DecorationType.WeMustPrepareBillboard;
-			case "chrisForPresident.png":
-				return DecorationType.ChrisForPresident;
-			case "NotABillboard.png":
-				return DecorationType.NotABillboard;
-			case "roadsideAttractions.png":
-				return DecorationType.AttractionsBillboard;
-			case "CoffeeBillboard.png":
-				return DecorationType.CoffeeBillboard;
-			case "CoffeeBillboardSnow.png":
-				return DecorationType.CoffeeBillboardSnow;
-			case "SandwhichBillboard.png":
-				return DecorationType.SandwhichBillboard;
-			case "SandwhichBillboardSnow.png":
-				return DecorationType.SandwhichBillboardSnow;
+			case "WeTookTheirCheeseBillboard.png":
+				return DecorationType.WeTookTheirCheese;
+			case "WreckingCloudBillboard.png":
+				return DecorationType.WreckingCloudBillboard;
 			case "BillboardLight.png":
 				return DecorationType.BillboardLight;
+			case "DigitalSignDontTextBack.png":
+				return DecorationType.DigitalSignDontTextBack;
+			case "DigitalSignWhatHoldsYouBack.png":
+				return DecorationType.DigitalSignWhatHoldsYouBack;
 			case "CheckeredFlag.png":
 				return DecorationType.CheckeredFlag;
 			case "CheckPoint.png":
@@ -499,6 +529,16 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.GlobutonBillboard:
 			case DecorationType.SandwhichBillboard:
 			case DecorationType.SandwhichBillboardSnow:
+			case DecorationType.SlickPunchBillboard:
+			case DecorationType.WreckingCloudBillboard:
+			case DecorationType.OptiverseOrigins:
+			case DecorationType.AntventureBillboard:
+			case DecorationType.Arcade88Billboard:
+			case DecorationType.GalaxyBreacher:
+			case DecorationType.PlaygroundLegends:
+			case DecorationType.ExcaliburBillboard:
+			case DecorationType.ScrapMetalElites:
+			case DecorationType.WeTookTheirCheese:
 				return { xOffset: 0, yOffset: 100, zOffset: -5, width: 395, height: 156, depth: 10 };
 			case DecorationType.ClashTracksBillboard:
 			case DecorationType.ClashTracksBillboardSnow:
@@ -570,6 +610,16 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.EastCoastBillboard:
 			case DecorationType.ChrisForPresident:
 			case DecorationType.NotABillboard:
+			case DecorationType.WreckingCloudBillboard:
+			case DecorationType.OptiverseOrigins:
+			case DecorationType.AntventureBillboard:
+			case DecorationType.Arcade88Billboard:
+			case DecorationType.GalaxyBreacher:
+			case DecorationType.PlaygroundLegends:
+			case DecorationType.ExcaliburBillboard:
+			case DecorationType.ScrapMetalElites:
+			case DecorationType.SlickPunchBillboard:
+			case DecorationType.WeTookTheirCheese:
 			case DecorationType.Tree3:
 			case DecorationType.Tree3Leafless:
 			case DecorationType.Tree3LeaflessSnow:

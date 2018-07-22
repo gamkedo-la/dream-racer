@@ -119,32 +119,42 @@ const slipperyRoadLitPic = document.createElement("img");
 
 // billboards
 const billboardLightPic = document.createElement("img");
-const blankBillboard = document.createElement("img");
-const obeyBillboard = document.createElement("img");
-const eastCoastBillboard = document.createElement("img");
-const niceCityBillboard = document.createElement("img");
-const romanAdventureBillboard = document.createElement("img");
-const spellSpielBillboard = document.createElement("img");
-const mageHookBillboard = document.createElement("img");
-const mageHookBillboardSnow = document.createElement("img");
-const tinyRoboRacersBillboard = document.createElement("img");
-const chrisForPresidentBillboard = document.createElement("img");
-const burgerBillboard = document.createElement("img");
-const burgerBillboardSnow = document.createElement("img");
-const clashTracksBillboard = document.createElement("img");
-const clashTracksBillboardSnow = document.createElement("img");
-const notABillboard = document.createElement("img");
-const attractionsBillboard = document.createElement("img");
-const coffeeBillboard = document.createElement("img");
-const coffeeBillboardSnow = document.createElement("img");
-const sandwhichBillboard = document.createElement("img");
-const sandwhichBillboardSnow = document.createElement("img");
 const aetherBillboard = document.createElement("img");
 const aetherBillboardSnow = document.createElement("img");
+const antventureBillboard = document.createElement("img");
+const arcade88Billboard = document.createElement("img");
 const arcaNinjaDroidBillboard = document.createElement("img");
 const arcaNinjaDroidBillboardSnow = document.createElement("img");
+const attractionsBillboard = document.createElement("img");
+const blankBillboard = document.createElement("img");
+const burgerBillboard = document.createElement("img");
+const burgerBillboardSnow = document.createElement("img");
+const chrisForPresidentBillboard = document.createElement("img");
+const clashTracksBillboard = document.createElement("img");
+const clashTracksBillboardSnow = document.createElement("img");
+const coffeeBillboard = document.createElement("img");
+const coffeeBillboardSnow = document.createElement("img");
+const excaliburBillboard = document.createElement("img");
+const eastCoastBillboard = document.createElement("img");
+const galaxyBreacherBillboard = document.createElement("img");
 const globutonBillboard = document.createElement("img");
+const mageHookBillboard = document.createElement("img");
+const mageHookBillboardSnow = document.createElement("img");
+const niceCityBillboard = document.createElement("img");
+const notABillboard = document.createElement("img");
+const obeyBillboard = document.createElement("img");
+const optiverseOriginsBillboard = document.createElement("img");
+const playgroundLegendsBillboard = document.createElement("img");
+const romanAdventureBillboard = document.createElement("img");
+const sandwhichBillboard = document.createElement("img");
+const sandwhichBillboardSnow = document.createElement("img");
+const scrapMetalElitesBillboard = document.createElement("img");
+const slickPunchBillboard = document.createElement("img");
+const spellSpielBillboard = document.createElement("img");
+const tinyRoboRacersBillboard = document.createElement("img");
 const weMustPrepareBillboard = document.createElement("img");
+const weTookTheirCheeseBillboard = document.createElement("img");
+const wreckingCloudBillboard = document.createElement("img");
 // FX.js
 const particlePic = document.createElement("img");
 
@@ -338,6 +348,26 @@ function loadImages() {
 	billboardSprites.push(globutonBillboard);
 	imageList.push({ imgName: weMustPrepareBillboard, theFile: "WeMustPrepareBillboard.png" }); ////
 	billboardSprites.push(weMustPrepareBillboard);
+	imageList.push({ imgName: wreckingCloudBillboard, theFile: "WreckingCloudBillboard.png" }); ////
+	billboardSprites.push(wreckingCloudBillboard);
+	imageList.push({ imgName: optiverseOriginsBillboard, theFile: "OptiverseOriginsBillboard.png" }); ////
+	billboardSprites.push(optiverseOriginsBillboard);
+	imageList.push({ imgName: arcade88Billboard, theFile: "Arcade88Billboard.png" }); ////
+	billboardSprites.push(arcade88Billboard);
+	imageList.push({ imgName: galaxyBreacherBillboard, theFile: "GalaxyBreacherBillboard.png" }); ////
+	billboardSprites.push(galaxyBreacherBillboard);
+	imageList.push({ imgName: playgroundLegendsBillboard, theFile: "PlaygroundLegendsBillboard.png" }); ////
+	billboardSprites.push(playgroundLegendsBillboard);
+	imageList.push({ imgName: excaliburBillboard, theFile: "ExcaliburBillboard.png" }); ////
+	billboardSprites.push(excaliburBillboard);
+	imageList.push({ imgName: scrapMetalElitesBillboard, theFile: "ScrapMetalElitesBillboard.png" }); ////
+	billboardSprites.push(scrapMetalElitesBillboard);
+	imageList.push({ imgName: antventureBillboard, theFile: "AntVentureBillboard.png" }); ////
+	billboardSprites.push(antventureBillboard);
+	imageList.push({ imgName: weTookTheirCheeseBillboard, theFile: "WeTookTheirCheeseBillboard.png" }); ////
+	billboardSprites.push(weTookTheirCheeseBillboard);
+	imageList.push({ imgName: slickPunchBillboard, theFile: "SlickPunch.png" }); ////
+	billboardSprites.push(slickPunchBillboard);
 	// FX.js
 	imageList.push({ imgName: particlePic, theFile: "particle.png" });
 	// ETC
