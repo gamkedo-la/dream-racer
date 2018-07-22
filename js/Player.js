@@ -201,18 +201,18 @@ function Player() {
 		}
 		
 		if ((this.isAuto) && (!this.boosting)){
-			if (this.currentGear < this.ACCELERATIONS.length && this.speed / this.currentGearMaxSpeed * 100 >= 80) {
+			if ((this.currentGear < this.ACCELERATIONS.length) && ((this.speed / this.currentGearMaxSpeed) * 100 >= 80)) {
 				this.currentGear++;
-				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+				this.speed -= Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 80) / 10;
 			}
-			if (this.currentGear > 1 && this.speed / this.currentGearMaxSpeed * 100 <= 20) {
+			if ((this.currentGear > 1) && (this.speed / this.currentGearMaxSpeed) * 100 <= 20) {
 				this.currentGear--;
-				this.speed += Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 20) / 5;
+				this.speed += Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 20) / 5;
 			}
 		} else {
-			if (holdSpace && holdUp && this.currentGear !== this.ACCELERATIONS.length) {
+			if ((holdSpace) && (holdUp) && (this.currentGear !== this.ACCELERATIONS.length)) {
 				this.currentGear += 1;
-				this.speed -= Math.abs((this.speed / this.currentGearMaxSpeed * 100) - 80) / 10;
+				this.speed -= Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 80) / 10;
 				holdSpace = false;
 			}
 		}
