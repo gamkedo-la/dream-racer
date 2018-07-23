@@ -7,9 +7,9 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
-			JSON.parse(skylineTest)
+		//	JSON.parse(skylineTest)
 		//		JSON.parse(skylineTest)	
-		//				JSON.parse(mountainTrack)	
+		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
 				JSON.parse(doubleBump),
@@ -52,6 +52,10 @@ function EditorScene(data) {
 		In: "in",
 		Out: "out",
 		InOut: "inOut",
+	}
+
+	function getRandomInt(max) { // 0 is included, max excluded
+		return Math.floor(Math.random() * Math.floor(max));
 	}
 
 	/*this.buildNightSkylineTrack = function() {
@@ -437,25 +441,33 @@ function EditorScene(data) {
 
 			thisSeg.farPos.world.y += vert;
 
-			/*if(indexModulus == 5) {
-				const lightPos = {x:0, y:0};
-				let lightSprite;
+			if(indexModulus == 7) {
+				let treePos = {x:0, y:0};
+				let treeSprite;
+				let treeSpriteSelected = getRandomInt(4);
+				if (treeSpriteSelected == 0) {
+					treeSprite = tree4LeaflessPic;
+				} else if (treeSpriteSelected == 1) {
+					treeSprite = tree4LeaflessPicSnow; 
+				} else if (treeSpriteSelected == 2) {
+					treeSprite = tree3LeaflessPic; 
+				} else if (treeSpriteSelected == 3) {
+					treeSprite = tree3LeaflessPicSnow; 
+				}
 				if(thisSeg.index % 2 == 0) {//left side
-					lightSprite = leftStreetLightPic;
-					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + 2.75 * lightSprite.width;
+					treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + 7.15 * treeSprite.width;
 				} else {//rightSide
-					lightSprite = rightStreetLightPic;
-					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - 2.75 * lightSprite.width;
+					treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - 7.15 * treeSprite.width;
 				}
 				
-				lightPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+				treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
 				
-				const finalWorldPos = { x: lightPos.x, y: lightPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-				const aDecoration = new RoadsideDecoration(lightSprite, finalWorldPos);
+				const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+				const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
 				aDecoration.typeForFileName();
 				
 				this.road.addDecorationToGround(aDecoration, thisSeg);
-			}*/
+			}
 
 			if ((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
 				//				console.log("Checkpoint added");
@@ -597,7 +609,6 @@ function EditorScene(data) {
 
 		this.road.draw(this.camera.position, []);
 		this.road.drawSelected();
-
 		drawDecorationsUI();
 		colorText('[H] for Help', canvas.width / 2, 30, textColor.White, fonts.Subtitle, textAlignment.Center, opacity);
 	}
