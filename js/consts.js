@@ -61,17 +61,55 @@ const textStrings = {
     LevelSelect: 'Select level',
     GameOver: "Game Over",
     Contributors: [
-        {name:"H TRAYFORD",   works: ['Game Lead', 'Prototype', 'Level Editor'] },
-        {name:"CUSTOM NAME1", works: ['test work','test work','test work','test work','test work']},
-        {name:"CUSTOM NAME2", works: ['test work','test work','test work','test work']},
-        {name:"CUSTOM NAME3", works: ['test work','test work']},
-        {name:"CUSTOM NAMe4", works: ['test work','test work']},
-        {name:"CUSTOM NAME5", works: ['test work']},
-        {name:"CUSTOM NAM6",  works: ['test work']},
-        {name:"CUSTOM NAME7", works: ['test work']},
-        {name:"CUSTOM NAME8", works: ['test work']},
-        {name:"CUSTOM NAME9", works: ['test work']},
+        {name:"H Trayford",   works: ['Game Lead', 'Prototype', 'Level Editor'] },
+        {name:"Terrence McDonnell", works: ['AAAAA','AAAAA','AAAAA','AAAAA','AAAAA']},
+        {name:"Artem Smirnov", works: ['AAAAA','AAAAA','AAAAA','AAAAA']},
+        {name:"Christer McFunkypants Kaitila", works: ['AAAAA','AAAAA']},
+        {name:"Michael Misha Fewkes", works: ['AAAAA','AAAAA']},
+        {name:"Brandon Trumpold", works: ['AAAAA']},
+        {name:"Stebs",  works: ['AAAAA']},
+        {name:"Vignesh Ramesh", works: ['AAAAA']},
+        {name:"Chris Markle", works: ['AAAAA']},
+        {name:"Adam A. Lohnes", works: ['AAAAA']},
+        {name:"Tomanski", works: ['AAAAA']},
+        {name:"Todd Enyeart", works: ['AAAAA']},
+        {name:"Chris DeLeon", works: ['AAAAA']},
+        {name:"Barıs Koklu", works: ['AAAAA']},
+        {name:"Brian Dieffenderfer", works: ['AAAAA']},
+        {name:"Joseph Spedale", works: ['AAAAA']},
+        {name:"Remy Lapointe", works: ['AAAAA']},
+        {name:"Jeremy Kenyon", works: ['AAAAA']},
+        {name:"Mary Brady", works: ['AAAAA']},
+        {name:"Dan Dela Rosa", works: ['AAAAA']},
+        {name:"Dynokhan", works: ['AAAAA']},
+        {name:"Trenton Pegeas", works: ['AAAAA']},
     ],
+/* Raw notes, not yet turned into format above:
+Last updated July 23
+Git contributors, corresponding credits names:
+HTrayford   H Trayford
+Loim988     Terrence McDonnell
+ghost-x47   Artem Smirnov
+McFunkypants    Christer "McFunkypants" Kaitila
+mdfewkes    Michael "Misha" Fewkes
+Btrumps     Brandon Trumpold
+stebssbets  Stebs
+VRamazing   Vignesh Ramesh
+marklemind  Chris Markle
+alohn   Adam A. Lohnes
+tomankirilov    Tomanski
+Voidswimmer     Todd Enyeart
+Gamkedo     Chris DeLeon
+bariskoklu  Barış Köklü
+BDieffen    Brian Dieffenderfer
+jspeda  Joseph Spedale
+OmegaLarmor     Rémy Lapointe
+lanthos     Jeremy Kenyon
+Kirvee  Mary Brady
+dandelarosa     Dan Dela Rosa
+DynoKhan    Dynokhan
+Xist3nce    Trenton Pegeas
+*/
     StatsText: "Stats",
     Stats: {
         Ms: "ms",

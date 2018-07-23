@@ -1,11 +1,13 @@
 function CreditsScreen() {
     this.startY = 0;
-    this.scrollLimit = -1400;
+    this.scrollLimit = -1900;
     this.currentY = 0;
     this.scrollSpeed = 1;
+    this.skipBump = 0;
     this.startFrame = 0;
     this.contributors = textStrings.Contributors;
     this.transitionIn = function(){
+        this.skipBump = 0;
         this.startY = canvas.height - 300;
         this.currentY = this.startY;
         this.startFrame = framesFromGameStart;
@@ -33,7 +35,8 @@ function CreditsScreen() {
         let buttonsX = canvas.width/2 - 72;
         let selectorXOffset = 40;
 
-        this.currentY = this.startY - (framesFromGameStart - this.startFrame) * this.scrollSpeed;
+        this.currentY = this.startY - (framesFromGameStart - this.startFrame) * this.scrollSpeed - this.skipBump;
+
         if(this.currentY < this.scrollLimit) {
             ScreenStates.setState(MENU_SCREEN);
         }
@@ -41,7 +44,7 @@ function CreditsScreen() {
         drawRect(0, 0, canvas.width, 200, canvasClearColor);
         printWord(textStrings.Credits, canvas.width/2-72, 100);
 
-        // printWord("Y:" + this.currentY, 10, 500);
+        printWord("Y:" + this.currentY, 10, 500);
         drawRect(0, canvas.height-200, canvas.width, 200, canvasClearColor);
 
         printWord(textStrings.Back, buttonsX, canvas.height-120);
@@ -51,7 +54,16 @@ function CreditsScreen() {
         if(pressed){
             return false;
         }
+        let skipAmt = 150;
         switch (keyCode){
+            case KEY_DOWN:
+                this.skipBump += skipAmt;
+                return true;
+            case KEY_UP:
+                if(this.currentY < 0) {
+                    this.skipBump -= skipAmt;
+                }
+                return true;
             case KEY_ENTER:
             case KEY_BACKSPACE:
                 ScreenStates.setState(MENU_SCREEN);
