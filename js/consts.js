@@ -61,54 +61,30 @@ const textStrings = {
     LevelSelect: 'Select level',
     GameOver: "Game Over",
     Contributors: [
-        {name:"H Trayford",   works: ['Game Lead', 'Prototype', 'Level Editor'] },
-        {name:"Terrence McDonnell", works: ['AAAAA','AAAAA','AAAAA','AAAAA','AAAAA']},
-        {name:"Artem Smirnov", works: ['AAAAA','AAAAA','AAAAA','AAAAA']},
-        {name:"Christer McFunkypants Kaitila", works: ['AAAAA','AAAAA']},
-        {name:"Michael Misha Fewkes", works: ['AAAAA','AAAAA']},
-        {name:"Brandon Trumpold", works: ['AAAAA']},
-        {name:"Stebs",  works: ['AAAAA']},
-        {name:"Vignesh Ramesh", works: ['AAAAA']},
-        {name:"Chris Markle", works: ['AAAAA']},
-        {name:"Adam A. Lohnes", works: ['AAAAA']},
-        {name:"Tomanski", works: ['AAAAA']},
-        {name:"Todd Enyeart", works: ['AAAAA']},
-        {name:"Chris DeLeon", works: ['AAAAA']},
-        {name:"Barıs Koklu", works: ['AAAAA']},
-        {name:"Brian Dieffenderfer", works: ['AAAAA']},
-        {name:"Joseph Spedale", works: ['AAAAA']},
-        {name:"Remy Lapointe", works: ['AAAAA']},
-        {name:"Jeremy Kenyon", works: ['AAAAA']},
-        {name:"Mary Brady", works: ['AAAAA']},
-        {name:"Dan Dela Rosa", works: ['AAAAA']},
-        {name:"Dynokhan", works: ['AAAAA']},
-        {name:"Trenton Pegeas", works: ['AAAAA']},
+        {name:"H Trayford",   works: ['Game Lead', 'Core Gameplay', 'Level Editor', 'AI Drivers', 'Background Parallax', 'Nitro Boost', 'Time Limit', 'Street Light Art', 'Animated Radio Tower', 'Collision Detection', 'Art Integration', 'Billboards (Over 10 Designs)'] },
+        {name:"Terrence McDonnell", works: ['Signs (Over 28 Designs)', 'Checkpoint Code', 'Crashing Animation Code', 'Menu Improvements', 'Finish Line Animation', 'Stage Ground Colors', 'Track Design (Skyline, Mountain, Forest)','Main Menu Animation']},
+        {name:"Artem Smirnov", works: ['Screen State Machine','City Skyline','Data Storage','End of Round Report','Level Select','Game Over Screen','Font Improvements','Dashboard Radio', 'Automatic Transmission']},
+        {name:"Christer McFunkypants Kaitila", works: ['Particle Effects', 'Car Spritesheet Code', 'Dashboard HUD Code', 'Cloudy Sky Backgrounds', 'Sharp Pixel Scaling','Gamepad Support', 'Kangaroo Sign', 'Title Parallax', 'Random Track Generator (Unreleased WIP)']},
+        {name:"Michael Misha Fewkes", works: ['Custom Audio Engine Code','Sounds (Engine, Off Road, Brakes, Crash)', 'Sound Mixing', 'Starting Countdown']},
+        {name:"Brandon Trumpold", works: ['Steering Feel Tweaks','Tuning (speeds, crash time)', 'RPM Needle Fix']},
+        {name:"Stebs",  works: ['Billboard (East Coast Throwback)', 'Billboard (Presidential)', 'Billboard (Attractions)', 'Additional Tree Art']},
+        {name:"Vignesh Ramesh", works: ['Music (Snow Level, Night Theme)','Player Car Model','Sound (Cheering)','Billboard (Slick Punch)']},
+        {name:"Adam A. Lohnes", works: ['Truck Model and Sprites','Semi Model and Sprites','Bus Model and Sprites']},
+        {name:"Chris Markle", works: ['Music (Main Menu, Game Over)', 'Sound (Checkpoint)','Billboard (Globuton)']},
+        {name:"Tomanski", works: ['Snowy Mountain Background','Props (Tires)','Props (Trees)','Main Menu Sprites']},
+        {name:"Barıs Koklu", works: ['Gear Shifting', "Game Over Screen Improvement"]},
+        {name:"Joseph Spedale", works: ['Countdown Sounds', 'Music (Dr Juno)']},
+        {name:"Remy Lapointe", works: ['Billboard (Arcaninjadroid)','Billboard (Spell Spiel)']},
+        {name:"Mary Brady", works: ['Dashboard UI Art']},
+        {name:"Dynokhan", works: ['Rear Car Bump Collision']},
+        {name:"Dan Dela Rosa", works: ['Save State Improvements']},
+        {name:"Todd Enyeart", works: ['Billboard (Sandwich)','Billboard (Coffee)', 'Billboard (Fast Food)']},
+        {name:"Jeremy Kenyon", works: ['Billboard (We Must Prepare)']},
+        {name:"Trenton Pegeas", works: ['Billboard (Aether)']},
+        {name:"Brian Dieffenderfer", works: ['Additional Road Tiles']},
+        {name:"Chris DeLeon", works: ['Credits Data Entry']}
     ],
-/* Raw notes, not yet turned into format above:
-Last updated July 23
-Git contributors, corresponding credits names:
-HTrayford   H Trayford
-Loim988     Terrence McDonnell
-ghost-x47   Artem Smirnov
-McFunkypants    Christer "McFunkypants" Kaitila
-mdfewkes    Michael "Misha" Fewkes
-Btrumps     Brandon Trumpold
-stebssbets  Stebs
-VRamazing   Vignesh Ramesh
-marklemind  Chris Markle
-alohn   Adam A. Lohnes
-tomankirilov    Tomanski
-Voidswimmer     Todd Enyeart
-Gamkedo     Chris DeLeon
-bariskoklu  Barış Köklü
-BDieffen    Brian Dieffenderfer
-jspeda  Joseph Spedale
-OmegaLarmor     Rémy Lapointe
-lanthos     Jeremy Kenyon
-Kirvee  Mary Brady
-dandelarosa     Dan Dela Rosa
-DynoKhan    Dynokhan
-Xist3nce    Trenton Pegeas
+/* Note: CREDITS WERE LAST UPDATED as of July 23 - a week before release. Changes/addidions may be needed
 */
     StatsText: "Stats",
     Stats: {

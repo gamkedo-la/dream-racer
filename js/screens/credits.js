@@ -1,8 +1,8 @@
 function CreditsScreen() {
     this.startY = 0;
-    this.scrollLimit = -1900;
+    this.scrollLimit = -3050;
     this.currentY = 0;
-    this.scrollSpeed = 1;
+    this.scrollSpeed = 2.5;
     this.skipBump = 0;
     this.startFrame = 0;
     this.contributors = textStrings.Contributors;
@@ -16,7 +16,7 @@ function CreditsScreen() {
         uiSelect.play();
     };
     this.drawContributors = function(){
-        let nameX = canvas.width/2;
+        let nameX = canvas.width/2-250;
         let textSkip = 20;
         let height = 24;
         var textY = 150;
@@ -44,7 +44,7 @@ function CreditsScreen() {
         drawRect(0, 0, canvas.width, 200, canvasClearColor);
         printWord(textStrings.Credits, canvas.width/2-72, 100);
 
-        printWord("Y:" + this.currentY, 10, 500);
+        printWord("Arrow Keys Scroll "/* + this.currentY*/, 550, 620, 0.5);
         drawRect(0, canvas.height-200, canvas.width, 200, canvasClearColor);
 
         printWord(textStrings.Back, buttonsX, canvas.height-120);
