@@ -52,19 +52,24 @@ function colorText(showWords, textX, textY, fillColor, fontface, textAlign = 'le
 	canvasContext.restore();
 }
 
+function colorTextWithShadow(showWords, textX, textY, fillColor, fontface, textAlign = 'left', opacity = 1) {
+	colorText(showWords, textX + 1, textY + 1, 'black', fontface, textAlign, 0.5);
+	colorText(showWords, textX, textY, fillColor, fontface, textAlign, opacity);
+}
+
 function scrollingText(text, x, y, w, h, color, font, speed, nopause) {
 	let TEXT_GAP = 10;
 
-    canvasContext.save();
-    canvasContext.beginPath();
-    canvasContext.rect(x, y-h, w, h);
-    canvasContext.clip();
-    canvasContext.font = font;
-    canvasContext.fillStyle = color;
-    let textLength = canvasContext.measureText(text).width + TEXT_GAP; //this should be called after font is set
-    canvasContext.fillText(text, x + (framesFromGameStart * speed) % textLength - textLength, y);
+	canvasContext.save();
+	canvasContext.beginPath();
+	canvasContext.rect(x, y - h, w, h);
+	canvasContext.clip();
+	canvasContext.font = font;
+	canvasContext.fillStyle = color;
+	let textLength = canvasContext.measureText(text).width + TEXT_GAP; //this should be called after font is set
+	canvasContext.fillText(text, x + (framesFromGameStart * speed) % textLength - textLength, y);
 	canvasContext.fillText(text, x + (framesFromGameStart * speed) % textLength, y);
-    canvasContext.restore();
+	canvasContext.restore();
 }
 
 function getFontWeight(font) {
@@ -153,40 +158,40 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 
 //@FIXME: not accounting for x width, cannot draw scale 0.5 in half a screen
 function wrapAndtransformDraw(whichImg, pixelOffset) {
-    let wrappedOffset = {
-        x: pixelOffset.x % whichImg.width,
-        y: pixelOffset.y % whichImg.height
-    };
-    let scale = 1;
-    if(pixelOffset.scale !== undefined) {
-        scale = pixelOffset.scale;
-    }
+	let wrappedOffset = {
+		x: pixelOffset.x % whichImg.width,
+		y: pixelOffset.y % whichImg.height
+	};
+	let scale = 1;
+	if (pixelOffset.scale !== undefined) {
+		scale = pixelOffset.scale;
+	}
 
-    if (wrappedOffset.x < 0) {
-        wrappedOffset.x = whichImg.width + wrappedOffset.x;
-    }
-    if (wrappedOffset.y < 0) {
-        wrappedOffset.y = whichImg.height + wrappedOffset.y
-    }
+	if (wrappedOffset.x < 0) {
+		wrappedOffset.x = whichImg.width + wrappedOffset.x;
+	}
+	if (wrappedOffset.y < 0) {
+		wrappedOffset.y = whichImg.height + wrappedOffset.y
+	}
 
-    canvasContext.drawImage(whichImg,
-        //srcX, srcY, srcW, srcH
-        0, 0, whichImg.width, whichImg.height,
-        //dstX, dstY, dstW, dstH
-        (1 - scale)/2 * canvas.width + wrappedOffset.x -1, // -1 fixes float point tearing when drawing two images;
-        (1 - scale) * whichImg.height + wrappedOffset.y,
-        scale * ( whichImg.width ),
-        scale * (whichImg.height));
+	canvasContext.drawImage(whichImg,
+		//srcX, srcY, srcW, srcH
+		0, 0, whichImg.width, whichImg.height,
+		//dstX, dstY, dstW, dstH
+		(1 - scale) / 2 * canvas.width + wrappedOffset.x - 1, // -1 fixes float point tearing when drawing two images;
+		(1 - scale) * whichImg.height + wrappedOffset.y,
+		scale * (whichImg.width),
+		scale * (whichImg.height));
 
-    let drawSize = (whichImg.width - wrappedOffset.x);
-    if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
-        canvasContext.drawImage(whichImg,
-            drawSize, 0, wrappedOffset.x, whichImg.height,
-            (1 - scale)/2 * canvas.width,
-            (1 - scale) * whichImg.height + wrappedOffset.y,
-            scale * wrappedOffset.x,
-            scale * whichImg.height
-        );
-    }
+	let drawSize = (whichImg.width - wrappedOffset.x);
+	if (drawSize < whichImg.width) { // avoids Firefox issue on 0 image dim
+		canvasContext.drawImage(whichImg,
+			drawSize, 0, wrappedOffset.x, whichImg.height,
+			(1 - scale) / 2 * canvas.width,
+			(1 - scale) * whichImg.height + wrappedOffset.y,
+			scale * wrappedOffset.x,
+			scale * whichImg.height
+		);
+	}
 }
 
