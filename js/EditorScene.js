@@ -8,7 +8,7 @@ function EditorScene(data) {
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
 		//	JSON.parse(skylineTest)
-		//		JSON.parse(skylineTest)	
+				JSON.parse(skylineTest)	
 		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
