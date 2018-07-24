@@ -325,7 +325,6 @@ function setEngineAudioFromRPMs(RPMs) {
 	var rpms = RPMs;
 	if (rpms <= 0) {
 		AudioEventManager.addFadeEvent(engine_master.getCurrentSound(), 1.0, 0);
-		console.log("RPMs: " + rpms);
 		return;
 	}
 	

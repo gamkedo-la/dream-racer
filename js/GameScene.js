@@ -15,7 +15,6 @@ function GameScene(data) {
 	this.road = new Road(this.frustum);
 
 	// checkpoint countdown timer
-//	const CHECKPOINT_TIME_LIMIT_MS = 20 * 1000; /// 1000 per second
 	this.countdownTimeLeft = data.initialTime; //CHECKPOINT_TIME_LIMIT_MS;
 	this.timeSinceLastFrame = null;
 	this.currentFrameTimestamp = null;
@@ -110,12 +109,7 @@ function GameScene(data) {
 
 			return;
 		}
-		
-/*		if (countDown.getPaused()) {
-			console.log("Just entered countdown.resume()");
-			countDown.resume();
-		}*/
-		
+				
 		//2, 35,  67, 100 //frames
 		//3,  2,   1, GO!!!//image
 		if (countdownDisplayCounter < 17) {//17 based on how long to get from "3" to "2" on the audio for the countown
@@ -131,7 +125,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else if (/*framesPerSecond <= countdownDisplayCounter &&*/
+		} else if (
 			countdownDisplayCounter < 38) {//38 based on how long to get from "2" to "1" on the audio countdown
 			let frameIndex = 1;
 			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
@@ -141,7 +135,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else if (/*framesPerSecond * 2 <= countdownDisplayCounter &&*/
+		} else if (
 			countdownDisplayCounter < 59) {//59 based on how long to go from "1" to "GO!!!" on the audio countdown
 			let frameIndex = 2;
 			canvasContext.drawImage(countdownSpriteSheetPic, frameIndex * countdownSpriteSheetPic.width / 3, 0,
@@ -151,7 +145,7 @@ function GameScene(data) {
 			canTurn = false;
 			canAccelerate = false;
 			canBoost = false;
-		} else if (//framesPerSecond * 3.2/*feels more on time*/ <= countdownDisplayCounter &&
+		} else if (
 			countdownDisplayCounter < 78) {//78 based on a reasonable amount of time to display "GO!!!"
 			canvasContext.drawImage(goPic, 0, 0,
 				goPic.width, goPic.height,
@@ -170,7 +164,6 @@ function GameScene(data) {
 		}
 		this.currentFrameTimestamp = Date.now();
 		if (!this.previousFrameTimestamp) { // first frame?
-			console.log("Countdown timer starting!");
 			this.previousFrameTimestamp = this.currentFrameTimestamp;
 		}
 		this.timeSinceLastFrame = this.currentFrameTimestamp - this.previousFrameTimestamp;

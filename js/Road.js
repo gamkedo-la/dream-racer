@@ -259,6 +259,7 @@ function Road(frustum) {
 							thisDecoration.addTrigger(timeExtend, checkpointFlagPic);	
 						}
 					} else if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
+						this.indexOfFinishLine = newSegment.index;
 						let timeExtend = 0;
 						thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 						thisDecoration.animated = true;
@@ -279,7 +280,7 @@ function Road(frustum) {
 
 	this.addRoadSectionWithJSONArray = function (roadArray) {
 		const initialTrackLength = segments.length;
-		this.indexOfFinishLine = initialTrackLength;
+//		this.indexOfFinishLine = initialTrackLength;
 
 		for (let i = 0; i < roadArray.length; i++) {
 			const newSegment = new Segment();
@@ -301,7 +302,7 @@ function Road(frustum) {
 
 	this.addReverseRoadSectionWithJSONArray = function (roadArray) {
 		const initialTrackLength = segments.length;
-		this.indexOfFinishLine = initialTrackLength;
+//		this.indexOfFinishLine = initialTrackLength;
 
 		for (let i = roadArray.length - 1; i >= 0; i--) {
 			const newSegment = new Segment();
@@ -341,6 +342,7 @@ function Road(frustum) {
 					let timeExtend = 30000;
 					thisDecoration.addTrigger(timeExtend, checkpointFlagPic);
 				} else if (thisDecoration.getType() == DecorationType.CheckeredFlag) {
+					this.indexOfFinishLine = newSegment.index;
 					let timeExtend = 0;
 					thisDecoration.addTrigger(timeExtend, tempCheckeredFlagPic);
 					thisDecoration.animated = true;
