@@ -7,8 +7,8 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
-		//	JSON.parse(skylineTest)
-				JSON.parse(skylineTest)	
+			JSON.parse(summitDecentManualTrees)
+		//		JSON.parse(skylineTest)	
 		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
 				JSON.parse(sCurveLeftFirst),
@@ -329,25 +329,27 @@ function EditorScene(data) {
 		const segs = this.road.getSegments();
 		let horiz = 0;
 		let vert = 0;
+		let treeModulus = getRandomInt(7);
+		let treeCount = getRandomInt(4);
 		for (let j = 0; j < segs.length; j++) {
 			const thisSeg = segs[j];
 			const indexModulus = thisSeg.index % 11;
 			switch (indexModulus) {
-				/*				case 2:
-								case 8:
-									thisSeg.color = '#444444';
-									break;
-								case 3:
-								case 7:
-									thisSeg.color = '#666666';
-									break;
-								case 4:
-								case 6:
-									thisSeg.color = '#888888';
-									break;
-								case 5:
-									thisSeg.color = '#BBBBBB';
-									break;*/
+/*				case 2:
+				case 8:
+					thisSeg.color = '#444444';
+					break;
+				case 3:
+				case 7:
+					thisSeg.color = '#666666';
+					break;
+				case 4:
+				case 6:
+					thisSeg.color = '#888888';
+					break;
+				case 5:
+					thisSeg.color = '#BBBBBB';
+					break;*/
 				default:
 					thisSeg.color = '#444444';
 					break;
@@ -441,35 +443,39 @@ function EditorScene(data) {
 
 			thisSeg.farPos.world.y += vert;
 
-			if(indexModulus == 7) {
-				let treePos = {x:0, y:0};
-				let treeSprite;
-				let treeSpriteSelected = getRandomInt(4);
-				if (treeSpriteSelected == 0) {
-					treeSprite = tree4LeaflessPic;
-				} else if (treeSpriteSelected == 1) {
-					treeSprite = tree4LeaflessPicSnow; 
-				} else if (treeSpriteSelected == 2) {
-					treeSprite = tree3LeaflessPic; 
-				} else if (treeSpriteSelected == 3) {
-					treeSprite = tree3LeaflessPicSnow; 
+			if(indexModulus == treeModulus) {
+				treeModulus = getRandomInt(7);
+				for(let j = 0; j < treeCount; j++) {
+					let treePos = {x:0, y:0};
+					let treeSprite;
+					let treeSpriteSelected = getRandomInt(4);
+					if (treeSpriteSelected == 0) {
+						treeSprite = tree4LeaflessPic;
+					} else if (treeSpriteSelected == 1) {
+						treeSprite = tree4LeaflessPicSnow; 
+					} else if (treeSpriteSelected == 2) {
+						treeSprite = tree3LeaflessPic; 
+					} else if (treeSpriteSelected == 3) {
+						treeSprite = tree3LeaflessPicSnow; 
+					}
+					if(thisSeg.index % 2 == 0) {//left side
+						treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 7.15) * treeSprite.width;
+					} else {//rightSide
+						treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 7.15) * treeSprite.width;
+					}
+					
+					treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+					
+					const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+					const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
+					aDecoration.typeForFileName();
+					
+					this.road.addDecorationToGround(aDecoration, thisSeg);
 				}
-				if(thisSeg.index % 2 == 0) {//left side
-					treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + 7.15 * treeSprite.width;
-				} else {//rightSide
-					treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - 7.15 * treeSprite.width;
-				}
-				
-				treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
-				
-				const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-				const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
-				aDecoration.typeForFileName();
-				
-				this.road.addDecorationToGround(aDecoration, thisSeg);
+				treeCount = getRandomInt(4);
 			}
 
-			if ((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
+			if ((thisSeg.index > 0) && (thisSeg.index % 400 == 0)) {
 				//				console.log("Checkpoint added");
 				const checkPointPos = { x: 0, y: 0 };
 				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;

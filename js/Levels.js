@@ -455,7 +455,7 @@ var Levels = [
         backgroundPic: snowyMountainLevelPic,
         middleGroundPic: snowyMountainLevelPic,
         name: "Summit Descent",
-        initialTime: 30 * 1000, // 30 seconds
+        initialTime: 45 * 1000, // 30 seconds
         musicTrackIndex: 5,
         skyTransformFunc: function (position) {
             return { x: Math.floor(position.x / 170), y: 0, scale: undefined };

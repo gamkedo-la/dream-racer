@@ -187,6 +187,13 @@ function Road(frustum) {
 					groundColor = "#05a753";
 				}
 				break;
+			case "Summit Descent":
+				groundColor = "#d5d8fb";
+				if (segement.index % 2 == 0) {
+					groundColor = "#d6d9f6";
+				}
+				break;
+
 			default:
 				break;
 		}
