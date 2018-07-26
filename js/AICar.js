@@ -64,7 +64,14 @@ const AIType = {
 	SemiBlack:"semiBlack",
 	SemiBlue:"semiBlue",
 	SemiGreen:"semiGreen",
-	SchoolBus:"schoolBus"
+	SchoolBus:"schoolBus",
+	SportBlue:"sportBlue",
+	SportBrown:"sportBrown",
+	SportGreen:"sportGreen",
+	SportLightBlue:"sportLightBlue",
+	SportPurple:"sportPurple",
+	SportSilver:"sportSilver",
+	SportYellow:"sportYellow",
 }
 
 //A.I. Car
@@ -97,6 +104,20 @@ function AICar(aType, start, aPath) {
 				return semiGreenAIPic;
 			case AIType.SchoolBus:
 				return schoolBusAIPic;
+			case AIType.SportBlue:
+				return sportBlueAIPic;
+			case AIType.SportBrown:
+				return sportBrownAIPic;
+			case AIType.SportGreen:
+				return sportGreenAIPic;
+			case AIType.SportLightBlue:
+				return sportLightBlueAIPic;
+			case AIType.SportPurple:
+				return sportPurpleAIPic;
+			case AIType.SportSilver:
+				return sportSilverAIPic;
+			case AIType.SportYellow:
+				return sportYellowAIPic;
 		}
 	}
 	this.sprite = spriteForType(aType);
@@ -120,7 +141,15 @@ function AICar(aType, start, aPath) {
 			case AIType.SemiGreen:
 				return {width:200, height:150};
 			case AIType.SchoolBus:
-				return {width:201, height:136};//Need to adjust this to make it right
+				return {width:201, height:136};
+			case AIType.SportBlue:
+			case AIType.SportBrown:
+			case AIType.SportGreen:
+			case AIType.SportLightBlue:
+			case AIType.SportPurple:
+			case AIType.SportSilver:
+			case AIType.SportYellow:
+				return {width:234, height:160};
 		}
 	}
 	const size = sizeForType(aType);
@@ -145,6 +174,14 @@ function AICar(aType, start, aPath) {
 			return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
 		case AIType.SchoolBus:
 			return {xOffset: 50, yOffset: 50, zOffset: 0, width: 105, height: 80};
+		case AIType.SportBlue:
+		case AIType.SportBrown:
+		case AIType.SportGreen:
+		case AIType.SportLightBlue:
+		case AIType.SportPurple:
+		case AIType.SportSilver:
+		case AIType.SportYellow:
+			return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
 		}
 	}
 
@@ -242,9 +279,9 @@ function AICar(aType, start, aPath) {
 	}
 	
 	const frameForDeltaPos = function(deltaX, deltaY) {
-		if(deltaY < 0) {
+		if(deltaY < -30) {
 			framePos.y = 0;
-		} else if(deltaY > 0) {
+		} else if(deltaY > 30) {
 			framePos.y = 2;
 		} else {
 			framePos.y = 1;
@@ -300,22 +337,47 @@ function AICar(aType, start, aPath) {
 	}
 					
 	this.draw = function(frustum) {
-		const screenPos = frustum.screenPosForWorldPos(this.position);
-		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
+		if((this.type == AIType.SportBlue) || (this.type == AIType.SportBrown) || (this.type == AIType.SportGreen) || (this.type == AIType.SportLightBlue) || (this.type == AIType.SportPurple) || (this.type == AIType.SportSilver) || (this.type == AIType.SportYellow)) {
+			const screenPos = frustum.screenPosForWorldPos(this.position);
+			const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width * 0.66, height:this.height * 0.66}, this.position);
+			
+			
+			
+			canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 3, screenPos.y, screenSize.width, screenSize.height);
+			
+			const widthRatio = screenSize.width / (this.width * 0.66);
+			const heightRatio = screenSize.height / (this.height * 0.66);
+	
+			this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
+			this.collider.draw();
+		} else {
+			const screenPos = frustum.screenPosForWorldPos(this.position);
+			let screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
+			
+			
+			
+			canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
+			
+			const widthRatio = screenSize.width / (this.width);
+			const heightRatio = screenSize.height / (this.height);
+	
+			this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
+			this.collider.draw();
+		}
 		
-		canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
 		
-		const widthRatio = screenSize.width / (this.width);
-		const heightRatio = screenSize.height / (this.height);
-
-		this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
-		this.collider.draw();
 	}
 	
 	this.getRect = function(frustum) {
-		const screenPos = frustum.screenPosForWorldPos(this.position);
-		const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
-		return {x: screenPos.x, y: screenPos.y, width:screenSize.width, height:screenSize.height};
+		if((this.type == AIType.SportBlue) || (this.type == AIType.SportBrown) || (this.type == AIType.SportGreen) || (this.type == AIType.SportLightBlue) || (this.type == AIType.SportPurple) || (this.type == AIType.SportSilver) || (this.type == AIType.SportYellow)) {
+			const screenPos = frustum.screenPosForWorldPos(this.position);
+			const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width * 0.66, height:this.height * 0.66}, this.position);
+			return {x: screenPos.x, y: screenPos.y, width:screenSize.width, height:screenSize.height};
+		} else {
+			const screenPos = frustum.screenPosForWorldPos(this.position);
+			const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
+			return {x: screenPos.x, y: screenPos.y, width:screenSize.width, height:screenSize.height};
+		}
 	}
 	
 	this.move = function(nextSegment, playerSegment) {

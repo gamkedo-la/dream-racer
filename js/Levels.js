@@ -48,7 +48,7 @@ var Levels = [
             laneChange1.push(new aiPathPoint(50, Lane.Left, 10, 0.5, 20));
             laneChange1.push(new aiPathPoint(60, Lane.Right, 10, 0.5, 20));
 
-            const car1 = new AICar(AIType.PickupBlue, aiStartPos1, laneChange1);
+            const car1 = new AICar(AIType.SportBlue, aiStartPos1, laneChange1);
             cars.push(car1);
 
             const aiStartPos2 = new aiStart(135, Lane.Right, 10, 0.25, 85);

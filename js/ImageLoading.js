@@ -23,6 +23,13 @@ const semiBlackAIPic = document.createElement("img");
 const semiBlueAIPic = document.createElement("img");
 const semiGreenAIPic = document.createElement("img");
 const schoolBusAIPic = document.createElement("img");
+const sportBlueAIPic = document.createElement("img");
+const sportBrownAIPic = document.createElement("img");
+const sportGreenAIPic = document.createElement("img");
+const sportLightBlueAIPic = document.createElement("img");
+const sportPurpleAIPic = document.createElement("img");
+const sportSilverAIPic = document.createElement("img");
+const sportYellowAIPic = document.createElement("img");
 // signs/flags
 const tempCheckeredFlagPic = document.createElement("img");
 const checkpointFlagPic = document.createElement("img");
@@ -203,6 +210,13 @@ function loadImages() {
 	imageList.push({ imgName: semiBlueAIPic, theFile: "semi-truck-blue.png" });
 	imageList.push({ imgName: semiGreenAIPic, theFile: "semi-truck-green.png" });
 	imageList.push({ imgName: schoolBusAIPic, theFile: "school-bus_spritesheet.png" });
+	imageList.push({ imgName: sportBlueAIPic, theFile: "aiCarBlueSmall.png" });
+	imageList.push({ imgName: sportBrownAIPic, theFile: "aiCarBrownSmall.png" });
+	imageList.push({ imgName: sportGreenAIPic, theFile: "aiCarGreenSmall.png" });
+	imageList.push({ imgName: sportLightBlueAIPic, theFile: "aiCarLightBlueSmall.png" });
+	imageList.push({ imgName: sportPurpleAIPic, theFile: "aiCarPurpleSmall.png" });
+	imageList.push({ imgName: sportSilverAIPic, theFile: "aiCarSilverSmall.png" });
+	imageList.push({ imgName: sportYellowAIPic, theFile: "aiCarYellowSmall.png" });
 	// signs
 	imageList.push({ imgName: tempCheckeredFlagPic, theFile: "CheckeredFlag.png" });
 	imageList.push({ imgName: checkpointFlagPic, theFile: "CheckPoint.png" });
