@@ -7,7 +7,7 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
-			JSON.parse(summitDecentManualTrees)
+//			JSON.parse(summitDecentManualTrees)
 		//		JSON.parse(skylineTest)	
 		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
@@ -330,7 +330,7 @@ function EditorScene(data) {
 		let horiz = 0;
 		let vert = 0;
 		let treeModulus = getRandomInt(7);
-		let treeCount = getRandomInt(4);
+		let treeCount = getRandomInt(15);
 		for (let j = 0; j < segs.length; j++) {
 			const thisSeg = segs[j];
 			const indexModulus = thisSeg.index % 11;
@@ -444,25 +444,48 @@ function EditorScene(data) {
 			thisSeg.farPos.world.y += vert;
 
 			if(indexModulus == treeModulus) {
-				treeModulus = getRandomInt(7);
+				treeModulus = getRandomInt(5);
 				for(let j = 0; j < treeCount; j++) {
 					let treePos = {x:0, y:0};
 					let treeSprite;
-					let treeSpriteSelected = getRandomInt(4);
+					let treeSpriteSelected = getRandomInt(10);
 					if (treeSpriteSelected == 0) {
 						treeSprite = tree4LeaflessPic;
-					} else if (treeSpriteSelected == 1) {
+					} else if (treeSpriteSelected <= 2) {
 						treeSprite = tree4LeaflessPicSnow; 
-					} else if (treeSpriteSelected == 2) {
-						treeSprite = tree3LeaflessPic; 
 					} else if (treeSpriteSelected == 3) {
+						treeSprite = tree3LeaflessPic; 
+					} else if (treeSpriteSelected <= 5) {
 						treeSprite = tree3LeaflessPicSnow; 
+					} else if (treeSpriteSelected <= 7) {
+						treeSprite = tree7Pic; 
+					} else if (treeSpriteSelected <= 9) {
+						treeSprite = tree8Pic; 
 					}
-					if(thisSeg.index % 2 == 0) {//left side
-						treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 7.15) * treeSprite.width;
-					} else {//rightSide
-						treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 7.15) * treeSprite.width;
+					
+					if(j >= 7) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 35 + rnd) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 35 + rnd) * treeSprite.width;
+						}
+					} else if(j >= 3) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 15 + rnd) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 15 + rnd) * treeSprite.width;
+						}
+					} else {
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 8.15) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 8.15) * treeSprite.width;
+						}
 					}
+					
+					
 					
 					treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
 					
@@ -471,8 +494,9 @@ function EditorScene(data) {
 					aDecoration.typeForFileName();
 					
 					this.road.addDecorationToGround(aDecoration, thisSeg);
+					aDecoration.world.z = thisSeg.nearPos.world.z + (1 - (j / 10)) * this.road.getSegmentLength();
 				}
-				treeCount = getRandomInt(4);
+				treeCount = getRandomInt(15);
 			}
 
 			if ((thisSeg.index > 0) && (thisSeg.index % 400 == 0)) {
@@ -591,8 +615,14 @@ function EditorScene(data) {
 			new DecorationUIElement(tree4LeaflessPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
 			new DecorationUIElement(warningSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
 			new DecorationUIElement(questionSignPicSnow, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
-/*			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
+			new DecorationUIElement(tree7Pic, { x: canvas.width - (12 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),
 
+			new DecorationUIElement(tree8Pic, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 2 * UI_SIZE.height }),
+/*			new DecorationUIElement(tree4LeaflessPic, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 3 * UI_SIZE.height }),
+			new DecorationUIElement(tree4LeaflessPicSnow, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 4 * UI_SIZE.height }),
+			new DecorationUIElement(warningSignPicSnow, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 5 * UI_SIZE.height }),
+			new DecorationUIElement(questionSignPicSnow, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 6 * UI_SIZE.height }),
+			new DecorationUIElement(tree3LeaflessPic, { x: canvas.width - (13 * UI_SIZE.width) - 10, y: canvas.height - 7 * UI_SIZE.height }),*/
 
 			new DecorationUIColor('#EEEEFF', { x: UI_SIZE.width + 10, y: canvas.height - 2 * UI_SIZE.height }),
 			new DecorationUIColor('#BBBBBB', { x: UI_SIZE.width + 10, y: canvas.height - 3 * UI_SIZE.height }),

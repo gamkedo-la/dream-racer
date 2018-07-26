@@ -181,7 +181,7 @@ function AICar(aType, start, aPath) {
 		case AIType.SportPurple:
 		case AIType.SportSilver:
 		case AIType.SportYellow:
-			return {xOffset: 55, yOffset: 50, zOffset: 0, width: 90, height: 100};
+			return {xOffset: 63, yOffset: 110, zOffset: 0, width: 80, height: 70};
 		}
 	}
 
@@ -348,7 +348,7 @@ function AICar(aType, start, aPath) {
 			const widthRatio = screenSize.width / (this.width * 0.66);
 			const heightRatio = screenSize.height / (this.height * 0.66);
 	
-			this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
+			this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 1.5, this.position.z, widthRatio, heightRatio);
 			this.collider.draw();
 		} else {
 			const screenPos = frustum.screenPosForWorldPos(this.position);

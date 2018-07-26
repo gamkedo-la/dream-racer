@@ -74,6 +74,8 @@ const DecorationType = {
 	Tree4Leafless: "Tree4Leafless",
 	Tree4LeaflessSnow: "Tree4LeaflessSnow",
 	Tree6: "Tree6",
+	Tree7: "Tree7",
+	Tree8: "Tree8",
 	QuestionSign: "QuestionSign",
 	QuestionSignSnow: "QuestionSignSnow",
 	RightStreetLight_NoLight: "RightStreetLight_NoLight",
@@ -396,6 +398,10 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.Tree4LeaflessSnow;
 			case "Tree6.png":
 				return DecorationType.Tree6;
+			case "Tree7.png":
+				return DecorationType.Tree7;
+			case "Tree8.png":
+				return DecorationType.Tree8;
 			case "QuestionSign.png":
 				return DecorationType.QuestionSign;
 			case "QuestionSignSnow.png":
@@ -569,10 +575,12 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree2:
 				return { xOffset: 130, yOffset: 220, zOffset: -5, width: 15, height: 100, depth: 10 };
 			case DecorationType.Tree3:
+			case DecorationType.Tree7:
 			case DecorationType.Tree3Leafless:
 			case DecorationType.Tree3LeaflessSnow:
 				return { xOffset: 235, yOffset: 390, zOffset: -5, width: 38, height: 212, depth: 10 };
 			case DecorationType.Tree4:
+			case DecorationType.Tree8:
 			case DecorationType.Tree4Leafless:
 			case DecorationType.Tree4LeaflessSnow:
 				return { xOffset: 235, yOffset: 270, zOffset: -5, width: 38, height: 212, depth: 10 };
@@ -626,6 +634,8 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.Tree4:
 			case DecorationType.Tree4Leafless:
 			case DecorationType.Tree4LeaflessSnow:
+			case DecorationType.Tree7:
+			case DecorationType.Tree8:
 			case DecorationType.AttractionsBillboard:
 			case DecorationType.BillboardLight:
 			case DecorationType.BurgerBillboard:

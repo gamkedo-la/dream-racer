@@ -83,6 +83,8 @@ const tree4Pic = document.createElement("img");
 const tree4LeaflessPic = document.createElement("img");
 const tree4LeaflessPicSnow = document.createElement("img");
 const tree6Pic = document.createElement("img");
+const tree7Pic = document.createElement("img");
+const tree8Pic = document.createElement("img");
 const warningSignPic = document.createElement("img");
 const warningSignPicSnow = document.createElement("img");
 const kangarooSignPic = document.createElement("img");
@@ -273,6 +275,8 @@ function loadImages() {
 	imageList.push({ imgName: tree4LeaflessPic, theFile: "Tree4Leafless.png" });
 	imageList.push({ imgName: tree4LeaflessPicSnow, theFile: "Tree4LeaflessSnow.png" });
 	imageList.push({ imgName: tree6Pic, theFile: "Tree6.png" });
+	imageList.push({ imgName: tree7Pic, theFile: "Tree7.png" });
+	imageList.push({ imgName: tree8Pic, theFile: "Tree8.png" });
 	imageList.push({ imgName: rightStreetLightPic, theFile: "RightStreetLight.png" });
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
