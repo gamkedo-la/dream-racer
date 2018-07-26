@@ -245,7 +245,8 @@ function GameScene(data) {
 
 		if (this.countdownTimeLeft <= 0) {
 			canAccelerate = false;
-			AudioEventManager.addFadeEvent(currentBackgroundMusic.getCurrentMusic(), 1.0, 0);
+//			AudioEventManager.addFadeEvent(currentBackgroundMusic.getCurrentMusic(), 1.0, 0);
+			currentBackgroundMusic.pause();
 		}
 		this.stats.speed = Math.max(this.player.speed, this.stats.speed);
 		if (this.raceWon) {

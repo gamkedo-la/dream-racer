@@ -12,6 +12,7 @@ function MenuScreen() {
             scene = null;
         }
         
+        currentBackgroundMusic.setCurrentTrack(0);
         if(currentBackgroundMusic.getTime() > 0){
             currentBackgroundMusic.resume();    
         }

@@ -36,14 +36,18 @@ function drawLogo(){
     mainMenuLogoSprite.draw(titleImageX,titleImageY);
 }
 function windowOnFocus() {
+	currentBackgroundMusic.resume();
+	
     if(ScreenStates.state == PAUSE_SCREEN || ScreenStates.state == PAUSE_OPTIONS_SCREEN) {
         var state = ScreenStates.getPreviousState();
         ScreenStates.setState(state);
     }
 }
 function windowOnBlur() {
+	currentBackgroundMusic.pause();
+	
     if(ScreenStates.state == GAMEPLAY_SCREEN) {
-        ScreenStates.setState(PAUSE_SCREEN);
+        ScreenStates.setState(PAUSE_SCREEN);    
     }
 }
 
