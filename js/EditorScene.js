@@ -254,7 +254,6 @@ function EditorScene(data) {
 			}
 			
 			if((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
-//				console.log("Checkpoint added");
 				const checkPointPos = {x:0, y:0};
 				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
 				
@@ -265,7 +264,6 @@ function EditorScene(data) {
 				aDecoration.typeForFileName();
 				
 				this.road.addDecorationToGround(aDecoration, thisSeg);
-//				console.log(thisSeg.decorations.length);
 			}
 		}
 	}
@@ -500,7 +498,6 @@ function EditorScene(data) {
 			}
 
 			if ((thisSeg.index > 0) && (thisSeg.index % 400 == 0)) {
-				//				console.log("Checkpoint added");
 				const checkPointPos = { x: 0, y: 0 };
 				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
 
@@ -511,7 +508,6 @@ function EditorScene(data) {
 				aDecoration.typeForFileName();
 
 				this.road.addDecorationToGround(aDecoration, thisSeg);
-				//				console.log(thisSeg.decorations.length);
 			}
 		}
 	}

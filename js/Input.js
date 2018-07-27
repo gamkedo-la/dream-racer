@@ -87,10 +87,8 @@ function initializeInput() {
 
 	switch(controlScheme) {
 		case CONTROL_SCHEME_KEYS_STATIONARY:
-//			console.log("Using control scheme: arrow/WASD keys only");
 			break;
 		case CONTROL_SCHEME_MOUSE_AND_KEYS_MOVING:
-//			console.log("Using control scheme: arrow/WASD keys steer, mouse aims");
 			canvas.addEventListener('mousemove', calculateMousePos);
 			canvas.addEventListener('mousedown', onMouseDown);
 			canvas.addEventListener('mouseup', onMouseUp);

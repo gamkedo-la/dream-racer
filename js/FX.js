@@ -42,8 +42,6 @@ function fxSystem() { // class constructor
 
     this.add = function (x, y, sprite, life, size, color, minSpeedX, maxSpeedX, minSpeedY, maxSpeedY) {
 
-        //console.log('fx add ' + x + ',' + y);
-
         var p, pnum, pcount;
         for (pnum = 0, pcount = particle.length; pnum < pcount; pnum++) {
             p = particle[pnum];
@@ -52,7 +50,6 @@ function fxSystem() { // class constructor
 
         // we need a new explosion!
         if (!p || !p.inactive) {
-            //console.log('No inactive explosions. Adding explosion #' + pcount);
             var newParticle = { inactive: true };
             // remember this new explosion in our system and reuse
             particle.push(newParticle);
@@ -85,8 +82,6 @@ function fxSystem() { // class constructor
 
     this.update = function () {
 
-        //console.log("fx update!");
-
         // get the current time
         var timestamp = (new Date()).getTime();
 
@@ -95,12 +90,7 @@ function fxSystem() { // class constructor
                 if (!p.inactive) {
 
                     p.age = timestamp - p.birth;
-                    //console.log('particle age: ' + p.age);
                     var lifePercent = clamp(p.age / p.life, 0, 1);
-                    //console.log('particle lifepercent: ' + lifePercent);
-
-                    //console.log('p.death: ' + p.death);
-                    //console.log('timestamp: ' + timestamp);
 
                     p.scale = p.size * lifePercent; // grow
                     p.alpha = (1 - lifePercent) * ALPHA_SCALE; // fade
@@ -111,7 +101,6 @@ function fxSystem() { // class constructor
 
                     if (timestamp >= p.death) // die
                     {
-                        //console.log('particle died of old age');
                         p.inactive = true;
                     }
 
@@ -121,8 +110,6 @@ function fxSystem() { // class constructor
     }
 
     this.draw = function () {
-
-        //console.log("fx draw!");
 
         var drew = 0;
 
@@ -143,7 +130,6 @@ function fxSystem() { // class constructor
                 }
             }
         );
-        //console.log('drew'+drew);
     };
 
     // helper function (inclusive: eg 1,10 may include 1 or 10)
@@ -228,7 +214,6 @@ function fxSystem() { // class constructor
 
         var offsetX = carParticleOffset[car.currentSpriteFrame][0];
         var offsetY = carParticleOffset[car.currentSpriteFrame][1];
-        //console.log('car frame:' + car.currentSpriteFrame + ' offset: ' + offsetX + ',' + offsetY);
 
         if (Math.random() < EXHAUST_CHANCE) // so it doesn't add one every single frame
             this.add(

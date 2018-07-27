@@ -155,10 +155,8 @@ function audioEventManager() {
 		var thisTrack = track;
 		var check = checkListFor(TIMER, thisTrack, callSign);
 		var endTime = (duration * 1000) + now;
-		//var endTime = (thisTrack.getDuration() - thisTrack.getTime()) * 1000 + now;
 
 		if (check == "none") {
-			//console.log("Adding Timer Event for " + track.getTrackName());
 			eventList.push([TIMER, track, endTime, callSign]);
 		} else {
 			eventList[check] = [TIMER, track, endTime, callSign];
@@ -169,10 +167,8 @@ function audioEventManager() {
 		var thisTrack = track;
 		var check = checkListFor(STOP, thisTrack);
 		var endTime = (duration * 1000) + now;
-		//var endTime = (thisTrack.getDuration() - thisTrack.getTime()) * 1000 + now;
 
 		if (check == "none") {
-			//console.log("Adding Stop Event for " + track.getTrackName());
 			eventList.push([STOP, track, endTime]);
 		} else {
 			eventList[check] = [STOP, track, endTime];
@@ -186,7 +182,6 @@ function audioEventManager() {
 		if (check == "none") {
 			return;
 		} else {
-			//console.log("Removing Timer Event for " + track.getTrackName());
 			eventList[check] = [REMOVE];
 		}
 	}
@@ -198,7 +193,6 @@ function audioEventManager() {
 		if (check == "none") {
 			return;
 		} else {
-			//console.log("Removing Stop Event for " + track.getTrackName());
 			eventList[check] = [REMOVE];
 		}
 	}
@@ -221,7 +215,6 @@ function audioEventManager() {
 							thisTrack.setVolume(interpolateFade(eventList[i][2], eventList[i][3], eventList[i][4], eventList[i][5], now));
 						}
 					if (eventList[i][3] < now) {
-						//console.log("Ending Fade Event for " + thisTrack.getTrackName());
 						eventList[i] = [REMOVE];
 					}
 				}
@@ -230,7 +223,6 @@ function audioEventManager() {
 				thisTrack = eventList[i][1];
 				if (thisTrack.getPaused() == false) {
 					if (eventList[i][2] <= now) {
-						//console.log("Ending Timer Event for " + thisTrack.getTrackName());
 						eventList[i] = [REMOVE];
 						thisTrack.triggerTimerEnded(eventList[i][3]);
 					}
@@ -242,7 +234,6 @@ function audioEventManager() {
 				thisTrack = eventList[i][1];
 				if (thisTrack.getPaused() == false) {
 					if (eventList[i][2] <= now) {
-						//console.log("Executing Stop Event for " + thisTrack.getTrackName());
 						eventList[i] = [REMOVE];
 						thisTrack.stop();
 					}

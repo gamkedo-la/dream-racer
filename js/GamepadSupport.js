@@ -37,12 +37,10 @@ function GamepadSupport() {
 
     window.addEventListener("gamepadconnected", function (e) {
         // Gamepad connected
-        console.log("Gamepad connected", e.gamepad);
     });
 
     window.addEventListener("gamepaddisconnected", function (e) {
         // Gamepad disconnected
-        console.log("Gamepad disconnected", e.gamepad);
     });
 
     function applyDeadzone(number, threshold) {
@@ -56,16 +54,13 @@ function GamepadSupport() {
     function handle_gamepad() {
         if (!gamepad) // always null until you press a button!
         {
-            //console.log("Init gamepad..."); // spammy
             if (!navigator.getGamepads) {
-                console.log("Gamepad NOT supported on this browser!");
-                return; // not supported?
+                 return; // not supported?
             }
         }
         // poll every frame
         gamepad = navigator.getGamepads()[0];
         if (gamepad) {
-            //console.log("Gamepad detected: " + gamepad.axes[0] + "," + gamepad.axes[1]);
             var joystickX = applyDeadzone(gamepad.axes[0], 0.25);
             gamepad_right = (joystickX > 0);
             gamepad_left = (joystickX < 0);
@@ -81,10 +76,9 @@ function GamepadSupport() {
             gamepad_x = (butt > 0);
             butt = applyDeadzone(gamepad.buttons[3].value, 0.25);
             gamepad_y = (butt > 0);
-            //console.log("Gamepad buttons: A:" + gamepad.buttons[0].value + " B:" + + gamepad.buttons[1].value + " X:" + + gamepad.buttons[2].value + " Y:" + + gamepad.buttons[3].value);
         }
         else {
-            //console.log("No gamepad detected! YET..."); // spammy before button press
+
         }
 
         // compare previous state and send fake keyboard events
@@ -125,7 +119,6 @@ function GamepadSupport() {
     }
 
     function simulateKeyDown(thisKey) {
-        //console.log('fake keydown: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get: function () { return this.keyCodeVal; } });
         Object.defineProperty(oEvent, 'which', { get: function () { return this.keyCodeVal; } });
@@ -139,7 +132,6 @@ function GamepadSupport() {
     }
 
     function simulateKeyUp(thisKey) {
-        //console.log('fake keyup: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get: function () { return this.keyCodeVal; } });
         Object.defineProperty(oEvent, 'which', { get: function () { return this.keyCodeVal; } });
@@ -153,7 +145,6 @@ function GamepadSupport() {
     }
 
     // init
-    //console.log('Initializing gamepad support...')
-    window.requestAnimationFrame(handle_gamepad);
+     window.requestAnimationFrame(handle_gamepad);
 
 } // GamepadKeyboardEventEmulator

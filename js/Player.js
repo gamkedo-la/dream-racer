@@ -314,7 +314,7 @@ function Player() {
 	this.drawCrashAnimation = function (crashCount) {
 		canvasContext.save();
 		const deltaY = this.deltaYForCrashCount(crashCount);
-		const valueToPlaySound = 6; //console.log({deltaY}) to see why 6 was choosen
+		const valueToPlaySound = 6; 
 		previousSfxVolume = sfxVolume;
 		sfxVolume = 1; // max
 		if (deltaY <= valueToPlaySound) {

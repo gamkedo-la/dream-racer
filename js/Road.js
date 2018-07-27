@@ -703,7 +703,6 @@ function Road(frustum) {
 
 	this.addDecorationToGround = function (decoration, segment) {
 		segment.decorations.push(decoration);
-		//		console.log("Index: " + segment.index + ", Decorations: " + segment.decorations);
 	}
 
 	this.depthOfGround = function (ground) {

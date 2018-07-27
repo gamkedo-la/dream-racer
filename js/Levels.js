@@ -626,7 +626,6 @@ function prevLevel() {
 
 function getLevel(index) {
     if (index < 0 || index >= Levels.length) {
-        console.log("Can't get Level at index :" + index);
         return {};
     }
     let level = {};

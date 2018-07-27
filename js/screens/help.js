@@ -85,6 +85,9 @@ function HelpScreen() {
             case KEY_MOUSE_LEFT:
                 ScreenStates.setState(MENU_SCREEN);
                 return true;
+            case KEY_ENTER:
+            	ScreenStates.setState(LEVEL_SELECT_SCREEN);
+            	return true;
         }
         return false;
     };

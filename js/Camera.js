@@ -16,11 +16,12 @@ function Camera(initialPosition) {
 	}
 	
 	this.move = function(forward, turnRate, bounce, segment) {
-		this.position.z += forward;
 		
 		if(this.isCrashing || this.isResetting) {
 			return;
 		}
+
+		this.position.z += forward;
 		
 		this.bounce += bounce;
 		this.bounce *= 0.75;
@@ -31,14 +32,12 @@ function Camera(initialPosition) {
 		} else if((holdLeft) || (holdA)) {
 			this.position.x += turnRate;
 		}
-//		this.position.x += turnRate;
 		
 		const interpolation = ((this.position.z - CAMERA_INITIAL_Z) - segment.nearPos.world.z) / (segment.farPos.world.z - segment.nearPos.world.z);
 		const currentCenter = segment.nearPos.world.x + interpolation * (segment.farPos.world.x - segment.nearPos.world.x);
 
 		const maxRightOffset = -currentCenter - canvas.width / 2 - OFFROAD_DIST;
 		const maxLeftOffset = -currentCenter + canvas.width / 2 + OFFROAD_DIST;
-//		console.log("Max Offset: " + maxRightOffset);
 		
 		if(this.position.x < maxRightOffset) {
 			this.position.x = maxRightOffset;
