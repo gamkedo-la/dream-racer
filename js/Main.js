@@ -82,8 +82,7 @@ window.onload = function () {
 	document.body.appendChild(canvas);
 	canvas.width = 800;
 	canvas.height = 843;
-	drawRect(0, 0, canvas.width, canvas.height, textColor.Red);
-	colorText(loadingText, canvas.width / 2, canvas.height / 2, textColor.White, fonts.Subtitle, textAlignment.Center, opacity = 1);
+	
 
 	TitleTextX = canvas.width / 2;
 	subTitleTextX = canvas.width / 2;

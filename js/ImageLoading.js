@@ -177,6 +177,10 @@ let picsToLoad = 0;
 
 function countLoadedImageAndLaunchIfReady() {
 	picsToLoad--;
+	drawRect(0, 0, canvas.width, canvas.height, textColor.Red);
+	colorText("LOADING", canvas.width / 2, canvas.height / 2, textColor.White, fonts.MainTitle, textAlignment.Center, opacity = 1);
+	const numberText = "Remaining Images: " + picsToLoad.toString();
+	colorText(numberText, canvas.width / 2, 2 * canvas.height / 3, textColor.White, fonts.Subtitle, textAlignment.Center, opacity = 1);
 	if (picsToLoad == 0) { // last image loaded?
 		loadingDoneSoStartGame();
 	}
