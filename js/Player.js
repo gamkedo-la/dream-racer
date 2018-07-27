@@ -41,9 +41,38 @@ function Player() {
 	let offRoadCounter = 0;
 	let rotation = 0;
 
-	this.currentGear = 1;
-	this.currentGearMaxSpeed;
-
+	let currentGear = 1;
+	let currentGearMaxSpeed = MAX_SPEED - 28;
+	
+	this.setCurrentGear = function(newGear) {
+		currentGear = newGear;
+		switch (currentGear) {
+			case 1:
+				currentGearMaxSpeed = MAX_SPEED - 28;
+				break;
+			case 2:
+				currentGearMaxSpeed = MAX_SPEED - 22;
+				break;
+			case 3:
+				currentGearMaxSpeed = MAX_SPEED - 16;
+				break;
+			case 4:
+				currentGearMaxSpeed = MAX_SPEED - 10;
+				break;
+			case 5:
+				currentGearMaxSpeed = MAX_SPEED;
+				break;
+		}
+	}
+	
+	this.getCurrentGear = function() {
+		return currentGear;
+	}
+	
+	this.getCurrentGearMaxSpeed = function() {
+		return currentGearMaxSpeed;
+	}
+	
 	this.isCrashing = false;
 	this.isResetting = false;
 
@@ -183,7 +212,7 @@ function Player() {
 		}
 
 		if ((canAccelerate) && ((holdUp) || (holdW))) {
-			this.speed += this.ACCELERATIONS[this.currentGear - 1] / (1 - ((this.speed / 100) * this.currentGearMaxSpeed) / 100);
+			this.speed += this.ACCELERATIONS[currentGear - 1] / (1 - ((this.speed / 100) * currentGearMaxSpeed) / 100);
 		}
 
 		if ((holdDown) || (holdX)) {
@@ -194,26 +223,29 @@ function Player() {
 			brake_master.pause();
 		}
 
-		if ((!this.boosting) && (this.speed > this.currentGearMaxSpeed)) {
-			this.speed = this.currentGearMaxSpeed;//clamp to MAX_SPEED
+		if ((!this.boosting) && (this.speed > currentGearMaxSpeed)) {
+			this.speed = currentGearMaxSpeed;//clamp to MAX_SPEED
 		} else if (this.speed <= 0) {
 			this.speed = 0;//clamp to Zero
 		}
 		
 		if ((this.isAuto) && (!this.boosting)){
-			if ((this.currentGear < this.ACCELERATIONS.length) && ((this.speed / this.currentGearMaxSpeed) * 100 >= 80)) {
-				this.currentGear++;
-				this.speed -= Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 80) / 10;
+			if ((currentGear < this.ACCELERATIONS.length) && ((this.speed / currentGearMaxSpeed) * 100 >= 80)) {
+				this.setCurrentGear(currentGear + 1);
+				this.speed -= Math.abs(((this.speed / currentGearMaxSpeed) * 100) - 80) / 10;
 			}
-			if ((this.currentGear > 1) && (this.speed / this.currentGearMaxSpeed) * 100 <= 20) {
-				this.currentGear--;
-				this.speed += Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 20) / 5;
+			if ((currentGear > 1) && (this.speed / currentGearMaxSpeed) * 100 <= 20) {
+				this.setCurrentGear(currentGear - 1);
+				this.speed += Math.abs(((this.speed / currentGearMaxSpeed) * 100) - 20) / 5;
 			}
 		} else {
-			if ((holdSpace) && (holdUp) && (this.currentGear !== this.ACCELERATIONS.length)) {
-				this.currentGear += 1;
-				this.speed -= Math.abs(((this.speed / this.currentGearMaxSpeed) * 100) - 80) / 10;
+			if ((holdSpace) && (holdUp) && (currentGear !== this.ACCELERATIONS.length)) {
+				this.setCurrentGear(currentGear + 1);
+				this.speed -= Math.abs(((this.speed / currentGearMaxSpeed) * 100) - 80) / 10;
 				holdSpace = false;
+			} else if((holdSpace) && (currentGear > 1)) {
+				this.setCurrentGear(currentGear - 1);
+				this.speed = Math.min(this.speed, currentGearMaxSpeed);
 			}
 		}
 
@@ -244,24 +276,6 @@ function Player() {
 			this.fx.boosterFX(this);
 		}
 
-		switch (this.currentGear) {
-			case 1:
-				this.currentGearMaxSpeed = MAX_SPEED - 28;
-				break;
-			case 2:
-				this.currentGearMaxSpeed = MAX_SPEED - 22;
-				break;
-			case 3:
-				this.currentGearMaxSpeed = MAX_SPEED - 16;
-				break;
-			case 4:
-				this.currentGearMaxSpeed = MAX_SPEED - 10;
-				break;
-			case 5:
-				this.currentGearMaxSpeed = MAX_SPEED;
-				break;
-		}
-
 		let oldTurnRate = this.turnRate;
 
 		// this.speed > 1 stops the player from turning during countdown
@@ -283,7 +297,7 @@ function Player() {
 			this.turnRate = this.MAX_TURN_RATE;
 		}
 
-		setEngineAudioFromRPMs(this.speed / this.currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
+		setEngineAudioFromRPMs(this.speed / currentGearMaxSpeed * 6000);//temporary implementation until gear shifting is implemented
 
 		// used by the HUD
 		this.laptime++; // FIXME: perhaps use a real time stamp
@@ -297,11 +311,11 @@ function Player() {
 		if (USE_FX) this.fx.exhaust(this); // smoke particles near the bumper
 
 	}
-
+	
 	this.speedChangeForCrashing = function (currentCrashCount) {
 		this.speed *= (1 - ((0.15 * currentCrashCount) / this.MAX_CRASH_COUNT));
 		this.turnRate *= TURN_RATE_DECAY;
-		this.currentGear = 1;
+		this.setCurrentGear(1);
 		if (this.speed <= 0) {
 			this.speed = 0;
 		}

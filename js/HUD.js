@@ -112,8 +112,8 @@ var hud = {
         // RPM dial
 
         var spd = scene.player.speed;
-        var max = scene.player.currentGearMaxSpeed;
-        var gear = scene.player.currentGear;
+        var max = scene.player.getCurrentGearMaxSpeed();
+        var gear = scene.player.getCurrentGear();
 
         this.rpmNeedleAngle = (spd / max * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
 

@@ -22,8 +22,8 @@ function GamePlayScreen (){
         scene.move();
         drawRect(0,0, canvas.width, canvas.height, textColor.Green);//Need to wipe the canvas clean each frame - eventually use a background image/video
         scene.draw();
-        printWord("GEAR: " + scene.player.currentGear, 10, canvas.height/2);
-        printWord("ACC: " + scene.player.ACCELERATIONS[scene.player.currentGear-1], 10, canvas.height/2 + 48);
+        printWord("GEAR: " + scene.player.getCurrentGear(), 10, canvas.height/2);
+        printWord("ACC: " + scene.player.ACCELERATIONS[scene.player.getCurrentGear() - 1], 10, canvas.height/2 + 48);
         if(scene.gameIsOver){
 	        currentBackgroundMusic.setCurrentTrack(6);
             ScreenStates.setState(GAMEPLAY_FINISH_SCREEN, { stats: scene.getStats(), raceWon: scene.raceWon });
