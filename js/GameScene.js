@@ -70,7 +70,9 @@ function GameScene(data) {
 		this.player.draw(currentCrashCount, deltaY, canTurn);
 
 		//(isCrashing, isBoosting, isSkyline, isMountain)
-		hud.draw(this.player.isCrashing, this.player.boosting, data.name == "Night City Skyline", data.name == "Summit Descent");
+		let completion = baseSegment.index / this.road.indexOfFinishLine;
+		if(this.raceWon) {completion = 1;}
+		hud.draw(this.player.isCrashing, this.player.boosting, data.name == "Night City Skyline", data.name == "Summit Descent", completion);
 	}
 
 	const drawBackground = function (skyImage, skyOffset, backgroundImage, backgroundOffset, middleGroundImage, middleGroundOffset) {

@@ -86,10 +86,49 @@ var hud = {
         colorText("" + currentSymbol, panelLeftTopCorner.x+160, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
     },
 
-    draw: function (isCrashing, isBoosting, isSkyline, isMountain) {
+    draw: function (isCrashing, isBoosting, isSkyline, isMountain, completion) {
 
         // dashboard
         canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
+        if(completion < (1 / 18)) {
+	        canvasContext.drawImage(progressPic0, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 2 / 18) {
+	        canvasContext.drawImage(progressPic1, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 3 / 18) {
+	        canvasContext.drawImage(progressPic2, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 4 / 18) {
+	        canvasContext.drawImage(progressPic3, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 5 / 18) {
+	        canvasContext.drawImage(progressPic4, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 6 / 18) {
+	        canvasContext.drawImage(progressPic5, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 7 / 18) {
+	        canvasContext.drawImage(progressPic6, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 8 / 18) {
+	        canvasContext.drawImage(progressPic7, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 9 / 18) {
+	        canvasContext.drawImage(progressPic8, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 10 / 18) {
+	        canvasContext.drawImage(progressPic9, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 11 / 18) {
+	        canvasContext.drawImage(progressPic10, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 12 / 18) {
+	        canvasContext.drawImage(progressPic11, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 13 / 18) {
+	        canvasContext.drawImage(progressPic12, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 14 / 18) {
+	        canvasContext.drawImage(progressPic13, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 15 / 18) {
+	        canvasContext.drawImage(progressPic14, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 16 / 18) {
+	        canvasContext.drawImage(progressPic15, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 17 / 18) {
+	        canvasContext.drawImage(progressPic16, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else if(completion < 18 / 18) {
+	        canvasContext.drawImage(progressPic17, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        } else {
+	        canvasContext.drawImage(progressPic18, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
+        }
 
         // rotate the spedometer needle
         this.desiredNeedleAngle = (scene.player.speed * 10 / 160 * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
