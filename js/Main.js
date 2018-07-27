@@ -75,6 +75,7 @@ window.onload = function () {
 	window.addEventListener("blur", windowOnBlur);
 
 	canvas = document.createElement("canvas");
+	canvas.setAttribute("id", "gameCanvas");
 	canvasContext = canvas.getContext("2d");
 	//force_pixel_art();
 
