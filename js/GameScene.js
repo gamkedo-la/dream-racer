@@ -289,7 +289,7 @@ function GameScene(data) {
 						passedACheckPoint = true;
 						newTimeBonus = thisDecoration.trigger.timeBonus;
 						checkpointSFX.resume();
-						AudioEventManager.addFadeEvent(currentBackgroundMusic.getCurrentMusic(), 0.5, 1.0);
+						currentBackgroundMusic.resume();
 					}
 				}
 			}

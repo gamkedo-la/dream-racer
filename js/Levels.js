@@ -452,10 +452,10 @@ var Levels = [
             return { x: Math.floor(position.x / 170), y: 0, scale: undefined };
         },
         backgroundTransformFunc: function (position) {
-            return { x: Math.floor(position.x / 35), y: 0, scale: undefined }
+            return { x: Math.floor(position.x / 55), y: 0, scale: undefined }
         },
         middlegroundTransformFunc: function (position) {
-            return { x: Math.floor(position.x / 45), y: 0, scale: undefined }
+            return { x: 50 + Math.floor(position.x / 35), y: 20, scale: undefined }
         },
         getAICars: function () {
             const cars = [];

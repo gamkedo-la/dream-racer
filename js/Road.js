@@ -8,7 +8,7 @@ function Road(frustum) {
 
 	let groundColor = "";
 
-	const MAX_SEGMENT_DRAW_COUNT = 500;
+	const MAX_SEGMENT_DRAW_COUNT = 400;
 	const magicNumber = 50;
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
