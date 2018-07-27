@@ -59,7 +59,7 @@ var crashMasterSFX = new sfxContainerRandom([crashSFX1,crashSFX2,crashSFX3]);
 var cheerSound = new sfxClipLoop("CrowdCheering", 3.265);
 
 var allSFX = {
-	sfxList : [crashMasterSFX,bumpMasterSFX,offroadSound,brake_master,engine_master,countDown,pauseSound,resumeSound,uiSelect],
+	sfxList : [crashMasterSFX,bumpMasterSFX,offroadSound,brake_master,engine_master,countDown,pauseSound,resumeSound,uiSelect, cheerSound],
 	stop: function(){
 		for(var i=0; i < this.sfxList.length; i++){
 			this.sfxList[i].stop();

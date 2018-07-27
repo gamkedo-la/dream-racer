@@ -89,7 +89,7 @@ function Player() {
 	let turnRightFramecount = 0;
 
 	let winCounter = 0;
-	let speedForVictoryAnimation = 5;
+	let speedForVictoryAnimation = 50;
 	let victoryAnimation = false;
 
 	let currentMusicTrackIndex = 0;
@@ -374,13 +374,17 @@ function Player() {
 			turnLeftFramecount = 0;
 			turnRightFramecount = 0;
 		}
+		
 		if (this.speed <= speedForVictoryAnimation) {
 			victoryAnimation = true;
 			turnLeftFramecount += 1.25;
-			brakeAudio(this.speed + 3);
+			holdDown = true;
+			
 			if (this.speed == 0) {
 				winCounter++;
+				cheerSound.resume();
 			}
+			
 			if (winCounter > framesPerSecond * 3) { //Other conditions?
 				scene.gameIsOver = true;
 				winCounter = 0;
