@@ -25,14 +25,14 @@ var Levels = [
         backgroundTransformFunc: function (position) {
             return {
                 x: Math.floor(position.x / 90),
-                y: 5,
+                y: 7,
                 scale: (Math.tanh(position.z / 18000) + 1) / 2
             }
         },
         middlegroundTransformFunc: function (position) {
             return {
                 x: Math.floor(position.x / 60) - 600,
-                y: 5,
+                y: 7,
                 scale: (Math.tanh(position.z / 18000) + 1) / 2
             }
         },

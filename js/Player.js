@@ -188,6 +188,10 @@ function Player() {
 	this.move = function (deltaY, canAccelerate, canBoost) {
 		this.speed -= FRICTION;
 
+		if(scene.raceWon) {
+			this.speed -= (BRAKING / 2);
+		}
+
 		if (this.isOffRoad) {
 
 			if (USE_FX) this.fx.dirt(this); // dirt particles near the tires
