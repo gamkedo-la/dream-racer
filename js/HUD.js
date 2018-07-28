@@ -46,6 +46,13 @@ var hud = {
             canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (8 * n), y, 8, 9); // 0
         }
     },
+    drawMPHNumPadded: function (num, x, y) {
+        var str = ("000" + num).slice(-3); // pad with zeroes
+        for (var n = 0; n < str.length; n++) {
+            var sprnum = parseInt(str[n]);
+            canvasContext.drawImage(hudPic, 8 * sprnum, 0, 8, 9, x + (16 * n), y, 16, 18); // 0
+        }
+    },
     drawNum: function (num, x, y) {
         var str = "" + num;
         for (var n = 0; n < str.length; n++) {
@@ -85,12 +92,9 @@ var hud = {
         colorText("Volume:" + volume, panelLeftTopCorner.x+80, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
         colorText("" + currentSymbol, panelLeftTopCorner.x+160, panelLeftTopCorner.y+60, color, fonts.CreditsText, 'left', 1);
     },
-
-    draw: function (isCrashing, isBoosting, isSkyline, isMountain, completion) {
-
-        // dashboard
-        canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
-        if(completion < (1 / 18)) {
+    
+    drawProgressBar: function (completion) {
+	    if(completion < (1 / 18)) {
 	        canvasContext.drawImage(progressPic0, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
         } else if(completion < 2 / 18) {
 	        canvasContext.drawImage(progressPic1, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
@@ -129,20 +133,21 @@ var hud = {
         } else {
 	        canvasContext.drawImage(progressPic18, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - (dashboardPic.height/3) - 24);
         }
+    },
+
+    draw: function (isCrashing, isBoosting, isSkyline, isMountain, completion) {
+
+        // dashboard
+        canvasContext.drawImage(dashboardPic, Math.floor(canvas.width / 2 - dashboardPic.width / 2), canvas.height - dashboardPic.height);
+        this.drawProgressBar(completion);
 
         // rotate the spedometer needle
-        this.desiredNeedleAngle = (scene.player.speed * 10 / 160 * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
+        this.desiredNeedleAngle = (scene.player.speed * 5 / 160 * (180 * DEGREES_TO_RADIANS)); // 160mph=180deg
+        if((this.desiredNeedleAngle > 180) || (scene.player.speed * 5 >= 225)) {
+	        this.desiredNeedleAngle = 180;//clamp to prevent continuous rotation as speed continues up
+        }
 
-        // smooth it out - FIXME this is lame and still shows wobbles due to hill friction
-        if (this.desiredNeedleAngle - this.currentNeedleAngle > SMOOTHING_DELTA) {
-            this.currentNeedleAngle += SMOOTHING_DELTA;
-        }
-        else if (this.desiredNeedleAngle - this.currentNeedleAngle < -SMOOTHING_DELTA) {
-            this.currentNeedleAngle -= SMOOTHING_DELTA;
-        }
-        else {
-            this.currentNeedleAngle = this.desiredNeedleAngle;
-        }
+        this.currentNeedleAngle = this.desiredNeedleAngle;
 
         drawImageRotated(needlePic, canvas.width / 2 + 281, canvas.height - 120,
             -90 * DEGREES_TO_RADIANS + // rotate art to face left at 0
@@ -221,8 +226,8 @@ var hud = {
         this.drawNum("1", canvas.width - 16, 11);
 
         // SPEED
-        this.drawNumPadded(Math.floor(scene.player.speed * 10), Math.floor(canvas.width / 2 + 249), canvas.height - 90);
-        canvasContext.drawImage(hudPic, 320, 0, 24, 16, Math.floor(canvas.width / 2 + 291), canvas.height - 93, 24, 16);
+        this.drawMPHNumPadded(Math.floor(scene.player.speed * 5), Math.floor(canvas.width / 2 + 258), canvas.height - 85);
+        canvasContext.drawImage(hudPic, 320, 0, 24, 16, Math.floor(canvas.width / 2 + 258), canvas.height - 65, 48, 32);
 
         //MUSIC PLAYER
         this.drawMusicPanel();
