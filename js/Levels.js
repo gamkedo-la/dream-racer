@@ -905,7 +905,7 @@ var Levels = [
             return cars;
         }
     },
-    {
+/*    {
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
         horizonHeight: 1.0 * GAME_HEIGHT,
@@ -968,7 +968,7 @@ var Levels = [
 
             return cars;
         }
-    },
+    },*/
     {
         totalHeight: GAME_HEIGHT,
         nearHeight: 0.0 * GAME_HEIGHT,
