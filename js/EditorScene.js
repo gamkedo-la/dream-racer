@@ -7,7 +7,7 @@ function EditorScene(data) {
 	let segments = this.road.getSegments();
 	const roadReferences = [
 		//	JSON.parse(straightAndLevel)
-			JSON.parse(summitDecentManualTrees)
+			JSON.parse(forestTrack)
 		//		JSON.parse(skylineTest)	
 		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
@@ -58,14 +58,14 @@ function EditorScene(data) {
 		return Math.floor(Math.random() * Math.floor(max));
 	}
 
-	/*this.buildNightSkylineTrack = function() {
+	this.buildForestCruiseTrack = function() {
 		const HorizData = [
 			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:150, endIndex:240, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:250, endIndex:330, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:430, endIndex:480, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:480, endIndex:500, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:500, endIndex:520, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:480, endIndex:500, rate:2 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:500, endIndex:520, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:570, endIndex:630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:630, endIndex:690, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:790, endIndex:850, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
@@ -73,9 +73,9 @@ function EditorScene(data) {
 			{startIndex:1100, endIndex:1150, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:1250, endIndex:1280, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:1300, endIndex:1350, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
-			{startIndex:1400, endIndex:1425, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1425, endIndex:1450, rate:3 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
-			{startIndex:1450, endIndex:1475, rate:3 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1425, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1425, endIndex:1450, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1450, endIndex:1475, rate:2 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:1575, endIndex:1700, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:1750, endIndex:1800, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
 			{startIndex:1900, endIndex:1980, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
@@ -90,58 +90,98 @@ function EditorScene(data) {
 		];
 		
 		const VertData = [
-			{startIndex:100, endIndex:200, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:300, endIndex:400, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:450, endIndex:500, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:500, endIndex:550, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:550, endIndex:625, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:625, endIndex:700, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:825, endIndex:850, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:900, endIndex:925, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1025, endIndex:1080, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1210, endIndex:1240, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1345, endIndex:1400, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1425, endIndex:1450, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1625, endIndex:1700, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:1830, endIndex:1850, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:1850, endIndex:1870, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2005, endIndex:2045, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2150, endIndex:2220, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2275, endIndex:2375, rate:Rate.Half, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2405, endIndex:2430, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2435, endIndex:2465, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
-			{startIndex:2615, endIndex:2660, rate:Rate.Full, direction:Direction.Down, easing:Easing.InOut},
-			{startIndex:2735, endIndex:2800, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:50, endIndex:150, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:150, endIndex:225, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:225, endIndex:250, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:250, endIndex:275, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:275, endIndex:315, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:315, endIndex:365, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:365, endIndex:415, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:415, endIndex:450, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:450, endIndex:515, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:515, endIndex:605, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:605, endIndex:670, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:670, endIndex:715, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:715, endIndex:815, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:815, endIndex:850, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:850, endIndex:915, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			
+			{startIndex:915, endIndex:925, rate:Rate.Quad, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:925, endIndex:935, rate:Rate.Quad, direction:Direction.Up, easing:Easing.InOut},
+
+			{startIndex:935, endIndex:1000, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},			
+			{startIndex:1000, endIndex:1075, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1075, endIndex:1135, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1135, endIndex:1200, rate:Rate.Half, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1200, endIndex:1215, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1215, endIndex:1307, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1307, endIndex:1385, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1385, endIndex:1400, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1460, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1460, endIndex:1545, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1545, endIndex:1650, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1650, endIndex:1700, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1700, endIndex:1750, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1750, endIndex:1825, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1825, endIndex:1870, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1870, endIndex:1925, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1925, endIndex:1970, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1970, endIndex:2025, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2025, endIndex:2080, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2080, endIndex:2140, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2140, endIndex:2180, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2180, endIndex:2260, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2260, endIndex:2345, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2345, endIndex:2425, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2425, endIndex:2450, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2450, endIndex:2525, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2525, endIndex:2600, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2600, endIndex:2650, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2650, endIndex:2720, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2750, endIndex:2825, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2825, endIndex:2905, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2905, endIndex:2995, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:3050, endIndex:3099, rate:Rate.Half, direction:Direction.Up, easing:Easing.InOut},
 		];
 		
-		for(let i = 0; i < 3000; i++) {
+		for(let i = 0; i < 3100; i++) {
 			this.road.addSegment();
 		}
 		
+		let treeModulus = getRandomInt(7);
+		let treeCount = getRandomInt(15);
 		const segs = this.road.getSegments();
 		let horiz = 0;
 		let vert = 0;
+		let lightColor = '#666666';
+		let darkColor = '#444444';
 		for(let j = 0; j < segs.length; j++) {
 			const thisSeg = segs[j];
-			const indexModulus = thisSeg.index % 11;
-			switch(indexModulus) {
-				case 2:
-				case 8:
-					thisSeg.color = '#444444';
+			const indexModulus = thisSeg.index % 7;
+			
+			if(thisSeg.index < 235) {
+				lightColor = '#888888';
+				darkColor = '#666666';
+			} else if((thisSeg.index >= 1500) && (thisSeg.index < 1875)) {
+				lightColor = '#888888';
+				darkColor = '#666666';
+			} else if((thisSeg.index >= 235) && (thisSeg.index < 635)) {
+				lightColor = '#444444';
+				darkColor = '#222222';
+			} else if((thisSeg.index >= 2345) && (thisSeg.index < 2667)) {
+				lightColor = '#444444';
+				darkColor = '#222222';
+			} else {
+				lightColor = '#666666';
+				darkColor = '#444444';
+			}
+			
+			switch(thisSeg.index % 2) {
+				case 0:
+					thisSeg.color = lightColor;
 					break;
-				case 3:
-				case 7:
-					thisSeg.color = '#666666';
-					break;
-				case 4:
-				case 6:
-					thisSeg.color = '#888888';
-					break;
-				case 5:
-					thisSeg.color = '#BBBBBB';
-					break;
-				default:
-					thisSeg.color = '#222222';
+				case 1:
+					thisSeg.color = darkColor;
 					break;
 			}
 			
@@ -233,42 +273,95 @@ function EditorScene(data) {
 			
 			thisSeg.farPos.world.y += vert;
 			
-			if(indexModulus == 5) {
-				const lightPos = {x:0, y:0};
-				let lightSprite;
-				if(thisSeg.index % 2 == 0) {//left side
-					lightSprite = leftStreetLightPic;
-					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + 2.75 * lightSprite.width;
-				} else {//rightSide
-					lightSprite = rightStreetLightPic;
-					lightPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - 2.75 * lightSprite.width;
+			if(indexModulus == treeModulus) {
+				treeModulus = getRandomInt(5);
+				for(let j = 0; j < treeCount; j++) {
+					let treePos = {x:0, y:0};
+					let treeSprite;
+					let treeSpriteSelected = getRandomInt(17);
+					if (treeSpriteSelected == 0) {
+						treeSprite = tree4LeaflessPic;
+					} else if (treeSpriteSelected == 1) {
+						treeSprite = tree3LeaflessPic; 
+					} else if (treeSpriteSelected == 2) {
+						treeSprite = tree6Pic; 
+					} else if (treeSpriteSelected <= 4) {
+						treeSprite = tree8Pic; 
+					} else if (treeSpriteSelected <= 6) {
+						treeSprite = tree7Pic; 
+					} else if (treeSpriteSelected <= 8) {
+						treeSprite = tree4Pic; 
+					} else if (treeSpriteSelected <= 10) {
+						treeSprite = tree3Pic; 
+					} else if (treeSpriteSelected <= 13) {
+						treeSprite = tree2Pic; 
+					} else if (treeSpriteSelected <= 16) {
+						treeSprite = tree1Pic; 
+					}
+					
+					if(j >= 7) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 15 + rnd) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 15 + rnd) * treeSprite.width;
+						}
+					} else if(j >= 3) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 6 + rnd) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 6 + rnd) * treeSprite.width;
+						}
+					} else {
+						if(thisSeg.index % 2 == 0) {//left side
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - ((4 * j) + 1.5) * treeSprite.width;
+						} else {//rightSide
+							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + ((4 * j) + 1.5) * treeSprite.width;
+						}
+					}
+					
+					treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+					
+					const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+					const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
+					aDecoration.getType();
+					
+					this.road.addDecorationToGround(aDecoration, thisSeg);
+					aDecoration.world.z = thisSeg.nearPos.world.z + (1 - (j / 10)) * this.road.getSegmentLength();
 				}
-				
-				lightPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
-				
-				const finalWorldPos = { x: lightPos.x, y: lightPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-				const aDecoration = new RoadsideDecoration(lightSprite, finalWorldPos);
-				aDecoration.typeForFileName();
-				
+				treeCount = getRandomInt(15);
+			}
+			
+			if ((thisSeg.index > 0) && (thisSeg.index % 350 == 0)) {
+				const checkPointPos = { x: 0, y: 0 };
+				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
+
+				checkPointPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+
+				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2) };
+				const aDecoration = new RoadsideDecoration(checkpointFlagPic, worldPos);
+				aDecoration.getType();
+
 				this.road.addDecorationToGround(aDecoration, thisSeg);
 			}
 			
-			if((thisSeg.index > 0) && (thisSeg.index % 500 == 0)) {
-				const checkPointPos = {x:0, y:0};
-				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
-				
-				checkPointPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
-				
-				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-				const aDecoration = new RoadsideDecoration(checkpointFlagPic, worldPos);
-				aDecoration.typeForFileName();
-				
+			if(thisSeg.index == 2999) {
+				const checkeredFlagPos = { x: 0, y: 0 };
+				checkeredFlagPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - tempCheckeredFlagPic.width;
+
+				checkeredFlagPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+
+				const worldPos = { x: checkeredFlagPos.x, y: checkeredFlagPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2) };
+				const aDecoration = new RoadsideDecoration(tempCheckeredFlagPic, worldPos);
+				aDecoration.getType();
+
 				this.road.addDecorationToGround(aDecoration, thisSeg);
 			}
 		}
 	}
-*/
-	this.buildSummitTrack = function () {
+
+/*	this.buildSummitTrack = function () {
 		const HorizData = [
 			{ startIndex: 25, endIndex: 65, rate: 3 * Rate.Full, direction: Direction.Left, easing: Easing.InOut },
 			{ startIndex: 85, endIndex: 145, rate: 3 * Rate.Full, direction: Direction.Right, easing: Easing.InOut },
@@ -333,7 +426,7 @@ function EditorScene(data) {
 			const thisSeg = segs[j];
 			const indexModulus = thisSeg.index % 11;
 			switch (indexModulus) {
-/*				case 2:
+				case 2:
 				case 8:
 					thisSeg.color = '#444444';
 					break;
@@ -347,7 +440,7 @@ function EditorScene(data) {
 					break;
 				case 5:
 					thisSeg.color = '#BBBBBB';
-					break;*/
+					break;
 				default:
 					thisSeg.color = '#444444';
 					break;
@@ -510,7 +603,7 @@ function EditorScene(data) {
 				this.road.addDecorationToGround(aDecoration, thisSeg);
 			}
 		}
-	}
+	}*/
 
 	if (roadReferences.length > 0) {
 		this.road.newRoadWithJSONArray(roadReferences[0]);
@@ -518,7 +611,7 @@ function EditorScene(data) {
 			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
 		}
 	} else {
-		this.buildSummitTrack();
+		this.buildForestCruiseTrack();
 		//this.buildNightSkylineTrack();
 		//		this.road.addSegment();
 	}

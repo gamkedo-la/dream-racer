@@ -1,7 +1,7 @@
 //Player Class
 function Player() {
 	const MAX_SPEED = 45;
-	const HILL_DELTA_SPEED = 0.1;
+	const HILL_DELTA_SPEED = 0.075;
 	const FRICTION = 0.21;
 	const OFF_ROAD_FRICTION = 0.25;//is cumulative to regular friction
 	const CRASH_DECELERATION_PERCENT = 0.15;

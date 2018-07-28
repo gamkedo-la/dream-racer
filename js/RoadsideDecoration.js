@@ -606,6 +606,7 @@ function RoadsideDecoration(image, pos) {
 			case DecorationType.AetherBillboard:
 			case DecorationType.DigitalSignDontTextBack:
 			case DecorationType.DigitalSignWhatHoldsYouBack:
+			case DecorationType.Tree6:
 				return 0.75;
 			case DecorationType.ObeyBillboard:
 			case DecorationType.BlankBillboard:
@@ -648,6 +649,8 @@ function RoadsideDecoration(image, pos) {
 				return 2;
 			//case DecorationType.Tree6:
 			//return 0.5;
+			case DecorationType.Tree1:
+			case DecorationType.Tree2:
 			case DecorationType.NiceCityBillboard:
 				return 3;
 			case DecorationType.WaterTower:
