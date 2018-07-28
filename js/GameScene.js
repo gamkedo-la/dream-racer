@@ -247,7 +247,6 @@ function GameScene(data) {
 
 		if (this.countdownTimeLeft <= 0) {
 			canAccelerate = false;
-//			AudioEventManager.addFadeEvent(currentBackgroundMusic.getCurrentMusic(), 1.0, 0);
 			currentBackgroundMusic.pause();
 		}
 		this.stats.speed = Math.max(this.player.speed, this.stats.speed);
@@ -257,7 +256,7 @@ function GameScene(data) {
 			if (this.countdownTimeLeft > 0) {
 				gameOverCounter = 0;
 				canAccelerate = true;
-			} else if ((this.player.speed <= 0) && (this.countdownTimeLeft <= 0)) {
+			} else if ((this.player.speed <= 10) && (this.countdownTimeLeft <= 0)) {
 				gameOverCounter++
 				if (gameOverCounter >= framesPerSecond * 2) {
 					this.gameIsOver = true;
