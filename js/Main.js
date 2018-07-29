@@ -76,6 +76,7 @@ function formatStats(stat){
     }
     return output;
 };
+window.focus();
 window.onload = function () {
 	window.addEventListener("focus", windowOnFocus);
 	window.addEventListener("blur", windowOnBlur);

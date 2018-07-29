@@ -99,6 +99,7 @@ function initializeInput() {
 }
 
 function keyPress(evt) {
+	evt.preventDefault();
 	if(ScreenStates.control(evt.keyCode, true)){
         evt.preventDefault();
 	};
