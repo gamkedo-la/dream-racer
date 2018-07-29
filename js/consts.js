@@ -23,7 +23,9 @@ const statsType = {
     Points: "points",
     Count: "count",
     Text: "text",
-    Speed: "speed"
+    Speed: "speed",
+    Crashes: "crashes",
+    MaxSpeedTime: "maxSpeedTime"
 }
 
 const canvasClearColor = "black";
@@ -91,6 +93,7 @@ const textStrings = {
         Ms: "ms",
         Points: "pts",
         Mph: "mph",
+        Crashes: "Crashes",
     }
 };
 

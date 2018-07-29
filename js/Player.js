@@ -82,7 +82,8 @@ function Player() {
 	this.laptime = 0;
 	this.boosting = false;
 	let boosterCount = 1;
-
+	this.crashes = 0;
+	this.maxSpeedTime = 0;
 
 	let frameNum = 0;
 	let turnLeftFramecount = 0;
@@ -186,6 +187,10 @@ function Player() {
 	}
 
 	this.move = function (deltaY, canAccelerate, canBoost) {
+		if(this.speed >= MAX_SPEED) {
+			this.maxSpeedTime += (1000 / framesPerSecond);
+		}
+		
 		this.speed -= FRICTION;
 
 		if(scene.raceWon) {

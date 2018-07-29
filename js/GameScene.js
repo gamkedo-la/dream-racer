@@ -181,6 +181,8 @@ function GameScene(data) {
 			{ name: "time", type: statsType.Time, value: this.stats.time },
 			{ name: "speed", type: statsType.Speed, value: this.stats.speed },
 			{ name: "points", type: statsType.Points, value: this.player.score },
+			{ name: "crashes", type: statsType.Crashes, value: this.player.crashes},
+			{ name: "max spd", type: statsType.MaxSpeedTime, value: this.player.maxSpeedTime}
 		]
 	}
 	
@@ -316,6 +318,7 @@ function GameScene(data) {
 
 	this.setPlayerCrashingState = function (didCrashLeft) {
 		this.player.isCrashing = true;
+		this.player.crashes++;
 		this.player.isResetting = false;
 		this.camera.isCrashing = true;
 		this.camera.isResetting = false;

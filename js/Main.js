@@ -49,7 +49,7 @@ function millisecondsToString(time){
     if(miliseconds < 10) {
         out += "0";
     }
-    out += miliseconds;
+    out += Math.floor(miliseconds);
     return out;
 }
 function formatStats(stat){
@@ -63,6 +63,12 @@ function formatStats(stat){
             break;
 		case statsType.Points:
 			output += Math.floor(stat.value) + " " + textStrings.Stats.Points;
+			break;
+		case statsType.Crashes:
+			output += stat.value;
+			break;
+		case statsType.MaxSpeedTime:
+			output += millisecondsToString(stat.value) + " " + textStrings.Stats.Ms;
 			break;
         default:
             output += stat.value;

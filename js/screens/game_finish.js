@@ -39,8 +39,15 @@ function GamePlayFinishScreen() {
         if(this.isVictory) {
             printWord(textStrings.StatsText, canvas.width / 2, 300, 1, textAlignment.Center);
             for (var i = 0; i < this.stats.length; i++) {
-                printWord(this.stats[i].name, canvas.width / 2 - 200, 350 + i * 48, 0.7, textAlignment.Left);
-                printWord(formatStats(this.stats[i]), canvas.width / 2 + 200, 350 + i * 48, 0.7, textAlignment.Right);
+                if(this.stats[i].type == statsType.MaxSpeedTime) {
+	                printWord("TIME AT", canvas.width / 2 - 200, 350 + (i * 48), 0.7, textAlignment.Left);
+	                printWord(this.stats[i].name, canvas.width / 2 - 200, 350 + ((i + 1) * 48), 0.7, textAlignment.Left);
+	                printWord(formatStats(this.stats[i]), canvas.width / 2 + 200, 350 + ((i + 1) * 48), 0.7, textAlignment.Right);
+                } else {
+	                printWord(this.stats[i].name, canvas.width / 2 - 200, 350 + (i * 48), 0.7, textAlignment.Left);
+	                printWord(formatStats(this.stats[i]), canvas.width / 2 + 200, 350 + (i * 48), 0.7, textAlignment.Right);
+                }
+                
             }
 
         }
