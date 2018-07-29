@@ -90,16 +90,16 @@ const DecorationType = {
 	YoloSign_LeftSide: "YoloSign_LeftSide",
 	YoloSign_LeftSideLight: "YoloSign_LeftSideLight",
 	StartFreewaySign_LeftSide: "StartFreewaySign_LeftSide",
-	StartFreewaySign_LeftSideLight: "StartFreewaySign_LeftSideLight",
+	StartFreewaySign_LeftSideLight: "StartFreewaySign_Light",
 	EndFreewaySign_RightSide: "EndFreewaySign_RightSide",
 	EndFreewaySign_RightSideSnow: "EndFreewaySign_RightSideSnow",
-	EndFreewaySign_RightSideLight: "EndFreewaySign_RightSideLight",
+	EndFreewaySign_RightSideLight: "EndFreewaySign_Light",
 	RadioTowerNight: "RadioTower",
 	WaterTower: "WaterTower",
-	StraightPowerPole: "straightPowerPole",
-	StraightPowerPoleCrossBeams: "straightPowerPoleCrossBeams",
-	StraightPowerPoleCrossBeamsSlantLeft: "straightPowerPoleCrossBeamsSlantLeft",
-	StraightPowerPoleCrossBeamsSlantRight: "straightPowerPoleCrossBeamsSlantRight",
+	StraightPowerPole: "StraightPowerPole",
+	StraightPowerPoleCrossBeams: "StraightPowerPoleCrossBeams",
+	StraightPowerPoleCrossBeamsSlantLeft: "StraightPowerPoleSlantLeft",
+	StraightPowerPoleCrossBeamsSlantRight: "StraightPowerPoleSlantRight",
 	WarningSign: "WarningSign",
 	WarningSignSnow: "WarningSignSnow",
 	Car: "car",
@@ -426,13 +426,13 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.YoloSign_LeftSideLight;
 			case "StartFreewaySign_LeftSide.png":
 				return DecorationType.StartFreewaySign_LeftSide;
-			case "StartFreewaySign_LeftSideLight.png":
+			case "StartFreewaySign_Light.png":
 				return DecorationType.StartFreewaySign_LeftSideLight;
 			case "EndFreewaySign_RightSide.png":
 				return DecorationType.EndFreewaySign_RightSide;
 			case "EndFreewaySign_RightSideSnow.png":
 				return DecorationType.EndFreewaySign_RightSideSnow;
-			case "EndFreewaySign_RightSideLight.png":
+			case "EndFreewaySign_Light.png":
 				return DecorationType.EndFreewaySign_RightSideLight;
 			case "RightTurnSign.png":
 				return DecorationType.RightTurnSign;
@@ -442,13 +442,13 @@ function RoadsideDecoration(image, pos) {
 				return DecorationType.Speed50Sign;
 			case "Speed100Sign.png":
 				return DecorationType.Speed100Sign;
-			case "straightPowerPole.png":
+			case "StraightPowerPole.png":
 				return DecorationType.StraightPowerPole;
-			case "straightPowerPoleCrossBeams.png":
+			case "StraightPowerPoleCrossBeams.png":
 				return DecorationType.StraightPowerPoleCrossBeams;
-			case "straightPowerPoleCrossBeamsSlantLeft.png":
+			case "StraightPowerPoleSlantLeft.png":
 				return DecorationType.StraightPowerPoleCrossBeamsSlantLeft;
-			case "straightPowerPoleCrossBeamsSlantRight.png":
+			case "StraightPowerPoleSlantRight.png":
 				return DecorationType.StraightPowerPoleCrossBeamsSlantRight;
 			case "WarningSign.png":
 				return DecorationType.WarningSign;

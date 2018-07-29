@@ -281,10 +281,10 @@ function loadImages() {
 	imageList.push({ imgName: yoloSign_LeftSidePic, theFile: "YOLOSign_LeftSide.png" });
 	imageList.push({ imgName: yoloSign_LeftSideLightPic, theFile: "YOLOSign_LeftSideLight.png" });
 	imageList.push({ imgName: startFreewaySign_LeftSidePic, theFile: "StartFreewaySign_LeftSide.png" });
-	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_LeftSideLight.png" });
+	imageList.push({ imgName: startFreewaySign_LeftSideLightPic, theFile: "StartFreewaySign_Light.png" });
 	imageList.push({ imgName: endFreewaySign_RightSidePic, theFile: "EndFreewaySign_RightSide.png" });
 	imageList.push({ imgName: endFreewaySign_RightSidePicSnow, theFile: "EndFreewaySign_RightSideSnow.png" });
-	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_RightSideLight.png" });
+	imageList.push({ imgName: endFreewaySign_RightSideLightPic, theFile: "EndFreewaySign_Light.png" });
 	imageList.push({ imgName: digitalSignDontTextBack, theFile: "DigitalSignDontTextBack.png" });
 	imageList.push({ imgName: digitalSignWhatHoldsYouBack, theFile: "DigitalSignWhatHoldsYouBack.png" });
 	// trees/poles/obstacles
@@ -304,10 +304,10 @@ function loadImages() {
 	imageList.push({ imgName: leftStreetLightPic, theFile: "LeftStreetLight.png" });
 	imageList.push({ imgName: rightStreetLightNoLightPic, theFile: "RightStreetLight_NoLight.png" });
 	imageList.push({ imgName: leftStreetLightNoLightPic, theFile: "LeftStreetLight_NoLight.png" });
-	imageList.push({ imgName: straightPowerPolePic, theFile: "straightPowerPole.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "straightPowerPoleCrossBeams.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "straightPowerPoleCrossBeamsSlantLeft.png" });
-	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "straightPowerPoleCrossBeamsSlantRight.png" });
+	imageList.push({ imgName: straightPowerPolePic, theFile: "StraightPowerPole.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsPic, theFile: "StraightPowerPoleCrossBeams.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantLeftPic, theFile: "StraightPowerPoleSlantLeft.png" });
+	imageList.push({ imgName: straightPowerPoleCrossBeamsSlantRightPic, theFile: "StraightPowerPoleSlantRight.png" });
 	imageList.push({ imgName: radioTowerNightPic, theFile: "RadioTower.png" });
 	imageList.push({ imgName: waterTowerPic, theFile: "WaterTower.png" });
 	imageList.push({ imgName: smallTireStackPic, theFile: "Tires1.png" });
