@@ -152,7 +152,7 @@ function Road(frustum) {
 
 			for (let k = activeCars.length - 1; k >= 0; k--) {
 				const carSegment = this.getSegmentAtZPos(activeCars[k].position.z);
-				if (carSegment.index < currentBaseSegment.index) { continue; }
+				if (carSegment.index < currentBaseSegment.index-1) { continue; }
 				const carRect = activeCars[k].getRect(frustum);
 				const carSpan = 1 + Math.ceil(carRect.height / segmentLength);
 				if (Math.abs(thisSegment.index - carSegment.index) < 3) {

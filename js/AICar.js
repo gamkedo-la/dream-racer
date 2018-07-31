@@ -281,7 +281,7 @@ function AICar(aType, start, aPath) {
 	}
 	
 	const frameForDeltaPos = function(deltaX, deltaY) {
-		if(deltaY < -45) {
+		if(deltaY < -55) {
 			framePos.y = 0;
 		} else if(deltaY > 45) {
 			framePos.y = 2;
@@ -402,11 +402,12 @@ function AICar(aType, start, aPath) {
 		}
 				
 		if(this.position.z > currentSegment.farPos.world.z) {
-			currentSegment = nextSegment;
 
 			const deltaX = currentSegment.farPos.world.x - currentSegment.nearPos.world.x;
 			const deltaY = currentSegment.farPos.world.y - currentSegment.nearPos.world.y;
 			frameForDeltaPos(deltaX - previousDeltaX, deltaY);
+
+			currentSegment = nextSegment;
 			
 			previousDeltaX = deltaX;
 		}
