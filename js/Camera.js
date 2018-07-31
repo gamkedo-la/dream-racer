@@ -18,9 +18,9 @@ function Camera(initialPosition) {
 	}
 	
 	this.updateParticleDrift = function() {
-		this.fxDrift.x = (this.position.x-this.wasPos.x)*0.2;
+		this.fxDrift.x = (this.position.x-this.wasPos.x)*0.8;
 		this.fxDrift.y = (this.position.y-this.wasPos.y)*-0.1;
-		this.fxDrift.z = (this.position.z-this.wasPos.z)*0.1;
+		this.fxDrift.z = (this.position.z-this.wasPos.z)*0.2;
 		this.wasPos.x = this.position.x;
 		this.wasPos.y = this.position.y;
 		this.wasPos.z = this.position.z;
