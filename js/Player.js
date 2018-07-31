@@ -365,8 +365,12 @@ function Player() {
 		if (USE_FX) { // particles while crashing
 			// FIXME: the whole system spins too lol
 			//  but if we place outside the restore() the explosion is on the ground
-			this.fx.smoke(this);
-			this.fx.sparks(this);
+			if(crashCountFrameCount % 7 == 1) {
+				this.fx.smoke(this);
+			}
+			if(crashCountFrameCount % 3 == 1) {
+				this.fx.sparks(this);
+			}
 			this.fx.update();
 			this.fx.draw();
 		}
