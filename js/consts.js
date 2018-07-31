@@ -83,10 +83,12 @@ const textStrings = {
         {name:"Dan Dela Rosa", works: ['Save State Improvements']},
         {name:"Jeremy Kenyon", works: ['Billboard (We Must Prepare)']},
         {name:"Trenton Pegeas", works: ['Billboard (Aether)']},
+        {name:"Brian Boucher", works: ['Playtesting', 'Music Bug Fix']},
         {name:"Brian Dieffenderfer", works: ['Additional Road Tiles']},
-        {name:"Chris DeLeon", works: ['Credits Data Entry']}
+        {name:"Chris DeLeon", works: ['Particle Camera Drift','Perspective Sprite Tweaks','Credits Data Entry']}
+        // IF MAKING CHANGES that affect length update scrollLimit in credits.js
     ],
-/* Note: CREDITS WERE LAST UPDATED as of July 23 - a week before release. Changes/addidions may be needed
+/* Note: CREDITS WERE LAST UPDATED as of July 30 - a week before release. Changes/addidions may be needed
 */
     StatsText: "Stats",
     Stats: {

@@ -1,6 +1,6 @@
 function CreditsScreen() {
     this.startY = 0;
-    this.scrollLimit = -3050;
+    this.scrollLimit = -3200;
     this.currentY = 0;
     this.scrollSpeed = 2.5;
     this.skipBump = 0;
