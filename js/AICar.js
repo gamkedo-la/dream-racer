@@ -283,7 +283,7 @@ function AICar(aType, start, aPath) {
 	const frameForDeltaPos = function(deltaX, deltaY) {
 		if(deltaY < -55) {
 			framePos.y = 0;
-		} else if(deltaY > 45) {
+		} else if(deltaY > 32) {
 			framePos.y = 2;
 		} else {
 			framePos.y = 1;
