@@ -48,6 +48,7 @@ function PauseOptionsScreen(){
             return false;
         }
         switch (keyCode){
+            case KEY_ESCAPE:
             case KEY_BACKSPACE:
                 ScreenStates.setState(PAUSE_SCREEN);
                 return true;

@@ -39,6 +39,7 @@ function PauseScreen () {
                 ScreenStates.setState(selectedItem.screen, selectedItem.options);
                 return true;
             case KEY_P:
+            case KEY_ESCAPE:
             case KEY_BACKSPACE:
                 ScreenStates.setState(ScreenStates.getPreviousState());
                 return true;

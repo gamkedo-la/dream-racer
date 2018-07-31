@@ -1,6 +1,6 @@
 function defaultControl(keyCode, pressed){
     switch (keyCode){
-        case DIGIT_9:
+        case KEY_M: // DIGIT_9:
             if(!pressed){
                 toggleMute();
             }

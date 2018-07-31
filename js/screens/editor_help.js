@@ -26,6 +26,7 @@ function EditorHelpScreen() {
             case KEY_H:
                 ScreenStates.setState(EDITOR_HELP2_SCREEN);
                 return true;
+            case KEY_ESCAPE:
             case KEY_BACKSPACE:
             case KEY_ENTER:
                 ScreenStates.setState(EDITOR_SCREEN);

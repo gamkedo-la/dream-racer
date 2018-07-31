@@ -49,17 +49,19 @@ function HelpScreen() {
         var x = 32;
         var y = 100;
         var h = 50;
-
+        var lineNow=2;
         printWord('How To Play', x + 224, y, opacity);
         //printWord('===========', x + 224, y + h * 1, opacity);
-        printWord('[W] or [UP] to accellerate', x, y + h * 2, opacity);
-        printWord('[A,D] or [LEFT,RIGHT] to turn', x, y + h * 3, opacity);
-        printWord('[X] or [DOWN] to brake', x, y + h * 4, opacity);
-        printWord('[Space] change gears', x, y + h * 5, opacity);
-        printWord('[N] to use Nitro', x, y + h * 6, opacity);
-        printWord('[P] to pause and resume game', x, y + h * 7, opacity);
-        printWord('[Backspace] to Return', x, y + h * 9, opacity);
-        printWord('[Enter] to Start game', x, y + h * 10, opacity);
+        printWord('[W] or [UP] to accelerate', x, y + h * (lineNow++), opacity);
+        printWord('[A,D] or [LEFT,RIGHT] to turn', x, y + h * (lineNow++), opacity);
+        printWord('[X] or [DOWN] to brake', x, y + h * (lineNow++), opacity);
+        printWord('[Space] change gears', x, y + h * (lineNow++), opacity);
+        printWord('[N] to use Nitro', x, y + h * (lineNow++), opacity);
+        printWord('[<,>] to change radio', x, y + h * (lineNow++), opacity);
+        printWord('[M] to toggle mute', x, y + h * (lineNow++), opacity);
+        printWord('[P] to pause and resume game', x, y + h * (lineNow++), opacity);
+        printWord('[Backspace] to Return', x, y + h * (lineNow++), opacity);
+        printWord('[Enter] to Start game', x, y + h * (lineNow++), opacity);
 
         // old version - done with fonts
         /*
@@ -80,6 +82,7 @@ function HelpScreen() {
         }
         switch (keyCode) {
             case KEY_BACKSPACE:
+            case KEY_ESCAPE:
                 ScreenStates.setState(ScreenStates.getPreviousState());
                 return true;
             case KEY_MOUSE_LEFT:

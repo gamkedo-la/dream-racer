@@ -105,6 +105,7 @@ function CreditsScreen() {
                 }
                 return true;
             case KEY_ENTER:
+            case KEY_ESCAPE:
             case KEY_BACKSPACE:
                 ScreenStates.setState(MENU_SCREEN);
                 return true;

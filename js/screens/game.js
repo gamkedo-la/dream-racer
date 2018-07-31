@@ -32,6 +32,11 @@ function GamePlayScreen (){
     };
     this.control = function gamePlayScreenControl(keyCode, pressed){
         switch(keyCode) {
+            case KEY_ESCAPE:
+                if(!pressed){
+                    ScreenStates.setState(PAUSE_SCREEN);
+                }
+                break;
             case KEY_SPACE:
                 holdSpace = pressed;
                 return true;

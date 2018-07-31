@@ -70,6 +70,7 @@ function GamePlayFinishScreen() {
                 return true;
             case KEY_ENTER:
             case KEY_BACKSPACE:
+            case KEY_ESCAPE:
                 ScreenStates.setState(this.menuItems[this.selected].screen, this.menuItems[this.selected].options);
                 return true;
         }

@@ -43,6 +43,7 @@ function LevelSelectScreen() {
                 scene = null;
                 ScreenStates.setState(GAMEPLAY_SCREEN);
                 return true;
+            case KEY_ESCAPE:
             case KEY_BACKSPACE:
                 ScreenStates.setState(MENU_SCREEN);
                 return true;

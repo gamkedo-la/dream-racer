@@ -89,6 +89,7 @@ function OptionsScreen() {
         }
         switch (keyCode) {
             case KEY_BACKSPACE:
+            case KEY_ESCAPE:
                 ScreenStates.setState(MENU_SCREEN);
                 return true;
             case KEY_UP:
