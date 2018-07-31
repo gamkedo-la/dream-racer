@@ -15,6 +15,7 @@ function GamePlayScreen (){
 
     };
     this.transitionOut = function gamePlayScreenTransitionOut(){
+        holdDown = false; // takes foot off break for next levels
         currentBackgroundMusic.pause();
         allSFX.stop();
     };
