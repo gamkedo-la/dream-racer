@@ -197,6 +197,8 @@ function AICar(aType, start, aPath) {
 		
 	let currentRoadY = 0;
 	let nextRoadY = null;
+
+	let carXOnScreen = 0; // for tilting relative to camera view
 	
 	this.initializePositionAndCollider = function(startSegment) {
 		this.position.x = startSegment.farPos.world.x; 
@@ -279,14 +281,27 @@ function AICar(aType, start, aPath) {
 	}
 	
 	const frameForDeltaPos = function(deltaX, deltaY) {
-		if(deltaY < -30) {
+		if(deltaY < -45) {
 			framePos.y = 0;
-		} else if(deltaY > 30) {
+		} else if(deltaY > 45) {
 			framePos.y = 2;
 		} else {
 			framePos.y = 1;
 		}
+
+		// amplify road curvature effect
+		deltaX *= 5;
 		
+		// show lane change effect:
+		if(lanePos + laneSpeed < desiredLanePos) {
+			deltaX += 25;
+		} else if(lanePos - laneSpeed > desiredLanePos) {
+			deltaX -= 25;
+		}
+
+		// show side of car when camera is passing or far off to side
+		deltaX -= (carXOnScreen-0.5)*118;
+
 		if(deltaX < -55) {
 			framePos.x++;
 			if(framePos.x > 8) {
@@ -307,7 +322,7 @@ function AICar(aType, start, aPath) {
 			if(framePos.x > 5) {
 				framePos.x = 5;
 			}
-		} else if((deltaX >= -10) || (deltaX <= 10)) {
+		} else if((deltaX >= -10) && (deltaX <= 10)) {
 			if(framePos.x > 4) {
 				framePos.x--;
 			} else if(framePos.x < 4) {
@@ -341,10 +356,8 @@ function AICar(aType, start, aPath) {
 			const screenPos = frustum.screenPosForWorldPos(this.position);
 			const screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width * 0.66, height:this.height * 0.66}, this.position);
 			
-			
-			
 			canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 3, screenPos.y, screenSize.width, screenSize.height);
-			
+			carXOnScreen = screenPos.x / canvas.width;
 			const widthRatio = screenSize.width / (this.width * 0.66);
 			const heightRatio = screenSize.height / (this.height * 0.66);
 	
@@ -354,17 +367,16 @@ function AICar(aType, start, aPath) {
 			const screenPos = frustum.screenPosForWorldPos(this.position);
 			let screenSize = frustum.screenSizeForWorldSizeAndPos({width:this.width, height:this.height}, this.position);
 			
-			
-			
 			canvasContext.drawImage(this.sprite, framePos.x * this.width, framePos.y * this.height, this.width, this.height, screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, screenSize.width, screenSize.height);
-			
+			carXOnScreen = screenPos.x / canvas.width;
+
 			const widthRatio = screenSize.width / (this.width);
 			const heightRatio = screenSize.height / (this.height);
+
 	
 			this.collider.update(screenPos.x - screenSize.width / 2, screenPos.y - screenSize.height / 2, this.position.z, widthRatio, heightRatio);
 			this.collider.draw();
 		}
-		
 		
 	}
 	
@@ -417,9 +429,9 @@ function AICar(aType, start, aPath) {
 			this.path.splice(0, 1);
 		}
 		
-		if(desiredLanePos - lanePos > laneSpeed) {
+		if(lanePos + laneSpeed < desiredLanePos) {
 			lanePos += laneSpeed;
-		} else if(desiredLanePos - lanePos < -laneSpeed) {
+		} else if(lanePos - laneSpeed > desiredLanePos) {
 			lanePos -= laneSpeed;
 		} else {
 			lanePos = desiredLanePos;
