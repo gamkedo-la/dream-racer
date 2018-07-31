@@ -121,6 +121,7 @@ function calculateMousePos(evt) {
 }
 
 function onMouseDown(evt) {
+	window.focus();
 	evt.preventDefault();
 	if (evt.type == "mouseenter" && !mouseButtonHeld) {
 		return;

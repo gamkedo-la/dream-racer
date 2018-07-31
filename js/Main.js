@@ -107,6 +107,7 @@ window.onload = function () {
 
 
 function loadingDoneSoStartGame() {
+    window.focus();
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 };
 
