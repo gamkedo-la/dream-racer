@@ -223,6 +223,7 @@ function GameScene(data) {
 			this.player.isOffRoad = false;
 		}
 
+		this.camera.updateParticleDrift();
 		if (this.player.isCrashing) {
 			offroadSound.pause();
 			currentCrashCount++;

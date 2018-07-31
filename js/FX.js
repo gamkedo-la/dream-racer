@@ -96,8 +96,8 @@ function fxSystem() { // class constructor
                     p.alpha = (1 - lifePercent) * ALPHA_SCALE; // fade
                     p.angle = Math.PI * 2 * lifePercent * p.rotSpd;
 
-                    p.x += p.xspd;
-                    p.y += p.yspd;
+                    p.x += p.xspd + scene.camera.fxDrift.x;
+                    p.y += p.yspd + scene.camera.fxDrift.y + scene.camera.fxDrift.z;
 
                     if (timestamp >= p.death) // die
                     {

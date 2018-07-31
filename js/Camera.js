@@ -10,13 +10,23 @@ function Camera(initialPosition) {
 	this.isCrashingLeft = false;
 	this.isResetting = false;
 	this.bounce = 0;
-	
+	this.wasPos = {x:0,y:0,z:0}; // for pfx drift
+	this.fxDrift = {x:0,y:0,z:0}; // for pfx drift
+
 	if((initialPosition != undefined) && (initialPosition != null)) {
 		this.position = initialPosition;
 	}
 	
+	this.updateParticleDrift = function() {
+		this.fxDrift.x = (this.position.x-this.wasPos.x)*0.2;
+		this.fxDrift.y = (this.position.y-this.wasPos.y)*-0.1;
+		this.fxDrift.z = (this.position.z-this.wasPos.z)*0.1;
+		this.wasPos.x = this.position.x;
+		this.wasPos.y = this.position.y;
+		this.wasPos.z = this.position.z;
+	}
+
 	this.move = function(forward, turnRate, bounce, segment) {
-		
 		if(this.isCrashing || this.isResetting) {
 			return;
 		}
