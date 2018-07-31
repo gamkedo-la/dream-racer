@@ -59,6 +59,7 @@ const printWord = (function(){
         4, //space
     ];
     const letterSpacing = 4;
+    const letterACode = "A".charCodeAt(0);
     const nonAlpha = {
         "1": null,
         "2": null,
@@ -96,14 +97,18 @@ const printWord = (function(){
         var width = 0;
         var letterOffsets = [];
         for(var i=0; i < word.length; i++){
-            if(word.charAt(i) == " "){
+            var charAtI = word.charAt(i);
+            if(charAtI == " "){
                 letterOffsets[i] = sizes[26];
             }
-            else if(word.charAt(i) in nonAlpha){
+            else if(charAtI == "<" || charAtI == ">"){
+                letterOffsets[i] = 35;
+            }
+            else if(charAtI in nonAlpha){
                 letterOffsets[i] = (fallbackScale/2 + letterSpacing);
             }
             else {
-                let letterIndex = word.charCodeAt(i) - "A".charCodeAt(0);
+                let letterIndex = word.charCodeAt(i) - letterACode;
                 letterOffsets[i] = (sizes[letterIndex] + letterSpacing);
             }
             width += letterOffsets[i];
@@ -112,11 +117,7 @@ const printWord = (function(){
     };
     return function (word, x, y, scale = 1, align = textAlignment.Left){
         word = word.toUpperCase();
-        canvasContext.save();
-        canvasContext.shadowOffsetX = 1;
-        canvasContext.shadowOffsetY = 1;
-        canvasContext.shadowColor = 'black';
-        canvasContext.shadowBlur = 0;
+        
         const height = fancyFont.height;
         var leftOffset = 0;
         var offsets;
@@ -133,10 +134,11 @@ const printWord = (function(){
                 break;
         }
         for(let i = 0; i < word.length; i++){
-            if(word.charAt(i) in nonAlpha) {
-                colorText(word.charAt(i), x + leftOffset, y + scale * fontRatio * fallbackScale, 'orange', fallbackScale*scale + "px Tahoma", 'left', 1);
+            var charAtAI = word.charAt(i);
+            if(charAtAI in nonAlpha) {
+                colorTextFakeOrange(charAtAI, x + leftOffset, y + scale * fontRatio * fallbackScale, 'orange', fallbackScale*scale + "px Tahoma", 'left', 1);
             } else {
-                let letterIndex = word.charCodeAt(i) - "A".charCodeAt(0);
+                let letterIndex = word.charCodeAt(i) - letterACode;
                 let letterOffset = calculateLetterOffset(letterIndex, sizes, lettersOffset);
 
                 let xTS = letterOffset;
@@ -149,12 +151,18 @@ const printWord = (function(){
                 let wTE = scale * sizes[letterIndex];
                 let hTE = scale * height;
 
+                canvasContext.save();
+                canvasContext.shadowOffsetX = 1;
+                canvasContext.shadowOffsetY = 1;
+                canvasContext.shadowColor = 'black';
+                canvasContext.shadowBlur = 0;
                 canvasContext.drawImage(fancyFont,
                     xTS, yTS, wTS, hTS,
                     xTE, yTE, wTE, hTE);
+                canvasContext.restore();
             }
             leftOffset += offsets[i] * scale;
         }
-        canvasContext.restore();
+        
     }
 })();

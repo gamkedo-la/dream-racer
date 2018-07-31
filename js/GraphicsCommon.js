@@ -43,17 +43,23 @@ function get2DProjectedPointFrom3DPoint(point, cameraPos, fov, width, height, ro
 }
 
 function colorText(showWords, textX, textY, fillColor, fontface, textAlign = 'left', opacity = 1) {
-	canvasContext.save();
+	//canvasContext.save();
 	canvasContext.textAlign = textAlign;
 	canvasContext.font = fontface;
 	canvasContext.globalAlpha = opacity;
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillText(showWords, textX, textY);
-	canvasContext.restore();
+	//canvasContext.restore();
 }
 
 function colorTextWithShadow(showWords, textX, textY, fillColor, fontface, textAlign = 'left', opacity = 1) {
-	colorText(showWords, textX + 1, textY + 1, 'black', fontface, textAlign, 0.5);
+	colorText(showWords, Math.floor(textX + 1), Math.floor(textY + 1), 'black', fontface, textAlign, 0.5);
+	colorText(showWords, textX, textY, fillColor, fontface, textAlign, opacity);
+}
+
+function colorTextFakeOrange(showWords, textX, textY, fillColor, fontface, textAlign = 'left', opacity = 1) {
+	colorText(showWords, Math.floor(textX+3), Math.floor(textY + 1), 'black', fontface, textAlign, opacity);
+	colorText(showWords, Math.floor(textX+2), textY, '#FFFF00', fontface, textAlign, opacity);
 	colorText(showWords, textX, textY, fillColor, fontface, textAlign, opacity);
 }
 
