@@ -335,7 +335,6 @@ function Player() {
 	}
 
 	this.drawCrashAnimation = function (crashCount) {
-		canvasContext.save();
 		const deltaY = this.deltaYForCrashCount(crashCount);
 		const valueToPlaySound = 6; 
 		previousSfxVolume = sfxVolume;
@@ -344,9 +343,6 @@ function Player() {
 			crashMasterSFX.play();
 		}
 		sfxVolume = previousSfxVolume;
-//		canvasContext.translate(this.position.x + this.width / 2, -deltaY + this.position.y + this.height / 2);
-//		canvasContext.rotate(rotation);
-//		canvasContext.translate(-(this.position.x + this.width / 2), -(this.position.y + this.height / 2));
 		this.position.y = -deltaY + this.position.y + this.height / 2;
 		const frameModulous = 20;
 		let crashCountFrameCount = crashCount % frameModulous;
@@ -374,7 +370,6 @@ function Player() {
 			this.fx.update();
 			this.fx.draw();
 		}
-		canvasContext.restore();
 	}
 
 	this.raceWonAnimation = function () {
