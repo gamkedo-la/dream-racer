@@ -13,6 +13,9 @@ function Road(frustum) {
 	let currentBaseSegment = null;
 	const segmentsPerTile = 25;
 	const segmentLength = 4 * GAME_HEIGHT / magicNumber;
+	
+	console.log("Road Length: " + (segmentLength * 3000))
+	
 	this.getSegmentLength = function () {
 		return segmentLength;
 	}
@@ -115,9 +118,16 @@ function Road(frustum) {
 				{ x: thisSegment.path[2].x - 0.015 * thisSegment.nearWidth, y: thisSegment.path[2].y },
 			];
 
-			groundColor = scene.data.groundColor;
+			if(thisSegment.groundColor) {
+				groundColor = thisSegment.groundColor;
+			} else {
+				groundColor = scene.data.groundColor;
+			}
+			
 			if (thisSegment.index % 2 == 0) {
-				groundColor = scene.data.secondaryGroundColor;
+				if(!thisSegment.groundColor) {
+					groundColor = scene.data.secondaryGroundColor;
+				}
 			}
 
 			fillPath(thisSegment.groundPath, groundColor);

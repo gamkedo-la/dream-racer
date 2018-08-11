@@ -6,8 +6,8 @@ function EditorScene(data) {
 	this.road = new Road(this.frustum);
 	let segments = this.road.getSegments();
 	const roadReferences = [
-		//	JSON.parse(straightAndLevel)
-			JSON.parse(forestTrack)
+			JSON.parse(frankensteinTrack)
+//			JSON.parse(forestTrack)
 		//		JSON.parse(skylineTest)	
 		//		JSON.parse(mountainTrack)	
 		/*		JSON.parse(normalHillCrest),
@@ -57,8 +57,389 @@ function EditorScene(data) {
 	function getRandomInt(max) { // 0 is included, max excluded
 		return Math.floor(Math.random() * Math.floor(max));
 	}
+	
+	this.buildFrankensteinTrack = function() {
+		const HorizData = [
+			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:100, endIndex:150, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:150, endIndex:245, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:245, endIndex:330, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:330, endIndex:430, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:430, endIndex:480, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:480, endIndex:500, rate:2 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:500, endIndex:520, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:520, endIndex:570, rate:2 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:570, endIndex:630, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:630, endIndex:690, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:690, endIndex:790, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:790, endIndex:850, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:850, endIndex:900, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:900, endIndex:1050, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1050, endIndex:1100, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1100, endIndex:1150, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1150, endIndex:1250, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1250, endIndex:1280, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1280, endIndex:1300, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1300, endIndex:1350, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1350, endIndex:1400, rate:3 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1425, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1425, endIndex:1450, rate:2 * Rate.Quad, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1450, endIndex:1475, rate:2 * Rate.Quad, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1475, endIndex:1575, rate:2 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1575, endIndex:1700, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1700, endIndex:1750, rate:3 * Rate.Triple, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1750, endIndex:1800, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:1800, endIndex:1900, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:1900, endIndex:2000, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2000, endIndex:2075, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2075, endIndex:2100, rate:3 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2100, endIndex:2220, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2220, endIndex:2285, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2285, endIndex:2305, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2305, endIndex:2365, rate:3 * Rate.Double, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2365, endIndex:2400, rate:3 * Rate.Triple, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2400, endIndex:2475, rate:3 * Rate.Full, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2475, endIndex:2575, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2575, endIndex:2675, rate:3 * Rate.Full, direction:Direction.Right, easing:Easing.InOut},
+			{startIndex:2675, endIndex:2775, rate:3 * Rate.Double, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2775, endIndex:2900, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
+			{startIndex:2900, endIndex:2950, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut}
+		];
+		
+		const VertData = [
+			{startIndex:50, endIndex:100, rate:Rate.Half, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:100, endIndex:150, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:150, endIndex:200, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:200, endIndex:225, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:225, endIndex:250, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:250, endIndex:275, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:275, endIndex:315, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:315, endIndex:365, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:365, endIndex:415, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:415, endIndex:450, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:450, endIndex:515, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:515, endIndex:605, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:605, endIndex:670, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:670, endIndex:715, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:715, endIndex:815, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:815, endIndex:850, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:850, endIndex:915, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:915, endIndex:925, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:925, endIndex:935, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:935, endIndex:1000, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},			
+			{startIndex:1000, endIndex:1075, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1075, endIndex:1135, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1135, endIndex:1200, rate:Rate.Half, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1200, endIndex:1215, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1215, endIndex:1307, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1307, endIndex:1385, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1385, endIndex:1400, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1400, endIndex:1460, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1460, endIndex:1545, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1545, endIndex:1650, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1650, endIndex:1700, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1700, endIndex:1750, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1750, endIndex:1825, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1825, endIndex:1870, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1870, endIndex:1925, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:1925, endIndex:1970, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:1970, endIndex:2025, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2025, endIndex:2080, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2080, endIndex:2140, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2140, endIndex:2180, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2180, endIndex:2260, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2260, endIndex:2345, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2345, endIndex:2425, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2425, endIndex:2450, rate:Rate.Triple, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2450, endIndex:2525, rate:Rate.Double, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2525, endIndex:2600, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2600, endIndex:2650, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2650, endIndex:2720, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2750, endIndex:2825, rate:Rate.Triple, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:2825, endIndex:2905, rate:Rate.Double, direction:Direction.Down, easing:Easing.InOut},
+			{startIndex:2905, endIndex:2995, rate:Rate.Full, direction:Direction.Up, easing:Easing.InOut},
+			{startIndex:3050, endIndex:3099, rate:Rate.Half, direction:Direction.Up, easing:Easing.InOut},
+		];
+		
+		for(let i = 0; i < 3100; i++) {
+			this.road.addSegment();
+		}
+		
+		let decorationModulus = getRandomInt(7);
+		let treeCount = getRandomInt(15);
+		const segs = this.road.getSegments();
+		let horiz = 0;
+		let vert = 0;
+		let lightColor = '#666666';
+		let darkColor = '#444444';
+		let lightGroundColor = '#40CC40';
+		let darkGroundColor = '#206620';
+		for(let j = 0; j < segs.length; j++) {
+			const thisSeg = segs[j];
+			const indexModulus = thisSeg.index % 7;
+			
+			if(thisSeg.index < 235) {
+				lightColor = '#888888';
+				darkColor = '#666666';
+			} else if((thisSeg.index >= 1500) && (thisSeg.index < 1875)) {
+				lightColor = '#888888';
+				darkColor = '#666666';
+			} else if((thisSeg.index >= 235) && (thisSeg.index < 635)) {
+				lightColor = '#444444';
+				darkColor = '#222222';
+			} else if((thisSeg.index >= 2345) && (thisSeg.index < 2667)) {
+				lightColor = '#444444';
+				darkColor = '#222222';
+			} else {
+				lightColor = '#666666';
+				darkColor = '#444444';
+			}
+			
+			switch(thisSeg.index % 2) {
+				case 0:
+					thisSeg.color = lightColor;
+					break;
+				case 1:
+					thisSeg.color = darkColor;
+					break;
+			}
+			
+			if(thisSeg.index < 435) {
+				lightGroundColor = '#336633';
+				darkGroundColor = '#114411';
+			} else if((thisSeg.index >= 435) && (thisSeg.index < 1035)) {
+				lightGroundColor = '#ac7339';
+				darkGroundColor = '#604020';
+			} else if((thisSeg.index >= 1035) && (thisSeg.index < 1345)) {
+				lightGroundColor = '#666633';
+				darkGroundColor = '#b4b422';
+			} else if((thisSeg.index >= 1745) && (thisSeg.index < 2067)) {
+				lightGroundColor = '#128812';
+				darkGroundColor = '#1c351c';
+			} else if((thisSeg.index >= 2445) && (thisSeg.index < 2867)) {
+				lightGroundColor = '#22AA22';
+				darkGroundColor = '#206620';
+			} else {
+				lightGroundColor = '#99994d';
+				darkGroundColor = '#666633';
+			}
+			
+			switch(thisSeg.index % 2) {
+				case 0:
+					thisSeg.groundColor = lightGroundColor;
+					break;
+				case 1:
+					thisSeg.groundColor = darkGroundColor;
+					break;
+			}
+			
+			if(HorizData.length > 0) {
+				if((j > HorizData[0].startIndex) && (j < HorizData[0].endIndex)) {
+					if(HorizData[0].easing == Easing.In) {
+						if(HorizData[0].direction == Direction.Left) {
+							horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
+						} else if(HorizData[0].direction == Direction.Right) {
+							horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
+						}					
+					} else if(HorizData[0].easing == Easing.Out) {
+						if(HorizData[0].direction == Direction.Left) {
+							horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
+						} else if(HorizData[0].direction == Direction.Right) {
+							horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
+						}	
+					} else if(HorizData[0].easing == Easing.InOut) {
+						if(j < (HorizData[0].startIndex + ((HorizData[0].endIndex - HorizData[0].startIndex)/2))) {
+							if(HorizData[0].direction == Direction.Left) {
+								horiz -= (j - HorizData[0].startIndex) * (HorizData[0].rate);
+							} else if(HorizData[0].direction == Direction.Right) {
+								horiz += (j - HorizData[0].startIndex) * (HorizData[0].rate);
+							}
+						} else {
+							if(HorizData[0].direction == Direction.Left) {
+								horiz -= (HorizData[0].endIndex - j) * (HorizData[0].rate);
+							} else if(HorizData[0].direction == Direction.Right) {
+								horiz += (HorizData[0].endIndex - j) * (HorizData[0].rate);
+							}
+						}
+					}
+				} else if(j > HorizData[0].endIndex) {
+					HorizData.splice(0, 1);
+				}
+			}
+			
+			thisSeg.farPos.world.x += horiz;
+			
+			if(VertData.length > 0) {
+				if((j > VertData[0].startIndex) && (j < VertData[0].endIndex)) {
+					if(VertData[0].easing == Easing.In) {
+						if(VertData[0].direction == Direction.Up) {
+							vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.Down) {
+							vert += (j - VertData[0].startIndex) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.SteadyUp) {
+							vert += (j - VertData[0].startIndex);
+						} else if(VertData[0].direction == Direction.SteadyDown) {
+							vert -= (j - VertData[0].startIndex);
+						}
+					} else if(VertData[0].easing == Easing.Out) {
+						if(VertData[0].direction == Direction.Up) {
+							vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.Down) {
+							vert += (VertData[0].endIndex - j) * (VertData[0].rate);
+						} else if(VertData[0].direction == Direction.SteadyUp) {
+							vert -= (VertData[0].endIndex - j);
+						} else if(VertData[0].direction == Direction.SteadyDown) {
+							vert += (VertData[0].endIndex - j);
+						}						
+					} else if(VertData[0].easing == Easing.InOut) {
+						if(j < (VertData[0].startIndex + ((VertData[0].endIndex - VertData[0].startIndex)/2))) {
+							if(VertData[0].direction == Direction.Up) {
+								vert -= (j - VertData[0].startIndex) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.Down) {
+								vert += (j - VertData[0].startIndex) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.SteadyUp) {
+								vert -= (j - VertData[0].startIndex);
+							} else if(VertData[0].direction == Direction.SteadyDown) {
+								vert += (j - VertData[0].startIndex);
+							}
+						} else {
+							if(VertData[0].direction == Direction.Up) {
+								vert -= (VertData[0].endIndex - j) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.Down) {
+								vert += (VertData[0].endIndex - j) * (VertData[0].rate);
+							} else if(VertData[0].direction == Direction.SteadyUp) {
+								vert -= (VertData[0].endIndex - j);
+							} else if(VertData[0].direction == Direction.SteadyDown) {
+								vert += (VertData[0].endIndex - j);
+							}						
+						}
+					}
+				} else if(j > VertData[0].endIndex) {
+					VertData.splice(0, 1);
+				}
+			}
+			
+			thisSeg.farPos.world.y += vert;
+			
+			if(indexModulus == decorationModulus) {
+				decorationModulus = getRandomInt(5);
+				for(let j = 0; j < treeCount; j++) {
+					let decorationPos = {x:0, y:0};
+					let decorationSprite;
+					let decorationSpriteSelected = getRandomInt(30);
+					if (decorationSpriteSelected <= 1) {
+						decorationSprite = tree4LeaflessPic;
+					} else if (decorationSpriteSelected <= 3) {
+						decorationSprite = tree3LeaflessPic; 
+					} else if (decorationSpriteSelected <= 5) {
+						decorationSprite = tree6Pic; 
+					} else if (decorationSpriteSelected <= 7) {
+						decorationSprite = tree8Pic; 
+					} else if (decorationSpriteSelected <= 9) {
+						decorationSprite = tree7Pic; 
+					} else if (decorationSpriteSelected <= 11) {
+						decorationSprite = tree4Pic; 
+					} else if (decorationSpriteSelected <= 13) {
+						decorationSprite = tree3Pic; 
+					} else if (decorationSpriteSelected <= 15) {
+						decorationSprite = tree2Pic; 
+					} else if (decorationSpriteSelected <= 17) {
+						decorationSprite = tree1Pic; 
+					} else if (decorationSpriteSelected <= 19) {
+						decorationSprite = palmTreePic;
+					} else if (decorationSpriteSelected <= 21) {
+						let anotherRando = getRandomInt(4);
+						if(anotherRando < 1) {
+							decorationSprite = straightPowerPoleCrossBeamsPic;
+						} else if(anotherRando < 2) {
+							decorationSprite = straightPowerPoleCrossBeamsSlantLeftPic;
+						} else if(anotherRando < 3) {
+							decorationSprite = straightPowerPoleCrossBeamsSlantRightPic;
+						} else if(anotherRando < 4) {
+							decorationSprite = straightPowerPolePic;
+						}
+					} else if (decorationSpriteSelected <= 22) {
+						let anotherRando = getRandomInt(7);
+						if(anotherRando < 2) {
+							decorationSprite = radioTowerNightPic;
+						} else if(anotherRando < 3) {
+							decorationSprite = waterTowerPic;
+						} else if(anotherRando < 5) {
+							decorationSprite = digitalSignDontTextBack;
+						} else if(anotherRando < 7) {
+							decorationSprite = digitalSignWhatHoldsYouBack;
+						}
+					} else if (decorationSpriteSelected <= 24) {
+						decorationSprite = smallTireStackPic;
+					} else if (decorationSpriteSelected <= 26) {
+						decorationSprite = largeTireStackPic;
+					} else if (decorationSpriteSelected <= 30) {
+						decorationSprite = blankBillboard;
+					}
+					
+					if(j >= 7) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 15 + rnd) * decorationSprite.width;
+						} else {//rightSide
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 15 + rnd) * decorationSprite.width;
+						}
+					} else if(j >= 3) {
+						const rnd = getRandomInt(15);
+						if(thisSeg.index % 2 == 0) {//left side
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 6 + rnd) * decorationSprite.width;
+						} else {//rightSide
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 6 + rnd) * decorationSprite.width;
+						}
+					} else {
+						if(thisSeg.index % 2 == 0) {//left side
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - ((4 * j) + 1.5) * decorationSprite.width;
+						} else {//rightSide
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + ((4 * j) + 1.5) * decorationSprite.width;
+						}
+					}
+					
+					decorationPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+					
+					const finalWorldPos = { x: decorationPos.x, y: decorationPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+					const aDecoration = new RoadsideDecoration(decorationSprite, finalWorldPos);
+					aDecoration.getType();
+					
+					this.road.addDecorationToGround(aDecoration, thisSeg);
+					aDecoration.world.z = thisSeg.nearPos.world.z + (1 - (j / 10)) * this.road.getSegmentLength();
+				}
+				treeCount = getRandomInt(15);
+			}
+			
+			if ((thisSeg.index > 0) && (thisSeg.index % 350 == 0)) {
+				const checkPointPos = { x: 0, y: 0 };
+				checkPointPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - 7 * checkpointFlagPic.width;
 
-	this.buildForestCruiseTrack = function() {
+				checkPointPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+
+				const worldPos = { x: checkPointPos.x, y: checkPointPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2) };
+				const aDecoration = new RoadsideDecoration(checkpointFlagPic, worldPos);
+				aDecoration.getType();
+
+				this.road.addDecorationToGround(aDecoration, thisSeg);
+			}
+			
+			if(thisSeg.index == 2999) {
+				const checkeredFlagPos = { x: 0, y: 0 };
+				checkeredFlagPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - tempCheckeredFlagPic.width;
+
+				checkeredFlagPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+
+				const worldPos = { x: checkeredFlagPos.x, y: checkeredFlagPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2) };
+				const aDecoration = new RoadsideDecoration(tempCheckeredFlagPic, worldPos);
+				aDecoration.getType();
+
+				this.road.addDecorationToGround(aDecoration, thisSeg);
+			}
+		}
+	}
+
+/*	this.buildForestCruiseTrack = function() {
 		const HorizData = [
 			{startIndex:10, endIndex:100, rate:3 * Rate.Half, direction:Direction.Left, easing:Easing.InOut},
 			{startIndex:150, endIndex:240, rate:3 * Rate.Half, direction:Direction.Right, easing:Easing.InOut},
@@ -148,7 +529,7 @@ function EditorScene(data) {
 			this.road.addSegment();
 		}
 		
-		let treeModulus = getRandomInt(7);
+		let decorationModulus = getRandomInt(7);
 		let treeCount = getRandomInt(15);
 		const segs = this.road.getSegments();
 		let horiz = 0;
@@ -273,58 +654,58 @@ function EditorScene(data) {
 			
 			thisSeg.farPos.world.y += vert;
 			
-			if(indexModulus == treeModulus) {
-				treeModulus = getRandomInt(5);
+			if(indexModulus == decorationModulus) {
+				decorationModulus = getRandomInt(5);
 				for(let j = 0; j < treeCount; j++) {
-					let treePos = {x:0, y:0};
-					let treeSprite;
-					let treeSpriteSelected = getRandomInt(17);
-					if (treeSpriteSelected == 0) {
-						treeSprite = tree4LeaflessPic;
-					} else if (treeSpriteSelected == 1) {
-						treeSprite = tree3LeaflessPic; 
-					} else if (treeSpriteSelected == 2) {
-						treeSprite = tree6Pic; 
-					} else if (treeSpriteSelected <= 4) {
-						treeSprite = tree8Pic; 
-					} else if (treeSpriteSelected <= 6) {
-						treeSprite = tree7Pic; 
-					} else if (treeSpriteSelected <= 8) {
-						treeSprite = tree4Pic; 
-					} else if (treeSpriteSelected <= 10) {
-						treeSprite = tree3Pic; 
-					} else if (treeSpriteSelected <= 13) {
-						treeSprite = tree2Pic; 
-					} else if (treeSpriteSelected <= 16) {
-						treeSprite = tree1Pic; 
+					let decorationPos = {x:0, y:0};
+					let decorationSprite;
+					let decorationSpriteSelected = getRandomInt(17);
+					if (decorationSpriteSelected == 0) {
+						decorationSprite = tree4LeaflessPic;
+					} else if (decorationSpriteSelected == 1) {
+						decorationSprite = tree3LeaflessPic; 
+					} else if (decorationSpriteSelected == 2) {
+						decorationSprite = tree6Pic; 
+					} else if (decorationSpriteSelected <= 4) {
+						decorationSprite = tree8Pic; 
+					} else if (decorationSpriteSelected <= 6) {
+						decorationSprite = tree7Pic; 
+					} else if (decorationSpriteSelected <= 8) {
+						decorationSprite = tree4Pic; 
+					} else if (decorationSpriteSelected <= 10) {
+						decorationSprite = tree3Pic; 
+					} else if (decorationSpriteSelected <= 13) {
+						decorationSprite = tree2Pic; 
+					} else if (decorationSpriteSelected <= 16) {
+						decorationSprite = tree1Pic; 
 					}
 					
 					if(j >= 7) {
 						const rnd = getRandomInt(15);
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 15 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 15 + rnd) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 15 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 15 + rnd) * decorationSprite.width;
 						}
 					} else if(j >= 3) {
 						const rnd = getRandomInt(15);
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 6 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - (2 * j + 6 + rnd) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 6 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + (2 * j + 6 + rnd) * decorationSprite.width;
 						}
 					} else {
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - ((4 * j) + 1.5) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) - ((4 * j) + 1.5) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + ((4 * j) + 1.5) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) + ((4 * j) + 1.5) * decorationSprite.width;
 						}
 					}
 					
-					treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+					decorationPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
 					
-					const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-					const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
+					const finalWorldPos = { x: decorationPos.x, y: decorationPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+					const aDecoration = new RoadsideDecoration(decorationSprite, finalWorldPos);
 					aDecoration.getType();
 					
 					this.road.addDecorationToGround(aDecoration, thisSeg);
@@ -359,7 +740,7 @@ function EditorScene(data) {
 				this.road.addDecorationToGround(aDecoration, thisSeg);
 			}
 		}
-	}
+	}*/
 
 /*	this.buildSummitTrack = function () {
 		const HorizData = [
@@ -420,7 +801,7 @@ function EditorScene(data) {
 		const segs = this.road.getSegments();
 		let horiz = 0;
 		let vert = 0;
-		let treeModulus = getRandomInt(7);
+		let decorationModulus = getRandomInt(7);
 		let treeCount = getRandomInt(15);
 		for (let j = 0; j < segs.length; j++) {
 			const thisSeg = segs[j];
@@ -534,54 +915,54 @@ function EditorScene(data) {
 
 			thisSeg.farPos.world.y += vert;
 
-			if(indexModulus == treeModulus) {
-				treeModulus = getRandomInt(5);
+			if(indexModulus == decorationModulus) {
+				decorationModulus = getRandomInt(5);
 				for(let j = 0; j < treeCount; j++) {
-					let treePos = {x:0, y:0};
-					let treeSprite;
-					let treeSpriteSelected = getRandomInt(10);
-					if (treeSpriteSelected == 0) {
-						treeSprite = tree4LeaflessPic;
-					} else if (treeSpriteSelected <= 2) {
-						treeSprite = tree4LeaflessPicSnow; 
-					} else if (treeSpriteSelected == 3) {
-						treeSprite = tree3LeaflessPic; 
-					} else if (treeSpriteSelected <= 5) {
-						treeSprite = tree3LeaflessPicSnow; 
-					} else if (treeSpriteSelected <= 7) {
-						treeSprite = tree7Pic; 
-					} else if (treeSpriteSelected <= 9) {
-						treeSprite = tree8Pic; 
+					let decorationPos = {x:0, y:0};
+					let decorationSprite;
+					let decorationSpriteSelected = getRandomInt(10);
+					if (decorationSpriteSelected == 0) {
+						decorationSprite = tree4LeaflessPic;
+					} else if (decorationSpriteSelected <= 2) {
+						decorationSprite = tree4LeaflessPicSnow; 
+					} else if (decorationSpriteSelected == 3) {
+						decorationSprite = tree3LeaflessPic; 
+					} else if (decorationSpriteSelected <= 5) {
+						decorationSprite = tree3LeaflessPicSnow; 
+					} else if (decorationSpriteSelected <= 7) {
+						decorationSprite = tree7Pic; 
+					} else if (decorationSpriteSelected <= 9) {
+						decorationSprite = tree8Pic; 
 					}
 					
 					if(j >= 7) {
 						const rnd = getRandomInt(15);
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 35 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 35 + rnd) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 35 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 35 + rnd) * decorationSprite.width;
 						}
 					} else if(j >= 3) {
 						const rnd = getRandomInt(15);
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 15 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 15 + rnd) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 15 + rnd) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 15 + rnd) * decorationSprite.width;
 						}
 					} else {
 						if(thisSeg.index % 2 == 0) {//left side
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 8.15) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) - (thisSeg.width / 2) + (2 * j + 8.15) * decorationSprite.width;
 						} else {//rightSide
-							treePos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 8.15) * treeSprite.width;
+							decorationPos.x = thisSeg.nearPos.world.x + 0.5 * (thisSeg.farPos.world.x - thisSeg.nearPos.world.x) + (thisSeg.width / 2) - (2 * j + 8.15) * decorationSprite.width;
 						}
 					}
 					
 					
 					
-					treePos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
+					decorationPos.y = thisSeg.nearPos.world.y + 0.5 * (thisSeg.farPos.world.y - thisSeg.nearPos.world.y);
 					
-					const finalWorldPos = { x: treePos.x, y: treePos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
-					const aDecoration = new RoadsideDecoration(treeSprite, finalWorldPos);
+					const finalWorldPos = { x: decorationPos.x, y: decorationPos.y, z: thisSeg.nearPos.world.z + (this.road.getSegmentLength() / 2)};
+					const aDecoration = new RoadsideDecoration(decorationSprite, finalWorldPos);
 					aDecoration.typeForFileName();
 					
 					this.road.addDecorationToGround(aDecoration, thisSeg);
@@ -611,7 +992,8 @@ function EditorScene(data) {
 			this.road.addRoadSectionWithJSONArray(roadReferences[i]);
 		}
 	} else {
-		this.buildForestCruiseTrack();
+		this.buildFrankensteinTrack();
+		//this.buildForestCruiseTrack();
 		//this.buildNightSkylineTrack();
 		//		this.road.addSegment();
 	}

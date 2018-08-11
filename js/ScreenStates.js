@@ -24,7 +24,7 @@ function clear(){
     drawRect(0,0, canvas.width, canvas.height, canvasClearColor);
 }
 function semiTransparentBack(alpha = 0.5, color = textColor.Black) {
-    canvasContext.save();
+//    canvasContext.save();
     canvasContext.fillStyle = color;
     canvasContext.globalAlpha = alpha;
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
